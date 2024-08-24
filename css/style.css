@@ -449,3 +449,75 @@ figure {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1000px) {
+  #fh5co-main {
+    margin: 2em .5em 5em .5em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-menu li {
+    flex: 1 1 auto; /* Allow tabs to wrap */
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-menu li a {
+    padding: 1em .5em .5em .5em; /* Adjust padding for smaller screens */
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-content {
+    padding-left: .5em;
+    padding-right: .5em;
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-menu li a .menu-text {
+    display: none; /* Hide text on smaller screens */
+  }
+
+  .fh5co-content-inner {
+    padding: 4em .5em 5em .5em;
+  }
+
+  .fh5co-counter .fh5co-number.fh5co-left,
+  .fh5co-counter .fh5co-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .fh5co-social li a {
+    padding: 10px 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fh5co-tab-wrap .fh5co-tab-menu li {
+    flex: 1 1 50%; /* Two tabs per row */
+  }
+
+  .fh5co-tab-wrap .fh5co-tab-menu li a {
+    padding: 0.5em;
+    font-size: 12px; /* Smaller font for smaller screens */
+  }
+
+  .fh5co-feature .fh5co-text {
+    width: 72%;
+  }
+  
+  .col-xxs-12 {
+    float: none;
+    width: 100%;
+  }
+}
