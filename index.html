@@ -19,8 +19,6 @@
         "@context": "http://schema.org",
         "@type": "Person",
         "name": "Innocent Nyalala",
-
-        
         "url": "https://inyalala.github.io",
         "jobTitle": "Lecturer",
         "alumniOf": "Nanjing Agricultural University",
@@ -67,7 +65,7 @@
 
 
 </head>
-<body style="background-image: url(images/bg_img.jpg);">
+<body style="background-image: url(images/bg_img.webp);">
 
 <div id="fh5co-main">
     <div class="fh5co-tab-wrap">
@@ -87,14 +85,14 @@
                 <div class="row row-bottom-padded-sm">
                     <div class="col-md-12">
                         <figure>
-                            <img src="images/Inno12.jpg" height="300" width="230" alt="Innocent Nyalala">
+                            <img src="images/Inno12.webp" height="300" width="230" alt="Innocent Nyalala">
                             <!--<figcaption> <h6> Image: Innocent Nyalala </h6></figcaption>-->
                         </figure>
                         <h1>Innocent Nyalala</h1>
 
                         <p align="justify">I am currently a lecturer in the <a href="https://fol.egerton.ac.ke/">Department of Computer Science</a> at <a href="https://www.egerton.ac.ke/">Egerton University.</a> My research focuses on artificial intelligence applications in the agricultural sector. The scope of my research spans several key areas, from digital imaging and computer vision to machine learning and embedded systems, including IoT and sensors, to address complex challenges and improve agricultural practices. This work seeks to answer the question, ‘How can we effectively integrate these technologies to transform agriculture?’ My long-term goal is to develop integrated systems that leverage advanced algorithms and cutting-edge tools to enhance the productivity, efficiency, and sustainability in the industry. Please find more details in my <a href="">research statement.</a> </p>
 
-                        <p align="justify">Before joining Egerton, I was a research assistant and obtained my Ph.D. from the <a href="https://coe.njau.edu.cn/">College of Engineering</a> at <a href="https://www.njau.edu.cn/">Nanjing Agricultural University (NAU),</a> supervised by <a href="https://faculty.njau.edu.cn/chenkunjie/en/index.htm">Prof. Chen Kunjie.</a> Prior to joining NAU, I taught courses in programming, artificial intelligence, networks, databases, and other core areas of computer science and information technology at multiple universities. I obtained my M.Sc. Eng. from the College of Information Science and Technology at <a href="https://www.njau.edu.cn/">Nanjing Agricultural University (NAU),</a> supervised by <a href="https://faculty.njau.edu.cn/baizhentian/en/index.htm">Prof. Bai Zhentian.</a></p>
+                        <p align="justify">Before joining Egerton, I was a research assistant and obtained my Ph.D. from the <a href="https://coe.njau.edu.cn/">College of Engineering</a> at <a href="https://www.njau.edu.cn/">Nanjing Agricultural University (NAU),</a> supervised by <a href="https://faculty.njau.edu.cn/chenkunjie/en/index.htm">Prof. Chen Kunjie.</a> Prior to joining NAU, I taught courses in programming, artificial intelligence, networks, databases, and other core areas of computer science and information technology at multiple universities. I obtained my M.Sc. Eng. from the College of Information Science & Technology (now the <a href="https://ai.njau.edu.cn/">School of Artificial Intelligence)</a> at <a href="https://www.njau.edu.cn/">Nanjing Agricultural University (NAU),</a> supervised by <a href="https://faculty.njau.edu.cn/baizhentian/en/index.htm">Prof. Bai Zhentian.</a></p>
 
                     </div>
                 </div>
@@ -313,7 +311,31 @@
                 </div>
             </div>
         </div>
-             
+        
+        <div class="fh5co-tab-content" data-content="4">
+            <div class="fh5co-content-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Research Affiliation</h2>
+                        <ul>
+                            <li>Software Languages Lab, Vrije Universiteit Brussel</li>
+                            <li>Wireless and Sensor Networks, Makerere University</li>
+                            <li>Software Center Research Group, Makerere University</li>
+                        </ul>
+        
+                        <h2>Research Interests</h2>
+                        <ul>
+                            <li>Artificial Intelligence</li>
+                            <li>Computer Vision and Image Processing</li>
+                            <li>Machine/Deep Learning</li>
+                            <li>IoT and Robotics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
         <div id="Publications" class="fh5co-tab-content" data-content="5">
             <div class="fh5co-content-inner">
                 <div class="row">
@@ -335,8 +357,9 @@
                                 <div class="fh5co-text">
                                     <p align="left" style="margin-bottom: 5px; font-size: 13px;">
                                         Innocent Nyalala; Zhang Jiayu; Chen Zixuan; Chen Junlong; Kunjie Chen
-                                        <br/> <a href="#"><font size="3px">Online chicken carcass volume estimation using depth imaging and 3-D reconstruction</font></a>
-                                        <br/>In: Poultry Science, Accepted, August 2024. 
+                                        <br/> <a href="https://doi.org/10.1016/j.psj.2024.104232"><font size="3px">Online chicken carcass volume estimation using depth imaging and 3-D reconstruction</font></a>
+                                        <span class="tag">Journal Article</span> <!-- Added Tag -->
+                                        <br/>In: Poultry Science, vol. , pp.104232, 2024.  
                                     </p>
                                     <p style="font-size: 11px; margin-top: 0;">
                                         <a href="#" onclick="toggleSection('abstract20')">Abstract</a> | 
@@ -346,12 +369,13 @@
                                     </p>                       
                                     <!-- Abstract Section -->
                                     <div id="abstract20" class="section" style="display:none; font-size: 12px;">
+                                        Variability in the size of slaughtered chickens remains a longstanding challenge in the standardization of the poultry industry. To address this issue, we present a novel approach that uses volume as a grading metric for chicken carcasses. This innovative method, unexplored in existing studies, employs real-time data capture of moving chicken carcasses on a production line using Kinect v2 depth imaging and 3-D reconstruction technologies. The captured depth images are processed into point clouds followed by 3-D reconstruction. Volume is calculated from the reconstructed models using the surface integration method, and additional 2-D and 3-D features are extracted as input parameters for machine learning models. Multiple regression models were evaluated, with the bagged tree model demonstrating superior performance, achieving an R² value of 0.9988, RMSE of 5.335, and ARE of 2.125%. Furthermore, our method showed remarkable efficiency with an average processing time of less than 1.6 seconds per carcass. These results indicate that our novel approach fills a critical gap in existing automated grading methodologies by offering both accuracy and efficiency. This validates the applicability of depth imaging, 3-D reconstruction, and machine learning for estimating chicken carcass volume with high precision, thereby enabling a more comprehensive, efficient, and reliable chicken carcass grading system.
                                         <br/><a href="#" onclick="toggleSection('abstract20')">Close</a>
                                     </div>                       
                                     <!-- Links Section -->
                                     <div id="links20" class="section" style="display:none; font-size: 12px;">
                                         <p style="margin-top: 0;">
-                                         <a href="#" target="_blank"><i class="icon-globe"></i> </a>
+                                         <a href="https://doi.org/10.1016/j.psj.2024.104232" target="_blank"><i class="icon-globe"></i> doi.org/10.1016/j.psj.2024.104232</a>
                                         </p>
                                         <a href="#" onclick="toggleSection('links20')">Close</a>
                                     </div>                       
@@ -364,8 +388,8 @@
     journal={Poultry Science},
     volume={},
     year={2024},
-    doi={},
-    url={}
+    doi={10.1016/j.psj.2024.104232},
+    url={https://doi.org/10.1016/j.psj.2024.104232}
 }
                                         </pre>
                                         <a href="#" onclick="toggleSection('bibtex20')">Close</a>
@@ -383,6 +407,7 @@
                                         <br/> 
                                         <a href="https://doi.org/10.1016/j.compag.2024.109351">
                                             <font size="3px">MAIANet: Signal modulation in cassava leaf disease classification</font>
+                                            <span class="tag">Journal Article</span> <!-- Added Tag -->
                                         </a>
                                         <br/>In: Computers and Electronics in Agriculture, vol. 225, pp.109351, 2024. 
                                     </p>
@@ -401,7 +426,7 @@
                                     <!-- Links Section -->
                                     <div id="links19" class="section" style="display:none; font-size: 12px;">
                                         <p style="margin-top: 0;">
-                                            <a href="https://doi.org/10.1016/j.compag.2024.109351" target="_blank"><i class="icon-globe"></i> doi:10.1016/j.compag.2024.109351</a>
+                                            <a href="https://doi.org/10.1016/j.compag.2024.109351" target="_blank"><i class="icon-globe"></i>doi:10.1016/j.compag.2024.109351</a>
                                         </p>
                                         <a href="#" onclick="toggleSection('links19')">Close</a>
                                     </div>                       
@@ -436,6 +461,7 @@
                                             <br/> 
                                             <a href="https://doi.org/10.1111/jfpp.16190">
                                                 <font size="3px">Drying process optimization of garlic slices in closed-loop heat pump drying system by Box-Behnken design</font>
+                                                <span class="tag">Journal Article</span> <!-- Added Tag -->
                                             </a>
                                             <br/>In: Journal of Food Processing and Preservation, e16190, 2021.
                                         </p>
@@ -487,6 +513,7 @@
                                         <br/>
                                         <a href="https://doi.org/10.1016/j.psj.2021.101474">
                                             <font size="3px">On-line weight estimation of broiler carcass and cuts by a computer vision system</font>
+                                            <span class="tag">Journal Article</span> <!-- Added Tag -->
                                         </a>
                                         <br/>In: Poultry Science, vol. 100, iss. 12, pp.101474, 2021. 
                                     </p>
@@ -536,6 +563,7 @@
                                         <br/> 
                                         <a href="https://doi.org/10.1038/s41598-021-90682-w">
                                             <font size="3px">Prediction of precise subsoiling based on analytical method, discrete element simulation and experimental data from soil bin</font>
+                                            <span class="tag">Journal Article</span> <!-- Added Tag -->
                                         </a>
                                         <br/>In: Scientific Reports, vol. 11, iss. 1, pp.11082, 2021. 
                                     </p>
@@ -586,6 +614,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.3390/agronomy11050834">
                                                     <font size="3px">Detecting the early flowering stage of tea chrysanthemum using the F-YOLO model</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Agronomy, vol. 11, iss. 5, pp. 834, 2021. 
                                             </p>
@@ -635,6 +664,7 @@
                                                     <br/> 
                                                     <a href="https://doi.org/10.1016/j.psj.2021.101072">
                                                         <font size="3px">Weight and volume estimation of poultry and products based on computer vision systems: a review</font>
+                                                        <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                     </a>
                                                     <br/>In: Poultry Science, vol. 100, iss. 5, pp.101072, 2021. 
                                                 </p>
@@ -684,6 +714,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1080/10942912.2021.1933024">
                                                     <font size="3px">Weight and volume estimation of single and occluded tomatoes using machine vision</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: International Journal of Food Properties vol. 24, iss. 1, pp. 818-832, 2021. 
                                             </p>
@@ -735,6 +766,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1080/07373937.2019.1691011">
                                                     <font size="3px">Influence of environmental conditions on drying efficiency and heat pump performance in closed and open loop drying of paddy</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Drying Technology, vol. 38, iss. 16, pp. 2217-2230, 2020.
                                             </p>
@@ -784,6 +816,7 @@
                                                     <br/> 
                                                     <a href="https://shorturl.at/p24OO">
                                                         <font size="3px">Separation of partially occluded rice kernels and variety classification based on computer vision.</font>
+                                                        <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                     </a>
                                                     <br/>In: International Agricultural Engineering Journal, vol. 29, iss. 4, pp. 233-244, 2020. 
                                                 </p>
@@ -833,6 +866,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1016/j.jfoodeng.2020.110041">
                                                     <font size="3px">Egg volume estimation based on image processing and computer vision</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Journal of Food Engineering, vol. 283, pp. 110041, 2020. 
                                             </p>
@@ -882,6 +916,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1155/2020/1571936" target="_blank">
                                                     <font size="3px">Wheat Grain Yield Estimation Based on Image Morphological Properties and Wheat Biomass</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Journal of Sensors, 2020. 
                                             </p>
@@ -931,6 +966,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1016/j.aiia.2020.09.002" target="_blank">
                                                     <font size="3px">A review on computer vision systems in monitoring of poultry: A welfare perspective</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Artificial Intelligence in Agriculture, vol. 4, iss. 5, pp. 184-208, 2020. 
                                             </p>
@@ -986,6 +1022,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1016/j.biosystemseng.2019.09.015" target="_blank">
                                                     <font size="3px">A machine vision system for early detection and prediction of sick birds: A broiler chicken model</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Biosystems Engineering, vol. 188, pp. 229-242, 2019. 
                                             </p>
@@ -1038,6 +1075,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1016/j.jfoodeng.2019.07.012" target="_blank">
                                                     <font size="3px">Tomato volume and mass estimation using computer vision and machine learning algorithms: Cherry tomato model</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Journal of Food Engineering, vol. 263, pp. 288-298, 2019. 
                                             </p>
@@ -1089,6 +1127,7 @@
                                                 <br/> 
                                                 <a href="https://shorturl.at/lzAq6" target="_blank">
                                                     <font size="3px">Production of Activated Carbon From Sludge and Herb Residue of Traditional Chinese Medicine Industry and Its Application for Methylene Blue Removal</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: BioResources, vol. 14, iss. 1, pp. 1333-1346, 2019. 
                                             </p>
@@ -1143,6 +1182,7 @@
                                                 <br/> 
                                                 <a href="https://doi.org/10.1016/j.compag.2018.07.007" target="_blank">
                                                     <font size="3px">Asphyxia occurrence detection in sows during the farrowing phase by inter-birth interval evaluation</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: Computers and Electronics in Agriculture, vol. 152, pp. 221-232, 2018. 
                                             </p>
@@ -1195,6 +1235,7 @@
                                                 <br/> 
                                                 <a href="https://shorturl.at/gPSxy" target="_blank">
                                                     <font size="3px">Detection of an onset of farrowing by classification of crated sow's activities</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: International Agricultural Engineering Journal, vol. 27, iss. 4, pp. 387-395, 2018. 
                                             </p>
@@ -1250,6 +1291,7 @@
                                                     <br/> 
                                                     <a href="https://doi.org/10.1504/IJCNDS.2016.076650" target="_blank">
                                                         <font size="3px">Research on range-based localisation algorithm with virtual force and time synchronisation in wireless sensor and actor networks</font>
+                                                        <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                     </a>
                                                     <br/>In: International Journal of Communication Networks and Distributed Systems, vol. 16, iss. 3, pp. 215-239, 2016, ISSN: 1754-3916. 
                                                 </p>
@@ -1305,6 +1347,7 @@
                                                 <br/> 
                                                 <a href="https://shorturl.at/vJycE" target="_blank">
                                                     <font size="3px">Intelligent energy saving system</font>
+                                                    <span class="tag">Journal Article</span> <!-- Added Tag -->
                                                 </a>
                                                 <br/>In: International Journal of Emerging Technology and Advanced Engineering, vol. 5, iss. 12, pp. 173-179, 2015. 
                                             </p>

@@ -112,7 +112,6 @@ h1, h2, h3, h4, h5, h6 {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
   text-align: center;
   padding: 0;
   margin: 0;
@@ -125,7 +124,6 @@ h1, h2, h3, h4, h5, h6 {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -290,7 +288,7 @@ figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 .fh5co-social li a {
   font-size: 22px;
@@ -299,7 +297,7 @@ figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   -ms-border-radius: 7px;
@@ -410,7 +408,6 @@ figure {
     display: -moz-inline-stack;
     display: inline-block;
     zoom: 1;
-    *display: inline;
   }
 }
 
@@ -449,75 +446,14 @@ figure {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-
-/* Responsive Adjustments */
-@media screen and (max-width: 1000px) {
-  #fh5co-main {
-    margin: 2em .5em 5em .5em;
-  }
+.tag {
+  display: inline-block;
+  background-color: #008BD2; /* Adjust the color to match your site's theme */
+  color: white;
+  padding: 2px 6px;
+  font-size: 8px;
+  border-radius: 4px;
+  margin-left: 10px; /* Adds space between the title and the tag */
 }
 
-@media screen and (max-width: 768px) {
-  body {
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
 
-  .fh5co-tab-wrap .fh5co-tab-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .fh5co-tab-wrap .fh5co-tab-menu li {
-    flex: 1 1 auto; /* Allow tabs to wrap */
-  }
-
-  .fh5co-tab-wrap .fh5co-tab-menu li a {
-    padding: 1em .5em .5em .5em; /* Adjust padding for smaller screens */
-  }
-
-  .fh5co-tab-wrap .fh5co-tab-content {
-    padding-left: .5em;
-    padding-right: .5em;
-  }
-
-  .fh5co-tab-wrap .fh5co-tab-menu li a .menu-text {
-    display: none; /* Hide text on smaller screens */
-  }
-
-  .fh5co-content-inner {
-    padding: 4em .5em 5em .5em;
-  }
-
-  .fh5co-counter .fh5co-number.fh5co-left,
-  .fh5co-counter .fh5co-text {
-    width: 100%;
-    text-align: center;
-  }
-
-  .fh5co-social li a {
-    padding: 10px 8px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .fh5co-tab-wrap .fh5co-tab-menu li {
-    flex: 1 1 50%; /* Two tabs per row */
-  }
-
-  .fh5co-tab-wrap .fh5co-tab-menu li a {
-    padding: 0.5em;
-    font-size: 12px; /* Smaller font for smaller screens */
-  }
-
-  .fh5co-feature .fh5co-text {
-    width: 72%;
-  }
-  
-  .col-xxs-12 {
-    float: none;
-    width: 100%;
-  }
-}
