@@ -4,13 +4,9 @@
   src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix") format("embedded-opentype"), url("../fonts/icomoon/icomoon.ttf?srf3rx") format("truetype"), url("../fonts/icomoon/icomoon.woff?srf3rx") format("woff"), url("../fonts/icomoon/icomoon.svg?srf3rx#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
-/* =======================================================
-*
-* 	Template Style 
-*	Edit this section
-*
-* ======================================================= */
+/* ======================================================= * * Template Style * Edit this section * * ======================================================= */
 body {
   font-family: "Source Sans Pro", Arial, sans-serif;
   font-weight: 300;
@@ -27,49 +23,43 @@ body {
 }
 @media screen and (max-width: 768px) {
   body {
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
+      background-position: center center;
+      background-repeat: no-repeat;
+ }
 }
-
 a {
-  /*color: #17e7a4;*/
+ /*color: #17e7a4;
+ */
   color:white;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
-  color: #17e7a4; 
+  color: #17e7a4;
   outline: none;
 }
-
 p {
   margin-bottom: 1.5em;
 }
-
 h1, h2, h3, h4, h5, h6 {
   color: #fff;
   font-family: "Source Sans Pro", Arial, sans-serif;
   font-weight: 400;
   margin: 0 0 30px 0;
 }
-
 ::-webkit-selection {
   color: #fff;
   background: #17e7a4;
 }
-
 ::-moz-selection {
   color: #fff;
   background: #17e7a4;
 }
-
 ::selection {
   color: #fff;
   background: #17e7a4;
 }
-
 #fh5co-main {
   max-width: 1200px;
   min-height: 600px;
@@ -87,10 +77,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 1000px) {
   #fh5co-main {
-    margin: 2em .5em 5em .5em;
-  }
+      margin: 2em .5em 5em .5em;
+ }
 }
-
 .fh5co-tab-wrap {
   position: relative;
 }
@@ -105,8 +94,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-menu {
-    top: -7px;
-  }
+      top: -7px;
+ }
 }
 .fh5co-tab-wrap .fh5co-tab-menu li {
   display: -moz-inline-stack;
@@ -145,13 +134,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-menu li a .menu-text {
-    display: none;
-  }
+      display: none;
+ }
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-menu li a {
-    padding: 1em .5em .5em .5em;
-  }
+      padding: 1em .5em .5em .5em;
+ }
 }
 .fh5co-tab-wrap .fh5co-tab-menu li a:after {
   position: absolute;
@@ -181,8 +170,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-menu li a:hover .icon {
-    bottom: 0px;
-  }
+      bottom: 0px;
+ }
 }
 .fh5co-tab-wrap .fh5co-tab-menu li a:hover:after {
   height: 100%;
@@ -192,8 +181,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-menu li.active .icon {
-    bottom: 0px;
-  }
+      bottom: 0px;
+ }
 }
 .fh5co-tab-wrap .fh5co-tab-menu li.active > a {
   color: #fff;
@@ -213,9 +202,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-content {
-    padding-left: .5em;
-    padding-right: .5em;
-  }
+      padding-left: .5em;
+      padding-right: .5em;
+ }
 }
 .fh5co-tab-wrap .fh5co-tab-content.active {
   opacity: 1;
@@ -229,14 +218,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 768px) {
   .fh5co-tab-wrap .fh5co-tab-content .fh5co-content-inner {
-    padding: 4em .5em 5em .5em;
-  }
+      padding: 4em .5em 5em .5em;
+ }
 }
-
 figure {
   margin-bottom: 1.5em;
 }
-
 .fh5co-counter .fh5co-number {
   font-size: 100px;
   color: #17e7a4;
@@ -251,9 +238,9 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-counter .fh5co-number.fh5co-left {
-    width: 100%;
-    line-height: 1.2;
-  }
+      width: 100%;
+      line-height: 1.2;
+ }
 }
 .fh5co-counter .fh5co-text {
   float: right;
@@ -262,9 +249,9 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-counter .fh5co-text {
-    width: 100%;
-    text-align: center;
-  }
+      width: 100%;
+      text-align: center;
+ }
 }
 .fh5co-counter .fh5co-text h3 {
   margin: 0;
@@ -275,7 +262,6 @@ figure {
   content: "";
   width: 50px;
 }
-
 .fh5co-social {
   padding: 0;
   margin: 0;
@@ -305,8 +291,8 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-social li a {
-    padding: 10px 8px;
-  }
+      padding: 10px 8px;
+ }
 }
 .fh5co-social li a:hover {
   color: #17e7a4;
@@ -315,7 +301,6 @@ figure {
   outline: none;
   text-decoration: none;
 }
-
 .fh5co-feature {
   text-align: left;
   width: 100%;
@@ -337,13 +322,13 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-feature .fh5co-text {
-    width: 82%;
-  }
+      width: 82%;
+ }
 }
 @media screen and (max-width: 480px) {
   .fh5co-feature .fh5co-text {
-    width: 72%;
-  }
+      width: 72%;
+ }
 }
 .fh5co-feature .fh5co-text h2, .fh5co-feature .fh5co-text h3 {
   margin: 0;
@@ -361,7 +346,6 @@ figure {
   font-weight: bold;
   text-transform: uppercase;
 }
-
 .chart {
   width: 160px;
   height: 160px;
@@ -384,7 +368,6 @@ figure {
   left: 0;
   top: 0;
 }
-
 #fh5co-footer {
   margin-top: 50px;
   background: black;
@@ -405,55 +388,50 @@ figure {
 }
 @media screen and (max-width: 768px) {
   #fh5co-footer .fh5co-author {
-    display: -moz-inline-stack;
-    display: inline-block;
-    zoom: 1;
-  }
+      display: -moz-inline-stack;
+      display: inline-block;
+      zoom: 1;
+ }
 }
-
 @media screen and (max-width: 480px) {
   .col-xxs-12 {
-    float: none;
-    width: 100%;
-  }
+      float: none;
+      width: 100%;
+ }
 }
-
 .row-bottom-padded-lg {
   padding-bottom: 7em;
 }
 @media screen and (max-width: 768px) {
   .row-bottom-padded-lg {
-    padding-bottom: 1em;
-  }
+      padding-bottom: 1em;
+ }
 }
-
 .row-bottom-padded-md {
   padding-bottom: 4em;
 }
 @media screen and (max-width: 768px) {
   .row-bottom-padded-md {
-    padding-bottom: 1em;
-  }
+      padding-bottom: 1em;
+ }
 }
-
 .row-bottom-padded-sm {
   padding-bottom: 1em;
 }
 @media screen and (max-width: 768px) {
   .row-bottom-padded-sm {
-    padding-bottom: 1em;
-  }
+      padding-bottom: 1em;
+ }
 }
-
 /*# sourceMappingURL=style.css.map */
 .tag {
   display: inline-block;
-  background-color: #008BD2; /* Adjust the color to match your site's theme */
+  background-color: #008BD2;
+ /* Adjust the color to match your site's theme */
   color: white;
   padding: 2px 6px;
   font-size: 8px;
   border-radius: 4px;
-  margin-left: 10px; /* Adds space between the title and the tag */
+  margin-left: 10px;
+ /* Adds space between the title and the tag */
 }
-
-
