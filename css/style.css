@@ -451,3 +451,46 @@ figure {
   height: 100%;
   border: 0; /* Remove any default border */
 }
+
+/* Larger Icons for Social Links */
+.fh5co-social .icon-social {
+  font-size: 24px; /* Adjust as needed for desired size */
+  margin: 0 10px;  /* Add horizontal spacing between icons */
+  color: #333;    /* Default icon color (adjust as needed) */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+/* Specific Icon Colors (Matching your example image) */
+.fh5co-social .icon-linkedin {
+  color: #0077b5; /* LinkedIn Blue */
+}
+
+.fh5co-social .icon-google {
+  color: #db4437; /* Google Red */
+}
+.fh5co-social .icon-github {
+  color: #000000; /* Black */
+}
+/*I don't have the icon classes so leaving as default*/
+.fh5co-social .icon-orcid{
+color: #A6CE39; /* ORCID Green */
+}
+
+.fh5co-social .icon-researchgate{
+color:#00CCBB; /* ResearchGate turqoise*/
+}
+
+/* Hover Effects (Optional) */
+.fh5co-social a:hover .icon-linkedin {
+  color: #0056b3; /* Darker LinkedIn Blue on hover */
+}
+.fh5co-social a:hover .icon-google{
+  color: #c33;  /* Darker Google Red on hover */
+}
+.fh5co-social a:hover .icon-github{
+   color: #333;
+}
+/* Add similar hover effects for other icons as desired */
+/* Make sure list items are inline-block for proper spacing */
+.fh5co-social li {
+  display: inline-block;
+}
