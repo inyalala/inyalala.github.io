@@ -83,7 +83,27 @@
 			}
 		});
 	};
-	
+
+	function openTab(tabNumber) {
+		// Hide all tab contents
+		document.querySelectorAll('.fh5co-tab-content').forEach(function(content) {
+			content.classList.remove('active');
+		});
+		
+		// Hide all tab menu items
+		document.querySelectorAll('.fh5co-tab-menu li').forEach(function(tab) {
+			tab.classList.remove('active');
+		});
+		
+		// Show selected tab content
+		document.querySelector(`.fh5co-tab-content[data-content="${tabNumber}"]`).classList.add('active');
+		
+		// Activate selected tab menu item
+		document.querySelector(`.fh5co-tab-menu li a[data-tab="${tabNumber}"]`).parentElement.classList.add('active');
+		
+		// Scroll to top of content
+		window.scrollTo(0, 0);
+	}
 
 	// Document on load.
 	$(function(){
