@@ -1,0 +1,276 @@
+---
+---
+
+<section id="research" class="section research-section">
+	<div class="container">
+		<h2 class="section-title">Research Thrusts</h2>
+		<p class="section-intro">
+			Our research focuses on three key areas that address critical challenges in East Africa 
+			and beyond, with initiatives launched since October 2024.
+		</p>
+		
+		<div class="research-grid">
+			<div class="research-card primary">
+				<div class="research-icon">🌾</div>
+				<h3>AI for Sustainable Agriculture & Food Systems</h3>
+				<p class="research-description">
+					Developing AI solutions to revolutionize agriculture through precision crop management, 
+					agricultural data ecosystems, and supply chain innovation.
+				</p>
+				<div class="research-areas">
+					<div class="area-tag">Precision Crop Management</div>
+					<div class="area-tag">Agricultural Data Ecosystems</div>
+					<div class="area-tag">Supply Chain Innovation</div>
+					<div class="area-tag">International PhD Programs</div>
+				</div>
+				<div class="research-highlight">
+					<strong>Current Focus:</strong> Deep Learning for Fine-Grained Quality Grading of Zanzibar Cloves
+				</div>
+			</div>
+
+			<div class="research-card secondary">
+				<div class="research-icon">🏥</div>
+				<h3>AI for Intelligent & Healthy Livelihoods</h3>
+				<p class="research-description">
+					Leveraging AI expertise for healthcare informatics, assistive technologies, 
+					and environmental monitoring to improve quality of life.
+				</p>
+				<div class="research-areas">
+					<div class="area-tag">Medical Image Analysis</div>
+					<div class="area-tag">Assistive Technologies</div>
+					<div class="area-tag">Environmental AI</div>
+					<div class="area-tag">Healthcare Informatics</div>
+				</div>
+				<div class="research-highlight">
+					<strong>Current Focus:</strong> Placental Weight & Volume Estimation from 2D Ultrasound
+				</div>
+			</div>
+
+			<div class="research-card tertiary">
+				<div class="research-icon">⚖️</div>
+				<h3>Responsible AI Innovation & Ethical Frameworks</h3>
+				<p class="research-description">
+					Developing ethical AI frameworks specifically designed for African contexts, 
+					ensuring responsible and contextually-aware AI development.
+				</p>
+				<div class="research-areas">
+					<div class="area-tag">Ethical AI for Africa</div>
+					<div class="area-tag">Context-Aware Frameworks</div>
+					<div class="area-tag">CARA-FMs Development</div>
+					<div class="area-tag">Responsible Innovation</div>
+				</div>
+				<div class="research-highlight">
+					<strong>Current Focus:</strong> Prime Directives for Responsible AI for Africa (DSA 2025)
+				</div>
+			</div>
+		</div>
+
+		<div class="collaboration-highlight">
+			<h3>International Collaborations</h3>
+			<div class="collaboration-grid">
+				<div class="collab-item">
+					<div class="collab-flag">🇦🇺</div>
+					<h4>Deakin University</h4>
+					<p>Cotutelle PhD on AI/IoT in Agriculture and Sustainability</p>
+				</div>
+				<div class="collab-item">
+					<div class="collab-flag">🇺🇸</div>
+					<h4>Penn State University</h4>
+					<p>PlacentaVision Medical Imaging Collaboration</p>
+				</div>
+				<div class="collab-item">
+					<div class="collab-flag">🇺🇸</div>
+					<h4>Columbia University</h4>
+					<p>AI-driven Air Quality Index Monitoring</p>
+				</div>
+				<div class="collab-item">
+					<div class="collab-flag">🇬🇧</div>
+					<h4>University of Cambridge</h4>
+					<p>Responsible AI Framework Development</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.research-section {
+		background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+	}
+
+	.section-intro {
+		text-align: center;
+		font-size: 1.125rem;
+		color: #6b7280;
+		margin-bottom: 3rem;
+		max-width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.research-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.research-card {
+		background: white;
+		border-radius: 1.5rem;
+		padding: 2.5rem;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+		border-top: 4px solid;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.research-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: linear-gradient(90deg, transparent, currentColor, transparent);
+	}
+
+	.research-card.primary {
+		border-top-color: #059669;
+	}
+
+	.research-card.secondary {
+		border-top-color: #dc2626;
+	}
+
+	.research-card.tertiary {
+		border-top-color: #7c3aed;
+	}
+
+	.research-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+	}
+
+	.research-icon {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.research-card h3 {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #1e3a8a;
+		margin-bottom: 1rem;
+		line-height: 1.3;
+	}
+
+	.research-description {
+		color: #374151;
+		line-height: 1.7;
+		margin-bottom: 1.5rem;
+	}
+
+	.research-areas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.area-tag {
+		background: #f3f4f6;
+		color: #374151;
+		padding: 0.375rem 0.75rem;
+		border-radius: 0.5rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		transition: all 0.3s ease;
+	}
+
+	.primary .area-tag:hover {
+		background: #059669;
+		color: white;
+	}
+
+	.secondary .area-tag:hover {
+		background: #dc2626;
+		color: white;
+	}
+
+	.tertiary .area-tag:hover {
+		background: #7c3aed;
+		color: white;
+	}
+
+	.research-highlight {
+		background: #f8fafc;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		border-left: 4px solid #1e3a8a;
+		font-size: 0.875rem;
+		color: #374151;
+	}
+
+	.collaboration-highlight {
+		background: white;
+		border-radius: 1.5rem;
+		padding: 2.5rem;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	}
+
+	.collaboration-highlight h3 {
+		text-align: center;
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: #1e3a8a;
+		margin-bottom: 2rem;
+	}
+
+	.collaboration-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.collab-item {
+		text-align: center;
+		padding: 1.5rem;
+		border-radius: 1rem;
+		background: #f8fafc;
+		transition: all 0.3s ease;
+	}
+
+	.collab-item:hover {
+		background: #e2e8f0;
+		transform: translateY(-2px);
+	}
+
+	.collab-flag {
+		font-size: 2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.collab-item h4 {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: #1e3a8a;
+		margin-bottom: 0.5rem;
+	}
+
+	.collab-item p {
+		color: #6b7280;
+		font-size: 0.875rem;
+	}
+
+	@media (max-width: 768px) {
+		.research-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.collaboration-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
