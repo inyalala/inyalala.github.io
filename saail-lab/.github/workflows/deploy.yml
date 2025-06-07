@@ -48,3 +48,33 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+name: Deploy SAAIL Lab to inyalala.github.io
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run build
+      - name: Copy to inyalala.github.io
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          git clone https://github.com/inyalala/inyalala.github.io.git
+          rm -rf inyalala.github.io/saail-lab
+          mkdir -p inyalala.github.io/saail-lab
+          cp -r dist/* inyalala.github.io/saail-lab/
+          cd inyalala.github.io
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add saail-lab/
+          git commit -m "Update saail-lab subdirectory"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/inyalala/inyalala.github.io.git
