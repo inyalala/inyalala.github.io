@@ -1,4 +1,4 @@
-# Dr. Innocent Nyalala
+# Innocent Nyalala
 
 <div align="center">
 
