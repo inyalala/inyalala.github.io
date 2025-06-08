@@ -41,7 +41,7 @@
 | Metric | Value | Impact |
 |--------|-------|--------|
 | **Publications** | 22+ | High-impact journals |
-| **Citations** | 830+ | Growing influence |
+| **Citations** | 850+ | Growing influence |
 | **h-index** | 13 | Research significance |
 | **Research Areas** | 3 | Multidisciplinary expertise |
 | **Active Projects** | 6+ | Current innovations |
