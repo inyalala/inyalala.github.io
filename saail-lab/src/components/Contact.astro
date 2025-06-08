@@ -1,0 +1,353 @@
+---
+---
+
+<section id="contact" class="section contact-section">
+	<div class="container">
+		<h2 class="section-title">Contact Us</h2>
+		<p class="section-intro">
+			Get in touch with SAAIL Lab for research collaborations, student opportunities, 
+			or partnership inquiries.
+		</p>
+
+		<div class="contact-content">
+			<div class="contact-info">
+				<div class="contact-card">
+					<div class="contact-header">
+						<div class="contact-icon">🏛️</div>
+						<h3>Laboratory Address</h3>
+					</div>
+					<div class="contact-details">
+						<p><strong>SAAIL Lab</strong></p>
+						<p>IIT Madras Zanzibar</p>
+						<p>Bweleo, Zanzibar</p>
+						<p>Tanzania</p>
+					</div>
+				</div>
+
+				<div class="contact-card">
+					<div class="contact-header">
+						<div class="contact-icon">👨‍🔬</div>
+						<h3>Principal Investigator</h3>
+					</div>
+					<div class="contact-details">
+						<p><strong>Dr. Innocent Nyalala</strong></p>
+						<p>Founding Principal Investigator (Prospective)</p>
+						<p>IIT Madras Zanzibar</p>
+					</div>
+				</div>
+
+				<div class="contact-card">
+					<div class="contact-header">
+						<div class="contact-icon">🤝</div>
+						<h3>Research Collaborations</h3>
+					</div>
+					<div class="contact-details">
+						<p>Interested in collaborative research?</p>
+						<p>We welcome partnerships with:</p>
+						<ul>
+							<li>Academic institutions</li>
+							<li>Research organizations</li>
+							<li>Industry partners</li>
+							<li>Government agencies</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="contact-card">
+					<div class="contact-header">
+						<div class="contact-icon">🎓</div>
+						<h3>Student Opportunities</h3>
+					</div>
+					<div class="contact-details">
+						<p>Looking for research opportunities?</p>
+						<p>We offer positions for:</p>
+						<ul>
+							<li>PhD candidates</li>
+							<li>MTech students</li>
+							<li>Research interns</li>
+							<li>Visiting researchers</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="contact-form-section">
+				<div class="form-card">
+					<h3>Send Us a Message</h3>
+					<form class="contact-form" action="#" method="POST">
+						<div class="form-group">
+							<label for="name">Full Name</label>
+							<input type="text" id="name" name="name" required>
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email Address</label>
+							<input type="email" id="email" name="email" required>
+						</div>
+
+						<div class="form-group">
+							<label for="affiliation">Institution/Organization</label>
+							<input type="text" id="affiliation" name="affiliation">
+						</div>
+
+						<div class="form-group">
+							<label for="inquiry-type">Inquiry Type</label>
+							<select id="inquiry-type" name="inquiry-type" required>
+								<option value="">Select an option</option>
+								<option value="research-collaboration">Research Collaboration</option>
+								<option value="student-opportunity">Student Opportunity</option>
+								<option value="partnership">Partnership Inquiry</option>
+								<option value="general">General Inquiry</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="message">Message</label>
+							<textarea id="message" name="message" rows="5" required></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary submit-btn">
+							Send Message
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="location-info">
+			<div class="location-card">
+				<h3>Our Location</h3>
+				<p>
+					SAAIL Lab is located at IIT Madras Zanzibar, strategically positioned to serve 
+					as a research hub for East Africa. Our location in Zanzibar provides unique 
+					access to agricultural challenges and opportunities in the region, particularly 
+					in spice production and sustainable farming practices.
+				</p>
+				<div class="location-features">
+					<div class="feature">
+						<span class="feature-icon">🌍</span>
+						<span>Strategic East African Location</span>
+					</div>
+					<div class="feature">
+						<span class="feature-icon">🌾</span>
+						<span>Access to Agricultural Communities</span>
+					</div>
+					<div class="feature">
+						<span class="feature-icon">🏛️</span>
+						<span>IIT Madras Academic Excellence</span>
+					</div>
+					<div class="feature">
+						<span class="feature-icon">🤝</span>
+						<span>Regional Partnership Opportunities</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact-section {
+		background: white;
+	}
+
+	.section-intro {
+		text-align: center;
+		font-size: 1.125rem;
+		color: #6b7280;
+		margin-bottom: 3rem;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.contact-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.contact-info {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.contact-card {
+		background: #f8fafc;
+		border-radius: 1rem;
+		padding: 1.5rem;
+		border: 1px solid #e2e8f0;
+		transition: all 0.3s ease;
+	}
+
+	.contact-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.contact-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+	}
+
+	.contact-icon {
+		font-size: 1.5rem;
+	}
+
+	.contact-header h3 {
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: #1e3a8a;
+	}
+
+	.contact-details p {
+		color: #374151;
+		margin-bottom: 0.5rem;
+		line-height: 1.5;
+	}
+
+	.contact-details ul {
+		color: #6b7280;
+		padding-left: 1rem;
+		margin-top: 0.5rem;
+	}
+
+	.contact-details li {
+		margin-bottom: 0.25rem;
+	}
+
+	.form-card {
+		background: white;
+		border-radius: 1rem;
+		padding: 2rem;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border: 1px solid #e5e7eb;
+	}
+
+	.form-card h3 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #1e3a8a;
+		margin-bottom: 1.5rem;
+		text-align: center;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form-group label {
+		font-weight: 500;
+		color: #374151;
+		font-size: 0.875rem;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		padding: 0.75rem;
+		border: 1px solid #d1d5db;
+		border-radius: 0.5rem;
+		font-size: 1rem;
+		transition: all 0.3s ease;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: #1e3a8a;
+		box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+	}
+
+	.submit-btn {
+		width: 100%;
+		font-size: 1rem;
+		padding: 1rem;
+		margin-top: 0.5rem;
+	}
+
+	.location-info {
+		margin-top: 2rem;
+	}
+
+	.location-card {
+		background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+		border-radius: 1.5rem;
+		padding: 2.5rem;
+		color: white;
+		text-align: center;
+	}
+
+	.location-card h3 {
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	.location-card > p {
+		font-size: 1.125rem;
+		line-height: 1.7;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+		max-width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.location-features {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.feature {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		background: rgba(255, 255, 255, 0.1);
+		padding: 1rem;
+		border-radius: 0.75rem;
+		backdrop-filter: blur(10px);
+	}
+
+	.feature-icon {
+		font-size: 1.25rem;
+	}
+
+	.feature span:last-child {
+		font-weight: 500;
+		font-size: 0.875rem;
+	}
+
+	@media (max-width: 768px) {
+		.contact-content {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.location-features {
+			grid-template-columns: 1fr;
+		}
+
+		.form-card {
+			padding: 1.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,42 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "name": "saail-lab",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build --outDir ../dist/saail-lab",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/partytown": "^0.9.0",
+    "@astrojs/starlight": "^0.9.0",
+    "astro": "^3.0.0",
+    "astro-icon": "^2.1.0",
+    "astro-ssr-cache": "^1.0.0"
+  },  
+  "devDependencies": {
+    "@astrojs/tsconfig": "^1.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inyalala/saail-lab"
+  },
+  "author": "inyalala",
+  "description": "A lab for experimenting with Astro and Starlight.",
+  "keywords": [
+    "astro",
+    "starlight",
+    "saail-lab",
+    "web development",
+    "static site generator"
+  ],
+  "homepage": "https://inyalala.github.io/saail-lab"
+}
