@@ -19,7 +19,7 @@
 
 ## 🎯 Professional Profile
 
-**Dr. Innocent Nyalala** is an Assistant Professor at **IIT Madras Zanzibar** and the Founding Principal Investigator of the **SAAIL Lab (Sustainable AI for Agriculture & Intelligent Livelihoods)**. With expertise spanning artificial intelligence, agricultural technology, and medical imaging, Dr. Nyalala leads cutting-edge research that bridges advanced technology with real-world impact in East Africa.
+**Innocent Nyalala** is an Assistant Professor at **IIT Madras Zanzibar** and the Founding Principal Investigator of the **SAAIL Lab (Sustainable AI for Agriculture & Intelligent Livelihoods)**. With expertise spanning artificial intelligence, agricultural technology, and medical imaging, Dr. Nyalala leads cutting-edge research that bridges advanced technology with real-world impact in East Africa.
 
 ### 🏛️ Current Position
 - **Assistant Professor** - IIT Madras Zanzibar, Tanzania
