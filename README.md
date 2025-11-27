@@ -1,264 +1,316 @@
-# Innocent Nyalala
+# Dr. Innocent Nyalala
 
 <div align="center">
 
-![Profile Banner](https://img.shields.io/badge/Dr.%20Innocent%20Nyalala-Assistant%20Professor-blue?style=for-the-badge&logo=academia&logoColor=white)
-[![Website](https://img.shields.io/badge/Portfolio-inyalala.github.io-green?style=for-the-badge&logo=github&logoColor=white)](https://inyalala.github.io)
-[![SAAIL Lab](https://img.shields.io/badge/SAAIL%20Lab-Research%20Director-orange?style=for-the-badge&logo=laboratory&logoColor=white)](https://inyalala.github.io/saaillab.github.io)
-[![Google Scholar](https://img.shields.io/badge/Citations-830+-red?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+![Profile Banner](https://img.shields.io/badge/Dr.%20Innocent%20Nyalala-Assistant%20Professor%20%7C%20AI%20Researcher-0066CC?style=for-the-badge&logo=academia&logoColor=white)
 
-**Assistant Professor | AI Researcher | Agricultural Technology Innovator**
+[![Website](https://img.shields.io/badge/🌐_Portfolio-inyalala.github.io-00A86B?style=for-the-badge)](https://inyalala.github.io)
+[![SAAIL Lab](https://img.shields.io/badge/🔬_SAAIL_Lab-Principal_Investigator-FF6B35?style=for-the-badge)](https://saaillab.github.io)
+[![Google Scholar](https://img.shields.io/badge/📚_Citations-960+-EA4335?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+[![H-Index](https://img.shields.io/badge/h--index-14-4285F4?style=for-the-badge)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
 
-*Pioneering transformative AI solutions for sustainable agriculture and intelligent livelihoods in East Africa*
+**Assistant Professor of Data Science & AI | IIT Madras Zanzibar**
 
-[📧 Contact](mailto:innocent@iitmz.ac.in) • [🌐 Portfolio](https://inyalala.github.io) • [🔬 SAAIL Lab](https://inyalala.github.io/saaillab.github.io) • [📚 Publications](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+*Leading transformative AI research for sustainable agriculture and intelligent livelihoods in East Africa*
+
+[📧 Email](mailto:innocent@iitmz.ac.in) • [🌐 Website](https://inyalala.github.io) • [🔬 SAAIL Lab](https://saaillab.github.io) • [📚 Publications](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en) • [💼 LinkedIn](https://www.linkedin.com/in/innocentnyalala/)
 
 </div>
 
 ---
 
-## 🎯 Professional Profile
+## 🚀 About Me
 
-**Innocent Nyalala** is an Assistant Professor at **IIT Madras Zanzibar** and the Founding Principal Investigator of the **SAAIL Lab (Sustainable AI for Agriculture & Intelligent Livelihoods)**. With expertise spanning artificial intelligence, agricultural technology, and medical imaging, Dr. Nyalala leads cutting-edge research that bridges advanced technology with real-world impact in East Africa.
+**Dr. Innocent Nyalala** is an Assistant Professor at **IIT Madras Zanzibar** and Principal Investigator of the **SAAIL Lab** (Sustainable AI for Agriculture & Intelligent Livelihoods). With a PhD in Agricultural Electrification & Automation and expertise in AI, computer vision, and machine learning, Dr. Nyalala pioneers research that addresses critical challenges in agriculture and healthcare across the African continent.
 
-### 🏛️ Current Position
-- **Assistant Professor** - IIT Madras Zanzibar, Tanzania
-- **Founding Principal Investigator** - SAAIL Lab
-- **Research Focus** - AI for Agriculture, Medical Imaging, Responsible AI
+### 🎯 Current Roles
+- 🏛️ **Assistant Professor** - School of Engineering and Science, IIT Madras Zanzibar
+- 🔬 **Principal Investigator** - SAAIL Lab (Established 2024)
+- 💻 **In-Charge** - Computing Resources, IIT Madras Zanzibar
+- 📊 **Committee Member** - MTech Projects & Faculty Recruitment
 
-### 🎓 Educational Background
-- **PhD in Engineering Agricultural Electrification & Automation** - Nanjing Agricultural University, China
-- **MSc in Engineering Computer Science & Technology** - Nanjing Agricultural University, China
-
-
----
-
-## 🔬 Research Excellence
-
-### 📊 Research Metrics
-<div align="center">
-
-| Metric | Value | Impact |
-|--------|-------|--------|
-| **Publications** | 22+ | High-impact journals |
-| **Citations** | 850+ | Growing influence |
-| **h-index** | 13 | Research significance |
-| **Research Areas** | 3 | Multidisciplinary expertise |
-| **Active Projects** | 6+ | Current innovations |
-
-</div>
-
-### 🌟 Research Highlights
-
-#### 🌾 **AI for Sustainable Agriculture**
-- **Deep Learning for Crop Quality Assessment** - Advanced computer vision for agricultural product grading
-- **Precision Agriculture Systems** - IoT and AI integration for smart farming
-- **Agricultural Data Ecosystems** - Comprehensive datasets for AI applications
-- **Supply Chain Innovation** - Blockchain technology for agricultural traceability
-
-#### 🏥 **Medical Imaging & Healthcare AI**
-- **Placental Imaging Analysis** - 2D ultrasound for neonatal outcome prediction
-- **3D Medical Reconstruction** - Advanced imaging techniques for diagnostics
-- **Healthcare Informatics** - AI-driven solutions for medical applications
-- **Assistive Technologies** - Edge AI for accessibility solutions
-
-#### ⚖️ **Responsible AI & Ethics**
-- **Context-Aware AI Frameworks** - Ethical AI development for African contexts
-- **CARA-FMs Development** - Responsible AI framework models
-- **Prime Directives for AI** - Establishing ethical guidelines for AI in Africa
+### 🎓 Education
+- **PhD in Engineering** (2017-2023) - Agricultural Electrification & Automation, Nanjing Agricultural University, China
+- **MSc in Engineering** (2013-2016) - Computer Science & Technology, Nanjing Agricultural University, China
+- **Bachelor in BMIT** (2009-2012) - Information Technology, Kabarak University, Kenya
 
 ---
 
-## 🏆 Academic Achievements
-
-### 📚 Selected High-Impact Publications
-
-#### **2024 - Recent Breakthroughs**
-- **"Advanced Deep Learning for Cassava Disease Detection"** - *Artificial Intelligence in Agriculture* (IF: 8.2)
-- **"3D Reconstruction for Poultry Processing Applications"** - *Journal of Food Engineering* (IF: 5.3)
-- **"Signal Modulation Techniques in Agricultural AI"** - *Computers and Electronics in Agriculture* (IF: 7.7)
-
-#### **2023 - Foundational Research**
-- **"IoT-Based Smart Agriculture Systems"** - *IEEE Transactions on Agricultural Engineering*
-- **"Machine Learning for Crop Disease Classification"** - *Nature Scientific Reports*
-- **"Sustainable Agriculture through AI Innovation"** - *Agricultural Systems*
-
-### 🎖️ Academic Recognition
-- **Outstanding Researcher Award** - IIT Madras Zanzibar (2024)
-- **Best Paper Award** - International Conference on AI in Agriculture (2023)
-- **Excellence in Teaching** - Student Recognition Award (2024)
-
-### 📝 Editorial & Review Services
-- **Reviewer** - 9+ prestigious journals including Nature Scientific Reports
-- **Editorial Board Member** - Journal of Agricultural Technology Innovation
-- **Conference Committee** - AI for Agriculture International Symposium
-
----
-
-## 🌍 International Collaborations
-
-### 🤝 Strategic Partnerships
+## 📊 Research Impact at a Glance
 
 <div align="center">
 
-| Institution | Country | Collaboration Focus | Status |
-|-------------|---------|-------------------|--------|
-| **Deakin University** | 🇦🇺 Australia | Cotutelle PhD Program - AI/IoT in Agriculture | Active |
-| **Penn State University** | 🇺🇸 USA | PlacentaVision Medical Imaging | Active |
-| **Columbia University** | 🇺🇸 USA | AI-driven Air Quality Monitoring | Initiating |
-| **University of Cambridge** | 🇬🇧 UK | Responsible AI Framework Development | Active |
-| **Nanjing Agricultural University** | 🇨🇳 China | Agricultural Technology Research | Ongoing |
+| 📈 Metric | 🔢 Value | 🎯 Significance |
+|-----------|----------|-----------------|
+| **Publications** | **23+** | Top-tier journals (IF: 3.1-8.2) |
+| **Citations** | **960+** | Growing global impact |
+| **h-index** | **14** | Research influence |
+| **i10-index** | **15** | Sustained productivity |
+| **Active Projects** | **4+** | Cutting-edge innovations |
+| **Students Supervised** | **8+** | Next-gen AI leaders |
 
 </div>
 
-### 🌐 Global Research Network
-- **Wadhwani School of Data Science and AI** - IIT Madras Chennai
-- **RuTAG (Rural Technology Action Group)** - IIT Madras
-- **CPHK Collaboration** - Pemba Healthcare Initiative
-- **Cadre Technologies** - Industry Partnership
+---
+
+## 🔬 SAAIL Lab - Research Excellence
+
+<div align="center">
+
+### **🌱 Sustainable AI for Agriculture & Intelligent Livelihoods 🌱**
+
+*Pioneering AI solutions for East Africa's agricultural and healthcare challenges*
+
+[![Visit SAAIL Lab](https://img.shields.io/badge/Visit-SAAIL_Lab_Website-00A86B?style=for-the-badge&logo=laboratory)](https://saaillab.github.io)
+
+</div>
+
+### 🎯 Research Focus Areas
+
+#### 🌾 **Precision Agriculture**
+- Deep learning for crop disease detection and classification
+- Computer vision for agricultural product quality assessment
+- IoT-based smart farming systems
+- AI-driven yield prediction and optimization
+
+#### 🏥 **Healthcare AI**
+- Medical image analysis for placental assessment
+- AI for maternal and fetal health diagnostics
+- Predictive models for preterm birth using metabolomics data
+- Accessible healthcare solutions for underserved regions
+
+#### 💬 **Natural Language Processing**
+- Swahili language processing and understanding
+- Agricultural chatbots and information systems
+- Healthcare AI assistants for East African languages
+
+#### 🔗 **Blockchain & Traceability**
+- Supply chain transparency for Zanzibar's spice industry
+- Agricultural product authentication systems
+- Farm-to-market traceability solutions
+
+#### ⚖️ **Responsible AI**
+- Context-aware AI frameworks for African contexts
+- Ethical AI development and deployment
+- AI governance and policy for developing regions
 
 ---
 
-## 👥 Leadership & Mentorship
+## 🏆 Selected Publications (2025-2021)
 
-### 🎓 Current Research Students
+### 📄 **2025**
+1. **Rectifying the extremely weakened signals for cassava leaf disease detection**
+   *Computers and Electronics in Agriculture*, vol. 232, pp. 110107 | **IF: 7.7**
+   [📄 DOI](https://doi.org/10.1016/j.compag.2025.110107)
 
-#### **MTech Supervision**
-- **Patrick Vincent Ndowo** - *Deep Learning for Fine-Grained Quality Grading of Zanzibar Cloves*
-- **Twamaa Hababuu Makame** - *Placental Weight & Volume Estimation from 2D Ultrasound*
-- **Shivam Vyas** - *E-Vision: Intelligent Assistive Application for Visually Impaired*
+### 📄 **2024**
+2. **A salient feature establishment tactic for cassava disease recognition**
+   *Artificial Intelligence in Agriculture*, vol. 114, pp. 115-132 | **IF: 8.2**
+   [📄 DOI](https://doi.org/10.1016/j.aiia.2024.11.004)
 
-#### **Research Programs**
-- **Cotutelle PhD Program** - International collaboration with Deakin University
-- **Research Internships** - Opportunities for undergraduate and graduate students
-- **Visiting Researcher Programs** - International exchange initiatives
+3. **Online chicken carcass volume estimation using depth imaging and 3-D reconstruction**
+   *Poultry Science*, vol. 103, iss. 12, pp. 104232 | **IF: 3.8**
+   [📄 DOI](https://doi.org/10.1016/j.psj.2024.104232)
 
-### 🏛️ Administrative Excellence
-- **In-Charge of Computing Resources** - IIT Madras Zanzibar
-- **MTech Project Committee Member** - Academic oversight and evaluation
-- **Faculty Recruitment Committee** - Strategic hiring and development
+4. **MAIANet: Signal modulation in cassava leaf disease classification**
+   *Computers and Electronics in Agriculture*, vol. 225, pp. 109351 | **IF: 7.7**
+   [📄 DOI](https://doi.org/10.1016/j.compag.2024.109351)
+
+### 📄 **2021 - Foundational Works**
+5. **Weight and volume estimation of poultry and products based on computer vision systems: a review**
+   *Poultry Science*, vol. 100, iss. 5, pp. 101072 | **IF: 3.8**
+   [📄 DOI](https://doi.org/10.1016/j.psj.2021.101072)
+
+6. **Weight and volume estimation of tomatoes using machine vision**
+   *International Journal of Food Properties*, vol. 24, iss. 1, pp. 818-832 | **IF: 3.1**
+   [📄 DOI](https://doi.org/10.1080/10942912.2021.1925742)
+
+### 📚 **[View All 23+ Publications →](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)**
 
 ---
 
-## 🚀 Current Research Projects
+## 👥 Research Team & Mentorship
 
-### 🔬 **Active Investigations**
+### 🎓 **Current MTech Students (2024-2026)**
+- **Patrick Vincent Ndowo** (ZDA24M007) - Agricultural AI Research
+- **Twamaa Hababuu Makame** (ZDA24M002) - Healthcare Informatics
+- **Shivam Vyas** (ZDA24M003) - AI Applications
 
-#### **🌿 Agricultural Innovation**
-- **Deep Learning for Zanzibar Cloves** - Quality grading using advanced computer vision
-- **Agricultural Data Ecosystems** - Comprehensive dataset creation for cardamom, millets, walnuts
-- **Blockchain Spice Supply Chain** - Traceability and transparency for Zanzibar's spice industry
+### 🎓 **Co-supervised Students**
+- **Mr. Michael Duen** - Agricultural AI: Maize Disease Detection & Classification
 
-#### **🏥 Healthcare Technology**
-- **Placental Imaging AI** - Medical image analysis for neonatal outcome prediction
-- **E-Vision Assistive Technology** - Low-cost edge AI for visually impaired individuals
-- **Medical Imaging Collaboration** - Partnership with Penn State University's PlacentaVision
+### 🏅 **Graduated Students**
+- **Mr. Makame Mohammed Haji** (July 2025) - *Explainable ML Models for Prediction of Preterm Birth Using Metabolomics Data*
 
-#### **⚖️ Responsible AI Development**
-- **CARA-FMs Framework** - Context-aware responsible AI for East Africa
-- **Prime Directives for AI** - Ethical guidelines for AI development in Africa
-- **Environmental AI Monitoring** - Air quality index monitoring systems
+### 📚 **PhD Co-supervision**
+- Currently co-supervising **4 PhD candidates** across multiple institutions
+- **1 Incoming PhD Student** (Starting February 2026)
+
+---
+
+## 🤝 International Collaborations
+
+### 🌍 **Active Research Partnerships**
+- 🇬🇧 **University of Cambridge** - Responsible AI & Computational Biology
+- 🇺🇸 **University of Oxford** - Biomedical Engineering & AI
+- 🇮🇳 **IIT Madras Chennai** - Wadhwani School of Data Science and AI
+- 🇮🇳 **Subharti University** - Healthcare & Medical Research (CPHK)
+- 🇨🇳 **Xuzhou University of Technology** - Agricultural AI & Computer Vision
+
+### 🔗 **Research Networks**
+- Rural Technology Action Group (RuTAG) - IIT Madras
+- African AI Research Network
+- International Association for Agricultural AI
 
 ---
 
 ## 🛠️ Technical Expertise
 
-### 💻 **Core Technologies**
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-Expert-blue?style=flat&logo=python)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-Advanced-orange?style=flat&logo=tensorflow)
-![PyTorch](https://img.shields.io/badge/PyTorch-Advanced-red?style=flat&logo=pytorch)
-![OpenCV](https://img.shields.io/badge/OpenCV-Expert-green?style=flat&logo=opencv)
-![MATLAB](https://img.shields.io/badge/MATLAB-Advanced-blue?style=flat&logo=mathworks)
-![R](https://img.shields.io/badge/R-Proficient-blue?style=flat&logo=r)
+### **Programming & Frameworks**
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?style=flat&logo=keras&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)
+![scikit--learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+![MATLAB](https://img.shields.io/badge/MATLAB-0076A8?style=flat&logo=mathworks&logoColor=white)
+![R](https://img.shields.io/badge/R-276DC3?style=flat&logo=r&logoColor=white)
+
+### **AI & ML Specializations**
+🖼️ Computer Vision • 🧠 Deep Learning • 🤖 Machine Learning • 💬 NLP
+📊 Data Science • 🌐 IoT Systems • 🔗 Blockchain • 📱 Edge AI
 
 </div>
 
-### 🔧 **Specialized Skills**
-- **Machine Learning & Deep Learning** - Neural networks, computer vision, NLP
-- **Agricultural Technology** - IoT systems, precision agriculture, smart farming
-- **Medical Imaging** - 3D reconstruction, image analysis, diagnostic AI
-- **Data Science** - Statistical analysis, big data processing, predictive modeling
-- **Blockchain Technology** - Supply chain applications, traceability systems
-- **Edge Computing** - Low-latency AI, embedded systems, mobile applications
+---
 
-### 📊 **Research Methodologies**
-- **Experimental Design** - Controlled studies, field trials, statistical validation
-- **Data Collection** - Sensor networks, image acquisition, survey methodologies
-- **Algorithm Development** - Custom AI models, optimization techniques
-- **System Integration** - End-to-end solution development, deployment strategies
+## 🎤 Academic Services
+
+### 📝 **Journal Reviewing**
+- Computers and Electronics in Agriculture (IF: 7.7)
+- Artificial Intelligence in Agriculture (IF: 8.2)
+- Scientific Reports - Nature (IF: 4.6)
+- Journal of Food Engineering (IF: 5.3)
+- Smart Agricultural Technology
+- Poultry Science (IF: 3.8)
+- International Journal of Food Properties (IF: 3.1)
+- **9+ journals total**
+
+### 🏛️ **Committee Memberships**
+- MTech Project Committee - IIT Madras Zanzibar
+- Faculty Recruitment Committee - IIT Madras Zanzibar
+- Academic Advisory Board - Department of Data Science & AI
 
 ---
 
-## 🌟 Impact & Innovation
+## 📚 Teaching Excellence
 
-### 📈 **Research Impact**
-- **830+ Citations** across peer-reviewed publications
-- **12+ Research Articles** prepared for high-impact journals
-- **International Recognition** in AI for agriculture and medical imaging
-- **Technology Transfer** - Real-world applications of research innovations
+### 📖 **Current Courses (2025-2026)**
+- **Z5007** - Programming and Data Structures (MTech)
 
-### 🏆 **Innovation Highlights**
-- **First AI Lab** focused on sustainable agriculture in East Africa
-- **Novel Frameworks** for responsible AI development in African contexts
-- **Breakthrough Applications** in medical imaging for neonatal care
-- **Industry Partnerships** bridging academia and practical implementation
+### 📖 **Previously Taught**
+- **Z5008** - Big Data Lab (MTech)
+- Database Management Systems
+- **Z2005** - Programming and Data Structures
+- Writing Seminar
 
-### 🌍 **Global Reach**
-- **East African Focus** - Addressing regional challenges through AI innovation
-- **International Collaboration** - Partnerships across 5 countries
-- **Knowledge Transfer** - Sharing expertise through publications and conferences
-- **Capacity Building** - Training next generation of AI researchers
+### 🎓 **Academic Experience**
+- Assistant Professor, IIT Madras Zanzibar (Oct 2024 - Present)
+- Part-Time Lecturer, Egerton University, Kenya (Apr 2022 - Dec 2024)
+- Doctoral Researcher, Nanjing Agricultural University (2017 - 2023)
 
 ---
 
-## 📞 Connect & Collaborate
+## 🌟 Why Collaborate with SAAIL Lab?
 
-### 🤝 **Collaboration Opportunities**
-- **Research Partnerships** - Joint projects and funding applications
-- **Student Exchange** - International PhD and MTech programs
-- **Industry Collaboration** - Technology transfer and innovation projects
-- **Conference Speaking** - Keynotes and technical presentations
-
-### 📧 **Contact Information**
-- **Email**: innocent@iitmz.ac.in
-- **Institution**: IIT Madras Zanzibar, Bweleo, Zanzibar, Tanzania
-- **SAAIL Lab**: [saaillab.github.io](https://inyalala.github.io/saaillab.github.io)
-- **Personal Portfolio**: [inyalala.github.io](https://inyalala.github.io)
-
-### 🌐 **Professional Networks**
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/innocentnyalala/)
-[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Follow-red?style=flat&logo=google-scholar)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
-[![ORCID](https://img.shields.io/badge/ORCID-Profile-green?style=flat&logo=orcid)](https://orcid.org/0000-0002-7969-437X)
-[![ResearchGate](https://img.shields.io/badge/ResearchGate-Network-cyan?style=flat&logo=researchgate)](https://www.researchgate.net/profile/Innocent-Nyalala)
+✅ **Cutting-Edge Research** - Access to latest AI technologies and methodologies
+✅ **Real-World Impact** - Solutions addressing critical African challenges
+✅ **International Network** - Collaborations across 5+ countries
+✅ **Publication Opportunities** - Target high-impact journals (IF: 3.0-8.0+)
+✅ **Student Training** - Comprehensive mentorship for MTech and PhD students
+✅ **Industry Connections** - Bridges between academia and practical applications
+✅ **Ethical AI Focus** - Responsible and context-aware AI development
 
 ---
 
-## 📊 GitHub Activity
+## 📞 Get in Touch
 
-### 🔥 **Repository Highlights**
-- **🌾 [SAAIL Lab Website](https://github.com/inyalala/saaillab.github.io)** - Professional research laboratory website
-- **🏥 Medical Imaging Projects** - AI applications for healthcare
-- **🌱 Agricultural AI Tools** - Open-source solutions for farming
-- **📚 Research Publications** - Code and datasets from published work
+### 💼 **For Research Collaboration**
+- 📧 **Primary**: innocent@iitmz.ac.in
+- 📧 **Secondary**: innocentnyalala@gmail.com
 
-### 📈 **Contribution Stats**
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=inyalala&show_icons=true&theme=default&hide_border=true)
+### 🏢 **Office Address**
+School of Engineering and Science
+IIT Madras Zanzibar Campus
+Office 105, Door F1
+P.O. Box 2496, Zanzibar, Tanzania
+
+### 📱 **Phone**
+- 🇹🇿 Tanzania: +255 753 864 855
+- 🇰🇪 Kenya: +254 791 349 216
+
+### 🌐 **Online Presence**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/innocentnyalala/)
+[![Google Scholar](https://img.shields.io/badge/Google_Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+[![ORCID](https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=white)](https://orcid.org/0000-0002-7969-437X)
+[![ResearchGate](https://img.shields.io/badge/ResearchGate-00CCBB?style=for-the-badge&logo=researchgate&logoColor=white)](https://www.researchgate.net/profile/Innocent-Nyalala)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/inyalala)
+
+---
+
+## 🎯 Open Opportunities
+
+### 🔬 **Prospective Students**
+I am actively seeking motivated **MTech and PhD students** interested in:
+- 🌾 AI for Agriculture
+- 🏥 Healthcare AI & Medical Imaging
+- 👁️ Computer Vision Applications
+- 💬 Natural Language Processing (Swahili & African Languages)
+- ⚖️ Responsible AI & Ethics
+
+**Join SAAIL Lab** to work on cutting-edge research with real-world impact in East Africa!
+
+### 🤝 **Research Partnerships**
+Open to collaborations in:
+- Joint research projects
+- Grant applications
+- Student exchange programs
+- Conference organization
+- Industry partnerships
 
 ---
 
 <div align="center">
 
-## 🌱 **"Transforming East African agriculture through ethical AI innovation"** 🌱
+## 🌱 **Mission Statement** 🌱
 
-*Bridging cutting-edge technology with real-world impact for sustainable development*
+> *"Transforming East African agriculture and healthcare through ethical AI innovation,
+> sustainable development, and cutting-edge technology that creates lasting positive impact"*
 
 ---
 
-**© 2024 Dr. Innocent Nyalala | IIT Madras Zanzibar | SAAIL Lab**
+### 📊 **GitHub Activity**
 
-[![IIT Madras](https://img.shields.io/badge/IIT%20Madras-Zanzibar-blue?style=flat)](https://www.iitmz.ac.in)
-[![SAAIL Lab](https://img.shields.io/badge/SAAIL%20Lab-Research%20Director-orange?style=flat)](https://inyalala.github.io/saaillab.github.io)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=inyalala&show_icons=true&theme=default&hide_border=true&count_private=true)
+
+---
+
+### 🔗 **Quick Links**
+
+[🌐 Personal Website](https://inyalala.github.io) • [🔬 SAAIL Lab](https://saaillab.github.io) • [🏛️ IIT Madras Zanzibar](https://www.iitmz.ac.in) • [📚 Google Scholar](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+
+---
+
+**© 2025 Dr. Innocent Nyalala | IIT Madras Zanzibar | SAAIL Lab**
+
+*Building the future of AI for sustainable development in Africa* 🌍
+
+[![IIT Madras](https://img.shields.io/badge/IIT_Madras-Zanzibar-0066CC?style=flat)](https://www.iitmz.ac.in)
+[![SAAIL Lab](https://img.shields.io/badge/SAAIL_Lab-Research-FF6B35?style=flat)](https://saaillab.github.io)
+[![Citations](https://img.shields.io/badge/Citations-960+-EA4335?style=flat)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
+
+**⭐ Star this repo if you find my research interesting!**
 
 </div>
