@@ -9,6 +9,8 @@
 [![Google Scholar](https://img.shields.io/badge/📚_Citations-960+-EA4335?style=for-the-badge&logo=google-scholar&logoColor=white)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
 [![H-Index](https://img.shields.io/badge/h--index-14-4285F4?style=for-the-badge)](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
 
+![Profile Views](https://komarev.com/ghpvc/?username=inyalala&color=0066CC&style=for-the-badge&label=PROFILE+VIEWS)
+
 **Assistant Professor of Data Science & AI | IIT Madras Zanzibar**
 
 *Leading transformative AI research for sustainable agriculture and intelligent livelihoods in East Africa*
