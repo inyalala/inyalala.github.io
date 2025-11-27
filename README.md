@@ -293,7 +293,15 @@ Open to collaborations in:
 
 ### 📊 **GitHub Activity**
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=inyalala&show_icons=true&theme=default&hide_border=true&count_private=true)
+<div align="center">
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=inyalala&show_icons=true&theme=default&include_all_commits=true&count_private=true&hide_border=false)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=inyalala&layout=compact&theme=default&hide_border=false)
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=inyalala&theme=default&hide_border=false)
+
+</div>
 
 ---
 
