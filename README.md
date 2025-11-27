@@ -12,7 +12,7 @@
 ![Profile Views](https://komarev.com/ghpvc/?username=inyalala&color=0066CC&style=for-the-badge&label=PROFILE+VIEWS)
 
 **Assistant Professor of Data Science and AI | IIT Madras Zanzibar**
-**Associate Research Fellow | Wadhwani School of AI, IIT Madras Chennai**
+**Associate Research Fellow | Wadhwani School of Data Science & AI, IIT Madras Chennai**
 
 *Leading transformative AI research for sustainable agriculture and intelligent livelihoods in East Africa*
 
@@ -28,7 +28,7 @@
 
 ### 🎯 Current Roles
 - 🏛️ **Assistant Professor** - School of Engineering and Science, IIT Madras Zanzibar
-- 🔬 **Associate Research Fellow** - Wadhwani School of AI, IIT Madras Chennai
+- 🔬 **Associate Research Fellow** - Wadhwani School of Data Science & AI, IIT Madras Chennai
 - 🧪 **Principal Investigator** - SAAIL Lab (Established June 2025)
 - 💻 **In-Charge** - Computing Resources, IIT Madras Zanzibar
 - 📊 **Committee Member** - MTech Projects & Faculty Recruitment
@@ -157,7 +157,7 @@
 ### 🌍 **Active Research Partnerships**
 - 🇬🇧 **University of Cambridge** - Responsible AI & Computational Biology
 - 🇺🇸 **University of Oxford** - Biomedical Engineering & AI
-- 🇮🇳 **IIT Madras Chennai** - Wadhwani School of Data Science and AI
+- 🇮🇳 **IIT Madras Chennai** - Wadhwani School of Data Science & AI
 - 🇮🇳 **Subharti University** - Healthcare & Medical Research (CPHK)
 - 🇨🇳 **Xuzhou University of Technology** - Agricultural AI & Computer Vision
 
@@ -222,7 +222,7 @@
 
 ### 🎓 **Academic Experience**
 - Assistant Professor, IIT Madras Zanzibar (Oct 2024 - Present)
-- Associate Research Fellow, Wadhwani School of AI, IIT Madras Chennai (May 2025 - Present)
+- Associate Research Fellow, Wadhwani School of Data Science & AI, IIT Madras Chennai (May 2025 - Present)
 - Part-Time Lecturer, Egerton University, Kenya (Apr 2022 - Dec 2024)
 - Doctoral Researcher, Nanjing Agricultural University (2017 - 2023)
 
