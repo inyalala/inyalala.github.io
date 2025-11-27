@@ -29,7 +29,7 @@
 ### 🎯 Current Roles
 - 🏛️ **Assistant Professor** - School of Engineering and Science, IIT Madras Zanzibar
 - 🔬 **Associate Research Fellow** - Wadhwani School of AI, IIT Madras Chennai
-- 🧪 **Principal Investigator** - SAAIL Lab (Established 2024)
+- 🧪 **Principal Investigator** - SAAIL Lab (Established June 2025)
 - 💻 **In-Charge** - Computing Resources, IIT Madras Zanzibar
 - 📊 **Committee Member** - MTech Projects & Faculty Recruitment
 
@@ -222,7 +222,7 @@
 
 ### 🎓 **Academic Experience**
 - Assistant Professor, IIT Madras Zanzibar (Oct 2024 - Present)
-- Associate Research Fellow, Wadhwani School of AI, IIT Madras Chennai (Oct 2024 - Present)
+- Associate Research Fellow, Wadhwani School of AI, IIT Madras Chennai (May 2025 - Present)
 - Part-Time Lecturer, Egerton University, Kenya (Apr 2022 - Dec 2024)
 - Doctoral Researcher, Nanjing Agricultural University (2017 - 2023)
 
