@@ -15,6 +15,11 @@
     <meta name="geo.placename" content="Zanzibar">
     <meta name="geo.position" content="-6.295379;39.284731">
     <meta name="ICBM" content="-6.295379, 39.284731">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: https://visitor-badge.laobi.icu https://img.shields.io https://komarev.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-src https://www.google.com">
     <link rel="alternate" hreflang="en" href="https://inyalala.github.io/">
     <meta property="og:type" content="profile">
     <meta property="og:url" content="https://inyalala.github.io/">
@@ -40,14 +45,14 @@
     <!-- Performance Optimization -->
     <link rel="preload" href="css/modern.css" as="style">
     <link rel="preload" href="images/Photo.jpg" as="image">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" as="style">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="css/modern.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM25HEGWNW"></script>
@@ -210,6 +215,7 @@
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></div>
 
+    <header>
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#" class="nav-brand">Innocent Nyalala</a>
@@ -225,7 +231,9 @@
             <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
         </div>
     </nav>
+    </header>
 
+    <main>
     <section id="profile" class="hero section">
         <div class="hero-content">
             <div class="hero-image"><img src="images/Photo.jpg" alt="Innocent Nyalala" loading="eager"></div>
@@ -262,16 +270,6 @@
                 <a href="https://www.linkedin.com/posts/innocentnyalala_iitmzgraduation-datascience-ai-activity-7323352087073583104-8b5S" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/iitmz-campus.jpg" alt="IIT Madras Zanzibar Graduation" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> July 2025</div><h3 class="news-title">IIT Madras Zanzibar First Degree Distribution Ceremony</h3><p class="news-excerpt">Celebrated 16 graduates from the inaugural MTech Data Science and AI cohort (2023-2025). A historic milestone!</p><div class="news-footer"><span class="news-tag">Milestone</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                 <a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/publication.jpg" alt="New Publication" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> May 2025</div><h3 class="news-title">New Publication in Computers and Electronics in Agriculture</h3><p class="news-excerpt">Our paper on "Rectifying the extremely weakened signals for cassava leaf disease detection" published (IF: 7.7).</p><div class="news-footer"><span class="news-tag">Publication</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                 <a href="https://saaillab.github.io/" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/saail-lab.jpg" alt="SAAIL Lab" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> October 2024</div><h3 class="news-title">Joined IIT Madras Zanzibar as Assistant Professor</h3><p class="news-excerpt">Excited to establish SAAIL Lab - Sustainable AI for Agriculture & Intelligent Livelihoods.</p><div class="news-footer"><span class="news-tag">Career</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
-                <!-- PLACEHOLDER: Update link, image, date, title, description, and tag -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/poster-placeholder.jpg" alt="Poster Presentation" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Month 2025</div><h3 class="news-title">Poster Accepted at Conference</h3><p class="news-excerpt">Add description of your poster presentation here. Include conference name and key findings.</p><div class="news-footer"><span class="news-tag">Poster</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
-                <!-- PLACEHOLDER: Update link, image, date, title, description, and tag -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/paper-placeholder.jpg" alt="Paper Published" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Month 2025</div><h3 class="news-title">Paper Accepted in Journal</h3><p class="news-excerpt">Add description of your paper here. Include journal name and research highlights.</p><div class="news-footer"><span class="news-tag">Publication</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
-                <!-- PLACEHOLDER: Update link, image, date, title, description, and tag -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/award-placeholder.jpg" alt="Award" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Month 2025</div><h3 class="news-title">Award / Recognition Received</h3><p class="news-excerpt">Add description of your award or recognition here. Include awarding body and significance.</p><div class="news-footer"><span class="news-tag">Award</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
-                <!-- PLACEHOLDER: Update link, image, date, title, description, and tag -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/grant-placeholder.jpg" alt="Research Grant" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Month 2025</div><h3 class="news-title">Research Grant Awarded</h3><p class="news-excerpt">Add description of your research grant here. Include funding body and project scope.</p><div class="news-footer"><span class="news-tag">Grant</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
-                <!-- PLACEHOLDER: Update link, image, date, title, description, and tag -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="news-card news-card-link animate-on-scroll"><div class="news-image"><img src="images/workshop-placeholder.jpg" alt="Workshop" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Month 2025</div><h3 class="news-title">Workshop / Seminar Conducted</h3><p class="news-excerpt">Add description of your workshop or seminar here. Include topic and participants.</p><div class="news-footer"><span class="news-tag">Workshop</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
             </div>
         </div>
     </section>
@@ -381,11 +379,12 @@
                     <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div class="contact-text"><h4>Phone (Kenya)</h4><p>+254 791 349 216</p></div></div>
                     <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-text"><h4>Office Address</h4><p>School of Engineering and Science<br>IIT Madras Zanzibar Campus<br>Office 105, Door F1<br>P.O. Box 2496, Zanzibar, Tanzania</p></div></div>
                 </div>
-                <div class="map-container animate-on-scroll"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.758924022172!2d39.28473167587706!3d-6.295379493693693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185cdff7515a28e9%3A0x20c991993b471d60!2sIIT%20Madras%20-%20Zanzibar!5e0!3m2!1sen!2ske!4v1742633545660!5m2!1sen!2ske" allowfullscreen="" loading="lazy"></iframe></div>
+                <div class="map-container animate-on-scroll"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.758924022172!2d39.28473167587706!3d-6.295379493693693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185cdff7515a28e9%3A0x20c991993b471d60!2sIIT%20Madras%20-%20Zanzibar!5e0!3m2!1sen!2ske!4v1742633545660!5m2!1sen!2ske" title="IIT Madras Zanzibar Campus Location Map" allowfullscreen="" loading="lazy"></iframe></div>
             </div>
             <div style="text-align:center;margin-top:var(--space-xl)"><h4 style="margin-bottom:var(--space-md)">Connect With Me</h4><div class="social-links social-links-alt"><a href="https://www.linkedin.com/in/innocentnyalala/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a><a href="https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en" class="social-link" aria-label="Google Scholar" target="_blank" rel="noopener noreferrer"><i class="fas fa-graduation-cap"></i></a><a href="https://github.com/inyalala" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a><a href="https://orcid.org/0000-0002-7969-437X" class="social-link" aria-label="ORCID" target="_blank" rel="noopener noreferrer"><i class="fab fa-orcid"></i></a><a href="https://www.researchgate.net/profile/Innocent-Nyalala" class="social-link" aria-label="ResearchGate" target="_blank" rel="noopener noreferrer"><i class="fab fa-researchgate"></i></a></div></div>
         </div>
     </section>
+    </main>
 
     <footer class="footer"><div class="container"><p>&copy; 2025 Innocent Nyalala. All rights reserved.</p><p style="margin-top:var(--space-xs)"><a href="https://www.iitmz.ac.in/" target="_blank">IIT Madras Zanzibar</a> | <a href="https://saaillab.github.io/" target="_blank">SAAIL Lab</a></p><p style="margin-top:var(--space-sm)"><img src="https://visitor-badge.laobi.icu/badge?page_id=inyalala.github.io&left_color=royalblue&right_color=00a86b&left_text=Total%20Visitors" alt="Visitor Count" style="display:inline-block"></p></div></footer>
     <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
