@@ -226,6 +226,24 @@ ul,ol{list-style:none}
 .news-link-icon{color:var(--text-muted);font-size:0.9rem;transition:color var(--transition-fast)}
 .news-card:hover .news-link-icon{color:var(--primary)}
 
+.news-slider-container{position:relative;padding:0 50px}
+.news-slider-wrapper{overflow:hidden;width:100%}
+.news-slider{display:flex;transition:transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);gap:var(--space-lg)}
+.news-slide{flex:0 0 calc(33.333% - var(--space-lg));min-width:calc(33.333% - var(--space-lg))}
+.news-slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:var(--radius-full);background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition-fast);z-index:10;box-shadow:var(--shadow-md)}
+.news-slider-btn:hover{background:var(--primary);color:var(--text-inverse);transform:translateY(-50%) scale(1.1)}
+.news-slider-btn:disabled{opacity:0.3;cursor:not-allowed}
+.news-slider-btn:disabled:hover{background:var(--bg-card);color:var(--text-primary);transform:translateY(-50%)}
+.news-slider-btn-prev{left:0}
+.news-slider-btn-next{right:0}
+.news-slider-dots{display:flex;justify-content:center;gap:8px;margin-top:var(--space-lg)}
+.news-slider-dot{width:8px;height:8px;border-radius:var(--radius-full);background:var(--border-color);cursor:pointer;transition:all var(--transition-fast)}
+.news-slider-dot:hover{background:var(--text-muted)}
+.news-slider-dot.active{background:var(--primary);width:24px}
+
+@media (max-width: 1024px){.news-slide{flex:0 0 calc(50% - var(--space-lg));min-width:calc(50% - var(--space-lg))}}
+@media (max-width: 768px){.news-slide{flex:0 0 100%;min-width:100%}.news-slider-container{padding:0 40px}.news-slider-btn{width:32px;height:32px;font-size:0.9rem}}
+
 .conference-card{background:var(--bg-card);border-radius:var(--radius-lg);padding:var(--space-lg);border:1px solid var(--border-color);display:flex;gap:var(--space-lg);align-items:flex-start;transition:all var(--transition-normal)}
 .conference-card:hover{box-shadow:var(--shadow-md);transform:translateX(5px)}
 .conference-date-box{background:var(--primary-gradient);color:var(--text-inverse);padding:var(--space-md);border-radius:var(--radius-md);text-align:center;min-width:80px}
