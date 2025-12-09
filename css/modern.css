@@ -511,3 +511,124 @@ img[loading="lazy"]:not(.loaded) {
 .pwa-mode body {
     padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* ==========================================
+   ACCESSIBILITY - SKIP LINK
+   ========================================== */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10000;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 10px;
+    left: 10px;
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ==========================================
+   MODERN CSS FEATURES
+   ========================================== */
+
+/* Scroll Snap */
+.news-slider {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.news-slide {
+    scroll-snap-align: start;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Smooth Scrolling */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000;
+        --text-primary: #000;
+        --bg-primary: #fff;
+    }
+}
+
+/* Dark Mode Preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --primary: #60a5fa;
+        --bg-primary: #0f172a;
+        --text-primary: #f1f5f9;
+    }
+}
+
+/* Scroll-driven Animations */
+@supports (animation-timeline: view()) {
+    .animate-on-scroll {
+        animation: fadeInUp linear;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* View Transitions API */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
+/* Container Queries Support */
+@container (min-width: 700px) {
+    .news-card {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: var(--space-md);
+    }
+}
