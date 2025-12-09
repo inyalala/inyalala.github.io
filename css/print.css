@@ -1,0 +1,273 @@
+/**
+ * PRINT STYLESHEET OPTIMIZATION
+ * Optimized for printing academic profiles
+ */
+
+@media print {
+    /* Reset and Base */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        font-family: "Times New Roman", serif;
+    }
+
+    /* Hide non-essential elements */
+    .navbar,
+    .nav-toggle,
+    .theme-toggle,
+    .back-to-top,
+    .scroll-progress,
+    .loading,
+    .news-slider-btn,
+    .news-slider-dots,
+    .copy-email-btn,
+    .social-links,
+    .hero-buttons,
+    .link-spinner,
+    .toast,
+    footer {
+        display: none !important;
+    }
+
+    /* Page breaks */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    img, figure, table {
+        page-break-inside: avoid;
+    }
+
+    .section {
+        page-break-inside: avoid;
+    }
+
+    .publication-card,
+    .conference-card,
+    .card {
+        page-break-inside: avoid;
+    }
+
+    /* Links */
+    a {
+        color: #000 !important;
+        text-decoration: none;
+    }
+
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    /* Don't show URLs for internal links */
+    a[href^="#"]::after,
+    a[href^="mailto:"]::after {
+        content: "";
+    }
+
+    /* Hero section */
+    .hero {
+        text-align: center;
+        margin-bottom: 20pt;
+    }
+
+    .hero-image img {
+        max-width: 150pt;
+        margin: 0 auto;
+    }
+
+    .hero-title {
+        font-size: 24pt;
+        margin: 10pt 0;
+    }
+
+    .hero-subtitle {
+        font-size: 14pt;
+        margin-bottom: 10pt;
+    }
+
+    /* Stats */
+    .stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 20pt;
+        margin: 15pt 0;
+        border-top: 1pt solid #ccc;
+        border-bottom: 1pt solid #ccc;
+        padding: 10pt 0;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 16pt;
+        font-weight: bold;
+    }
+
+    .stat-label {
+        font-size: 10pt;
+    }
+
+    /* Sections */
+    .section {
+        margin-bottom: 20pt;
+    }
+
+    .section-title {
+        font-size: 18pt;
+        border-bottom: 2pt solid #000;
+        padding-bottom: 5pt;
+        margin-bottom: 10pt;
+    }
+
+    .section-subtitle {
+        font-size: 11pt;
+        color: #666;
+        margin-bottom: 10pt;
+    }
+
+    /* Publications */
+    .publication-card {
+        margin-bottom: 15pt;
+        padding: 10pt;
+        border-left: 3pt solid #000;
+    }
+
+    .publication-title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-bottom: 5pt;
+    }
+
+    .publication-authors {
+        font-size: 10pt;
+        margin-bottom: 3pt;
+    }
+
+    .publication-journal {
+        font-size: 10pt;
+        font-style: italic;
+        margin-bottom: 3pt;
+    }
+
+    .publication-impact {
+        font-size: 9pt;
+        color: #666;
+    }
+
+    .highlight {
+        text-decoration: underline;
+    }
+
+    /* Timeline items */
+    .timeline-item {
+        margin-bottom: 10pt;
+    }
+
+    .timeline-date {
+        font-weight: bold;
+        font-size: 10pt;
+    }
+
+    .timeline-title {
+        font-size: 11pt;
+        margin: 3pt 0;
+    }
+
+    /* Cards */
+    .card {
+        margin-bottom: 15pt;
+        padding: 10pt;
+        border: 1pt solid #ccc;
+    }
+
+    /* Tags */
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5pt;
+        margin: 5pt 0;
+    }
+
+    .tag {
+        border: 1pt solid #000;
+        padding: 2pt 5pt;
+        font-size: 9pt;
+    }
+
+    /* Contact info */
+    .contact-info {
+        margin-bottom: 20pt;
+    }
+
+    .contact-item {
+        margin-bottom: 10pt;
+    }
+
+    .contact-icon {
+        display: none;
+    }
+
+    /* Hide map */
+    .map-container {
+        display: none;
+    }
+
+    /* Grid layouts for print */
+    .grid-2,
+    .grid-3 {
+        display: block;
+    }
+
+    .grid-2 > *,
+    .grid-3 > * {
+        margin-bottom: 10pt;
+    }
+
+    /* Year dividers */
+    .year-divider {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 15pt 0 10pt;
+        border-bottom: 1pt solid #ccc;
+    }
+
+    /* News items */
+    .news-slider-container {
+        display: none;
+    }
+
+    /* Add header to each page */
+    @page {
+        margin: 2cm;
+
+        @top-center {
+            content: "Dr. Innocent Nyalala - Academic Profile";
+            font-size: 10pt;
+            color: #666;
+        }
+
+        @bottom-right {
+            content: "Page " counter(page) " of " counter(pages);
+            font-size: 9pt;
+        }
+    }
+
+    /* First page no header */
+    @page :first {
+        @top-center {
+            content: none;
+        }
+    }
+}
