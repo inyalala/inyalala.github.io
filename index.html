@@ -21,6 +21,9 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: https://visitor-badge.laobi.icu https://img.shields.io https://komarev.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-src https://www.google.com">
     <link rel="alternate" hreflang="en" href="https://inyalala.github.io/">
+    <link rel="alternate" hreflang="sw" href="https://inyalala.github.io/?lang=sw">
+    <link rel="alternate" hreflang="zh" href="https://inyalala.github.io/?lang=zh">
+    <link rel="alternate" hreflang="x-default" href="https://inyalala.github.io/">
     <meta property="og:type" content="profile">
     <meta property="og:url" content="https://inyalala.github.io/">
     <meta property="og:site_name" content="Dr. Innocent Nyalala - AI Researcher">
@@ -65,6 +68,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="css/modern.min.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
     <noscript><link rel="stylesheet" href="css/modern.min.css"></noscript>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM25HEGWNW"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-BM25HEGWNW')</script>
@@ -363,13 +367,13 @@
         <div class="container">
             <a href="#" class="nav-brand">Innocent Nyalala</a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#profile" class="nav-link active"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                <li><a href="#news" class="nav-link"><i class="fas fa-newspaper"></i><span>News</span></a></li>
-                <li><a href="#research" class="nav-link"><i class="fas fa-flask"></i><span>Research</span></a></li>
-                <li><a href="#publications" class="nav-link"><i class="fas fa-book"></i><span>Publications</span></a></li>
-                <li><a href="#conferences" class="nav-link"><i class="fas fa-users"></i><span>Conferences</span></a></li>
-                <li><a href="#teaching" class="nav-link"><i class="fas fa-chalkboard-teacher"></i><span>Teaching</span></a></li>
-                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
+                <li><a href="#profile" class="nav-link active"><i class="fas fa-user"></i><span data-i18n="nav.profile">Profile</span></a></li>
+                <li><a href="#news" class="nav-link"><i class="fas fa-newspaper"></i><span data-i18n="nav.news">News</span></a></li>
+                <li><a href="#research" class="nav-link"><i class="fas fa-flask"></i><span data-i18n="nav.research">Research</span></a></li>
+                <li><a href="#publications" class="nav-link"><i class="fas fa-book"></i><span data-i18n="nav.publications">Publications</span></a></li>
+                <li><a href="#conferences" class="nav-link"><i class="fas fa-users"></i><span data-i18n="nav.conferences">Conferences</span></a></li>
+                <li><a href="#teaching" class="nav-link"><i class="fas fa-chalkboard-teacher"></i><span data-i18n="nav.teaching">Teaching</span></a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i><span data-i18n="nav.contact">Contact</span></a></li>
             </ul>
             <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
         </div>
@@ -408,7 +412,7 @@
 
     <section id="news" class="section section-alt">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Latest News</h2><p class="section-subtitle">Recent updates, achievements, and announcements</p></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.news.title">Latest News</h2><p class="section-subtitle" data-i18n="section.news.subtitle">Recent updates, achievements, and announcements</p></div>
             <div class="news-slider-container" role="region" aria-label="Latest news and achievements carousel">
                 <button class="news-slider-btn news-slider-btn-prev" aria-label="Previous news" aria-controls="news-slider"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
                 <div class="news-slider-wrapper">
@@ -449,7 +453,7 @@
 
     <section id="research" class="section section-alt">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Research</h2><p class="section-subtitle">Advancing AI for sustainable development and real-world impact</p></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.research.title">Research</h2><p class="section-subtitle" data-i18n="section.research.subtitle">Advancing AI for sustainable development and real-world impact</p></div>
             <div class="card animate-on-scroll" style="margin-bottom:var(--space-xl)"><h3><i class="fas fa-search" style="color:var(--primary)"></i> Research Interests</h3><div class="tags" style="margin-top:var(--space-sm)"><span class="tag">Artificial Intelligence (AI)</span><span class="tag">Computer Vision</span><span class="tag">Machine Learning (ML)</span><span class="tag">Deep Learning</span><span class="tag">Natural Language Processing (NLP)</span><span class="tag">Internet of Things (IoT)</span><span class="tag">Robotics</span><span class="tag">Digital Image Processing</span><span class="tag">Embedded Systems</span><span class="tag">Data Science</span><span class="tag">Agricultural Technology</span><span class="tag">Healthcare Informatics</span></div></div>
             <h3 style="margin-bottom:var(--space-lg);text-align:center"><i class="fas fa-project-diagram" style="color:var(--primary)"></i> Current Research Projects</h3>
             <div class="grid-2" style="margin-bottom:var(--space-xl)">
@@ -471,7 +475,7 @@
 
     <section id="publications" class="section">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Publications</h2><p class="section-subtitle">Selected peer-reviewed publications in top-tier journals</p></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.publications.title">Publications</h2><p class="section-subtitle" data-i18n="section.publications.subtitle">Selected peer-reviewed publications in top-tier journals</p></div>
             <div class="year-divider animate-on-scroll"><h3>2025</h3></div>
             <div class="publication-card animate-on-scroll"><div class="publication-title"><a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank">Rectifying the extremely weakened signals for cassava leaf disease detection</a></div><div class="publication-authors">Zhang Jiayu, Baohua Zhang, <span class="highlight">Innocent Nyalala</span>, Peter Mecha, Junlong Chen, Kunjie Chen, Junfeng Gao</div><div class="publication-journal">Computers and Electronics in Agriculture, vol. 232, pp. 110107, May 2025</div><span class="publication-impact">Impact Factor: 7.7</span><div class="publication-actions"><a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank" class="pub-btn">DOI <i class="fas fa-external-link-alt"></i></a></div></div>
             <div class="year-divider animate-on-scroll"><h3>2024</h3></div>
@@ -487,7 +491,7 @@
 
     <section id="conferences" class="section section-alt">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Conferences & Speaking</h2><p class="section-subtitle">Keynotes, presentations, and academic engagements</p></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.conferences.title">Conferences & Speaking</h2><p class="section-subtitle" data-i18n="section.conferences.subtitle">Keynotes, presentations, and academic engagements</p></div>
             <div class="grid-2">
                 <div class="conference-card animate-on-scroll"><div class="conference-date-box"><div class="month">Nov</div><div class="year">2025</div></div><div class="conference-info"><h4>AI for Sustainable Agriculture Summit</h4><p>Keynote on "Transforming East African Agriculture through Ethical AI"</p><p class="location"><i class="fas fa-map-marker-alt"></i> Zanzibar, Tanzania</p><span class="conference-type keynote">Keynote Speaker</span></div></div>
                 <div class="conference-card animate-on-scroll"><div class="conference-date-box"><div class="month">Jul</div><div class="year">2025</div></div><div class="conference-info"><h4>Zanzibar Innovation Day</h4><p>Panel discussion on AI research and innovation in East Africa</p><p class="location"><i class="fas fa-map-marker-alt"></i> IIT Madras Zanzibar</p><span class="conference-type presentation">Panel Discussion</span></div></div>
@@ -500,7 +504,7 @@
 
     <section id="teaching" class="section">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Education & Teaching</h2></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.teaching.title">Education & Teaching</h2></div>
             <div class="grid-2">
                 <div class="animate-on-scroll"><h3 style="margin-bottom:var(--space-md)"><i class="fas fa-graduation-cap" style="color:var(--primary)"></i> Education</h3><div class="timeline"><div class="timeline-item"><span class="timeline-date">2017 - 2023</span><h4 class="timeline-title">PhD in Engineering</h4><p class="timeline-subtitle">Agricultural Electrification & Automation</p><p><a href="https://www.njau.edu.cn/" target="_blank">Nanjing Agricultural University</a>, China</p></div><div class="timeline-item"><span class="timeline-date">2013 - 2016</span><h4 class="timeline-title">M.Sc. in Engineering</h4><p class="timeline-subtitle">Computer Science & Technology</p><p><a href="https://www.njau.edu.cn/" target="_blank">Nanjing Agricultural University</a>, China</p></div><div class="timeline-item"><span class="timeline-date">2009 - 2012</span><h4 class="timeline-title">Bachelor in BMIT</h4><p class="timeline-subtitle">Information Technology</p><p><a href="https://kabarak.ac.ke/" target="_blank">Kabarak University</a>, Kenya</p></div></div></div>
                 <div class="animate-on-scroll"><h3 style="margin-bottom:var(--space-md)"><i class="fas fa-briefcase" style="color:var(--primary)"></i> Experience</h3><div class="timeline"><div class="timeline-item"><span class="timeline-date">Oct 2024 - Present</span><h4 class="timeline-title">Assistant Professor, Data Science and AI</h4><p><a href="https://www.iitmz.ac.in/" target="_blank">IIT Madras Zanzibar</a>, Tanzania</p></div><div class="timeline-item"><span class="timeline-date">May 2025 - Present</span><h4 class="timeline-title">Associate Research Fellow</h4><p><a href="https://wsai.iitm.ac.in/" target="_blank">Wadhwani School of Data Science & AI, IIT Madras Chennai</a>, India</p></div><div class="timeline-item"><span class="timeline-date">Apr 2022 - Dec 2024</span><h4 class="timeline-title">Part-Time Lecturer, Computer Science</h4><p><a href="https://computerscience.egerton.ac.ke/" target="_blank">Egerton University</a>, Kenya</p></div><div class="timeline-item"><span class="timeline-date">2017 - 2023</span><h4 class="timeline-title">Doctoral Researcher</h4><p><a href="https://www.njau.edu.cn/" target="_blank">Nanjing Agricultural University</a>, China</p></div></div></div>
@@ -532,7 +536,7 @@
 
     <section id="contact" class="section">
         <div class="container">
-            <div class="section-header"><h2 class="section-title">Contact</h2><p class="section-subtitle">Let's connect and collaborate</p></div>
+            <div class="section-header"><h2 class="section-title" data-i18n="section.contact.title">Contact</h2><p class="section-subtitle" data-i18n="section.contact.subtitle">Let's connect and collaborate</p></div>
             <div class="contact-grid">
                 <div class="contact-info animate-on-scroll">
                     <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-text"><h4>Primary Email</h4><a href="mailto:innocent@iitmz.ac.in">innocent@iitmz.ac.in</a></div></div>
@@ -559,5 +563,9 @@
     <script defer src="js/web-vitals.js"></script>
     <!-- Custom Event Tracking -->
     <script defer src="js/event-tracking.js"></script>
+    <!-- Quick Enhancements -->
+    <script defer src="js/quick-enhancements.js"></script>
+    <!-- Internationalization -->
+    <script defer src="js/i18n.js"></script>
 </body>
 </html>
