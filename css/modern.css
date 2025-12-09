@@ -337,7 +337,7 @@ ul,ol{list-style:none}
 .stat-number{font-size:1.5rem}
 .conference-card{flex-direction:column;text-align:center}
 .theme-toggle{bottom:80px;right:20px;width:45px;height:45px}
-.back-to-top{right:20px;width:45px;height:45px}
+.back-to-top{bottom:20px;right:20px;width:45px;height:45px}
 }
 
 @media print{.navbar,.theme-toggle,.back-to-top,.scroll-progress,.loading{display:none!important}.hero{min-height:auto;padding:var(--space-lg)}body{background:white;color:black}.card,.publication-card{box-shadow:none;border:1px solid #ddd}}
