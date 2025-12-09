@@ -42,8 +42,19 @@
     <link rel="canonical" href="https://inyalala.github.io/">
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <!-- Progressive Web App -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="I. Nyalala">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-192x192.png">
+    <meta name="msapplication-TileColor" content="#0066cc">
+    <meta name="msapplication-TileImage" content="/assets/icon-144x144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
     <!-- Performance Optimization -->
-    <link rel="preload" href="css/modern.css" as="style">
+    <!-- Critical CSS inlined for faster initial render -->
+    <link rel="preload" href="css/modern.min.css" as="style">
     <link rel="preload" href="images/Photo.webp" as="image">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -53,9 +64,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/modern.css">
+    <link rel="stylesheet" href="css/modern.min.css">
+    <noscript><link rel="stylesheet" href="css/modern.min.css"></noscript>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM25HEGWNW"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-BM25HEGWNW')</script>
+    <script defer src="js/image-optimization.js"></script>
+    <script defer src="js/pwa-register.js"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -279,19 +293,19 @@
                 <div class="news-slider-wrapper">
                     <div class="news-slider">
                         <div class="news-slide">
-                            <a href="https://link.springer.com/journal/44163/editorial-board" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/discover-ai-editorialdiscover-ai-editorial.webp" alt="Editorial Board Member - Discover Artificial Intelligence" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> December 2025</div><h3 class="news-title">Appointed as Editorial Board Member - Discover Artificial Intelligence</h3><p class="news-excerpt">Honored to join the editorial board of Discover Artificial Intelligence, a Springer Nature open access journal advancing AI research and innovation.</p><div class="news-footer"><span class="news-tag">Academic Service</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
+                            <a href="https://link.springer.com/journal/44163/editorial-board" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/discover-ai-editorialdiscover-ai-editorial.webp" alt="Editorial Board Member - Discover Artificial Intelligence" loading="lazy" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> December 2025</div><h3 class="news-title">Appointed as Editorial Board Member - Discover Artificial Intelligence</h3><p class="news-excerpt">Honored to join the editorial board of Discover Artificial Intelligence, a Springer Nature open access journal advancing AI research and innovation.</p><div class="news-footer"><span class="news-tag">Academic Service</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                         </div>
                         <div class="news-slide">
-                            <a href="https://fumba.town/the-fumba-times/#download-editions?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/fumba-times-mosquito-hunt.webp" alt="Fumba Times Article" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> December 2025</div><h3 class="news-title">Featured in Fumba Times: The Final Mosquito Hunt</h3><p class="news-excerpt">Published article highlighting how AI is helping Zanzibar achieve malaria elimination through innovative technology and smart mosquito traps.</p><div class="news-footer"><span class="news-tag">Media</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
+                            <a href="https://fumba.town/the-fumba-times/#download-editions?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/fumba-times-mosquito-hunt.webp" alt="Fumba Times Article" loading="lazy" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> December 2025</div><h3 class="news-title">Featured in Fumba Times: The Final Mosquito Hunt</h3><p class="news-excerpt">Published article highlighting how AI is helping Zanzibar achieve malaria elimination through innovative technology and smart mosquito traps.</p><div class="news-footer"><span class="news-tag">Media</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                         </div>
                         <div class="news-slide">
-                            <a href="https://indianexpress.com/article/education/iit-madras-zanzibar-campus-first-degree-distribution-ceremony-data-science-artificial-intelligence-batch-2025-jee-main-advanced-10134226/?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/graduation.webp" alt="IIT Madras Zanzibar Graduation Ceremony" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> July 2025</div><h3 class="news-title">IIT Madras Zanzibar First Degree Distribution Ceremony Featured in Indian Express</h3><p class="news-excerpt">Historic graduation ceremony as IIT Madras Zanzibar celebrates its inaugural MTech Data Science and AI batch. Read the full coverage.</p><div class="news-footer"><span class="news-tag">Media Coverage</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
+                            <a href="https://indianexpress.com/article/education/iit-madras-zanzibar-campus-first-degree-distribution-ceremony-data-science-artificial-intelligence-batch-2025-jee-main-advanced-10134226/?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/graduation.webp" alt="IIT Madras Zanzibar Graduation Ceremony" loading="lazy" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> July 2025</div><h3 class="news-title">IIT Madras Zanzibar First Degree Distribution Ceremony Featured in Indian Express</h3><p class="news-excerpt">Historic graduation ceremony as IIT Madras Zanzibar celebrates its inaugural MTech Data Science and AI batch. Read the full coverage.</p><div class="news-footer"><span class="news-tag">Media Coverage</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                         </div>
                         <div class="news-slide">
-                            <a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/Publicaiton_compag.webp" alt="New Publication" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> May 2025</div><h3 class="news-title">New Publication in Computers and Electronics in Agriculture</h3><p class="news-excerpt">Our paper on "Rectifying the extremely weakened signals for cassava leaf disease detection" published (IF: 7.7).</p><div class="news-footer"><span class="news-tag">Publication</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
+                            <a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/Publicaiton_compag.webp" alt="New Publication" loading="lazy" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> May 2025</div><h3 class="news-title">New Publication in Computers and Electronics in Agriculture</h3><p class="news-excerpt">Our paper on "Rectifying the extremely weakened signals for cassava leaf disease detection" published (IF: 7.7).</p><div class="news-footer"><span class="news-tag">Publication</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                         </div>
                         <div class="news-slide">
-                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7251613483815821312/?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/iit_join_Oct2024.webp" alt="Joined IIT Madras" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> October 2024</div><h3 class="news-title">Joined IIT Madras Zanzibar as Assistant Professor</h3><p class="news-excerpt">Thrilled to join IIT Madras Zanzibar Campus as Assistant Professor of Data Science & AI, establishing SAAIL Lab for transformative AI research in East Africa.</p><div class="news-footer"><span class="news-tag">Career Milestone</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
+                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7251613483815821312/?ref=inyalala" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/iit_join_Oct2024.webp" alt="Joined IIT Madras" loading="lazy" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> October 2024</div><h3 class="news-title">Joined IIT Madras Zanzibar as Assistant Professor</h3><p class="news-excerpt">Thrilled to join IIT Madras Zanzibar Campus as Assistant Professor of Data Science & AI, establishing SAAIL Lab for transformative AI research in East Africa.</p><div class="news-footer"><span class="news-tag">Career Milestone</span><span class="news-link-icon"><i class="fas fa-external-link-alt"></i></span></div></div></a>
                         </div>
                     </div>
                 </div>
@@ -304,7 +318,7 @@
     <section class="section">
         <div class="container">
             <div class="lab-highlight animate-on-scroll">
-                <div style="display:inline-block;background:linear-gradient(135deg,#ffffff,#f8f9fa);padding:clamp(15px,4vw,30px) clamp(25px,6vw,50px);border-radius:16px;margin-bottom:var(--space-xl);box-shadow:0 4px 20px rgba(0,0,0,0.08);max-width:90%"><img src="images/saail-logo1.webp" alt="SAAIL Lab Logo" style="width:100%;max-width:320px;height:auto;display:block"></div>
+                <div style="display:inline-block;background:linear-gradient(135deg,#ffffff,#f8f9fa);padding:clamp(15px,4vw,30px) clamp(25px,6vw,50px);border-radius:16px;margin-bottom:var(--space-xl);box-shadow:0 4px 20px rgba(0,0,0,0.08);max-width:90%"><img src="images/saail-logo1.webp" alt="SAAIL Lab Logo" loading="lazy" style="width:100%;max-width:320px;height:auto;display:block"></div>
                 <p style="max-width:800px;margin:0 auto var(--space-lg);font-size:1.1rem;line-height:1.8">Leading transformative AI research for East Africa through ethical innovation, sustainable development, and cutting-edge technology. Our mission is to develop AI solutions that address critical challenges in agriculture and healthcare across the African continent.</p>
                 <div class="tags" style="justify-content:center;margin-bottom:var(--space-lg)"><span class="tag"><i class="fas fa-leaf"></i> Precision Agriculture</span><span class="tag"><i class="fas fa-heartbeat"></i> Healthcare AI</span><span class="tag"><i class="fas fa-brain"></i> Deep Learning</span><span class="tag"><i class="fas fa-globe-africa"></i> Responsible AI</span><span class="tag"><i class="fas fa-language"></i> Swahili NLP</span><span class="tag"><i class="fas fa-link"></i> Blockchain</span></div>
                 <a href="https://saaillab.github.io/" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Explore SAAIL Lab</a>
@@ -416,153 +430,7 @@
     <footer class="footer"><div class="container"><p>&copy; 2025 Innocent Nyalala. All rights reserved.</p><p style="margin-top:var(--space-xs)"><a href="https://www.iitmz.ac.in/" target="_blank">IIT Madras Zanzibar</a> | <a href="https://saaillab.github.io/" target="_blank">SAAIL Lab</a></p><p style="margin-top:var(--space-sm);text-align:center"><img src="https://visitor-badge.laobi.icu/badge?page_id=inyalala.github.io&left_color=royalblue&right_color=00a86b&left_text=Total%20Visitors" alt="Visitor Count" style="display:inline-block;max-width:100%;height:auto"></p></div></footer>
     <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
-    <script>
-        const themeToggle=document.getElementById('themeToggle'),html=document.documentElement,savedTheme=localStorage.getItem('theme')||'light';html.setAttribute('data-theme',savedTheme);themeToggle.addEventListener('click',()=>{const currentTheme=html.getAttribute('data-theme'),newTheme=currentTheme==='light'?'dark':'light';html.setAttribute('data-theme',newTheme);localStorage.setItem('theme',newTheme)});
-        window.addEventListener('load',()=>{document.getElementById('loading').classList.add('hidden')});
-        const navToggle=document.getElementById('navToggle'),navMenu=document.getElementById('navMenu');navToggle.addEventListener('click',()=>{navToggle.classList.toggle('active');navMenu.classList.toggle('active')});document.querySelectorAll('.nav-link').forEach(link=>{link.addEventListener('click',()=>{navToggle.classList.remove('active');navMenu.classList.remove('active')})});
-        const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>50)});
-        const scrollProgress=document.getElementById('scrollProgress');window.addEventListener('scroll',()=>{const scrollPercent=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;scrollProgress.style.width=scrollPercent+'%'});
-        const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.nav-link');window.addEventListener('scroll',()=>{let current='';sections.forEach(section=>{if(scrollY>=section.offsetTop-200)current=section.getAttribute('id')});navLinks.forEach(link=>{link.classList.remove('active');if(link.getAttribute('href').slice(1)===current)link.classList.add('active')})});
-        document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'})})});
-        const backToTop=document.getElementById('backToTop');window.addEventListener('scroll',()=>{backToTop.classList.toggle('visible',window.scrollY>500)});backToTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
-        const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:0.1});document.querySelectorAll('.animate-on-scroll').forEach(el=>{observer.observe(el)});
-
-        // News Slider
-        (function() {
-            const slider = document.querySelector('.news-slider');
-            const slides = document.querySelectorAll('.news-slide');
-            const prevBtn = document.querySelector('.news-slider-btn-prev');
-            const nextBtn = document.querySelector('.news-slider-btn-next');
-            const dotsContainer = document.querySelector('.news-slider-dots');
-
-            if (!slider || slides.length === 0) return;
-
-            let currentIndex = 0;
-            let slidesPerView = 1;
-            let autoplayInterval;
-
-            // Calculate slides per view based on screen size
-            function updateSlidesPerView() {
-                const width = window.innerWidth;
-                if (width >= 1024) {
-                    slidesPerView = 3;
-                } else if (width >= 768) {
-                    slidesPerView = 2;
-                } else {
-                    slidesPerView = 1;
-                }
-            }
-
-            // Create dots
-            function createDots() {
-                dotsContainer.innerHTML = '';
-                const totalDots = Math.ceil(slides.length / slidesPerView);
-                for (let i = 0; i < totalDots; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('news-slider-dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.addEventListener('click', () => goToSlide(i));
-                    dotsContainer.appendChild(dot);
-                }
-            }
-
-            // Update dots
-            function updateDots() {
-                const dots = document.querySelectorAll('.news-slider-dot');
-                const activeIndex = Math.floor(currentIndex / slidesPerView);
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === activeIndex);
-                });
-            }
-
-            // Update buttons state
-            function updateButtons() {
-                if (prevBtn && nextBtn) {
-                    prevBtn.disabled = currentIndex === 0;
-                    nextBtn.disabled = currentIndex >= slides.length - slidesPerView;
-                }
-            }
-
-            // Go to specific slide
-            function goToSlide(index) {
-                currentIndex = index * slidesPerView;
-                if (currentIndex > slides.length - slidesPerView) {
-                    currentIndex = slides.length - slidesPerView;
-                }
-                if (currentIndex < 0) currentIndex = 0;
-
-                const slideWidth = slides[0].offsetWidth;
-                const gap = parseInt(getComputedStyle(slider).gap) || 0;
-                const offset = -(currentIndex * (slideWidth + gap));
-                slider.style.transform = `translateX(${offset}px)`;
-
-                updateDots();
-                updateButtons();
-                resetAutoplay();
-            }
-
-            // Next slide
-            function nextSlide() {
-                if (currentIndex < slides.length - slidesPerView) {
-                    currentIndex++;
-                    goToSlide(Math.floor(currentIndex / slidesPerView));
-                }
-            }
-
-            // Previous slide
-            function prevSlide() {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    goToSlide(Math.floor(currentIndex / slidesPerView));
-                }
-            }
-
-            // Autoplay
-            function startAutoplay() {
-                autoplayInterval = setInterval(() => {
-                    if (currentIndex >= slides.length - slidesPerView) {
-                        currentIndex = 0;
-                        goToSlide(0);
-                    } else {
-                        nextSlide();
-                    }
-                }, 5000);
-            }
-
-            function resetAutoplay() {
-                clearInterval(autoplayInterval);
-                startAutoplay();
-            }
-
-            // Event listeners
-            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-
-            // Handle window resize
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    const oldSlidesPerView = slidesPerView;
-                    updateSlidesPerView();
-                    if (oldSlidesPerView !== slidesPerView) {
-                        currentIndex = 0;
-                        createDots();
-                        goToSlide(0);
-                    }
-                }, 250);
-            });
-
-            // Pause autoplay on hover
-            slider.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-            slider.addEventListener('mouseleave', startAutoplay);
-
-            // Initialize
-            updateSlidesPerView();
-            createDots();
-            updateButtons();
-            startAutoplay();
-        })();
-    </script>
+    <!-- Main JavaScript Bundle - Minified for Performance -->
+    <script defer src="js/main-bundle.min.js"></script>
 </body>
 </html>
