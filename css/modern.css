@@ -297,8 +297,66 @@ ul,ol{list-style:none}
 .contact-text h4{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-xs)}
 .contact-text p,.contact-text a{color:var(--text-secondary);font-size:0.95rem}
 .contact-text a:hover{color:var(--primary)}
-.map-container{border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border-color)}
-.map-container iframe{width:100%;height:400px;display:block}
+.map-container{
+    border-radius:var(--radius-xl);
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
+    border:1px solid var(--border-color);
+    position: relative;
+}
+
+.map-container iframe{
+    width:100%;
+    height:400px;
+    display:block;
+    pointer-events: none;
+}
+
+.map-container.active iframe{
+    pointer-events: auto;
+}
+
+.map-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+}
+
+.map-overlay.hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.map-overlay-message{
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    pointer-events: none;
+}
+
+/* Mobile specific: always require click to interact */
+@media (max-width: 768px) {
+    .map-container iframe{
+        pointer-events: none;
+    }
+
+    .map-container.active iframe{
+        pointer-events: auto;
+    }
+}
 
 .footer{background:var(--bg-secondary);padding:var(--space-2xl) var(--space-lg);text-align:center;border-top:1px solid var(--border-color)}
 .footer p{color:var(--text-muted);font-size:0.9rem}
@@ -785,110 +843,5 @@ img[loading="lazy"]:not(.loaded) {
 
     .email-with-copy {
         flex-wrap: wrap;
-    }
-}
-
-/* ==========================================
-   LANGUAGE SWITCHER (i18n)
-   ========================================== */
-.language-switcher {
-    position: fixed;
-    bottom: 170px;
-    right: 30px;
-    z-index: 1000;
-}
-
-.lang-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-full);
-    padding: 10px 16px;
-    cursor: pointer;
-    box-shadow: var(--shadow-lg);
-    transition: all var(--transition-normal);
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.lang-toggle:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-xl);
-}
-
-.lang-toggle i {
-    font-size: 1.1rem;
-    color: var(--primary);
-}
-
-.lang-menu {
-    position: absolute;
-    bottom: 60px;
-    right: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xl);
-    min-width: 150px;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all var(--transition-normal);
-}
-
-.lang-menu.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.lang-option {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    background: none;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--text-primary);
-}
-
-.lang-option:hover {
-    background: var(--bg-secondary);
-}
-
-.lang-option.active {
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-}
-
-@media (max-width: 768px) {
-    .language-switcher {
-        bottom: auto;
-        top: 80px;
-        right: 20px;
-    }
-
-    .lang-menu {
-        bottom: auto;
-        top: 50px;
-    }
-
-    .lang-toggle {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-    }
-
-    .current-lang {
-        display: none;
     }
 }
