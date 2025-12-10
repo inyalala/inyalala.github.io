@@ -324,6 +324,42 @@
     };
 
     // ========================================
+    // MAP INTERACTION HANDLER
+    // ========================================
+    const MapInteraction = {
+        init: function() {
+            const mapContainer = document.querySelector('.map-container');
+            const mapOverlay = document.querySelector('.map-overlay');
+
+            if (mapContainer && mapOverlay) {
+                // Click to activate map
+                mapOverlay.addEventListener('click', function() {
+                    mapContainer.classList.add('active');
+                    mapOverlay.classList.add('hidden');
+                });
+
+                // Reset on mouseout (desktop only)
+                if (window.innerWidth > 768) {
+                    mapContainer.addEventListener('mouseleave', function() {
+                        mapContainer.classList.remove('active');
+                        mapOverlay.classList.remove('hidden');
+                    });
+                }
+
+                // Prevent scroll issues on mobile
+                const iframe = mapContainer.querySelector('iframe');
+                if (iframe) {
+                    iframe.addEventListener('touchstart', function(e) {
+                        if (!mapContainer.classList.contains('active')) {
+                            e.preventDefault();
+                        }
+                    }, { passive: false });
+                }
+            }
+        }
+    };
+
+    // ========================================
     // INITIALIZATION
     // ========================================
     function init() {
@@ -336,6 +372,7 @@
         BackToTop.init();
         AnimationObserver.init();
         NewsSlider.init();
+        MapInteraction.init();
     }
 
     // Run initialization
