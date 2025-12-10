@@ -363,10 +363,51 @@ ul,ol{list-style:none}
 .footer a{color:var(--primary)}
 .footer a:hover{text-decoration:underline}
 
-.back-to-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--primary-gradient);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:all var(--transition-normal);box-shadow:var(--shadow-lg);z-index:1000}
-.back-to-top.visible{opacity:1;visibility:visible}
-.back-to-top:hover{transform:translateY(-5px)}
-.back-to-top i{color:var(--text-inverse);font-size:1.25rem}
+.back-to-top{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:56px;
+    height:56px;
+    background:var(--primary-gradient);
+    border-radius:var(--radius-full);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    transition:all var(--transition-normal);
+    box-shadow:0 4px 20px rgba(0,102,204,0.4);
+    z-index:1000;
+}
+
+.back-to-top.visible{
+    opacity:1;
+    visibility:visible;
+    animation: fadeInUp 0.5s ease, pulseButton 2s ease-in-out 0.5s 3;
+}
+
+.back-to-top:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 6px 25px rgba(0,102,204,0.5);
+}
+
+.back-to-top i{
+    color:var(--text-inverse);
+    font-size:1.4rem;
+}
+
+@keyframes pulseButton {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(0,102,204,0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(0,102,204,0.6);
+    }
+}
 
 .animate-on-scroll{opacity:0;transform:translateY(30px);transition:all 0.6s ease}
 .animate-on-scroll.visible{opacity:1;transform:translateY(0)}
@@ -394,8 +435,21 @@ ul,ol{list-style:none}
 .stat-item{min-width:100px;padding:var(--space-sm) var(--space-md)}
 .stat-number{font-size:1.5rem}
 .conference-card{flex-direction:column;text-align:center}
-.theme-toggle{bottom:80px;right:20px;width:45px;height:45px}
-.back-to-top{bottom:20px;right:20px;width:45px;height:45px}
+.theme-toggle{bottom:90px;right:20px;width:48px;height:48px}
+.back-to-top{
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    box-shadow:0 6px 25px rgba(0,102,204,0.5);
+}
+.back-to-top i{
+    font-size:1.5rem;
+}
+/* Ensure button is always tappable and visible */
+.back-to-top.visible {
+    opacity: 1 !important;
+}
 }
 
 @media print{.navbar,.theme-toggle,.back-to-top,.scroll-progress,.loading{display:none!important}.hero{min-height:auto;padding:var(--space-lg)}body{background:white;color:black}.card,.publication-card{box-shadow:none;border:1px solid #ddd}}
