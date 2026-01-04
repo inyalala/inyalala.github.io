@@ -59,4 +59,4 @@ To run locally, simply open `index.html` in a web browser. No build process requ
 
 ## License
 
-© 2025 Dr. Innocent Nyalala. All rights reserved.
+© 2026 Dr. Innocent Nyalala. All rights reserved.
