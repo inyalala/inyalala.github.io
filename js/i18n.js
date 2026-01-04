@@ -52,7 +52,7 @@
                 'contact.secondaryEmail': 'Secondary Email',
                 'contact.phone': 'Phone',
                 'contact.office': 'Office Address',
-                'footer.rights': '© 2025 Innocent Nyalala. All rights reserved.',
+                'footer.rights': '© 2026 Innocent Nyalala. All rights reserved.',
                 'toast.copied': 'Email copied to clipboard!',
                 'toast.offline': 'You are offline. Some features may not work.',
                 'toast.online': 'Back online!'
@@ -90,7 +90,7 @@
                 'contact.secondaryEmail': 'Barua Pepe ya Pili',
                 'contact.phone': 'Simu',
                 'contact.office': 'Anwani ya Ofisi',
-                'footer.rights': '© 2025 Innocent Nyalala. Haki zote zimehifadhiwa.',
+                'footer.rights': '© 2026 Innocent Nyalala. Haki zote zimehifadhiwa.',
                 'toast.copied': 'Barua pepe imenakiliwa kwenye ubao wa kunakili!',
                 'toast.offline': 'Uko nje ya mtandao. Baadhi ya vipengele vinaweza kutofanya kazi.',
                 'toast.online': 'Umerudi mtandaoni!'
@@ -128,7 +128,7 @@
                 'contact.secondaryEmail': '次要邮箱',
                 'contact.phone': '电话',
                 'contact.office': '办公地址',
-                'footer.rights': '© 2025 Innocent Nyalala。保留所有权利。',
+                'footer.rights': '© 2026 Innocent Nyalala。保留所有权利。',
                 'toast.copied': '电子邮件已复制到剪贴板！',
                 'toast.offline': '您已离线。某些功能可能无法使用。',
                 'toast.online': '重新联网！'
