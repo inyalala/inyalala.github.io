@@ -38,16 +38,6 @@
                 }
             });
 
-            // Skip to main content link
-            this.createSkipLink();
-        },
-
-        createSkipLink: function() {
-            const skipLink = document.createElement('a');
-            skipLink.href = '#profile';
-            skipLink.className = 'skip-link';
-            skipLink.textContent = 'Skip to main content';
-            document.body.insertBefore(skipLink, document.body.firstChild);
         }
     };
 
