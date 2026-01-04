@@ -178,6 +178,48 @@ ul,ol{list-style:none}
 .card h3{font-family:var(--font-display);font-size:1.25rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-md);display:flex;align-items:center;gap:var(--space-sm)}
 .card p{color:var(--text-secondary);line-height:1.7}
 
+/* Modern Research Cards */
+.research-card{position:relative;background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-color);transition:all var(--transition-normal);height:280px}
+.research-card:hover{box-shadow:var(--shadow-xl);transform:translateY(-8px)}
+.research-card-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--primary),var(--accent));opacity:0.9}
+.research-card-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:4rem;color:rgba(255,255,255,0.2);transition:all var(--transition-normal)}
+.research-card:hover .research-card-icon{transform:translate(-50%,-50%) scale(1.2);opacity:0.1}
+.research-card-content{position:absolute;inset:0;padding:var(--space-xl);display:flex;flex-direction:column;justify-content:flex-end;color:white}
+.research-card-title{font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-sm)}
+.research-card-title i{font-size:1.1rem}
+.research-card-desc{font-size:0.9rem;line-height:1.6;opacity:0;max-height:0;overflow:hidden;transition:all var(--transition-normal)}
+.research-card:hover .research-card-desc{opacity:1;max-height:200px;margin-top:var(--space-sm)}
+
+/* Modern Collaborator Cards */
+.collab-card{background:var(--bg-card);border-radius:var(--radius-xl);padding:var(--space-lg);border:1px solid var(--border-color);transition:all var(--transition-normal);text-align:center}
+.collab-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px);border-color:var(--primary)}
+.collab-avatar{width:80px;height:80px;margin:0 auto var(--space-md);border-radius:var(--radius-full);background:var(--primary-gradient);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:white;transition:all var(--transition-normal)}
+.collab-card:hover .collab-avatar{transform:scale(1.1)}
+.collab-name{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-xs)}
+.collab-inst{font-size:0.85rem;color:var(--text-muted)}
+.collab-inst a{color:var(--primary);text-decoration:none}
+.collab-inst a:hover{text-decoration:underline}
+
+/* Modern Conference Cards */
+.conf-card{background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-color);transition:all var(--transition-normal);display:flex;flex-direction:column}
+.conf-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px)}
+.conf-header{background:var(--primary-gradient);padding:var(--space-lg);color:white;text-align:center}
+.conf-date{font-size:2rem;font-weight:700;line-height:1}
+.conf-month{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;opacity:0.9}
+.conf-body{padding:var(--space-lg);flex:1;display:flex;flex-direction:column}
+.conf-title{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-sm)}
+.conf-desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.6;flex:1}
+.conf-meta{display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-md);padding-top:var(--space-md);border-top:1px solid var(--border-color)}
+.conf-location{font-size:0.85rem;color:var(--text-muted);display:flex;align-items:center;gap:var(--space-xs)}
+.conf-type{font-size:0.75rem;font-weight:600;padding:var(--space-xs) var(--space-sm);border-radius:var(--radius-sm);background:rgba(0,102,204,0.1);color:var(--primary)}
+
+/* Service Cards */
+.service-card{background:var(--bg-card);border-radius:var(--radius-xl);padding:var(--space-xl);border:1px solid var(--border-color);transition:all var(--transition-normal);text-align:center}
+.service-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px);border-color:var(--primary)}
+.service-icon{width:70px;height:70px;margin:0 auto var(--space-lg);border-radius:var(--radius-full);background:var(--primary-gradient);display:flex;align-items:center;justify-content:center;font-size:1.75rem;color:white;transition:all var(--transition-normal)}
+.service-card:hover .service-icon{transform:scale(1.1) rotate(5deg)}
+.service-card h4{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:var(--space-md)}
+
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-xl)}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-xl)}
 @media(max-width:1024px){.grid-3{grid-template-columns:repeat(2,1fr)}}
