@@ -10,11 +10,13 @@
         // Configuration
         config: {
             newsUpdateDates: {
-                0: '2025-12-05', // Editorial Board Member
-                1: '2025-12-03', // Fumba Times
-                2: '2025-07-15', // Graduation
-                3: '2025-05-20', // Publication
-                4: '2024-10-15'  // Joined IIT
+                0: '2026-04-05', // ICLR 2026 Paper
+                1: '2026-03-30', // EAC STI 2026 Paper
+                2: '2025-12-05', // Editorial Board Member
+                3: '2025-12-03', // Fumba Times
+                4: '2025-07-15', // Graduation
+                5: '2025-05-20', // Publication
+                6: '2024-10-15'  // Joined IIT
             }
         },
 
