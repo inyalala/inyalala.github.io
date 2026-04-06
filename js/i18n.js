@@ -185,7 +185,13 @@
                 </div>
             `;
 
-            document.body.appendChild(switcher);
+            // Insert into navbar before the hamburger toggle
+            const navToggle = document.getElementById('navToggle');
+            if (navToggle && navToggle.parentNode) {
+                navToggle.parentNode.insertBefore(switcher, navToggle);
+            } else {
+                document.body.appendChild(switcher);
+            }
 
             // Event listeners
             const toggle = switcher.querySelector('.lang-toggle');
