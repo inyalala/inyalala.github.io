@@ -479,7 +479,7 @@
                     <div class="news-slider" id="news-slider" role="list" aria-live="polite" aria-atomic="false">
                         <!-- CVPR 2026 — June 2026 (newest) -->
                         <div class="news-slide" role="listitem" aria-label="News item 1 of 9">
-                            <a href="https://openreview.net/pdf?id=V1UbAtXS4M" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/cvpr-cloves-2026.webp" alt="CVPR 2026 V4A Workshop — CLOVES-4603 Paper Acceptance" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> June 2026</div><h3 class="news-title">🎉 SAAIL Lab Paper Accepted at CVPR 2026 — Vision for Agriculture Workshop, Denver</h3><p class="news-excerpt">CLOVES-4603: the first public benchmark dataset for clove quality grading — 4,603 images, 99.67% deep learning accuracy. A proud moment for SAAIL Lab at one of AI's most prestigious venues.</p><div class="news-footer"><span class="news-tag" style="background:rgba(130,20,20,0.12);color:#821414">CVPR 2026 · V4A</span><span class="news-link-icon"><i class="fas fa-file-pdf"></i></span></div></div></a>
+                            <a href="https://openreview.net/pdf?id=V1UbAtXS4M" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/cvpr-cloves-2026.webp" alt="CVPR 2026 V4A Workshop — CLOVES-4603 Paper Acceptance" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> Apr 2026</div><h3 class="news-title">🎉 SAAIL Lab Paper Accepted at CVPR 2026 — Vision for Agriculture Workshop, Denver</h3><p class="news-excerpt">CLOVES-4603: the first public benchmark dataset for clove quality grading — 4,603 images, 99.67% deep learning accuracy. A proud moment for SAAIL Lab at one of AI's most prestigious venues.</p><div class="news-footer"><span class="news-tag" style="background:rgba(130,20,20,0.12);color:#821414">CVPR 2026 · V4A</span><span class="news-link-icon"><i class="fas fa-file-pdf"></i></span></div></div></a>
                         </div>
                         <div class="news-slide" role="listitem" aria-label="News item 2 of 9">
                             <a href="https://www.linkedin.com/posts/iitmzanzibar_trustworthyaiworkshop-iclr2026-trustworthyai-activity-7436630440158912512-rn3H" target="_blank" rel="noopener noreferrer" class="news-card news-card-link"><div class="news-image"><img src="images/iclr-2026-trustworthy-ai.webp" alt="ICLR 2026 Paper Acceptance - Trustworthy AI Workshop" onerror="this.style.display='none'"></div><div class="news-content"><div class="news-date"><i class="fas fa-calendar"></i> April 2026</div><h3 class="news-title">Paper Accepted at ICLR 2026 — Trustworthy AI Workshop, Rio de Janeiro</h3><p class="news-excerpt">Can one framework make AI fairer, more robust, and more generalizable at once? SAAIL Lab's accepted paper at ICLR 2026's Trustworthy AI Workshop says yes — and shows exactly how.</p><div class="news-footer"><span class="news-tag" style="background:rgba(130,20,20,0.12);color:#821414">ICLR 2026</span><span class="news-link-icon"><i class="fab fa-linkedin-in"></i></span></div></div></a>
@@ -1415,15 +1415,16 @@
     <script>
     // Publication filter + show more
     function togglePubs() {
-        const hidden = document.querySelectorAll('.pub-hidden');
         const btn = document.getElementById('pub-more-btn');
-        const showing = hidden[0] && hidden[0].style.display !== 'none' && !hidden[0].classList.contains('pub-hidden-force');
-        if (!showing) {
-            hidden.forEach(el => { el.style.display = 'flex'; });
+        const expanded = btn.dataset.expanded === 'true';
+        if (!expanded) {
+            document.querySelectorAll('.pub-hidden').forEach(el => { el.style.display = 'flex'; });
             btn.innerHTML = '<i class="fas fa-minus"></i> Show Less';
+            btn.dataset.expanded = 'true';
         } else {
-            hidden.forEach(el => { el.style.display = ''; });
+            document.querySelectorAll('.pub-hidden').forEach(el => { el.style.display = ''; });
             btn.innerHTML = '<i class="fas fa-plus"></i> Show More Publications';
+            btn.dataset.expanded = 'false';
         }
     }
     document.addEventListener('DOMContentLoaded', function() {
