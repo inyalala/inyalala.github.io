@@ -125,7 +125,7 @@
       "notebooks": [
         {
           "label": "Notebook",
-          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/pds/00-oop-then-algorithms/notebook.ipynb"
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z2005/00-oop-then-algorithms/notebook.ipynb"
         }
       ],
       "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z2005/00-oop-then-algorithms/lab.html",

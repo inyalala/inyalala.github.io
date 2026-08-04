@@ -19,32 +19,19 @@ This website showcases the academic profile, research work, publications, and ac
 - Precision Agriculture
 - Responsible AI Development
 
-## Website Features
+## Structure
 
-- **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
-- **Modern UI/UX**: Clean, professional interface with smooth animations
-- **SEO Optimized**: Comprehensive meta tags and structured data
-- **Performance**: Fast loading with optimized images and code
-- **Accessibility**: WCAG compliant with proper ARIA labels
+- `index.html` — homepage (profile, latest news, latest lab output, contact)
+- `research/`, `publications/`, `news/`, `courses/` — main content sections
+- `faq/`, `work-with-me/`, `media-kit/` — prospective student/collaborator/press pages
+- `data/` — JSON files driving news, courses, and live metrics (edit these, not the HTML, to update content)
+- `.github/workflows/` — automation for posting news via issue form and refreshing citation metrics
 
-## Technology Stack
+## Technology
 
-- HTML5
-- CSS3 (Custom modern design)
-- Vanilla JavaScript
-- Font Awesome Icons
-- Google Fonts (Inter & Poppins)
-- Structured Data (JSON-LD)
-
-## Sections
-
-1. **Profile**: Academic credentials, affiliations, and statistics
-2. **News**: Latest updates, publications, and achievements
-3. **Research**: Current projects and collaborations
-4. **Publications**: Peer-reviewed publications in top-tier journals
-5. **Conferences**: Speaking engagements and presentations
-6. **Teaching**: Courses and student supervision
-7. **Contact**: Contact information and location
+Static HTML/CSS/JS with Tailwind (CDN) and Font Awesome. No build step. Content that changes
+regularly (news, course listings, citation counts) is data-driven from JSON in `data/` and
+`courses/data/`, not hand-edited in HTML, so it stays consistent across pages.
 
 ## Local Development
 
