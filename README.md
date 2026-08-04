@@ -29,13 +29,27 @@ This website showcases the academic profile, research work, publications, and ac
 
 ## Technology
 
-Static HTML/CSS/JS with Tailwind (CDN) and Font Awesome. No build step. Content that changes
-regularly (news, course listings, citation counts) is data-driven from JSON in `data/` and
-`courses/data/`, not hand-edited in HTML, so it stays consistent across pages.
+Static HTML/JS with Font Awesome. Styling is Tailwind CSS, **compiled and purged at build time**
+(`css/tailwind.css`) rather than loaded from Tailwind's CDN — the CDN build is explicitly
+unsuitable for production (ships the full unminified framework and recompiles in-browser on every
+load). Content that changes regularly (news, course listings, citation counts) is data-driven from
+JSON in `data/` and `courses/data/`, not hand-edited in HTML, so it stays consistent across pages.
 
 ## Local Development
 
-To run locally, simply open `index.html` in a web browser. No build process required.
+Open `index.html` directly in a browser to view the site as-is. If you change any Tailwind
+utility classes in the HTML, rebuild the compiled CSS:
+
+```
+npm install
+npx tailwindcss -i css/tailwind-source.css -o css/tailwind.css --minify
+```
+
+## Editing this site
+
+This is a public repository — anyone can view or fork it, but only accounts explicitly added as
+collaborators can push changes. Currently that is only the repository owner. Branch protection on
+`main` blocks force-pushes as an extra safeguard.
 
 ## Contact
 
