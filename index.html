@@ -291,7 +291,9 @@ tailwind.config = {
           </a>
         </div>
       </div>
-      <!-- Right: Latest Lab Output — 2025 SAAIL papers only -->
+      <!-- Right: Latest Lab Output — reads data/news.json (Conference/Publication
+           items only), same file the Latest News section uses. Nothing here is
+           hand-written, so it can never go stale the way a hardcoded card did. -->
       <div>
         <div class="bg-white/5 border border-white/10 rounded-xl p-6 relative">
           <div class="absolute -top-4 -right-4 bg-gold text-navy p-3 rounded-xl shadow-lg">
@@ -300,23 +302,9 @@ tailwind.config = {
           <h3 class="text-white font-bold mb-1 text-sm uppercase tracking-wider flex items-center gap-2">
             <i class="fas fa-newspaper text-gold"></i>Latest Lab Output
           </h3>
-          <p class="text-gray-500 text-xs mb-5">SAAIL Lab publications · 2025</p>
-          <div class="space-y-4">
-            <div class="bg-black/30 border border-white/5 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-gold text-xs font-bold uppercase tracking-wider">Journal Article</span>
-                <span class="text-gray-500 text-xs">2025 · IF 7.7</span>
-              </div>
-              <p class="text-gray-200 text-sm italic leading-relaxed">"Rectifying the extremely weakened signals for cassava leaf disease detection"</p>
-              <p class="text-gray-400 text-xs mt-2">Zhang J., <span class="text-gold/80">Nyalala I.</span>, et al.</p>
-              <p class="text-gold/60 text-xs mt-1">Computers &amp; Electronics in Agriculture</p>
-              <a href="https://doi.org/10.1016/j.compag.2025.110107" target="_blank" class="inline-flex items-center gap-1 text-gold/70 hover:text-gold text-xs mt-2 transition-colors"><i class="fas fa-external-link-alt text-xs"></i>View Publication</a>
-            </div>
-            <div class="bg-black/20 border border-dashed border-white/10 rounded-lg p-4 text-center">
-              <i class="fas fa-microscope text-gray-600 text-xl mb-2 block"></i>
-              <p class="text-gray-500 text-xs font-medium">Research in progress</p>
-              <p class="text-gray-600 text-xs mt-0.5">More SAAIL Lab papers forthcoming in 2026</p>
-            </div>
+          <p class="text-gray-500 text-xs mb-5" id="lab-output-subtitle">SAAIL Lab publications &amp; presentations</p>
+          <div class="space-y-4" id="lab-output">
+            <p class="text-gray-500 text-xs">Loading latest output...</p>
           </div>
           <a href="publications/" class="mt-5 block text-center text-gold text-xs font-semibold hover:underline">View All 25+ Publications →</a>
         </div>
@@ -505,10 +493,17 @@ tailwind.config = {
           </div>
         </div>
         <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-phone text-gold"></i></div>
+          <div>
+            <p class="font-semibold text-navy text-sm">Phone (Kenya)</p>
+            <p class="text-gray-600 text-sm">+254 791 349 216</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
           <div class="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-map-marker-alt text-gold"></i></div>
           <div>
             <p class="font-semibold text-navy text-sm">Office</p>
-            <p class="text-gray-600 text-sm leading-relaxed">Door 105, Room F1, Engineering Building<br/>IIT Madras Zanzibar Campus<br/>P.O. Box 2496, Zanzibar, Tanzania</p>
+            <p class="text-gray-600 text-sm leading-relaxed">IIT Madras Zanzibar Campus<br/>P.O. Box 2496, Zanzibar, Tanzania</p>
           </div>
         </div>
         <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
@@ -710,6 +705,63 @@ window.addEventListener('scroll', () => {
       if (host) host.innerHTML =
         '<p class="text-gray-400 text-sm">News is unavailable right now. ' +
         '<a href="news/" class="text-gold hover:underline">Open the news page</a>.</p>';
+    });
+})();
+</script>
+
+<!-- Latest Lab Output card. Same data/news.json feed as above, filtered to
+     research output only (Conference/Publication), so this card can never
+     go stale — it always reflects whatever was most recently posted. -->
+<script>
+(function () {
+  'use strict';
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  var RESEARCH_CATEGORIES = { Conference: true, Publication: true };
+
+  function outputCard(n) {
+    var label = n.category === 'Publication' ? 'Journal Article' : n.category + ' Paper';
+    return '<div class="bg-black/30 border border-white/5 rounded-lg p-4">' +
+      '<div class="flex justify-between items-center mb-2">' +
+        '<span class="text-gold text-xs font-bold uppercase tracking-wider">' + esc(label) + '</span>' +
+        '<span class="text-gray-500 text-xs">' + esc(n.dateRange || n.date) + '</span>' +
+      '</div>' +
+      '<p class="text-gray-200 text-sm italic leading-relaxed">' + esc(n.headline) + '</p>' +
+      (n.body ? '<p class="text-gray-400 text-xs mt-2">' + esc(n.body) + '</p>' : '') +
+      (n.link ?
+        '<a href="' + esc(n.link) + '" target="_blank" rel="noopener" ' +
+          'class="inline-flex items-center gap-1 text-gold/70 hover:text-gold text-xs mt-2 transition-colors">' +
+          '<i class="fas fa-external-link-alt text-xs"></i>View</a>'
+        : '') +
+    '</div>';
+  }
+
+  fetch('data/news.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (d) {
+      var items = (d.items || [])
+        .filter(function (n) { return RESEARCH_CATEGORIES[n.category]; })
+        .sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); })
+        .slice(0, 2);
+      var host = document.getElementById('lab-output');
+      var sub = document.getElementById('lab-output-subtitle');
+      if (!host) return;
+      if (items.length) {
+        host.innerHTML = items.map(outputCard).join('');
+        var years = items.map(function (n) { return String(n.date).slice(0, 4); });
+        var uniqueYears = years.filter(function (y, i) { return years.indexOf(y) === i; });
+        if (sub) sub.textContent = 'SAAIL Lab publications & presentations · ' + uniqueYears.join('–');
+      } else {
+        host.innerHTML = '<p class="text-gray-500 text-xs">No research output posted yet.</p>';
+      }
+    })
+    .catch(function () {
+      var host = document.getElementById('lab-output');
+      if (host) host.innerHTML =
+        '<p class="text-gray-500 text-xs">Unavailable right now. ' +
+        '<a href="publications/" class="text-gold hover:underline">See all publications</a>.</p>';
     });
 })();
 </script>
