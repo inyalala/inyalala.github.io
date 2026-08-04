@@ -9,6 +9,7 @@ module.exports = {
     "./news/**/*.html",
     "./publications/**/*.html",
     "./research/**/*.html",
+    "./team/**/*.html",
   ],
   darkMode: "class",
   safelist: [
