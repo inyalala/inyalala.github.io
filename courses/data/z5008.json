@@ -1,0 +1,40 @@
+{
+  "_comment": "SCAFFOLD AWAITING CONTENT. Structure is in place; modules, outcomes and grading are to be filled from the delivered Z5008 outline. Nothing here should be published as fact until reviewed.",
+
+  "code": "Z5008",
+  "title": "Big Data Lab",
+  "program": "MTech",
+  "type": "Lab",
+  "status": "previous",
+  "credits": "",
+  "term": "Mar to Jul 2026",
+  "academicYear": "2025-26",
+
+  "summary": "Hands-on distributed data processing with Hadoop and Spark, covering distributed storage, batch and streaming pipelines, and cluster performance tuning.",
+
+  "meetings": [
+    { "type": "Lab", "when": "TBA", "where": "TBA" }
+  ],
+
+  "prerequisites": [],
+  "outcomes": [],
+  "grading": [],
+  "textbooks": [],
+
+  "policies": {
+    "attendance": "",
+    "lateWork": "",
+    "integrity": "",
+    "aiTools": "",
+    "accommodations": ""
+  },
+
+  "links": {
+    "syllabusPdf": "",
+    "repo": "https://github.com/inyalala/iitmz-teaching",
+    "classroom": "",
+    "discussion": ""
+  },
+
+  "modules": []
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Teaching portal of Dr. Innocent Nyalala, IIT Madras Zanzibar. Course pages, schedules, lecture materials, notebooks, and assignments."/>
+<title>Teaching | Dr. Innocent Nyalala</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="assets/course.css"/>
+<link rel="icon" href="../assets/favicon.ico"/>
+<script>
+tailwind.config={theme:{extend:{colors:{gold:"#C5A059","gold-dark":"#A8813A",navy:"#0a1628","navy-2":"#0f1f38"},fontFamily:{display:["Playfair Display","serif"],sans:["Inter","sans-serif"]}}}};
+</script>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+<!-- NAVBAR -->
+<nav class="bg-navy sticky top-0 z-50 shadow border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0">
+      <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+        <span class="text-gold font-bold text-xs">IIT</span>
+      </div>
+      <div class="leading-tight">
+        <p class="text-white font-bold text-sm">IIT Madras</p>
+        <p class="text-gray-400 text-xs uppercase tracking-widest leading-none">Zanzibar Campus</p>
+      </div>
+    </a>
+    <div class="hidden md:flex nav-ul items-center gap-7 text-sm font-medium">
+      <a href="../index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+      <a href="#courses" class="text-gold active">Courses</a>
+      <a href="../research/index.html" class="text-gray-300 hover:text-white transition-colors">Research</a>
+      <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors">SAAIL Lab</a>
+      <a href="../index.html#contact" class="bg-gold hover:bg-gold-dark text-navy font-bold py-1.5 px-5 rounded-full text-sm transition-colors ml-1">Contact</a>
+    </div>
+    <button onclick="document.getElementById('mobile-menu').classList.toggle('open')" class="md:hidden text-gray-300 p-1.5"><i class="fas fa-bars text-xl"></i></button>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-navy-2 border-t border-white/10 px-4 py-3 space-y-2 text-sm">
+    <a href="../index.html" class="block text-gray-300 py-1.5">Home</a>
+    <a href="#courses" class="block text-gold py-1.5 font-semibold">Courses</a>
+    <a href="../research/index.html" class="block text-gray-300 py-1.5">Research</a>
+    <a href="https://saaillab.github.io/" target="_blank" class="block text-gray-300 py-1.5">SAAIL Lab</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="bg-navy hero-pattern py-14 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <div class="inline-flex items-center gap-1.5 bg-gold/15 border border-gold/30 text-gold text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wider">
+      <i class="fas fa-chalkboard-teacher text-xs"></i>Teaching
+    </div>
+    <h1 class="text-3xl md:text-4xl font-display font-bold text-white mb-3">Courses</h1>
+    <p class="text-gray-300 text-base max-w-2xl mx-auto">Course pages for students at IIT Madras Zanzibar. Each page carries the schedule, lecture materials, notebooks, assignments, and policies for that course.</p>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <section id="courses" class="mb-14">
+    <div id="course-groups">
+      <p class="text-gray-400 text-sm">Loading courses...</p>
+    </div>
+  </section>
+
+  <!-- HOW MATERIALS WORK -->
+  <section id="materials" class="mb-14 scroll-mt-24">
+    <div class="sec-head"><i class="fas fa-folder-open text-gold"></i><h2>Where the Materials Live</h2></div>
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7">
+      <p class="text-sm text-gray-700 leading-relaxed mb-6">All lecture slides, notebooks, lab sheets, and starter code are kept in a single public repository and linked from each course page as the semester progresses. Assignment starter repositories are distributed through GitHub Classroom, and solutions are not published.</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <div class="flex items-start gap-3">
+          <i class="fab fa-github text-gold mt-1"></i>
+          <div>
+            <p class="text-sm font-semibold text-navy mb-0.5">Materials repository</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Slides, notebooks, and code, versioned per offering.</p>
+            <a id="repo-link" href="#" target="_blank" rel="noopener" class="text-xs text-gold font-semibold hover:underline mt-1 inline-block">Open repository</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fas fa-code-branch text-gold mt-1"></i>
+          <div>
+            <p class="text-sm font-semibold text-navy mb-0.5">Assignments</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Issued as GitHub Classroom repositories with automated tests you can run locally before you submit.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fas fa-rotate text-gold mt-1"></i>
+          <div>
+            <p class="text-sm font-semibold text-navy mb-0.5">Updates</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Materials are released as each module begins. Items shown with a dashed outline are not yet published.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <section id="contact-strip">
+    <div class="bg-navy rounded-2xl p-8 text-center">
+      <h2 class="text-white font-display font-bold text-xl mb-2">Questions about a course?</h2>
+      <p id="office-hours-line" class="text-gray-400 text-sm mb-6"></p>
+      <a href="../index.html#contact" class="download-btn inline-flex items-center gap-2 py-2.5 px-6 rounded-lg text-sm">
+        <i class="fas fa-envelope"></i>Contact
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-navy text-gray-400 text-sm border-t border-white/5">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p>&copy; 2026 Dr. Innocent Nyalala</p>
+    <div class="flex items-center gap-6">
+      <a href="../index.html" class="hover:text-gold transition-colors">Profile</a>
+      <a href="../research/index.html" class="hover:text-gold transition-colors">Research</a>
+      <a href="../publications/index.html" class="hover:text-gold transition-colors">Publications</a>
+      <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="hover:text-gold transition-colors">SAAIL Lab</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  };
+  var LABELS = { active: 'Active', upcoming: 'Upcoming', previous: 'Previous' };
+  var GROUPS = [
+    { key: 'active',   heading: 'Currently Running', icon: 'fa-circle-play' },
+    { key: 'upcoming', heading: 'Next Semester',     icon: 'fa-forward' },
+    { key: 'previous', heading: 'Past Offerings',    icon: 'fa-clock-rotate-left' }
+  ];
+
+  function card(c) {
+    return '' +
+    '<a href="' + esc(c.slug) + '/" class="block bg-white rounded-2xl border border-gray-100 shadow-sm card-hover p-7">' +
+      '<div class="flex items-start gap-4 mb-4">' +
+        '<div class="w-11 h-11 rounded-xl bg-navy/5 flex items-center justify-center flex-shrink-0">' +
+          '<i class="fas ' + esc(c.icon || 'fa-book') + ' text-gold"></i></div>' +
+        '<div class="min-w-0 flex-1">' +
+          '<div class="flex flex-wrap items-center gap-2 mb-1.5">' +
+            '<span class="pill pill-code">' + esc(c.code) + '</span>' +
+            '<span class="pill pill-' + esc(c.status) + '">' + esc(LABELS[c.status] || c.status) + '</span>' +
+          '</div>' +
+          '<h3 class="text-base font-bold text-navy leading-snug">' + esc(c.title) + '</h3>' +
+          '<p class="text-gray-500 text-xs mt-1">' + esc(c.program) + ' ' + esc(c.type) + ' &nbsp;·&nbsp; ' + esc(c.term) + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<p class="text-gray-600 text-sm leading-relaxed mb-5">' + esc(c.summary) + '</p>' +
+      '<span class="text-gold text-sm font-semibold inline-flex items-center gap-2">Course page' +
+        '<i class="fas fa-arrow-right text-[11px]"></i></span>' +
+    '</a>';
+  }
+
+  fetch('data/courses.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    var html = GROUPS.map(function (g) {
+      var list = (d.courses || []).filter(function (c) { return c.status === g.key; });
+      if (!list.length) return '';
+      return '<div class="mb-10">' +
+        '<div class="sec-head"><i class="fas ' + g.icon + ' text-gold"></i><h2>' + g.heading + '</h2></div>' +
+        '<div class="grid md:grid-cols-2 gap-6">' + list.map(card).join('') + '</div></div>';
+    }).join('');
+    document.getElementById('course-groups').innerHTML = html ||
+      '<p class="text-gray-500 text-sm">No courses listed.</p>';
+
+    if (d.materialsRepo) document.getElementById('repo-link').setAttribute('href', d.materialsRepo);
+    var i = d.instructor || {};
+    if (i.officeHours) {
+      document.getElementById('office-hours-line').textContent =
+        'Office hours: ' + i.officeHours + (i.office ? ', ' + i.office : '') + '.';
+    }
+  }).catch(function (e) {
+    document.getElementById('course-groups').innerHTML =
+      '<p class="text-red-600 text-sm">Course list could not be loaded (' + esc(e.message) +
+      '). This page must be served over http, not opened from the file system.</p>';
+  });
+})();
+</script>
+</body>
+</html>

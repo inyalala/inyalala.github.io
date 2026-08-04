@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Research — Dr. Innocent Nyalala, SAAIL Lab IIT Madras Zanzibar. AI for Agriculture, Healthcare AI, Swahili NLP, Blockchain for Supply Chains."/>
+<title>Research | Dr. Innocent Nyalala · SAAIL Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="icon" href="../assets/favicon.ico"/>
+<script>
+tailwind.config={theme:{extend:{colors:{gold:"#C5A059","gold-dark":"#A8813A",navy:"#0a1628","navy-2":"#0f1f38","navy-3":"#162040"},fontFamily:{display:["Playfair Display","serif"],sans:["Inter","sans-serif"]}}}};
+</script>
+<style>
+  html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif}
+  .hero-pattern{background-image:radial-gradient(circle at 2px 2px,rgba(197,160,89,.12) 1px,transparent 0);background-size:28px 28px}
+  .nav-ul a{position:relative;padding-bottom:2px}.nav-ul a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#C5A059;transition:width .25s}.nav-ul a:hover::after,.nav-ul a.active::after{width:100%}
+  #mobile-menu{display:none}#mobile-menu.open{display:block}
+  .card-hover{transition:transform .2s,box-shadow .2s}.card-hover:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
+  .domain-pill{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:999px;padding:.45rem 1.1rem;font-size:.8rem;font-weight:500;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s}.domain-pill:hover{background:rgba(197,160,89,.15);border-color:#C5A059;color:#C5A059}
+  .project-img{transition:transform .4s}.project-card:hover .project-img{transform:scale(1.05)}
+</style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+<!-- NAVBAR -->
+<nav class="bg-navy sticky top-0 z-50 shadow border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-2.5 flex-shrink-0">
+      <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center">
+        <span class="text-gold font-bold text-xs">IIT</span>
+      </div>
+      <div class="leading-tight">
+        <p class="text-white font-bold text-sm">IIT Madras</p>
+        <p class="text-xs text-gray-400 leading-none uppercase tracking-widest">Zanzibar Campus</p>
+      </div>
+    </a>
+    <div class="hidden md:flex nav-ul items-center gap-7 text-sm font-medium">
+      <a href="../index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+      <a href="#" class="text-gold active">Research</a>
+      <a href="../courses/" class="text-gray-300 hover:text-white transition-colors">Teaching</a>
+      <a href="../publications/" class="text-gray-300 hover:text-white transition-colors">Publications</a>
+      <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors">SAAIL Lab</a>
+      <a href="../index.html#contact" class="bg-gold hover:bg-gold-dark text-navy font-bold py-1.5 px-5 rounded-full text-sm transition-colors ml-1">Contact</a>
+    </div>
+    <button onclick="document.getElementById('mobile-menu').classList.toggle('open')" class="md:hidden text-gray-300 p-1.5"><i class="fas fa-bars text-xl"></i></button>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-navy-2 border-t border-white/10 px-4 py-3 space-y-2 text-sm">
+    <a href="../index.html" class="block text-gray-300 py-1.5">← Home</a>
+    <a href="#" class="block text-gold font-semibold py-1.5">Research</a>
+    <a href="../courses/" class="block text-gray-300 py-1.5">Teaching</a>
+    <a href="../publications/" class="block text-gray-300 py-1.5">Publications</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative bg-navy-3 overflow-hidden">
+  <div class="absolute inset-0 hero-pattern opacity-60"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-navy/80 to-navy"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
+    <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-5 leading-tight">
+      Advancing AI for<br/>
+      <span style="background:linear-gradient(90deg,#C5A059,#E5C07B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Sustainable Development</span> &amp; Global Impact
+    </h1>
+    <p class="text-gray-300 text-base max-w-xl mx-auto mb-9">Pioneering research in intelligent systems to solve critical challenges in agriculture, healthcare, and linguistic inclusivity.</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#projects" class="bg-gold hover:bg-gold-dark text-navy font-bold py-2.5 px-7 rounded text-sm transition-colors inline-flex items-center gap-2">
+        <i class="fas fa-flask text-sm"></i>Explore Projects
+      </a>
+      <a href="../publications/" class="border border-white/30 hover:bg-white/10 text-white font-medium py-2.5 px-7 rounded text-sm transition-colors inline-flex items-center gap-2">
+        <i class="fas fa-book text-sm"></i>Latest Publications
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SAAIL LAB SECTION -->
+<section class="py-16 bg-white" id="saail">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <p class="text-xs font-bold text-gold uppercase tracking-widest mb-3">The SAAIL Lab</p>
+        <h2 class="text-3xl font-display font-bold text-navy mb-5 leading-tight">Sustainable AI for Agriculture &amp; Intelligent Livelihoods</h2>
+        <p class="text-gray-600 text-base leading-relaxed mb-7">Based at IIT Madras Zanzibar, the SAAIL Lab is a hub for transformative innovation. We bridge the gap between high-end computational research and ground-level implementation to empower communities across East Africa and beyond.</p>
+        <div class="grid grid-cols-2 gap-5 mb-7">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-bullseye text-gold text-sm"></i></div>
+            <div>
+              <p class="font-bold text-navy text-sm">Mission</p>
+              <p class="text-gray-500 text-xs mt-0.5">Harnessing AI to uplift rural livelihoods through technology.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-lightbulb text-gold text-sm"></i></div>
+            <div>
+              <p class="font-bold text-navy text-sm">Innovation</p>
+              <p class="text-gray-500 text-xs mt-0.5">Designing region-specific neural architectures and datasets.</p>
+            </div>
+          </div>
+        </div>
+        <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border-2 border-navy hover:bg-navy hover:text-white text-navy font-bold py-2.5 px-7 rounded text-sm transition-colors">
+          <i class="fas fa-external-link-alt text-xs"></i>Visit Lab Website
+        </a>
+      </div>
+      <!-- Right: illustration + badge -->
+      <div class="relative">
+        <div class="bg-gray-100 rounded-2xl overflow-hidden h-72 flex items-center justify-center relative">
+          <div class="text-center p-10">
+            <i class="fas fa-microscope text-6xl text-gray-300 mb-3"></i>
+            <p class="text-gray-400 text-sm">SAAIL Lab Research Team</p>
+          </div>
+          <!-- Stat badge -->
+          <div class="absolute bottom-5 right-5 bg-gold text-navy font-bold rounded-xl px-5 py-3 shadow-lg">
+            <p class="text-2xl leading-tight">15+</p>
+            <p class="text-xs uppercase tracking-wider">Active Researchers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE RESEARCH DOMAINS -->
+<section class="py-14 bg-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-2xl font-display font-bold text-white mb-8">Core Research Domains</h2>
+    <div class="w-12 h-0.5 bg-gold mx-auto mb-8"></div>
+    <div class="flex flex-wrap justify-center gap-3">
+      <span class="domain-pill"><i class="fas fa-brain text-gold"></i>Artificial Intelligence</span>
+      <span class="domain-pill"><i class="fas fa-eye text-gold"></i>Computer Vision</span>
+      <span class="domain-pill"><i class="fas fa-network-wired text-gold"></i>Deep Learning</span>
+      <span class="domain-pill"><i class="fas fa-language text-gold"></i>Swahili NLP</span>
+      <span class="domain-pill"><i class="fas fa-seedling text-gold"></i>Precision Agriculture</span>
+      <span class="domain-pill"><i class="fas fa-heartbeat text-gold"></i>Healthcare Informatics</span>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT PROJECTS -->
+<section id="projects" class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-10">
+      <h2 class="text-2xl font-display font-bold text-navy mb-2">Current Research Projects</h2>
+      <p class="text-gray-500 text-sm">A selection of ongoing initiatives focusing on high-impact technological interventions.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Project 1 -->
+      <div class="project-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover">
+        <div class="h-40 relative overflow-hidden">
+          <div class="project-img absolute inset-0 bg-gradient-to-br from-green-700 to-green-900 flex items-center justify-center">
+            <i class="fas fa-seedling text-green-400/30 text-7xl"></i>
+          </div>
+          <div class="absolute top-3 left-3"><span class="bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide">Agriculture</span></div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-navy text-sm mb-2">AI for Smart Agriculture</h3>
+          <p class="text-gray-500 text-xs leading-relaxed mb-4">Early detection of Cassava diseases and yield prediction specifically tuned for the East African climate using computer vision.</p>
+          <a href="../publications/" class="text-gold text-xs font-semibold hover:underline flex items-center gap-1">View Publication <i class="fas fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="project-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover">
+        <div class="h-40 relative overflow-hidden">
+          <div class="project-img absolute inset-0 bg-gradient-to-br from-teal-700 to-teal-900 flex items-center justify-center">
+            <i class="fas fa-heartbeat text-teal-400/30 text-7xl"></i>
+          </div>
+          <div class="absolute top-3 left-3"><span class="bg-teal-500 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide">Health</span></div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-navy text-sm mb-2">Medical Imaging: Placental Analysis</h3>
+          <p class="text-gray-500 text-xs leading-relaxed mb-4">Advanced AI diagnostics for maternal and fetal health, focusing on automated image segmentation of placental scans.</p>
+          <a href="#" class="text-gold text-xs font-semibold hover:underline flex items-center gap-1">Project Details <i class="fas fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+      <!-- Project 3 -->
+      <div class="project-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover">
+        <div class="h-40 relative overflow-hidden">
+          <div class="project-img absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center">
+            <i class="fas fa-language text-blue-400/30 text-7xl"></i>
+          </div>
+          <div class="absolute top-3 left-3"><span class="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide">Linguistics</span></div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-navy text-sm mb-2">Swahili Speech &amp; Text</h3>
+          <p class="text-gray-500 text-xs leading-relaxed mb-4">Developing state-of-the-art NLP tools for Bantu languages to ensure linguistic inclusivity in AI services.</p>
+          <a href="#" class="text-gold text-xs font-semibold hover:underline flex items-center gap-1">Dataset Access <i class="fas fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+      <!-- Project 4 -->
+      <div class="project-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover">
+        <div class="h-40 relative overflow-hidden">
+          <div class="project-img absolute inset-0 bg-gradient-to-br from-amber-700 to-amber-900 flex items-center justify-center">
+            <i class="fas fa-link text-amber-400/30 text-7xl"></i>
+          </div>
+          <div class="absolute top-3 left-3"><span class="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide">Supply Chain</span></div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-navy text-sm mb-2">Blockchain for Spice Trade</h3>
+          <p class="text-gray-500 text-xs leading-relaxed mb-4">Enhancing transparency and farmer compensation in Zanzibar's spice trade using distributed ledger technology.</p>
+          <a href="#" class="text-gold text-xs font-semibold hover:underline flex items-center gap-1">System Demo <i class="fas fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLABORATIONS -->
+<section class="py-14 bg-white" id="collaborations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="text-xs font-bold text-gold uppercase tracking-widest mb-8">Global Research Collaborations</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 rounded-xl border border-gray-100 hover:border-gold transition-colors card-hover">
+        <p class="text-2xl font-display font-bold text-navy mb-1">University of Cambridge</p>
+        <p class="text-xs text-gray-400 uppercase tracking-wider">Strategic Partner</p>
+        <p class="text-gray-500 text-sm mt-2">Dr. Soumya Banerjee — Centre for AI</p>
+      </div>
+      <div class="p-6 rounded-xl border border-gray-100 hover:border-gold transition-colors card-hover">
+        <p class="text-2xl font-display font-bold text-navy mb-1">University of Oxford</p>
+        <p class="text-xs text-gray-400 uppercase tracking-wider">Research Alliance</p>
+        <p class="text-gray-500 text-sm mt-2">Dr. Vikranth H. Nagaraja — Engineering</p>
+      </div>
+      <div class="p-6 rounded-xl border border-gray-100 hover:border-gold transition-colors card-hover">
+        <p class="text-2xl font-display font-bold text-navy mb-1">IIT Madras Chennai</p>
+        <p class="text-xs text-gray-400 uppercase tracking-wider">Host Node</p>
+        <p class="text-gray-500 text-sm mt-2">Wadhwani School of Data Science &amp; AI</p>
+      </div>
+    </div>
+    <!-- Additional collaborators row -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl mx-auto mt-5">
+      <div class="p-4 rounded-xl border border-gray-100 hover:border-gold transition-colors text-left flex items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-navy flex items-center justify-center text-gold font-bold text-sm flex-shrink-0">NB</div>
+        <div><p class="font-semibold text-navy text-sm">Prof. Nirav Bhatt</p><p class="text-xs text-gray-400">IIT Madras Zanzibar</p></div>
+      </div>
+      <div class="p-4 rounded-xl border border-gray-100 hover:border-gold transition-colors text-left flex items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-navy flex items-center justify-center text-gold font-bold text-sm flex-shrink-0">JZ</div>
+        <div><p class="font-semibold text-navy text-sm">Dr. Jiayu Zhang</p><p class="text-xs text-gray-400">Xuzhou University of Technology</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT STUDENTS -->
+<section class="py-14 bg-gray-50" id="students">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <p class="text-xs font-bold text-gold uppercase tracking-widest mb-2">SAAIL Lab</p>
+      <h2 class="text-2xl font-display font-bold text-navy mb-2">Current Students</h2>
+      <p class="text-gray-500 text-sm max-w-lg mx-auto">MTech Data Science &amp; AI students conducting research under Dr. Nyalala's supervision at IIT Madras Zanzibar.</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <!-- Student 1 -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover text-center">
+        <div class="w-16 h-16 rounded-full bg-navy flex items-center justify-center mx-auto mb-4 text-gold font-bold text-xl font-display">PV</div>
+        <h3 class="font-bold text-navy text-base mb-0.5">Patrick Vincent Ndowo</h3>
+        <p class="text-gold text-xs font-semibold uppercase tracking-wider mb-2">MTech Student</p>
+        <p class="text-gray-500 text-xs leading-relaxed mb-2">Data Science &amp; AI · IIT Madras Zanzibar</p>
+        <p class="text-gray-400 text-xs italic mb-3">Trustworthy AI · ICLR 2026 · EAC STI 2026</p>
+        <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-0.5 rounded-full">Active · 2025–2026</span>
+      </div>
+      <!-- Student 2 -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover text-center">
+        <div class="w-16 h-16 rounded-full bg-navy flex items-center justify-center mx-auto mb-4 text-gold font-bold text-xl font-display">KH</div>
+        <h3 class="font-bold text-navy text-base mb-0.5">Khamis Haji</h3>
+        <p class="text-gold text-xs font-semibold uppercase tracking-wider mb-2">MTech Student</p>
+        <p class="text-gray-500 text-xs leading-relaxed mb-2">Data Science &amp; AI · IIT Madras Zanzibar</p>
+        <p class="text-gray-400 text-xs italic mb-3">&nbsp;</p>
+        <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-0.5 rounded-full">Active · 2025–2026</span>
+      </div>
+      <!-- Student 3 -->
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover text-center">
+        <div class="w-16 h-16 rounded-full bg-navy flex items-center justify-center mx-auto mb-4 text-gold font-bold text-xl font-display">SG</div>
+        <h3 class="font-bold text-navy text-base mb-0.5">Surabhi Gudla</h3>
+        <p class="text-gold text-xs font-semibold uppercase tracking-wider mb-2">MTech Student</p>
+        <p class="text-gray-500 text-xs leading-relaxed mb-2">Data Science &amp; AI · IIT Madras Zanzibar</p>
+        <p class="text-gray-400 text-xs italic mb-3">&nbsp;</p>
+        <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-0.5 rounded-full">Active · 2025–2026</span>
+      </div>
+    </div>
+    <p class="text-center mt-8 text-xs text-gray-400">Interested in joining the SAAIL Lab? <a href="../index.html#contact" class="text-gold hover:underline font-semibold">Get in touch →</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-navy text-white pt-12 pb-6 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-8 pb-8 border-b border-white/10 text-sm text-gray-400">
+      <div>
+        <p class="font-bold text-white mb-1">Contact Information</p>
+        <p class="mt-3 flex items-center gap-2"><i class="fas fa-envelope text-gold text-xs"></i><a href="mailto:innocent@iitmz.ac.in" class="hover:text-gold">innocent@iitmz.ac.in</a></p>
+        <p class="mt-2 flex items-start gap-2"><i class="fas fa-map-marker-alt text-gold text-xs mt-0.5"></i><span>SAAIL Lab, IIT Madras Zanzibar Campus, Zanzibar, Tanzania</span></p>
+      </div>
+      <div>
+        <p class="font-bold text-white mb-3">Connect &amp; Profile</p>
+        <div class="flex gap-3">
+          <a href="https://www.linkedin.com/in/innocentnyalala/" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-gold hover:text-navy transition-all flex items-center justify-center"><i class="fab fa-linkedin-in text-xs"></i></a>
+          <a href="https://www.researchgate.net/profile/Innocent-Nyalala" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-gold hover:text-navy transition-all flex items-center justify-center"><i class="fab fa-researchgate text-xs"></i></a>
+          <a href="https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-gold hover:text-navy transition-all flex items-center justify-center"><i class="fas fa-graduation-cap text-xs"></i></a>
+        </div>
+      </div>
+      <div>
+        <p class="font-bold text-white mb-2">Visitor Counter</p>
+        <img src="https://visitor-badge.laobi.icu/badge?page_id=inyalala-research&left_color=royalblue&right_color=c5a059&left_text=Visitors" alt="Visitor Count" class="h-6 mt-1" onerror="this.style.display='none'"/>
+      </div>
+    </div>
+    <div class="pt-5 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-500">
+      <p>© 2026 Dr. Innocent Nyalala. All rights reserved.</p>
+      <p class="italic">"Technology for Global Empowerment"</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "_comment": "Course registry. This is the ONLY file the hub page reads. To add a course, add an entry here and create data/<slug>.json plus a folder <slug>/index.html copied from any existing one.",
+  "instructor": {
+    "name": "Dr. Innocent Nyalala",
+    "title": "Assistant Professor of Data Science and AI",
+    "school": "School of Engineering and Science, IIT Madras Zanzibar",
+    "email": "innocent@iitmz.ac.in",
+    "office": "Door 105, Room F1, Engineering Building",
+    "officeHours": "Wednesday 02:00 PM to 04:00 PM"
+  },
+  "materialsRepo": "https://github.com/inyalala/iitmz-teaching",
+  "courses": [
+    {
+      "slug": "z2005",
+      "code": "Z2005",
+      "title": "Programming and Data Structures",
+      "program": "BS",
+      "type": "Core",
+      "status": "upcoming",
+      "term": "Odd Semester, October 2026 to January 2027",
+      "icon": "fa-code",
+      "summary": "Foundations of programming and the classical data structures, taught in Python with an emphasis on correctness, testing, and reasoning about cost.",
+      "offering": "Third offering"
+    },
+    {
+      "slug": "z5007",
+      "code": "Z5007",
+      "title": "Programming and Data Structures",
+      "program": "MTech",
+      "type": "Core",
+      "status": "upcoming",
+      "term": "Odd Semester, October 2026 to January 2027",
+      "icon": "fa-sitemap",
+      "summary": "Graduate treatment of data structures and algorithm design, with formal complexity analysis, amortized reasoning, and substantial implementation projects.",
+      "offering": "Third offering"
+    },
+    {
+      "slug": "z2004",
+      "code": "Z2004",
+      "title": "Database Management Systems",
+      "program": "BS",
+      "type": "Core",
+      "status": "previous",
+      "term": "Mar to Jul 2026",
+      "icon": "fa-database",
+      "summary": "Relational modeling, SQL, normalization, transactions, indexing, and query processing, with a semester-long applied database project.",
+      "offering": "Second offering"
+    },
+    {
+      "slug": "z5008",
+      "code": "Z5008",
+      "title": "Big Data Lab",
+      "program": "MTech",
+      "type": "Lab",
+      "status": "previous",
+      "term": "Mar to Jul 2026",
+      "icon": "fa-server",
+      "summary": "Hands-on distributed data processing with Hadoop and Spark, covering storage, batch and stream pipelines, and cluster performance tuning.",
+      "offering": "Second offering"
+    }
+  ]
+}

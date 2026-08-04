@@ -1,0 +1,756 @@
+{
+  "_comment": "Same institute course outline and same 15-week schedule as Z2005 (as taught for this course in Oct 2025-Feb 2026). Z5007 is the MTech offering: identical topic sequence and pace, with added analytical depth, additional advanced structures, and industry-alignment framing layered onto each module (marked 'MTech addition' below). Exact calendar dates withheld pending the institute's 2026-27 academic calendar; module numbers used instead.",
+  "code": "Z5007",
+  "title": "Programming and Data Structures",
+  "program": "MTech",
+  "type": "Core",
+  "status": "upcoming",
+  "credits": "15",
+  "term": "Odd Semester, October 2026 to January 2027",
+  "academicYear": "2026-27",
+  "summary": "An introduction to algorithms and data structures in Python, moving from basic data structures such as stacks, linked lists, and queues through sorting, trees, hash tables, and heaps, to dynamic programming, greedy algorithms, and graph algorithms, closing with an introduction to parallel and randomized algorithms. This MTech offering shares its schedule and core content with Z2005, and layers on formal complexity analysis, additional advanced structures, and an engineering-grade course project aligned with industry practice.",
+  "meetings": [
+    {
+      "type": "Lecture",
+      "when": "4 sessions per week, TBA",
+      "where": "TBA"
+    },
+    {
+      "type": "Lab",
+      "when": "2 sessions per week, TBA",
+      "where": "TBA"
+    }
+  ],
+  "prerequisites": [
+    "Working knowledge of at least one programming language."
+  ],
+  "outcomes": [
+    "Design and implement Python classes using encapsulation, inheritance, and polymorphism, and justify a composition-versus-inheritance choice.",
+    "Write, test, and debug Python programs that use functions and recursion.",
+    "Implement stacks, queues, linked lists, binary trees, hash tables, and heaps from first principles, and extend them to balanced and amortized variants.",
+    "Analyze the running time of an algorithm using big-O notation, including amortized and average-case analysis, and justify a structure choice by that analysis in writing.",
+    "Implement and compare simple and advanced sorting algorithms, and prove the correctness of one.",
+    "Apply dynamic programming and greedy strategies to optimization problems, with a written argument for why the greedy choice is correct where applicable.",
+    "Represent graphs and apply BFS, DFS, A*, and minimum spanning tree algorithms to reachability, shortest-path, and network design problems.",
+    "Benchmark an implementation against a realistic workload and report the result the way a systems engineer would."
+  ],
+  "grading": [
+    {
+      "component": "In-class assignments",
+      "weight": 20,
+      "note": "Seven assignments, done in lab, bi-weekly, each with a short written analysis component."
+    },
+    {
+      "component": "Quizzes",
+      "weight": 15,
+      "note": "Two written quizzes, covering modules 1-5 and 6-9 respectively, including proof and analysis questions."
+    },
+    {
+      "component": "Course project",
+      "weight": 25,
+      "note": "Proposal 3%, milestone 1: 5%, milestone 2: 7%, final submission: 7%, presentation: 3%. Individual or pairs; benchmarked against a realistic dataset with a written performance report."
+    },
+    {
+      "component": "End semester examination",
+      "weight": 40,
+      "note": "Practical and theory, in lab. Required at 40% for a core course."
+    }
+  ],
+  "textbooks": [
+    {
+      "title": "Data Structures and Algorithms in Python",
+      "authors": "Robert Lafore, Ami Broder, and Jeremy Canning",
+      "edition": "1st edition",
+      "role": "Required",
+      "note": "Addison Wesley, 2022. Primary text, as specified in the institute course outline."
+    },
+    {
+      "title": "The Algorithm Design Manual",
+      "authors": "Steven S. Skiena",
+      "edition": "2nd edition",
+      "role": "Reference",
+      "note": "Springer, 2008. Institute-specified reference text; used more extensively here for the design-paradigm and NP-completeness material."
+    },
+    {
+      "title": "Introduction to Algorithms",
+      "authors": "Cormen, Leiserson, Rivest, and Stein",
+      "edition": "4th edition",
+      "role": "Reference",
+      "note": "For the formal analysis and proof material that goes beyond the primary text."
+    }
+  ],
+  "policies": {
+    "attendance": "Attendance is expected at all lectures and labs. Lab work is done during the lab session and submitted before it ends.",
+    "lateWork": "Assignments lose 10 percent per day late, up to three days, after which they are not accepted. Each student has three no-questions-asked late days for the semester, to be used at their discretion.",
+    "integrity": "Discussing ideas and approaches with classmates is encouraged. Sharing or copying code is not. Every line you submit must be one you can explain. Submissions are checked for similarity, and detected copying is reported through the institute process.",
+    "aiTools": "You may use AI coding assistants to explain concepts, to read error messages, and to review code you have already written. You may not use them to generate solutions or written analyses you then submit. When an assistant contributed materially to a submission, say so in the header comment. The examinations and the written analysis components assume the reasoning is your own.",
+    "accommodations": "Students needing accommodations should contact the instructor in the first two weeks of the semester so arrangements can be made in good time."
+  },
+  "links": {
+    "syllabusPdf": "../assets/syllabi/z2005-z5007-institute-outline.pdf",
+    "repo": "https://github.com/inyalala/iitmz-teaching-site",
+    "classroom": "",
+    "discussion": ""
+  },
+  "modules": [
+    {
+      "n": 1,
+      "title": "Object-Oriented Programming, then Algorithms",
+      "weeks": "1",
+      "topics": [
+        "Classes, objects, attributes, methods",
+        "Encapsulation, inheritance, polymorphism",
+        "Why data structures are taught as classes in this course",
+        "Big-O, time and space complexity",
+        "MTech addition: composition versus inheritance, duck typing and Python's informal protocols, abstract base classes",
+        "MTech addition: loop invariants as a correctness argument, not just a bookkeeping device"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 1",
+        "CLRS ch. 3"
+      ],
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/pds/00-oop-then-algorithms/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/00-oop-then-algorithms/lab.html",
+      "assignment": {
+        "name": "A0: OOP Warm-up",
+        "due": "Week 1",
+        "link": ""
+      },
+      "_note": "OOP comes first and deliberately: every structure from module 2 onward is built as a Python class, so this cannot be skipped or treated as optional review.",
+      "_linksNote": "Points at inyalala/iitmz-teaching-site (public, student-facing: rendered materials only). The full source, including .qmd files, the build pipeline, and assignment tests, lives in the separate private repo inyalala/iitmz-teaching and is never exposed here. These links go live once iitmz-teaching-site is pushed and its GitHub Pages site is enabled."
+    },
+    {
+      "n": 2,
+      "title": "Basic Data Structures: Arrays and Dynamic Arrays",
+      "weeks": "2",
+      "topics": [
+        "Arrays in memory, cache behavior",
+        "Searching, rotation, manipulation",
+        "Dynamic array resizing",
+        "MTech addition: amortized analysis of the doubling strategy, aggregate and accounting methods"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 2",
+        "CLRS ch. 17"
+      ],
+      "assignment": {
+        "name": "A1: Dynamic Array with Amortized Cost Analysis",
+        "due": "Week 2"
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/01-arrays-dynamic-arrays/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/01-arrays-dynamic-arrays/lab.html"
+    },
+    {
+      "n": 3,
+      "title": "Basic Data Structures: Stacks and Queues",
+      "weeks": "3",
+      "topics": [
+        "Stack ADT and applications",
+        "Expression evaluation, parenthesis matching",
+        "Queue ADT, circular queues, priority queues",
+        "MTech addition: implementing a queue with two stacks, amortized cost of that implementation"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 4"
+      ],
+      "assignment": {
+        "name": "A2: Expression Evaluator",
+        "due": "Week 3"
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/02-stacks-queues/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/02-stacks-queues/lab.html"
+    },
+    {
+      "n": 4,
+      "title": "Basic Data Structures: Linked Lists",
+      "weeks": "4",
+      "topics": [
+        "Singly linked lists, pointer manipulation",
+        "Insertion, deletion, traversal",
+        "Doubly linked lists",
+        "MTech addition: cache-unfriendliness of pointer chasing versus array locality, with a measured comparison"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 5"
+      ],
+      "assignment": {
+        "name": "A3: Linked List Structures",
+        "due": "Week 4"
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/03-linked-lists/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/03-linked-lists/lab.html"
+    },
+    {
+      "n": 5,
+      "title": "Basic Algorithms: Simple Sorting",
+      "weeks": "5",
+      "topics": [
+        "Bubble, insertion, selection sort",
+        "Comparing algorithms empirically",
+        "MTech addition: formal worst-case and average-case derivation for insertion sort"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 3"
+      ],
+      "assignment": {
+        "name": "",
+        "due": ""
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/04-simple-sorting/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/04-simple-sorting/lab.html"
+    },
+    {
+      "n": 6,
+      "title": "Advanced Sorting Algorithms",
+      "weeks": "6",
+      "topics": [
+        "Merge sort, divide and conquer",
+        "Quicksort and partitioning strategies",
+        "Randomized quicksort and its expected-case analysis",
+        "MTech addition: the comparison-sort lower bound, and where counting and radix sort escape it"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 6",
+        "CLRS ch. 7-8"
+      ],
+      "assignment": {
+        "name": "A4: Merge Sort",
+        "due": "Week 6"
+      },
+      "_note": "Quiz 1 (modules 1-5) sits at the boundary of week 5/6.",
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/05-advanced-sorting/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/05-advanced-sorting/lab.html"
+    },
+    {
+      "n": 7,
+      "title": "Binary Trees and Balance",
+      "weeks": "7",
+      "topics": [
+        "Tree terminology, binary search trees",
+        "Traversals: inorder, preorder, postorder",
+        "Balanced versus unbalanced trees",
+        "MTech addition: red-black trees and rotations, why balance guarantees O(log n) operations"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 8",
+        "CLRS ch. 12-13"
+      ],
+      "assignment": {
+        "name": "",
+        "due": ""
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/06-binary-trees/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/06-binary-trees/lab.html"
+    },
+    {
+      "n": 8,
+      "title": "Hash Tables and Heaps",
+      "weeks": "8",
+      "topics": [
+        "Heap property, min/max heaps, heapify",
+        "Hash functions, collision resolution, load factor",
+        "MTech addition: universal hashing, and Fibonacci heaps as the structure behind faster Dijkstra"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 9-10",
+        "CLRS ch. 11, 19"
+      ],
+      "assignment": {
+        "name": "A5: Hash Table",
+        "due": "Week 8"
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/07-hash-tables-heaps/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/07-hash-tables-heaps/lab.html"
+    },
+    {
+      "n": 9,
+      "title": "Dynamic Programming",
+      "weeks": "9",
+      "topics": [
+        "Overlapping subproblems, memoization versus tabulation",
+        "0/1 knapsack, longest common subsequence, edit distance",
+        "MTech addition: reconstructing the solution, not just the optimal value, from the DP table"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 11",
+        "CLRS ch. 14-15"
+      ],
+      "assignment": {
+        "name": "",
+        "due": ""
+      },
+      "_note": "Quiz 2 (modules 6-9) sits at the end of this module.",
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/08-dynamic-programming/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/08-dynamic-programming/lab.html"
+    },
+    {
+      "n": 10,
+      "title": "Greedy Algorithms",
+      "weeks": "10",
+      "topics": [
+        "Activity selection, fractional knapsack, Huffman coding",
+        "MTech addition: proving greedy choice is correct via the exchange argument, and matroids as the general theory of when greedy works"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 11",
+        "CLRS ch. 14-15"
+      ],
+      "assignment": {
+        "name": "A6: Greedy Scheduler",
+        "due": "Week 10"
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/09-greedy-algorithms/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/09-greedy-algorithms/lab.html"
+    },
+    {
+      "n": 11,
+      "title": "Introduction to Graphs",
+      "weeks": "11",
+      "topics": [
+        "Terminology and representations: matrix versus list",
+        "Directed, undirected, weighted graphs",
+        "MTech addition: choosing a representation under a stated memory and query-pattern constraint, as a systems decision"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 12",
+        "CLRS ch. 20"
+      ],
+      "assignment": {
+        "name": "",
+        "due": ""
+      },
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/10-intro-graphs/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/10-intro-graphs/lab.html"
+    },
+    {
+      "n": 12,
+      "title": "Graph Algorithms: BFS, DFS, A*, MST",
+      "weeks": "12-13",
+      "topics": [
+        "Breadth-first and depth-first search, topological sort",
+        "Dijkstra's shortest path, A* and heuristics",
+        "Minimum spanning trees: Prim and Kruskal with union-find",
+        "MTech addition: union-find with path compression, the inverse-Ackermann bound, and a network-design case study"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 12",
+        "CLRS ch. 21-23"
+      ],
+      "assignment": {
+        "name": "A7: Shortest Path",
+        "due": "Week 13"
+      },
+      "_note": "Course project proposal is due around this module.",
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/11-graph-algorithms/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/11-graph-algorithms/lab.html"
+    },
+    {
+      "n": 13,
+      "title": "Advanced Topics: Intractability, Parallel and Randomized Algorithms",
+      "weeks": "14",
+      "topics": [
+        "Why parallelism matters, MapReduce",
+        "Parallel sorting and search",
+        "Monte Carlo methods, randomized quicksort, skip lists",
+        "MTech addition: P, NP, and NP-completeness, and when an approximation or heuristic is the honest engineering answer"
+      ],
+      "readings": [
+        "Lafore, Broder & Canning, ch. 13",
+        "Skiena, selected chapters",
+        "CLRS ch. 34"
+      ],
+      "assignment": {
+        "name": "",
+        "due": ""
+      },
+      "_note": "Course project milestones fall across modules 12-13.",
+      "slides": [
+        {
+          "label": "Lecture 1 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/lecture-1.pdf"
+        },
+        {
+          "label": "Lecture 2 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/lecture-2.pdf"
+        },
+        {
+          "label": "Lecture 3 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/lecture-3.pdf"
+        },
+        {
+          "label": "Lecture 4 (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/lecture-4.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/index.html"
+        }
+      ],
+      "notebooks": [
+        {
+          "label": "Notebook",
+          "href": "https://colab.research.google.com/github/inyalala/iitmz-teaching-site/blob/main/courses/z5007/12-parallel-randomized/notebook.ipynb"
+        }
+      ],
+      "lab": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/12-parallel-randomized/lab.html"
+    },
+    {
+      "n": 14,
+      "title": "Project Presentations and Review",
+      "weeks": "15",
+      "topics": [
+        "Project demonstrations with benchmarked performance results",
+        "Peer review of design trade-offs, not just correctness",
+        "Course review",
+        "Examination preparation"
+      ],
+      "readings": [],
+      "assignment": {
+        "name": "Final project submission",
+        "due": "Week 15"
+      },
+      "slides": [
+        {
+          "label": "Course Review (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/13-project-review/lecture-1.pdf"
+        },
+        {
+          "label": "Project Rubric (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/13-project-review/project-rubric.pdf"
+        },
+        {
+          "label": "Exam Prep Guide (PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/13-project-review/exam-prep.pdf"
+        },
+        {
+          "label": "All formats (HTML/PPTX/PDF)",
+          "href": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/13-project-review/index.html"
+        }
+      ]
+    }
+  ]
+}

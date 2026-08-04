@@ -1,0 +1,81 @@
+{
+  "_comment": "Single source of truth for news. Feeds both news/index.html and the Latest News section on the home page. Normally created by the 'Post news' issue form via .github/workflows/news-from-issue.yml, and safe to edit by hand. Items sort on 'date'; 'dateRange' is what a reader sees when an event spans several days. Set 'featured' on the items that should appear on the home page.",
+  "items": [
+    {
+      "id": "2026-08-01-deep-learning-indaba-2026-lagos",
+      "date": "2026-08-01",
+      "dateRange": "1 to 7 August 2026",
+      "category": "Conference",
+      "featured": true,
+      "headline": "Paper accepted at Deep Learning Indaba 2026, Lagos",
+      "body": "At the Deep Learning Indaba in Lagos, Nigeria, where our paper was one of only 19 accepted for publication, the second year running. The poster is presented on Wednesday 5 August during the poster sessions.",
+      "link": null,
+      "image": null,
+      "imageAlt": "Deep Learning Indaba 2026, Lagos",
+      "source": null,
+      "issue": null
+    },
+    {
+      "id": "2026-07-20-data-science-africa-2026-kampala",
+      "date": "2026-07-20",
+      "dateRange": "20 to 24 July 2026",
+      "category": "Conference",
+      "featured": true,
+      "headline": "Three SAAIL Lab presentations at Data Science Africa 2026, Kampala",
+      "body": "SAAIL Lab presented three pieces of work at Data Science Africa 2026, held at Makerere University in Kampala, Uganda: one oral presentation and two posters. The posters covered an audit of representation in crop disease benchmark datasets intended for sub-Saharan African deployment, and few-shot transfer learning for cassava leaf disease detection under East African field conditions.",
+      "link": null,
+      "image": "images/news/dsa-2026-kampala.webp",
+      "imageAlt": "Dr. Innocent Nyalala at Data Science Africa 2026, Makerere University, Kampala",
+      "_focalNote": "Where the crop should centre on the home-page card. A portrait photo cropped to a landscape card loses the top and bottom, so pull the focus upward to keep the face in frame.",
+      "focal": "50% 22%",
+      "gallery": [
+        { "src": "images/news/dsa-2026-poster-auditing-representation.webp", "alt": "Poster: Auditing Representation in Crop Disease Benchmark Datasets Intended for Sub-Saharan African Deployment" },
+        { "src": "images/news/dsa-2026-poster-few-shot-cassava.webp", "alt": "Poster: Few-Shot Transfer Learning for Cassava Leaf Disease Detection Under East African Field Conditions" }
+      ],
+      "source": null,
+      "issue": null
+    },
+    {
+      "id": "2025-12-01-discover-ai-editorial-board",
+      "date": "2025-12-01",
+      "dateRange": "December 2025",
+      "category": "Award",
+      "featured": true,
+      "headline": "Editorial Board Member, Discover Artificial Intelligence (Springer Nature)",
+      "body": "Appointed to the editorial board of Discover Artificial Intelligence, contributing to global standards in responsible AI research.",
+      "link": "https://link.springer.com/journal/44163/editorial-board",
+      "image": "images/discover-ai-editorialdiscover-ai-editorial.webp",
+      "imageAlt": "Discover Artificial Intelligence editorial board",
+      "source": "Springer Nature",
+      "issue": null
+    },
+    {
+      "id": "2025-12-01-fumba-times-malaria",
+      "date": "2025-12-01",
+      "dateRange": "December 2025",
+      "category": "Media",
+      "featured": true,
+      "headline": "Fumba Times: AI-driven malaria elimination in Zanzibar",
+      "body": "Research featured on AI-powered mosquito surveillance and predictive diagnostics for malaria elimination across Zanzibar.",
+      "link": "https://fumba.town/wp-content/uploads/2025/12/the-fumba-times-issue-26-dec-2025-feb-2026.pdf",
+      "image": "images/fumba-times-mosquito-hunt.webp",
+      "imageAlt": "Fumba Times coverage of AI malaria research",
+      "source": "The Fumba Times",
+      "issue": null
+    },
+    {
+      "id": "2025-07-01-iitmz-first-degree-ceremony",
+      "date": "2025-07-01",
+      "dateRange": "July 2025",
+      "category": "Teaching",
+      "featured": true,
+      "headline": "IITMZ first degree ceremony covered by the Indian Express",
+      "body": "Graduation marking the inaugural MTech Data Science and AI batch at IIT Madras Zanzibar.",
+      "link": "https://indianexpress.com/article/education/iit-madras-zanzibar-campus-first-degree-distribution-ceremony-data-science-artificial-intelligence-batch-2025-jee-main-advanced-10134226/",
+      "image": "images/graduation.webp",
+      "imageAlt": "IIT Madras Zanzibar first degree distribution ceremony",
+      "source": "The Indian Express",
+      "issue": null
+    }
+  ]
+}

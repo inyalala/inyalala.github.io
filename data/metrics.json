@@ -1,0 +1,56 @@
+{
+  "updatedAt": "2026-08-02T15:11:27+00:00",
+  "openalex": {
+    "source": "OpenAlex",
+    "sourceUrl": "https://openalex.org/A5013656785",
+    "works": 23,
+    "citations": 850,
+    "hIndex": 14,
+    "i10Index": 15,
+    "note": "Computed from indexed works with a DOI. Lower than Google Scholar, which also counts theses, preprints, and book chapters."
+  },
+  "scholar": {
+    "source": "Google Scholar",
+    "sourceUrl": "https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en",
+    "citations": 1166,
+    "hIndex": 15,
+    "i10Index": 16,
+    "works": null,
+    "asOf": "2026-08",
+    "automated": false,
+    "citationsPerYear": {
+      "2019": 8,
+      "2020": 40,
+      "2021": 125,
+      "2022": 140,
+      "2023": 215,
+      "2024": 218,
+      "2025": 258,
+      "2026": 143
+    },
+    "citationsPerYearExact": false,
+    "note": "Maintained by hand in data/manual.json. Google Scholar has no API and forbids direct automated access."
+  },
+  "citationsByPublicationYear": {
+    "2016": 1,
+    "2018": 25,
+    "2019": 330,
+    "2020": 247,
+    "2021": 216,
+    "2024": 29,
+    "2025": 2,
+    "2026": 0
+  },
+  "worksByYear": {
+    "2016": 1,
+    "2018": 2,
+    "2019": 4,
+    "2020": 3,
+    "2021": 6,
+    "2024": 3,
+    "2025": 2,
+    "2026": 2
+  },
+  "firstPublicationYear": 2016,
+  "openAccessCount": 13
+}

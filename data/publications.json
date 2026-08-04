@@ -1,0 +1,598 @@
+{
+  "updatedAt": "2026-08-02T15:11:27+00:00",
+  "count": 23,
+  "items": [
+    {
+      "isPreprint": true,
+      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": "10.13140/rg.2.2.19812.13443",
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Hope K Mccoy",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": null,
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.13140/rg.2.2.19812.13443"
+    },
+    {
+      "isPreprint": true,
+      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics -A Cassava Case Study",
+      "year": 2026,
+      "type": "article",
+      "doi": "10.13140/rg.2.2.12603.17448",
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Surabhi Gudla",
+        "Patrick Vincent"
+      ],
+      "venue": {
+        "name": null,
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.13140/rg.2.2.12603.17448"
+    },
+    {
+      "isPreprint": false,
+      "title": "Rectifying the extremely weakened signals for cassava leaf disease detection",
+      "year": 2025,
+      "type": "article",
+      "doi": "10.1016/j.compag.2025.110107",
+      "citations": 2,
+      "openAccess": false,
+      "authors": [
+        "Jiayu Zhang",
+        "Baohua Zhang",
+        "Innocent Nyalala",
+        "Peter Mecha",
+        "Junlong Chen",
+        "Kunjie Chen",
+        "Kunjie Chen",
+        "Junfeng Gao"
+      ],
+      "venue": {
+        "name": "Computers and Electronics in Agriculture",
+        "issn": "0168-1699",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 9.77,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.compag.2025.110107"
+    },
+    {
+      "isPreprint": false,
+      "title": "BAFNet: Deep contour-aware features for colorectal polyps segmentation",
+      "year": 2025,
+      "type": "article",
+      "doi": "10.1016/j.eswa.2025.129998",
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Dibin Zhou",
+        "Ni Chen",
+        "Yueping Zhu",
+        "Xueyan Zhang",
+        "Xueyan Zhang",
+        "Innocent Nyalala",
+        "Jiayu Zhang",
+        "Junfeng Gao"
+      ],
+      "venue": {
+        "name": "Expert Systems with Applications",
+        "issn": "0957-4174",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 6.96,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.eswa.2025.129998"
+    },
+    {
+      "isPreprint": false,
+      "title": "MAIANet: Signal modulation in cassava leaf disease classification",
+      "year": 2024,
+      "type": "article",
+      "doi": "10.1016/j.compag.2024.109351",
+      "citations": 16,
+      "openAccess": false,
+      "authors": [
+        "Jiayu Zhang",
+        "Baohua Zhang",
+        "Chao Qi",
+        "Innocent Nyalala",
+        "Peter Mecha",
+        "Kunjie Chen",
+        "Junfeng Gao"
+      ],
+      "venue": {
+        "name": "Computers and Electronics in Agriculture",
+        "issn": "0168-1699",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 9.77,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.compag.2024.109351"
+    },
+    {
+      "isPreprint": false,
+      "title": "Online chicken carcass volume estimation using depth imaging and 3-D reconstruction",
+      "year": 2024,
+      "type": "article",
+      "doi": "10.1016/j.psj.2024.104232",
+      "citations": 7,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Zhang Jiayu",
+        "Zixuan Chen",
+        "Chen Junlong",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Poultry Science",
+        "issn": "0032-5791",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 3.81,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.psj.2024.104232"
+    },
+    {
+      "isPreprint": false,
+      "title": "A salient feature establishment tactic for cassava disease recognition",
+      "year": 2024,
+      "type": "article",
+      "doi": "10.1016/j.aiia.2024.11.004",
+      "citations": 6,
+      "openAccess": true,
+      "authors": [
+        "Jiayu Zhang",
+        "Baohua Zhang",
+        "Zixuan Chen",
+        "Innocent Nyalala",
+        "Kunjie Chen",
+        "Junfeng Gao"
+      ],
+      "venue": {
+        "name": "Artificial Intelligence in Agriculture",
+        "issn": "2589-7217",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 8.55,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.aiia.2024.11.004"
+    },
+    {
+      "isPreprint": false,
+      "title": "Weight and volume estimation of poultry and products based on computer vision systems: a review",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.1016/j.psj.2021.101072",
+      "citations": 101,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Cedric Okinda",
+        "Kunjie Chen",
+        "Tchalla Korohou",
+        "Luke Nyalala",
+        "Qi Chao"
+      ],
+      "venue": {
+        "name": "Poultry Science",
+        "issn": "0032-5791",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 3.81,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.psj.2021.101072"
+    },
+    {
+      "isPreprint": false,
+      "title": "Weight and volume estimation of single and occluded tomatoes using machine vision",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.1080/10942912.2021.1933024",
+      "citations": 35,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Cedric Okinda",
+        "Qi Chao",
+        "Peter Mecha",
+        "Tchalla Korohou",
+        "Yi Zuo",
+        "Samuel Nyalala",
+        "Zhang Jiayu",
+        "Chao Liu",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "International Journal of Food Properties",
+        "issn": "1094-2912",
+        "publisher": "Marcel Dekker",
+        "meanCitedness2yr": 4.2,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1080/10942912.2021.1933024"
+    },
+    {
+      "isPreprint": false,
+      "title": "Prediction of precise subsoiling based on analytical method, discrete element simulation and experimental data from soil bin",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.1038/s41598-021-90682-w",
+      "citations": 29,
+      "openAccess": true,
+      "authors": [
+        "Nelson Richard Makange",
+        "Changying Ji",
+        "Innocent Nyalala",
+        "Idris Idris Sunusi",
+        "Samwel Opiyo"
+      ],
+      "venue": {
+        "name": "Scientific Reports",
+        "issn": "2045-2322",
+        "publisher": "Nature Portfolio",
+        "meanCitedness2yr": 4.74,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1038/s41598-021-90682-w"
+    },
+    {
+      "isPreprint": false,
+      "title": "On-line weight estimation of broiler carcass and cuts by a computer vision system",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.1016/j.psj.2021.101474",
+      "citations": 25,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Cedric Okinda",
+        "Nelson Richard Makange",
+        "Tchalla Korohou",
+        "Qi Chao",
+        "Luke Nyalala",
+        "Zhang Jiayu",
+        "Yi Zuo",
+        "Khurram Yousaf",
+        "Chao Liu",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Poultry Science",
+        "issn": "0032-5791",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 3.81,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.psj.2021.101474"
+    },
+    {
+      "isPreprint": false,
+      "title": "Detecting the Early Flowering Stage of Tea Chrysanthemum Using the F-YOLO Model",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.3390/agronomy11050834",
+      "citations": 15,
+      "openAccess": true,
+      "authors": [
+        "Qi Chao",
+        "Innocent Nyalala",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Agronomy",
+        "issn": "2073-4395",
+        "publisher": "Multidisciplinary Digital Publishing Institute",
+        "meanCitedness2yr": 4.66,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.3390/agronomy11050834"
+    },
+    {
+      "isPreprint": false,
+      "title": "Drying process optimization of garlic slices in closed‐loop heat pump drying system by Box‐Behnken design",
+      "year": 2021,
+      "type": "article",
+      "doi": "10.1111/jfpp.16190",
+      "citations": 11,
+      "openAccess": false,
+      "authors": [
+        "Haolu Liu",
+        "Khurram Yousaf",
+        "Zhenwei Yu",
+        "Asad Riaz",
+        "Innocent Nyalala",
+        "Muhammad Waqas Alam Chattha",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Journal of Food Processing and Preservation",
+        "issn": "0145-8892",
+        "publisher": "Wiley",
+        "meanCitedness2yr": 2.24,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1111/jfpp.16190"
+    },
+    {
+      "isPreprint": false,
+      "title": "A review on computer vision systems in monitoring of poultry: A welfare perspective",
+      "year": 2020,
+      "type": "article",
+      "doi": "10.1016/j.aiia.2020.09.002",
+      "citations": 155,
+      "openAccess": true,
+      "authors": [
+        "Cedric Okinda",
+        "Innocent Nyalala",
+        "Tchalla Korohou",
+        "Celestine Okinda",
+        "Jintao Wang",
+        "Tracy Achieng",
+        "Patrick Wamalwa",
+        "Tai Mang",
+        "Mingxia Shen"
+      ],
+      "venue": {
+        "name": "Artificial Intelligence in Agriculture",
+        "issn": "2589-7217",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 8.55,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.aiia.2020.09.002"
+    },
+    {
+      "isPreprint": false,
+      "title": "Egg volume estimation based on image processing and computer vision",
+      "year": 2020,
+      "type": "article",
+      "doi": "10.1016/j.jfoodeng.2020.110041",
+      "citations": 62,
+      "openAccess": false,
+      "authors": [
+        "Cedric Okinda",
+        "Yuwen Sun",
+        "Innocent Nyalala",
+        "Tchalla Korohou",
+        "Samwel Opiyo",
+        "Jintao Wang",
+        "Mingxia Shen"
+      ],
+      "venue": {
+        "name": "Journal of Food Engineering",
+        "issn": "0260-8774",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 5.36,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.jfoodeng.2020.110041"
+    },
+    {
+      "isPreprint": false,
+      "title": "Wheat Grain Yield Estimation Based on Image Morphological Properties and Wheat Biomass",
+      "year": 2020,
+      "type": "article",
+      "doi": "10.1155/2020/1571936",
+      "citations": 30,
+      "openAccess": true,
+      "authors": [
+        "Tchalla Korohou",
+        "Cedric Okinda",
+        "Haikang Li",
+        "Yifei Cao",
+        "Innocent Nyalala",
+        "Lianfei Huo",
+        "Mouloumdema Pouwedeou Potcho",
+        "Xiang Li",
+        "Qishuo Ding"
+      ],
+      "venue": {
+        "name": "Journal of Sensors",
+        "issn": "1687-725X",
+        "publisher": "Hindawi Publishing Corporation",
+        "meanCitedness2yr": 2.02,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1155/2020/1571936"
+    },
+    {
+      "isPreprint": false,
+      "title": "A machine vision system for early detection and prediction of sick birds: A broiler chicken model",
+      "year": 2019,
+      "type": "article",
+      "doi": "10.1016/j.biosystemseng.2019.09.015",
+      "citations": 157,
+      "openAccess": true,
+      "authors": [
+        "Cedric Okinda",
+        "Mingzhou Lu",
+        "Longshen Liu",
+        "Innocent Nyalala",
+        "Caroline Muneri",
+        "Jintao Wang",
+        "Hailin Zhang",
+        "Mingxia Shen"
+      ],
+      "venue": {
+        "name": "Biosystems Engineering",
+        "issn": "1537-5110",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 6.46,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.biosystemseng.2019.09.015"
+    },
+    {
+      "isPreprint": false,
+      "title": "Tomato volume and mass estimation using computer vision and machine learning algorithms: Cherry tomato model",
+      "year": 2019,
+      "type": "article",
+      "doi": "10.1016/j.jfoodeng.2019.07.012",
+      "citations": 139,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala",
+        "Cedric Okinda",
+        "Luke Nyalala",
+        "Nelson Richard Makange",
+        "Qi Chao",
+        "Chao Liu",
+        "Khurram Yousaf",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Journal of Food Engineering",
+        "issn": "0260-8774",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 5.36,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.jfoodeng.2019.07.012"
+    },
+    {
+      "isPreprint": false,
+      "title": "Production of activated carbon from sludge and herb residue of traditional Chinese medicine industry and its application for methylene blue removal",
+      "year": 2019,
+      "type": "article",
+      "doi": "10.15376/biores.14.1.1333-1346",
+      "citations": 20,
+      "openAccess": true,
+      "authors": [
+        "Zhenwei Yu",
+        "Qi Gao",
+        "Yue Zhang",
+        "Dandan Wang",
+        "Innocent Nyalala",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "BioResources",
+        "issn": "1930-2126",
+        "publisher": "North Carolina State University",
+        "meanCitedness2yr": 1.74,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.15376/biores.14.1.1333-1346"
+    },
+    {
+      "isPreprint": false,
+      "title": "Influence of environmental conditions on drying efficiency and heat pump performance in closed and open loop drying of paddy",
+      "year": 2019,
+      "type": "article",
+      "doi": "10.1080/07373937.2019.1691011",
+      "citations": 14,
+      "openAccess": false,
+      "authors": [
+        "Khurram Yousaf",
+        "Haolu Liu",
+        "Xu Gao",
+        "Chao Liu",
+        "Adnan Abbas",
+        "Innocent Nyalala",
+        "Muhammad Ahmad",
+        "Muhammad Ameen",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Drying Technology",
+        "issn": "0737-3937",
+        "publisher": "Taylor & Francis",
+        "meanCitedness2yr": 3.07,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1080/07373937.2019.1691011"
+    },
+    {
+      "isPreprint": false,
+      "title": "Asphyxia occurrence detection in sows during the farrowing phase by inter-birth interval evaluation",
+      "year": 2018,
+      "type": "article",
+      "doi": "10.1016/j.compag.2018.07.007",
+      "citations": 22,
+      "openAccess": false,
+      "authors": [
+        "Cedric Okinda",
+        "Mingzhou Lu",
+        "Innocent Nyalala",
+        "Jiawei Li",
+        "Mingxia Shen"
+      ],
+      "venue": {
+        "name": "Computers and Electronics in Agriculture",
+        "issn": "0168-1699",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 9.77,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.compag.2018.07.007"
+    },
+    {
+      "isPreprint": true,
+      "title": "Detection of an onset of farrowing by classification of crated sow's activities.",
+      "year": 2018,
+      "type": "article",
+      "doi": null,
+      "citations": 3,
+      "openAccess": false,
+      "authors": [
+        "Cedric Okinda",
+        "Shen MingXia",
+        "Jiawei Li",
+        "Innocent Nyalala",
+        "Longshen Liu",
+        "Lu MingZhou",
+        "Zhang GuangYue"
+      ],
+      "venue": {
+        "name": "Asian Agricultural Engineering",
+        "issn": "0858-2114",
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://openalex.org/W3097890783"
+    },
+    {
+      "isPreprint": false,
+      "title": "Research on range-based localisation algorithm with virtual force and time synchronisation in wireless sensor and actor networks",
+      "year": 2016,
+      "type": "article",
+      "doi": "10.1504/ijcnds.2016.076650",
+      "citations": 1,
+      "openAccess": false,
+      "authors": [
+        "Haoyun Wang",
+        "Ke Wang",
+        "Li Duo",
+        "Innocent Nyalala",
+        "Yingjun Xiong",
+        "Huanliang Xu"
+      ],
+      "venue": {
+        "name": "International Journal of Communication Networks and Distributed Systems",
+        "issn": "1754-3916",
+        "publisher": "Inderscience Publishers",
+        "meanCitedness2yr": 0.35,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1504/ijcnds.2016.076650"
+    }
+  ]
+}

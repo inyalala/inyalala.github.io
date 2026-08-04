@@ -1,0 +1,60 @@
+{
+  "_comment": "Copy this file to <slug>.json for a new course or a new offering. Every field is rendered by assets/course.js. Leave a string empty or an array empty to hide that block entirely. Never edit the HTML.",
+
+  "code": "ZXXXX",
+  "title": "Course Title",
+  "program": "BS",
+  "type": "Core",
+  "status": "upcoming",
+  "credits": "",
+  "term": "Odd Semester, October 2026 to January 2027 (example)",
+  "academicYear": "2026-27",
+  "offeringNotes": "",
+
+  "summary": "One paragraph describing the course as a student would want to read it.",
+
+  "meetings": [
+    { "type": "Lecture", "when": "TBA", "where": "TBA" },
+    { "type": "Lab", "when": "TBA", "where": "TBA" }
+  ],
+
+  "prerequisites": [],
+  "outcomes": [],
+
+  "grading": [
+    { "component": "", "weight": 0, "note": "" }
+  ],
+
+  "textbooks": [
+    { "title": "", "authors": "", "edition": "", "role": "Required", "note": "" }
+  ],
+
+  "policies": {
+    "attendance": "",
+    "lateWork": "",
+    "integrity": "",
+    "aiTools": "",
+    "accommodations": ""
+  },
+
+  "links": {
+    "syllabusPdf": "",
+    "repo": "",
+    "classroom": "",
+    "discussion": ""
+  },
+
+  "modules": [
+    {
+      "n": 1,
+      "title": "",
+      "weeks": "1",
+      "topics": [],
+      "readings": [],
+      "slides": "",
+      "notebooks": [],
+      "lab": "",
+      "assignment": { "name": "", "out": "", "due": "", "link": "" }
+    }
+  ]
+}

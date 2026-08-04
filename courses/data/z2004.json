@@ -1,0 +1,41 @@
+{
+  "_comment": "SCAFFOLD AWAITING CONTENT. Structure is in place; modules, outcomes and grading are to be filled from the delivered Z2004 outline. Nothing here should be published as fact until reviewed.",
+
+  "code": "Z2004",
+  "title": "Database Management Systems",
+  "program": "BS",
+  "type": "Core",
+  "status": "previous",
+  "credits": "",
+  "term": "Mar to Jul 2026",
+  "academicYear": "2025-26",
+
+  "summary": "Relational data modeling, SQL, normalization, transactions, indexing, and query processing, taught alongside a semester-long applied database project.",
+
+  "meetings": [
+    { "type": "Lecture", "when": "TBA", "where": "TBA" },
+    { "type": "Lab", "when": "TBA", "where": "TBA" }
+  ],
+
+  "prerequisites": [],
+  "outcomes": [],
+  "grading": [],
+  "textbooks": [],
+
+  "policies": {
+    "attendance": "",
+    "lateWork": "",
+    "integrity": "",
+    "aiTools": "",
+    "accommodations": ""
+  },
+
+  "links": {
+    "syllabusPdf": "",
+    "repo": "https://github.com/inyalala/iitmz-teaching",
+    "classroom": "",
+    "discussion": ""
+  },
+
+  "modules": []
+}
