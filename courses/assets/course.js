@@ -42,6 +42,14 @@
       links += '<a href="' + esc(c.links.repo) + '" target="_blank" rel="noopener" class="inline-flex items-center gap-2 py-2.5 px-6 rounded-lg text-sm border border-white/25 text-white hover:border-gold hover:text-gold transition-colors">' +
                '<i class="fab fa-github"></i>Materials Repository</a>';
     }
+    if (c.links && has(c.links.questionBank)) {
+      links += '<a href="' + esc(c.links.questionBank) + '" target="_blank" rel="noopener" class="inline-flex items-center gap-2 py-2.5 px-6 rounded-lg text-sm border border-white/25 text-white hover:border-gold hover:text-gold transition-colors">' +
+               '<i class="fas fa-circle-question"></i>Question Bank</a>';
+    }
+    if (c.links && has(c.links.assignments)) {
+      links += '<a href="' + esc(c.links.assignments) + '" target="_blank" rel="noopener" class="inline-flex items-center gap-2 py-2.5 px-6 rounded-lg text-sm border border-white/25 text-white hover:border-gold hover:text-gold transition-colors">' +
+               '<i class="fas fa-pen-to-square"></i>Assignments</a>';
+    }
 
     return '' +
       '<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">' +

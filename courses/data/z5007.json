@@ -89,6 +89,8 @@
   "links": {
     "syllabusPdf": "../assets/syllabi/z2005-z5007-institute-outline.pdf",
     "repo": "https://github.com/inyalala/iitmz-teaching-site",
+    "questionBank": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/question-bank/index.html",
+    "assignments": "https://inyalala.github.io/iitmz-teaching-site/courses/z5007/assignments/index.html",
     "classroom": "",
     "discussion": ""
   },
