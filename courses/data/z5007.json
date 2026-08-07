@@ -6,7 +6,7 @@
   "type": "Core",
   "status": "upcoming",
   "credits": "15",
-  "term": "Odd Semester, October 2026 to January 2027",
+  "term": "Odd Semester, October 2026 – January 2027",
   "academicYear": "2026-27",
   "summary": "An introduction to algorithms and data structures in Python, moving from basic data structures such as stacks, linked lists, and queues through sorting, trees, hash tables, and heaps, to dynamic programming, greedy algorithms, and graph algorithms, closing with an introduction to parallel and randomized algorithms. This MTech offering shares its schedule and core content with Z2005, and layers on formal complexity analysis, additional advanced structures, and an engineering-grade course project aligned with industry practice.",
   "meetings": [
@@ -81,10 +81,10 @@
   ],
   "policies": {
     "attendance": "Attendance is expected at all lectures and labs. Lab work is done during the lab session and submitted before it ends.",
-    "lateWork": "Assignments lose 10 percent per day late, up to three days, after which they are not accepted. Each student has three no-questions-asked late days for the semester, to be used at their discretion.",
+    "lateWork": "Late work is not accepted. Deadlines are fixed and announced in advance. There are no extensions, no late-day allowances, and no day-based penalty scales.",
     "integrity": "Discussing ideas and approaches with classmates is encouraged. Sharing or copying code is not. Every line you submit must be one you can explain. Submissions are checked for similarity, and detected copying is reported through the institute process.",
     "aiTools": "You may use AI coding assistants to explain concepts, to read error messages, and to review code you have already written. You may not use them to generate solutions or written analyses you then submit. When an assistant contributed materially to a submission, say so in the header comment. The examinations and the written analysis components assume the reasoning is your own.",
-    "accommodations": "Students needing accommodations should contact the instructor in the first two weeks of the semester so arrangements can be made in good time."
+    "accommodations": ""
   },
   "links": {
     "syllabusPdf": "../assets/syllabi/z2005-z5007-institute-outline.pdf",

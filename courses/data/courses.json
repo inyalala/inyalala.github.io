@@ -17,7 +17,7 @@
       "program": "BS",
       "type": "Core",
       "status": "upcoming",
-      "term": "Odd Semester, October 2026 to January 2027",
+      "term": "Odd Semester, October 2026 – January 2027",
       "icon": "fa-code",
       "summary": "Foundations of programming and the classical data structures, taught in Python with an emphasis on correctness, testing, and reasoning about cost.",
       "offering": "Third offering"
@@ -29,7 +29,7 @@
       "program": "MTech",
       "type": "Core",
       "status": "upcoming",
-      "term": "Odd Semester, October 2026 to January 2027",
+      "term": "Odd Semester, October 2026 – January 2027",
       "icon": "fa-sitemap",
       "summary": "Graduate treatment of data structures and algorithm design, with formal complexity analysis, amortized reasoning, and substantial implementation projects.",
       "offering": "Third offering"
