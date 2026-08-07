@@ -2,7 +2,7 @@
   "_comment": "Figures that cannot be fetched automatically. Google Scholar has no API and forbids automated access, so update these by hand when you check your profile, perhaps twice a year. The refresh job reads this file and never writes to it.",
   "scholar": {
     "profileUrl": "https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en",
-    "citations": 1166,
+    "citations": 1170,
     "hIndex": 15,
     "i10Index": 16,
     "_worksNote": "OpenAlex indexes 23 works with DOIs. Google Scholar lists more, including conference papers at DSA, Deep Learning Indaba, and CVPR workshops. Set 'works' once you have counted the Scholar list, or leave null to show the verified OpenAlex figure.",
@@ -16,7 +16,7 @@
       "2023": 215,
       "2024": 218,
       "2025": 258,
-      "2026": 143
+      "2026": 147
     },
     "asOf": "2026-08"
   }

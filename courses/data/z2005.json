@@ -37,17 +37,17 @@
   "grading": [
     {
       "component": "In-class assignments",
-      "weight": 20,
-      "note": "Seven assignments, done in lab, bi-weekly."
+      "weight": 10,
+      "note": "Seven assignments, done in lab, one every 2 weeks."
     },
     {
       "component": "Quizzes",
-      "weight": 15,
+      "weight": 30,
       "note": "Two written quizzes, covering modules 1-5 and 6-9 respectively."
     },
     {
       "component": "Course project",
-      "weight": 25,
+      "weight": 20,
       "note": "Proposal 3%, milestone 1: 5%, milestone 2: 7%, final submission: 7%, presentation: 3%. Individual or pairs, choice of a from-scratch ML algorithm or a recommendation system."
     },
     {

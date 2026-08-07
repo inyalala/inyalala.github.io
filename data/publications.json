@@ -3,29 +3,8 @@
   "count": 23,
   "items": [
     {
-      "isPreprint": true,
-      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": "10.13140/rg.2.2.19812.13443",
-      "citations": 0,
-      "openAccess": true,
-      "authors": [
-        "Hope K Mccoy",
-        "Innocent Nyalala"
-      ],
-      "venue": {
-        "name": null,
-        "issn": null,
-        "publisher": null,
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": "https://doi.org/10.13140/rg.2.2.19812.13443"
-    },
-    {
-      "isPreprint": true,
-      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics -A Cassava Case Study",
+      "isPreprint": false,
+      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics — A Cassava Case Study",
       "year": 2026,
       "type": "article",
       "doi": "10.13140/rg.2.2.12603.17448",
@@ -37,13 +16,34 @@
         "Patrick Vincent"
       ],
       "venue": {
-        "name": null,
+        "name": "TODO: add conference/journal name",
         "issn": null,
         "publisher": null,
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
       "url": "https://doi.org/10.13140/rg.2.2.12603.17448"
+    },
+    {
+      "isPreprint": false,
+      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": "10.13140/rg.2.2.19812.13443",
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Hope K Mccoy",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "TODO: add conference/journal name",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.13140/rg.2.2.19812.13443"
     },
     {
       "isPreprint": false,
