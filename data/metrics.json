@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-02T15:11:27+00:00",
+  "updatedAt": "2026-08-12T00:00:00+00:00",
   "openalex": {
     "source": "OpenAlex",
     "sourceUrl": "https://openalex.org/A5013656785",
@@ -12,9 +12,9 @@
   "scholar": {
     "source": "Google Scholar",
     "sourceUrl": "https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en",
-    "citations": 1170,
+    "citations": 1185,
     "hIndex": 15,
-    "i10Index": 16,
+    "i10Index": 17,
     "works": null,
     "asOf": "2026-08",
     "automated": false,

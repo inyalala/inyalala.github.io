@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-08-12T00:00:00+00:00",
-  "count": 31,
+  "count": 33,
   "items": [
     {
       "isPreprint": false,
@@ -749,7 +749,7 @@
       "year": 2016,
       "type": "article",
       "doi": "10.1504/ijcnds.2016.076650",
-      "citations": 1,
+      "citations": 3,
       "openAccess": false,
       "authors": [
         "Haoyun Wang",
@@ -767,6 +767,49 @@
         "sjrQuartile": null
       },
       "url": "https://doi.org/10.1504/ijcnds.2016.076650"
+    },
+    {
+      "isPreprint": false,
+      "title": "Intelligent energy saving system",
+      "year": 2015,
+      "type": "article",
+      "doi": null,
+      "citations": 4,
+      "openAccess": false,
+      "authors": [
+        "CS Okinda",
+        "Innocent Nyalala",
+        "Z Chi",
+        "S Mingxia"
+      ],
+      "venue": {
+        "name": "International Journal of Emerging Technology and Advanced Engineering",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
+      "title": "基于ARDUINO的温室控制和监测智能化系统设计与实现",
+      "year": 2016,
+      "type": "article",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Nanjing Agricultural University",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
     }
   ]
 }
