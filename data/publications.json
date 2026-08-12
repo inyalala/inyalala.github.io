@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-08-02T15:11:27+00:00",
-  "count": 23,
+  "updatedAt": "2026-08-12T00:00:00+00:00",
+  "count": 31,
   "items": [
     {
       "isPreprint": false,
@@ -26,6 +26,66 @@
     },
     {
       "isPreprint": false,
+      "title": "When Synthetic Data Hurts: DCGAN Augmentation Failure Under Extreme Data Scarcity for Cassava Disease Classification in East Africa",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Data Science Africa 2026, Makerere University, Kampala",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
+      "title": "Auditing Representation in Crop Disease Benchmark Datasets Intended for Sub-Saharan African Deployment",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Data Science Africa 2026, Makerere University, Kampala",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
+      "title": "Few-Shot Transfer Learning for Cassava Leaf Disease Detection Under East African Field Conditions",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Data Science Africa 2026, Makerere University, Kampala",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
       "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
       "year": 2026,
       "type": "conference-abstract",
@@ -37,7 +97,7 @@
         "Innocent Nyalala"
       ],
       "venue": {
-        "name": "TAIS 2026, University of Oxford",
+        "name": "3rd Technical AI Safety Conference (TAIS 2026), University of Oxford",
         "issn": null,
         "publisher": "University of Oxford",
         "meanCitedness2yr": null,
@@ -47,11 +107,77 @@
     },
     {
       "isPreprint": false,
+      "title": "AI Sovereignty in the Global South: Power, Dependency, and Strategic Futures",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "S Davies",
+        "VH Nagaraja",
+        "Innocent Nyalala",
+        "N Bhatt",
+        "S Banerjee"
+      ],
+      "venue": {
+        "name": "AAAI 2026 Workshop on Equitable and Sustainable Global AI (EGSAI), Philadelphia",
+        "issn": null,
+        "publisher": "AAAI",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
+      "title": "CLOVES-4603: Benchmarking Classical Texture Features and Fine-Tuned Deep Models for Clove Quality Grading",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Patrick Vincent"
+      ],
+      "venue": {
+        "name": "Computer Vision and Pattern Recognition (CVPR 2026) — Vision for Agriculture Workshop",
+        "issn": null,
+        "publisher": "IEEE / CVF",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://openreview.net/pdf?id=V1UbAtXS4M"
+    },
+    {
+      "isPreprint": false,
+      "title": "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "Patrick Vincent",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "ICLR 2026 Workshop on Principled Design for Trustworthy AI-Interpretability",
+        "issn": null,
+        "publisher": "ICLR",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
       "title": "Rectifying the extremely weakened signals for cassava leaf disease detection",
       "year": 2025,
       "type": "article",
       "doi": "10.1016/j.compag.2025.110107",
-      "citations": 2,
+      "citations": 4,
       "openAccess": false,
       "authors": [
         "Jiayu Zhang",
@@ -59,7 +185,6 @@
         "Innocent Nyalala",
         "Peter Mecha",
         "Junlong Chen",
-        "Kunjie Chen",
         "Kunjie Chen",
         "Junfeng Gao"
       ],
@@ -85,7 +210,6 @@
         "Ni Chen",
         "Yueping Zhu",
         "Xueyan Zhang",
-        "Xueyan Zhang",
         "Innocent Nyalala",
         "Jiayu Zhang",
         "Junfeng Gao"
@@ -101,11 +225,35 @@
     },
     {
       "isPreprint": false,
+      "title": "Digital Sovereignty or Digital Serfdom? AI Strategies, Geopolitics, and the Quest for an Equitable Global South",
+      "year": 2025,
+      "type": "article",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "S Davies",
+        "VH Nagaraja",
+        "Innocent Nyalala",
+        "N Bhatt",
+        "S Banerjee"
+      ],
+      "venue": {
+        "name": null,
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
       "title": "MAIANet: Signal modulation in cassava leaf disease classification",
       "year": 2024,
       "type": "article",
       "doi": "10.1016/j.compag.2024.109351",
-      "citations": 16,
+      "citations": 19,
       "openAccess": false,
       "authors": [
         "Jiayu Zhang",
@@ -131,7 +279,7 @@
       "year": 2024,
       "type": "article",
       "doi": "10.1016/j.psj.2024.104232",
-      "citations": 7,
+      "citations": 10,
       "openAccess": true,
       "authors": [
         "Innocent Nyalala",
@@ -155,7 +303,7 @@
       "year": 2024,
       "type": "article",
       "doi": "10.1016/j.aiia.2024.11.004",
-      "citations": 6,
+      "citations": 13,
       "openAccess": true,
       "authors": [
         "Jiayu Zhang",
@@ -180,7 +328,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.1016/j.psj.2021.101072",
-      "citations": 101,
+      "citations": 144,
       "openAccess": true,
       "authors": [
         "Innocent Nyalala",
@@ -205,7 +353,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.1080/10942912.2021.1933024",
-      "citations": 35,
+      "citations": 46,
       "openAccess": true,
       "authors": [
         "Innocent Nyalala",
@@ -234,7 +382,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.1038/s41598-021-90682-w",
-      "citations": 29,
+      "citations": 45,
       "openAccess": true,
       "authors": [
         "Nelson Richard Makange",
@@ -258,7 +406,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.1016/j.psj.2021.101474",
-      "citations": 25,
+      "citations": 36,
       "openAccess": true,
       "authors": [
         "Innocent Nyalala",
@@ -288,7 +436,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.3390/agronomy11050834",
-      "citations": 15,
+      "citations": 18,
       "openAccess": true,
       "authors": [
         "Qi Chao",
@@ -310,7 +458,7 @@
       "year": 2021,
       "type": "article",
       "doi": "10.1111/jfpp.16190",
-      "citations": 11,
+      "citations": 20,
       "openAccess": false,
       "authors": [
         "Haolu Liu",
@@ -336,7 +484,7 @@
       "year": 2020,
       "type": "article",
       "doi": "10.1016/j.aiia.2020.09.002",
-      "citations": 155,
+      "citations": 242,
       "openAccess": true,
       "authors": [
         "Cedric Okinda",
@@ -364,7 +512,7 @@
       "year": 2020,
       "type": "article",
       "doi": "10.1016/j.jfoodeng.2020.110041",
-      "citations": 62,
+      "citations": 87,
       "openAccess": false,
       "authors": [
         "Cedric Okinda",
@@ -390,7 +538,7 @@
       "year": 2020,
       "type": "article",
       "doi": "10.1155/2020/1571936",
-      "citations": 30,
+      "citations": 34,
       "openAccess": true,
       "authors": [
         "Tchalla Korohou",
@@ -414,11 +562,37 @@
     },
     {
       "isPreprint": false,
+      "title": "Separation of partially occluded rice kernels and variety classification based on computer vision",
+      "year": 2020,
+      "type": "article",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Q Korohou",
+        "Tchalla",
+        "C Okinda",
+        "I Nyalala",
+        "I Torotwa",
+        "E Mwangi",
+        "Wang"
+      ],
+      "venue": {
+        "name": "International Agricultural Engineering Journal",
+        "issn": "0858-2114",
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": null
+    },
+    {
+      "isPreprint": false,
       "title": "A machine vision system for early detection and prediction of sick birds: A broiler chicken model",
       "year": 2019,
       "type": "article",
       "doi": "10.1016/j.biosystemseng.2019.09.015",
-      "citations": 157,
+      "citations": 194,
       "openAccess": true,
       "authors": [
         "Cedric Okinda",
@@ -445,7 +619,7 @@
       "year": 2019,
       "type": "article",
       "doi": "10.1016/j.jfoodeng.2019.07.012",
-      "citations": 139,
+      "citations": 178,
       "openAccess": false,
       "authors": [
         "Innocent Nyalala",
@@ -472,7 +646,7 @@
       "year": 2019,
       "type": "article",
       "doi": "10.15376/biores.14.1.1333-1346",
-      "citations": 20,
+      "citations": 26,
       "openAccess": true,
       "authors": [
         "Zhenwei Yu",
@@ -497,7 +671,7 @@
       "year": 2019,
       "type": "article",
       "doi": "10.1080/07373937.2019.1691011",
-      "citations": 14,
+      "citations": 28,
       "openAccess": false,
       "authors": [
         "Khurram Yousaf",
@@ -525,7 +699,7 @@
       "year": 2018,
       "type": "article",
       "doi": "10.1016/j.compag.2018.07.007",
-      "citations": 22,
+      "citations": 28,
       "openAccess": false,
       "authors": [
         "Cedric Okinda",

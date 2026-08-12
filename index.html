@@ -711,7 +711,7 @@ window.addEventListener('scroll', () => {
       : '<a href="news/#' + esc(n.id) + '" class="' + cls + '">' + inner + '</a>';
   }
 
-  fetch('data/news.json', { cache: 'no-store' })
+  fetch('data/news.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) {
       var items = (d.items || [])
@@ -761,7 +761,7 @@ window.addEventListener('scroll', () => {
     '</div>';
   }
 
-  fetch('data/news.json', { cache: 'no-store' })
+  fetch('data/news.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) {
       var items = (d.items || [])

@@ -157,7 +157,8 @@
   var ICONS = {
     Publication: 'fa-file-lines', Conference: 'fa-users-rectangle',
     Teaching: 'fa-chalkboard-user', Lab: 'fa-flask', Award: 'fa-trophy',
-    Talk: 'fa-microphone', Media: 'fa-newspaper', Other: 'fa-circle-dot'
+    Talk: 'fa-microphone', Media: 'fa-newspaper', Graduation: 'fa-graduation-cap',
+    Appointment: 'fa-id-badge', Other: 'fa-circle-dot'
   };
 
   // Image paths in news.json are written relative to the site root, because
@@ -401,7 +402,7 @@
 
   initLightbox();
 
-  fetch('../data/news.json', { cache: 'no-store' })
+  fetch('../data/news.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (d) {
       ALL = (d.items || []).slice().sort(function (a, b) {
