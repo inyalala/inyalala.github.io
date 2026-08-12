@@ -706,9 +706,7 @@ window.addEventListener('scroll', () => {
 
     var cls = 'bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg ' +
               'transition-all group card-hover block overflow-hidden';
-    return n.link
-      ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener" class="' + cls + '">' + inner + '</a>'
-      : '<a href="news/#' + esc(n.id) + '" class="' + cls + '">' + inner + '</a>';
+    return '<a href="news/#' + esc(n.id) + '" class="' + cls + '">' + inner + '</a>';
   }
 
   fetch('data/news.json?v=' + Date.now())

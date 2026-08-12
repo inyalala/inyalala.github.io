@@ -306,8 +306,10 @@
         '<div class="flex flex-wrap items-center gap-4 mt-3">' +
           (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener" ' +
             'class="text-xs font-semibold text-gold hover:underline inline-flex items-center gap-1.5">' +
-            'Read more <i class="fas fa-arrow-up-right-from-square text-[9px]"></i></a>' : '') +
-          (n.source ? '<span class="text-xs text-gray-400">Source: ' + esc(n.source) + '</span>' : '') +
+            esc(n.linkLabel || 'Read more') + ' <i class="fas fa-arrow-up-right-from-square text-[9px]"></i></a>' : '') +
+          (n.source ? (n.sourceUrl
+            ? '<a href="' + esc(n.sourceUrl) + '" target="_blank" rel="noopener" class="text-xs text-gray-400 hover:text-gold transition-colors">Source: ' + esc(n.source) + '</a>'
+            : '<span class="text-xs text-gray-400">Source: ' + esc(n.source) + '</span>') : '') +
         '</div>' +
       '</div>' +
     '</article>';

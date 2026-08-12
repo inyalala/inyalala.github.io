@@ -10,6 +10,7 @@
       "headline": "Best Poster Award at Deep Learning Indaba 2026, Lagos",
       "body": "DGS-Bench received the Best Poster Award at Deep Learning Indaba 2026 at Pan-Atlantic University, Lagos, Nigeria — along with a book prize. The paper was one of only 18 accepted for publication out of 114 submissions (15.82% acceptance rate). The poster presents a deployment-gap benchmark for African agricultural AI using cassava as a case study, arguing that standard accuracy metrics systematically misdiagnose real-world failure modes in low-resource settings.",
       "link": "https://doi.org/10.13140/RG.2.2.21909.90088",
+      "linkLabel": "Read poster on ResearchGate",
       "image": "images/news/dli-2026-award-graphic.webp",
       "imageAlt": "Research Excellence Recognised on the Global AI Stage — Dr. Innocent Nyalala, Best Poster Award at Deep Learning Indaba 2026",
       "gallery": [
@@ -17,6 +18,7 @@
         { "src": "images/news/dli-2026-lagos-poster.webp", "alt": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI — poster presented at DLI 2026" }
       ],
       "source": "IIT Madras Zanzibar",
+      "sourceUrl": "https://www.linkedin.com/posts/iitmzanzibar_iitmzanzibar-iitmadras-deeplearningindaba-activity-7492840487553224707-01Xk",
       "issue": null
     },
     {
