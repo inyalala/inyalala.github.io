@@ -341,7 +341,7 @@
     });
   }
 
-  fetch('../data/publications.json', { cache: 'no-store' })
+  fetch('../data/publications.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(boot)
     .catch(function (e) {
@@ -412,7 +412,7 @@
       'preserveAspectRatio="xMidYMax meet">' + bars + '</svg>';
   }
 
-  fetch('../data/metrics.json', { cache: 'no-store' })
+  fetch('../data/metrics.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (m) {
       var s = m.scholar || {}, o = m.openalex || {};
