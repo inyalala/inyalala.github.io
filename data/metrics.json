@@ -3,7 +3,7 @@
   "openalex": {
     "source": "OpenAlex",
     "sourceUrl": "https://openalex.org/A5013656785",
-    "works": 23,
+    "works": 33,
     "citations": 850,
     "hIndex": 14,
     "i10Index": 15,
@@ -26,7 +26,7 @@
       "2023": 215,
       "2024": 218,
       "2025": 258,
-      "2026": 147
+      "2026": 160
     },
     "citationsPerYearExact": false,
     "note": "Maintained by hand in data/manual.json. Google Scholar has no API and forbids direct automated access."
