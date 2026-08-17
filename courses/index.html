@@ -127,11 +127,6 @@
       .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   };
   var LABELS = { active: 'Active', upcoming: 'Upcoming', previous: 'Previous' };
-  var GROUPS = [
-    { key: 'active',   heading: 'Currently Running', icon: 'fa-circle-play' },
-    { key: 'upcoming', heading: 'Next Semester',     icon: 'fa-forward' },
-    { key: 'previous', heading: 'Past Offerings',    icon: 'fa-clock-rotate-left' }
-  ];
 
   function card(c) {
     return '' +
@@ -141,11 +136,11 @@
           '<i class="fas ' + esc(c.icon || 'fa-book') + ' text-gold"></i></div>' +
         '<div class="min-w-0 flex-1">' +
           '<div class="flex flex-wrap items-center gap-2 mb-1.5">' +
-            '<span class="pill pill-code">' + esc(c.code) + '</span>' +
+            '<span class="pill pill-code">' + esc(c.code) + ' &middot; ' + esc(c.program) + '</span>' +
             '<span class="pill pill-' + esc(c.status) + '">' + esc(LABELS[c.status] || c.status) + '</span>' +
           '</div>' +
           '<h3 class="text-base font-bold text-navy leading-snug">' + esc(c.title) + '</h3>' +
-          '<p class="text-gray-500 text-xs mt-1">' + esc(c.program) + ' ' + esc(c.type) + ' &nbsp;·&nbsp; ' + esc(c.term) + '</p>' +
+          '<p class="text-gray-500 text-xs mt-1">' + esc(c.term) + '</p>' +
         '</div>' +
       '</div>' +
       '<p class="text-gray-600 text-sm leading-relaxed mb-5">' + esc(c.summary) + '</p>' +
@@ -154,15 +149,33 @@
     '</a>';
   }
 
+  var NOTE_PDS = '' +
+    '<div class="md:col-span-2 bg-amber-50 border-l-4 border-gold rounded-r-xl px-5 py-4 text-sm text-gray-700">' +
+      '<strong>Not sure which section you are in?</strong> ' +
+      'Check your registration — Z2005 is the BS offering and Z5007 is the MTech offering for Programming and Data Structures.' +
+    '</div>';
+
   fetch('data/courses.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
-    var html = GROUPS.map(function (g) {
-      var list = (d.courses || []).filter(function (c) { return c.status === g.key; });
-      if (!list.length) return '';
-      return '<div class="mb-10">' +
-        '<div class="sec-head"><i class="fas ' + g.icon + ' text-gold"></i><h2>' + g.heading + '</h2></div>' +
-        '<div class="grid md:grid-cols-2 gap-6">' + list.map(card).join('') + '</div></div>';
-    }).join('');
-    document.getElementById('course-groups').innerHTML = html ||
+    var all = d.courses || [];
+
+    // Separate PDS courses from others (by shared title keyword)
+    var pds = all.filter(function (c) { return c.title === 'Programming and Data Structures'; });
+    var rest = all.filter(function (c) { return c.title !== 'Programming and Data Structures'; });
+
+    var html = '<div class="grid md:grid-cols-2 gap-6">';
+
+    // PDS courses first
+    pds.forEach(function (c) { html += card(c); });
+
+    // "Not sure" note spanning full width, only if there are 2+ PDS courses
+    if (pds.length > 1) html += NOTE_PDS;
+
+    // All other courses in the same grid
+    rest.forEach(function (c) { html += card(c); });
+
+    html += '</div>';
+
+    document.getElementById('course-groups').innerHTML = all.length ? html :
       '<p class="text-gray-500 text-sm">No courses listed.</p>';
 
     if (d.materialsRepo) document.getElementById('repo-link').setAttribute('href', d.materialsRepo);
