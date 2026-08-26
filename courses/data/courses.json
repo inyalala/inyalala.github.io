@@ -35,6 +35,18 @@
       "offering": "Third offering"
     },
     {
+      "slug": "z3003",
+      "code": "Z3003",
+      "title": "Data Mining — Scaling to Large Data",
+      "program": "BS",
+      "type": "Core",
+      "status": "upcoming",
+      "term": "Odd Semester",
+      "icon": "fa-magnifying-glass-chart",
+      "summary": "MapReduce, LSH, data streams, PageRank, frequent itemsets, and recommendation systems. Taught by Dr. Nyalala (Weeks 1–6) and Dr. Mahendran V, IIT Tirupati (Weeks 7–15).",
+      "offering": "First offering"
+    },
+    {
       "slug": "z2004",
       "code": "Z2004",
       "title": "Database Management Systems",

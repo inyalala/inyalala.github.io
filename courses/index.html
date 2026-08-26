@@ -149,30 +149,11 @@
     '</a>';
   }
 
-  var NOTE_PDS = '' +
-    '<div class="md:col-span-2 bg-amber-50 border-l-4 border-gold rounded-r-xl px-5 py-4 text-sm text-gray-700">' +
-      '<strong>Not sure which section you are in?</strong> ' +
-      'Check your registration — Z2005 is the BS offering and Z5007 is the MTech offering for Programming and Data Structures.' +
-    '</div>';
-
   fetch('data/courses.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
     var all = d.courses || [];
 
-    // Separate PDS courses from others (by shared title keyword)
-    var pds = all.filter(function (c) { return c.title === 'Programming and Data Structures'; });
-    var rest = all.filter(function (c) { return c.title !== 'Programming and Data Structures'; });
-
     var html = '<div class="grid md:grid-cols-2 gap-6">';
-
-    // PDS courses first
-    pds.forEach(function (c) { html += card(c); });
-
-    // "Not sure" note spanning full width, only if there are 2+ PDS courses
-    if (pds.length > 1) html += NOTE_PDS;
-
-    // All other courses in the same grid
-    rest.forEach(function (c) { html += card(c); });
-
+    all.forEach(function (c) { html += card(c); });
     html += '</div>';
 
     document.getElementById('course-groups').innerHTML = all.length ? html :
