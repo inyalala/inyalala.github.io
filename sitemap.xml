@@ -8,23 +8,18 @@
   <!-- Main Page -->
   <url>
     <loc>https://inyalala.github.io/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://inyalala.github.io/images/Photo.webp</image:loc>
+      <image:loc>https://inyalala.github.io/images/Photo.jpg</image:loc>
       <image:title>Dr. Innocent Nyalala</image:title>
       <image:caption>Assistant Professor of Data Science and AI at IIT Madras Zanzibar</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://inyalala.github.io/images/saail-logo1.webp</image:loc>
+      <image:loc>https://inyalala.github.io/images/saail-logo1.png</image:loc>
       <image:title>SAAIL Lab Logo</image:title>
       <image:caption>Sustainable AI for Agriculture and Intelligent Livelihoods</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://inyalala.github.io/images/og-banner.png</image:loc>
-      <image:title>Dr. Innocent Nyalala — AI Researcher &amp; Assistant Professor</image:title>
-      <image:caption>IIT Madras Zanzibar · SAAIL Lab · 1,081+ Citations · H-index 15</image:caption>
     </image:image>
   </url>
 
@@ -39,7 +34,7 @@
   <!-- SAAIL Lab -->
   <url>
     <loc>https://saaillab.github.io/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -47,75 +42,51 @@
   <!-- Sections (Deep Links) -->
   <url>
     <loc>https://inyalala.github.io/#profile</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#news</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#research</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#publications</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#conferences</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#teaching</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://inyalala.github.io/#contact</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
-  </url>
-
-  <!-- Publications Page -->
-  <url>
-    <loc>https://inyalala.github.io/publications/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Deep links: press + publications section -->
-  <url>
-    <loc>https://inyalala.github.io/#press</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- RSS Feed -->
-  <url>
-    <loc>https://inyalala.github.io/feed.xml</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
 
 </urlset>

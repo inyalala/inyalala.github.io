@@ -1,0 +1,73 @@
+name: Refresh publication metrics
+
+# Runs weekly and opens a pull request when anything changed.
+# It never pushes to the live branch. You review the diff and merge.
+
+on:
+  schedule:
+    # Mondays, 03:00 UTC (06:00 East Africa Time). Cron on GitHub is UTC.
+    - cron: "0 3 * * 1"
+  workflow_dispatch:        # lets you trigger it by hand from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-metrics
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The script uses the standard library only, so there is nothing to install.
+      - name: Fetch metrics and publications
+        id: refresh
+        env:
+          # Optional. Add under Settings > Secrets and variables > Actions to
+          # enable automated Google Scholar figures. Without it the job still
+          # runs and uses the hand-maintained values in data/manual.json.
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python scripts/refresh_metrics.py
+
+      - name: Open a pull request if anything changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: auto/metrics-refresh
+          base: main
+          commit-message: "data: refresh metrics (${{ steps.refresh.outputs.summary }})"
+          title: "Metrics refresh: ${{ steps.refresh.outputs.summary }}"
+          body: |
+            Automated refresh of publication data.
+
+            **Source:** OpenAlex, queried by ORCID 0000-0002-7969-437X.
+
+            Check before merging:
+            - Any new publication listed is genuinely yours.
+            - Nothing in `data/news-inbox.json` is published by this PR. Items
+              there are unreviewed candidates. Promote real ones by hand.
+            - Google Scholar figures in `data/manual.json` are not touched by
+              this job and may now be stale.
+
+            If the numbers look wrong, close this PR. The live site is unaffected.
+          labels: automated
+          delete-branch: true
+          add-paths: |
+            data/metrics.json
+            data/publications.json
+            data/news-inbox.json
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "::error::Metrics refresh failed. The site still shows the last good data."
+          echo "Check whether OpenAlex changed its API or the ORCID query returned nothing."

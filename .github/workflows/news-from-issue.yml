@@ -1,0 +1,64 @@
+name: News from issue
+
+# You fill in the "Post news" issue form, this turns it into a news entry and
+# opens a pull request. Merging the PR publishes it. Nothing goes live on
+# submission alone.
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  publish:
+    # Only issues created from the news template, and only from the repo owner.
+    # Without the actor check, anyone who can open an issue could queue content.
+    if: contains(github.event.issue.labels.*.name, 'news') && github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Convert the issue into a news entry
+        id: convert
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: python scripts/news_from_issue.py
+
+      - name: Open a pull request
+        id: pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: auto/news-${{ github.event.issue.number }}
+          base: main
+          commit-message: "news: ${{ steps.convert.outputs.headline }}"
+          title: "News: ${{ steps.convert.outputs.headline }}"
+          body: |
+            From issue #${{ github.event.issue.number }}.
+
+            Check the wording and the link, then merge to publish.
+
+            Closes #${{ github.event.issue.number }}
+          labels: news
+          delete-branch: true
+          add-paths: data/news.json
+
+      - name: Link the pull request back to the issue
+        if: steps.pr.outputs.pull-request-number
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Queued in #${{ steps.pr.outputs.pull-request-number }}. Merge it to publish.'
+            })
