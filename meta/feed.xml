@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Dr. Innocent Nyalala — News &amp; Publications</title>
+    <title>Innocent Nyalala — News &amp; Publications</title>
     <link>https://inyalala.github.io/</link>
-    <description>Latest news, publications, and research updates from Dr. Innocent Nyalala, Assistant Professor of Data Science &amp; AI at IIT Madras Zanzibar and Founder &amp; Principal Investigator of SAAIL Lab.</description>
+    <description>Latest news, publications, and research updates from Innocent Nyalala, Assistant Professor of Data Science &amp; AI at IIT Madras Zanzibar and Founder &amp; Principal Investigator of SAAIL Lab.</description>
     <language>en-us</language>
-    <managingEditor>innocent@iitmz.ac.in (Dr. Innocent Nyalala)</managingEditor>
-    <webMaster>innocent@iitmz.ac.in (Dr. Innocent Nyalala)</webMaster>
+    <managingEditor>innocent@iitmz.ac.in (Innocent Nyalala)</managingEditor>
+    <webMaster>innocent@iitmz.ac.in (Innocent Nyalala)</webMaster>
     <copyright>2026 Innocent Nyalala</copyright>
     <category>AI Research</category>
     <category>Data Science</category>
@@ -15,16 +15,16 @@
     <atom:link href="https://inyalala.github.io/meta/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://inyalala.github.io/images/Photo.webp</url>
-      <title>Dr. Innocent Nyalala</title>
+      <title>Innocent Nyalala</title>
       <link>https://inyalala.github.io/</link>
     </image>
 
     <item>
       <title>CARA-FM Research Featured by AI4Africa — Weekly Research Spotlight</title>
       <link>https://www.linkedin.com/posts/artificialintelligence4africa_ai4africa-weeklyresearchspotlight-aiagriculture-activity-7443263297165987840--I9m</link>
-      <description>The CARA-FM framework for culturally attuned, resource-aware foundation models in East African agriculture was featured in AI4Africa's Weekly Research Spotlight, reaching researchers, policymakers, and communities across the continent. Work by Dr. Innocent Nyalala and Prof. Nirav Bhatt, presented at Deep Learning Indaba 2025.</description>
+      <description>The CARA-FM framework for culturally attuned, resource-aware foundation models in East African agriculture was featured in AI4Africa's Weekly Research Spotlight, reaching researchers, policymakers, and communities across the continent. Work by Innocent Nyalala and Prof. Nirav Bhatt, presented at Deep Learning Indaba 2025.</description>
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Media Coverage</category>
       <category>AI4Africa</category>
       <guid isPermaLink="true">https://www.linkedin.com/posts/artificialintelligence4africa_ai4africa-weeklyresearchspotlight-aiagriculture-activity-7443263297165987840--I9m</guid>
@@ -33,9 +33,9 @@
     <item>
       <title>Paper Accepted at ICLR 2026 — Trustworthy AI Workshop, Rio de Janeiro</title>
       <link>https://www.linkedin.com/posts/iitmzanzibar_trustworthyaiworkshop-iclr2026-trustworthyai-activity-7436630440158912512-rn3H</link>
-      <description>SAAIL Lab's paper "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization" accepted at the ICLR 2026 Trustworthy AI Workshop. Authors: Patrick Vincent Ndowo &amp; Dr. Innocent Nyalala.</description>
+      <description>SAAIL Lab's paper "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization" accepted at the ICLR 2026 Trustworthy AI Workshop. Authors: Patrick Vincent Ndowo &amp; Innocent Nyalala.</description>
       <pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Publication</category>
       <category>ICLR 2026</category>
       <guid isPermaLink="true">https://www.linkedin.com/posts/iitmzanzibar_trustworthyaiworkshop-iclr2026-trustworthyai-activity-7436630440158912512-rn3H</guid>
@@ -46,7 +46,7 @@
       <link>https://www.linkedin.com/posts/iitmzanzibar_artificialintelligence-deeplearning-agritech-activity-7443156335917137920-fvvi</link>
       <description>In partnership with ZSTC, SAAIL Lab built the first AI-powered clove grading system on a novel Zanzibar dataset and won a $980 EAC STI travel grant to present "Deep Learning Feasibility Study for Automated Clove Quality Classification Using CNN Architectures on a Novel Zanzibar Dataset" in Kigali.</description>
       <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Conference</category>
       <category>EAC STI 2026</category>
       <guid isPermaLink="true">https://www.linkedin.com/posts/iitmzanzibar_artificialintelligence-deeplearning-agritech-activity-7443156335917137920-fvvi</guid>
@@ -57,7 +57,7 @@
       <link>https://link.springer.com/journal/44163/editorial-board</link>
       <description>Honored to join the editorial board of Discover Artificial Intelligence, a Springer Nature open access journal, contributing to responsible AI, machine learning, and computer vision research standards.</description>
       <pubDate>Fri, 05 Dec 2025 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Academic Service</category>
       <guid isPermaLink="true">https://link.springer.com/journal/44163/editorial-board</guid>
     </item>
@@ -67,7 +67,7 @@
       <link>https://deeplearningindaba.com/2025/</link>
       <description>Winner of Best Poster Award (Publication &amp; Dataset Category) at Deep Learning Indaba 2025 for CARA-FMs: A Framework for Context-Aware and Responsible AI in East Africa. Also presented at the Responsible AI Workshop oral session.</description>
       <pubDate>Sat, 23 Aug 2025 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Award</category>
       <category>Deep Learning Indaba</category>
       <guid isPermaLink="true">https://deeplearningindaba.com/2025/</guid>
@@ -78,7 +78,7 @@
       <link>https://indianexpress.com/article/education/iit-madras-zanzibar-campus-first-degree-distribution-ceremony-data-science-artificial-intelligence-batch-2025-jee-main-advanced-10134226/</link>
       <description>Historic graduation ceremony as IIT Madras Zanzibar celebrates its inaugural MTech Data Science and AI batch, featured in the Indian Express.</description>
       <pubDate>Tue, 15 Jul 2025 00:00:00 +0000</pubDate>
-      <dc:creator>Dr. Innocent Nyalala</dc:creator>
+      <dc:creator>Innocent Nyalala</dc:creator>
       <category>Media Coverage</category>
       <guid isPermaLink="true">https://indianexpress.com/article/education/iit-madras-zanzibar-campus-first-degree-distribution-ceremony-data-science-artificial-intelligence-batch-2025-jee-main-advanced-10134226/</guid>
     </item>

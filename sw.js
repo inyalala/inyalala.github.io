@@ -1,7 +1,7 @@
 /**
  * SERVICE WORKER for Progressive Web App
  * Enables offline functionality and asset caching
- * @author Dr. Innocent Nyalala - IIT Madras Zanzibar
+ * @author Innocent Nyalala - IIT Madras Zanzibar
  * @version 1.0.0
  */
 
@@ -226,7 +226,7 @@ self.addEventListener('push', (event) => {
     };
 
     event.waitUntil(
-        self.registration.showNotification('Dr. Innocent Nyalala', options)
+        self.registration.showNotification('Innocent Nyalala', options)
     );
 });
 

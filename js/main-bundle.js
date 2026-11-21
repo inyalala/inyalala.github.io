@@ -1,7 +1,7 @@
 /**
  * MAIN JAVASCRIPT BUNDLE
  * All site functionality combined in one optimized file
- * @author Dr. Innocent Nyalala - IIT Madras Zanzibar
+ * @author Innocent Nyalala - IIT Madras Zanzibar
  */
 
 (function() {

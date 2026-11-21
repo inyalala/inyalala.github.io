@@ -1,10 +1,10 @@
-# Dr. Innocent Nyalala - Personal Website
+# Innocent Nyalala - Personal Website
 
-Official website of Dr. Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar.
+Official website of Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar.
 
 ## About
 
-This website showcases the academic profile, research work, publications, and achievements of Dr. Innocent Nyalala, who serves as:
+This website showcases the academic profile, research work, publications, and achievements of Innocent Nyalala, who serves as:
 - Assistant Professor of Data Science and AI at IIT Madras Zanzibar
 - Associate Research Fellow at Wadhwani School of Data Science & AI, IIT Madras Chennai
 - Principal Investigator of SAAIL Lab (Sustainable AI for Agriculture & Intelligent Livelihoods)
@@ -55,9 +55,9 @@ collaborators can push changes. Currently that is only the repository owner. Bra
 
 - **Email**: innocent@iitmz.ac.in
 - **Website**: https://inyalala.github.io
-- **LinkedIn**: [Dr. Innocent Nyalala](https://www.linkedin.com/in/innocentnyalala/)
+- **LinkedIn**: [Innocent Nyalala](https://www.linkedin.com/in/innocentnyalala/)
 - **Google Scholar**: [Profile](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
 
 ## License
 
-© 2026 Dr. Innocent Nyalala. All rights reserved.
+© 2026 Innocent Nyalala. All rights reserved.

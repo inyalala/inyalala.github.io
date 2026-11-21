@@ -160,16 +160,16 @@
         // 6. Dynamic page titles based on section
         setupDynamicPageTitles: function() {
             const sections = {
-                'profile': 'Profile - Dr. Innocent Nyalala',
-                'news': 'Latest News - Dr. Innocent Nyalala',
-                'research': 'Research - Dr. Innocent Nyalala',
-                'publications': 'Publications - Dr. Innocent Nyalala',
-                'conferences': 'Conferences - Dr. Innocent Nyalala',
-                'teaching': 'Teaching - Dr. Innocent Nyalala',
-                'contact': 'Contact - Dr. Innocent Nyalala'
+                'profile': 'Profile - Innocent Nyalala',
+                'news': 'Latest News - Innocent Nyalala',
+                'research': 'Research - Innocent Nyalala',
+                'publications': 'Publications - Innocent Nyalala',
+                'conferences': 'Conferences - Innocent Nyalala',
+                'teaching': 'Teaching - Innocent Nyalala',
+                'contact': 'Contact - Innocent Nyalala'
             };
 
-            const defaultTitle = 'Dr. Innocent Nyalala | AI Researcher, Assistant Professor | IIT Madras Zanzibar';
+            const defaultTitle = 'Innocent Nyalala | AI Researcher, Assistant Professor | IIT Madras Zanzibar';
 
             // Update title on scroll
             const observer = new IntersectionObserver((entries) => {

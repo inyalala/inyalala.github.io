@@ -1,7 +1,7 @@
 {
   "_comment": "Course registry. This is the ONLY file the hub page reads. To add a course, add an entry here and create data/<slug>.json plus a folder <slug>/index.html copied from any existing one.",
   "instructor": {
-    "name": "Dr. Innocent Nyalala",
+    "name": "Innocent Nyalala",
     "title": "Assistant Professor of Data Science and AI",
     "school": "School of Engineering and Science, IIT Madras Zanzibar",
     "email": "innocent@iitmz.ac.in",
@@ -43,7 +43,7 @@
       "status": "upcoming",
       "term": "Odd Semester",
       "icon": "fa-magnifying-glass-chart",
-      "summary": "MapReduce, LSH, data streams, PageRank, frequent itemsets, and recommendation systems. Taught by Dr. Nyalala (Weeks 1–6) and Dr. Mahendran V, IIT Tirupati (Weeks 7–15).",
+      "summary": "MapReduce, LSH, data streams, PageRank, frequent itemsets, and recommendation systems. Taught by Innocent Nyalala (Weeks 1–6) and Dr. Mahendran V, IIT Tirupati (Weeks 7–15).",
       "offering": "First offering"
     },
     {

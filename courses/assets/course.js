@@ -237,7 +237,7 @@
   function render(c, instructor) {
     window.__COURSE_INSTRUCTOR__ = instructor || {};
 
-    document.title = c.code + ' ' + c.title + ' | Dr. Innocent Nyalala';
+    document.title = c.code + ' ' + c.title + ' | Innocent Nyalala';
     var d = document.querySelector('meta[name="description"]');
     if (d && has(c.summary)) d.setAttribute('content', c.code + ' ' + c.title + '. ' + c.summary);
 

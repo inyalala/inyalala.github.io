@@ -2,21 +2,6 @@
   "_comment": "Single source of truth for news. Feeds both news/index.html and the Latest News section on the home page. Normally created by the 'Post news' issue form via .github/workflows/news-from-issue.yml, and safe to edit by hand. Items sort on 'date'; 'dateRange' is what a reader sees when an event spans several days. Set 'featured' on the items that should appear on the home page.",
   "items": [
     {
-      "id": "2026-10-15-google-cultureseeds-east-africa",
-      "date": "2026-10-15",
-      "dateRange": "October 2026",
-      "category": "Grant",
-      "featured": true,
-      "headline": "Google Research Award (US$100,000): CultureSEEDS East Africa & Swahili Safety",
-      "body": "Dr. Innocent Nyalala leads the US$100,000 Google Research Award advancing culturally grounded Swahili safety evaluation (10 East African languages), the Dira Swahili provenance detector, and Zanzibar Spoken QA corpora at SAAIL Lab.",
-      "link": "https://saaillab.github.io/projects/",
-      "linkLabel": "View Project Details",
-      "image": null,
-      "imageAlt": null,
-      "source": "Google Research / SAAIL Lab",
-      "issue": null
-    },
-    {
       "id": "2026-09-16-etri-journal-clove-xai",
       "date": "2026-09-16",
       "dateRange": "September 2026",
@@ -42,11 +27,11 @@
       "link": "https://saaillab.github.io/papers/dgs-bench/",
       "linkLabel": "View DGS-Bench Project & Poster",
       "image": "images/news/dli-2026-award-graphic.webp",
-      "imageAlt": "Research Excellence Recognised on the Global AI Stage - Dr. Innocent Nyalala, Best Poster Award at Deep Learning Indaba 2026",
+      "imageAlt": "Research Excellence Recognised on the Global AI Stage - Innocent Nyalala, Best Poster Award at Deep Learning Indaba 2026",
       "gallery": [
         {
           "src": "images/news/dli-2026-award-photo.webp",
-          "alt": "Dr. Innocent Nyalala with the DGS-Bench poster at Deep Learning Indaba 2026, Pan-Atlantic University, Lagos"
+          "alt": "Innocent Nyalala with the DGS-Bench poster at Deep Learning Indaba 2026, Pan-Atlantic University, Lagos"
         },
         {
           "src": "images/news/dli-2026-lagos-poster.webp",
@@ -193,7 +178,7 @@
       "body": "SAAIL Lab presented three pieces of work at Data Science Africa 2026, held at Makerere University in Kampala, Uganda. Oral: \"When Synthetic Data Hurts: DCGAN Augmentation Failure Under Extreme Data Scarcity for Cassava Disease Classification in East Africa.\" Posters: an audit of representation in crop disease benchmark datasets for sub-Saharan African deployment, and few-shot transfer learning for cassava leaf disease detection under East African field conditions.",
       "link": null,
       "image": "images/news/dsa-2026-kampala.webp",
-      "imageAlt": "Dr. Innocent Nyalala at Data Science Africa 2026, Makerere University, Kampala",
+      "imageAlt": "Innocent Nyalala at Data Science Africa 2026, Makerere University, Kampala",
       "_focalNote": "Where the crop should centre on the home-page card. A portrait photo cropped to a landscape card loses the top and bottom, so pull the focus upward to keep the face in frame.",
       "focal": "50% 22%",
       "gallery": [

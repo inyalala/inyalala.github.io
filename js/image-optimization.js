@@ -1,7 +1,7 @@
 /**
  * IMAGE OPTIMIZATION UTILITIES
  * Handles responsive images, WebP fallbacks, and lazy loading
- * @author Dr. Innocent Nyalala - IIT Madras Zanzibar
+ * @author Innocent Nyalala - IIT Madras Zanzibar
  */
 
 (function() {

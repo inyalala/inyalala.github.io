@@ -1,7 +1,7 @@
 /**
  * PWA REGISTRATION SCRIPT
  * Registers service worker and handles PWA installation
- * @author Dr. Innocent Nyalala - IIT Madras Zanzibar
+ * @author Innocent Nyalala - IIT Madras Zanzibar
  */
 
 (function() {
