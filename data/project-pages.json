@@ -56,7 +56,7 @@
       "slug": "dgs-bench",
       "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics: A Cassava Case Study",
       "normTitle": "dgs bench measuring the deployment gap in african agricultural ai requires balanced metrics a cassava case study",
-      "doi": "10.13140/rg.2.2.12603.17448",
+      "doi": null,
       "projectUrl": "https://saaillab.github.io/papers/dgs-bench/",
       "repoPageUrl": "https://saaillab.github.io/dgs-bench/",
       "codeUrl": "https://github.com/saaillab/dgs-bench",
@@ -90,7 +90,7 @@
       "projectUrl": "https://saaillab.github.io/papers/cara-fm/",
       "repoPageUrl": "https://saaillab.github.io/cara-fm/",
       "codeUrl": "https://github.com/saaillab/cara-fm",
-      "award": "Best Poster Award (Publication & Dataset Category) , Deep Learning Indaba 2025, Kigali"
+      "award": "Best Poster Award (Publication & Dataset Category), Deep Learning Indaba 2025, Kigali"
     },
     {
       "slug": "clove-xai-etri2026",
@@ -110,7 +110,7 @@
       "projectUrl": "https://saaillab.github.io/papers/zstc-clove-v1/",
       "repoPageUrl": "https://saaillab.github.io/zstc-clove-v1/",
       "codeUrl": "https://github.com/saaillab/zstc-clove-v1",
-      "award": "Competitive Travel Grant Award , EAC STI 2026, Kigali"
+      "award": "Competitive Travel Grant Award, EAC STI 2026, Kigali"
     },
     {
       "slug": "dcgan-cassava-dsa2026",
@@ -120,7 +120,7 @@
       "projectUrl": "https://saaillab.github.io/papers/dcgan-cassava-dsa2026/",
       "repoPageUrl": null,
       "codeUrl": null,
-      "award": "Oral Presentation , Data Science Africa 2026, Kampala"
+      "award": "Oral Presentation, Data Science Africa 2026, Kampala"
     },
     {
       "slug": "auditing-crop-datasets-dsa2026",

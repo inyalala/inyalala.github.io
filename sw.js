@@ -19,7 +19,8 @@ const PRECACHE_ASSETS = [
     '/images/saail-logo1.webp',
     '/manifest.json',
     '/assets/favicon.ico',
-    '/assets/favicon-32x32.png'
+    '/assets/favicon-32x32.png',
+    '/assets/android-chrome-192x192.png'
 ];
 
 // Install event - cache critical assets
@@ -203,8 +204,8 @@ self.addEventListener('push', (event) => {
 
     const options = {
         body: event.data ? event.data.text() : 'New update available',
-        icon: '/assets/icon-192x192.png',
-        badge: '/assets/icon-96x96.png',
+        icon: '/assets/android-chrome-192x192.png',
+        badge: '/assets/favicon-32x32.png',
         vibrate: [200, 100, 200],
         data: {
             dateOfArrival: Date.now(),
@@ -214,12 +215,12 @@ self.addEventListener('push', (event) => {
             {
                 action: 'explore',
                 title: 'View',
-                icon: '/assets/icon-96x96.png'
+                icon: '/assets/favicon-32x32.png'
             },
             {
                 action: 'close',
                 title: 'Close',
-                icon: '/assets/icon-96x96.png'
+                icon: '/assets/favicon-32x32.png'
             }
         ]
     };

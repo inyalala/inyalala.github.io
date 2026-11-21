@@ -40,7 +40,7 @@
         "Nirav Bhatt"
       ],
       "venue": {
-        "name": "Deep Learning Indaba 2025 Research Track , Proceedings of Machine Learning Research (PMLR Vol. 302, pp. 1–11, 2026)",
+        "name": "Deep Learning Indaba 2025 Research Track, Proceedings of Machine Learning Research (PMLR Vol. 302, pp. 1–11, 2026)",
         "issn": null,
         "publisher": null,
         "meanCitedness2yr": null,
@@ -63,7 +63,7 @@
         "Patrick Vincent Ndowo"
       ],
       "venue": {
-        "name": "ETRI Journal (Wiley / Electronics and Telecommunications Research Institute)",
+        "name": "ETRI Journal, Vol. 48, No. 5, pp. 911-923 (Wiley / ETRI)",
         "issn": null,
         "publisher": null,
         "meanCitedness2yr": null,
@@ -127,8 +127,8 @@
       "isSaailLab": true,
       "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics: A Cassava Case Study",
       "year": 2026,
-      "type": "article",
-      "doi": "10.13140/rg.2.2.12603.17448",
+      "type": "conference-abstract",
+      "doi": null,
       "citations": 0,
       "openAccess": true,
       "authors": [
@@ -143,7 +143,7 @@
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
-      "url": "https://doi.org/10.13140/rg.2.2.12603.17448"
+      "url": "https://saaillab.github.io/papers/dgs-bench/"
     },
     {
       "isPreprint": false,
@@ -160,7 +160,7 @@
         "Patrick Vincent Ndowo"
       ],
       "venue": {
-        "name": "CVPR 2026 , 7th Workshop on Vision for Agriculture (CV4A / V4A), Denver, USA",
+        "name": "CVPR 2026, 7th Workshop on Vision for Agriculture (CV4A / V4A), Denver, USA",
         "issn": null,
         "publisher": "IEEE / CVF",
         "meanCitedness2yr": null,
@@ -438,7 +438,7 @@
       "isSaailLab": true,
       "title": "Digital Sovereignty or Digital Serfdom? AI Strategies, Geopolitics, and the Quest for an Equitable Global South",
       "year": 2025,
-      "type": "article",
+      "type": "conference-abstract",
       "doi": null,
       "citations": 0,
       "openAccess": true,

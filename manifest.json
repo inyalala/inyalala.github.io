@@ -1,17 +1,23 @@
 {
   "name": "Dr. Innocent Nyalala - AI Researcher & Assistant Professor",
   "short_name": "I. Nyalala",
-  "description": "Assistant Professor of Data Science & AI at IIT Madras Zanzibar, Associate Research Fellow at Wadhwani School IITM Chennai, Principal Investigator of SAAIL Lab. Expert in AI for Agriculture, Healthcare AI, Computer Vision, Machine Learning in East Africa.",
+  "description": "Assistant Professor of Data Science & AI at IIT Madras Zanzibar, Associate Research Fellow at Wadhwani School of Data Science and AI (IITM Chennai), and Founder & Principal Investigator of SAAIL Lab. Research in AI for Agriculture, Swahili NLP & Safety, Healthcare AI, and Computer Vision.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0066cc",
-  "theme_color": "#0066cc",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
   "lang": "en-US",
   "dir": "ltr",
   "categories": ["education", "research", "technology", "academic"],
   "icons": [
+    {
+      "src": "/assets/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/assets/favicon-32x32.png",
       "sizes": "32x32",
@@ -19,79 +25,39 @@
       "purpose": "any"
     },
     {
-      "src": "/assets/icon-72x72.png",
-      "sizes": "72x72",
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/assets/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-192x192.png",
+      "src": "/assets/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-512x512.png",
+      "src": "/assets/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/assets/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Desktop view of Dr. Innocent Nyalala's portfolio"
     },
     {
-      "src": "/assets/screenshot-mobile.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Mobile view of Dr. Innocent Nyalala's portfolio"
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "shortcuts": [
     {
       "name": "Research",
       "short_name": "Research",
-      "description": "View research projects and interests",
-      "url": "/#research",
+      "description": "View research pillars and active grants",
+      "url": "/research/",
       "icons": [
         {
-          "src": "/assets/icon-192x192.png",
+          "src": "/assets/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -100,24 +66,24 @@
     {
       "name": "Publications",
       "short_name": "Publications",
-      "description": "Browse publications and academic work",
-      "url": "/#publications",
+      "description": "Browse peer-reviewed publications",
+      "url": "/publications/",
       "icons": [
         {
-          "src": "/assets/icon-192x192.png",
+          "src": "/assets/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
       ]
     },
     {
-      "name": "SAAIL Lab",
-      "short_name": "SAAIL",
-      "description": "Visit SAAIL Lab website",
-      "url": "https://saaillab.github.io/",
+      "name": "Teaching",
+      "short_name": "Courses",
+      "description": "Explore IIT Madras Zanzibar course materials",
+      "url": "/courses/",
       "icons": [
         {
-          "src": "/assets/icon-192x192.png",
+          "src": "/assets/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -126,11 +92,11 @@
     {
       "name": "Contact",
       "short_name": "Contact",
-      "description": "Get in touch",
+      "description": "Get in touch with Dr. Innocent Nyalala",
       "url": "/#contact",
       "icons": [
         {
-          "src": "/assets/icon-192x192.png",
+          "src": "/assets/android-chrome-192x192.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -138,16 +104,5 @@
     }
   ],
   "related_applications": [],
-  "prefer_related_applications": false,
-  "iarc_rating_id": "",
-  "share_target": {
-    "action": "/share",
-    "method": "GET",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  "prefer_related_applications": false
 }

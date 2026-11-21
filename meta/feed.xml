@@ -3,7 +3,7 @@
   <channel>
     <title>Dr. Innocent Nyalala — News &amp; Publications</title>
     <link>https://inyalala.github.io/</link>
-    <description>Latest news, publications, and research updates from Dr. Innocent Nyalala, Assistant Professor of Data Science &amp; AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab.</description>
+    <description>Latest news, publications, and research updates from Dr. Innocent Nyalala, Assistant Professor of Data Science &amp; AI at IIT Madras Zanzibar and Founder &amp; Principal Investigator of SAAIL Lab.</description>
     <language>en-us</language>
     <managingEditor>innocent@iitmz.ac.in (Dr. Innocent Nyalala)</managingEditor>
     <webMaster>innocent@iitmz.ac.in (Dr. Innocent Nyalala)</webMaster>
@@ -12,7 +12,7 @@
     <category>Data Science</category>
     <category>East Africa</category>
     <ttl>10080</ttl>
-    <atom:link href="https://inyalala.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://inyalala.github.io/meta/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://inyalala.github.io/images/Photo.webp</url>
       <title>Dr. Innocent Nyalala</title>
@@ -23,7 +23,7 @@
       <title>CARA-FM Research Featured by AI4Africa — Weekly Research Spotlight</title>
       <link>https://www.linkedin.com/posts/artificialintelligence4africa_ai4africa-weeklyresearchspotlight-aiagriculture-activity-7443263297165987840--I9m</link>
       <description>The CARA-FM framework for culturally attuned, resource-aware foundation models in East African agriculture was featured in AI4Africa's Weekly Research Spotlight, reaching researchers, policymakers, and communities across the continent. Work by Dr. Innocent Nyalala and Prof. Nirav Bhatt, presented at Deep Learning Indaba 2025.</description>
-      <pubDate>Tue, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
       <dc:creator>Dr. Innocent Nyalala</dc:creator>
       <category>Media Coverage</category>
       <category>AI4Africa</category>
@@ -34,7 +34,7 @@
       <title>Paper Accepted at ICLR 2026 — Trustworthy AI Workshop, Rio de Janeiro</title>
       <link>https://www.linkedin.com/posts/iitmzanzibar_trustworthyaiworkshop-iclr2026-trustworthyai-activity-7436630440158912512-rn3H</link>
       <description>SAAIL Lab's paper "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization" accepted at the ICLR 2026 Trustworthy AI Workshop. Authors: Patrick Vincent Ndowo &amp; Dr. Innocent Nyalala.</description>
-      <pubDate>Sat, 05 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate>
       <dc:creator>Dr. Innocent Nyalala</dc:creator>
       <category>Publication</category>
       <category>ICLR 2026</category>
@@ -44,8 +44,8 @@
     <item>
       <title>Paper at 4th EAC STI Conference 2026 — Kigali, Rwanda · Travel Grant $980</title>
       <link>https://www.linkedin.com/posts/iitmzanzibar_artificialintelligence-deeplearning-agritech-activity-7443156335917137920-fvvi</link>
-      <description>In partnership with ZSTC, SAAIL Lab built the first AI-powered clove grading system on a novel Zanzibar dataset and won a $980 EAC STI travel grant to present "Deep Learning for Automated Clove Quality Grading" in Kigali.</description>
-      <pubDate>Sun, 30 Mar 2026 00:00:00 +0000</pubDate>
+      <description>In partnership with ZSTC, SAAIL Lab built the first AI-powered clove grading system on a novel Zanzibar dataset and won a $980 EAC STI travel grant to present "Deep Learning Feasibility Study for Automated Clove Quality Classification Using CNN Architectures on a Novel Zanzibar Dataset" in Kigali.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
       <dc:creator>Dr. Innocent Nyalala</dc:creator>
       <category>Conference</category>
       <category>EAC STI 2026</category>
