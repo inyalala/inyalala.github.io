@@ -177,7 +177,27 @@
   'use strict';
 
   var ALL = [];
+  var PROJECT_PAGES = [];
   var state = { search: '', years: [], venues: [], access: [], sort: 'year' };
+
+  function normText(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function findProjectMeta(p) {
+    var pDoi = p.doi ? String(p.doi).replace(/^https?:\/\/(dx\.)?doi\.org\//i, '').trim().toLowerCase() : '';
+    var pNorm = normText(p.title);
+    for (var i = 0; i < PROJECT_PAGES.length; i++) {
+      var m = PROJECT_PAGES[i];
+      if (pDoi && m.doi && String(m.doi).toLowerCase() === pDoi) return m;
+      if (pNorm && m.normTitle) {
+        if (m.normTitle === pNorm) return m;
+        if (pNorm.length > 35 && m.normTitle.indexOf(pNorm.slice(0, 35)) === 0) return m;
+        if (m.normTitle.length > 35 && pNorm.indexOf(m.normTitle.slice(0, 35)) === 0) return m;
+      }
+    }
+    return null;
+  }
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -216,7 +236,19 @@
       badges.push('<span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-full">SJR ' + esc(v.sjrQuartile) + '</span>');
     }
 
-    var href = p.doi ? 'https://doi.org/' + p.doi : (p.url || '#');
+    var meta = findProjectMeta(p);
+    var href = (meta && meta.projectUrl) ? meta.projectUrl : (p.doi ? 'https://doi.org/' + p.doi : (p.url || '#'));
+    var actionPills = [];
+    if (meta && meta.projectUrl) {
+      actionPills.push('<a href="' + esc(meta.projectUrl) + '" target="_blank" rel="noopener" ' +
+        'class="inline-flex items-center gap-1.5 text-xs font-semibold bg-navy text-white hover:bg-gold hover:text-navy px-2.5 py-1 rounded transition-colors">' +
+        '<i class="fas fa-globe text-[10px]"></i>Project Page</a>');
+    }
+    if (meta && meta.codeUrl) {
+      actionPills.push('<a href="' + esc(meta.codeUrl) + '" target="_blank" rel="noopener" ' +
+        'class="inline-flex items-center gap-1.5 text-xs font-semibold border border-gray-300 text-navy hover:border-gold hover:text-gold px-2.5 py-1 rounded transition-colors">' +
+        '<i class="fab fa-github text-[10px]"></i>Code</a>');
+    }
 
     return '' +
     '<article class="pub-card bg-white rounded-xl border border-gray-100 shadow-sm p-6">' +
@@ -233,8 +265,11 @@
             (v.meanCitedness2yr ? ' <span class="text-gray-400">· ' + v.meanCitedness2yr + ' mean citations per paper over 2 years</span>' : '') +
             '</p>' : '') +
           (badges.length ? '<div class="flex flex-wrap gap-2 mb-3">' + badges.join('') + '</div>' : '') +
-          (p.doi ? '<a href="https://doi.org/' + esc(p.doi) + '" target="_blank" rel="noopener" ' +
-            'class="text-xs text-gray-400 hover:text-gold transition-colors font-mono">doi:' + esc(p.doi) + '</a>' : '') +
+          '<div class="flex flex-wrap items-center gap-2">' +
+            actionPills.join('') +
+            (p.doi ? '<a href="https://doi.org/' + esc(p.doi) + '" target="_blank" rel="noopener" ' +
+              'class="text-xs text-gray-400 hover:text-gold transition-colors font-mono">doi:' + esc(p.doi) + '</a>' : '') +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</article>';
@@ -314,8 +349,27 @@
         '<p class="text-gray-500 text-sm">No publications match these filters.</p></div>';
   }
 
-  function boot(data) {
-    ALL = data.items || [];
+  function boot(data, pagesData) {
+    PROJECT_PAGES = (pagesData && pagesData.items) || [];
+    var base = data.items || [];
+    var seen = {};
+    base.forEach(function (it) { seen[normText(it.title)] = true; });
+    ALL = base.slice();
+    // Prepend featured SAAIL Lab works not yet returned by OpenAlex (e.g. CropGuardNet under review)
+    if (!seen[normText('CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection')]) {
+      ALL.unshift({
+        isPreprint: true,
+        title: 'CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection',
+        year: 2026,
+        type: 'article',
+        doi: null,
+        citations: 0,
+        openAccess: true,
+        authors: ['Innocent Nyalala', 'Twamaa Makame', 'Khamis Khamis', 'Surabhi Gudla'],
+        venue: { name: 'Artificial Intelligence in Agriculture (Under Review · Paper 1, CropGuard Series)', issn: null, publisher: 'Elsevier', meanCitedness2yr: null, sjrQuartile: 'Q1' },
+        url: 'https://saaillab.github.io/papers/cropguardnet/'
+      });
+    }
     document.getElementById('pub-total').textContent = ALL.length;
     if (data.updatedAt) {
       document.getElementById('pub-updated').textContent =
@@ -341,9 +395,11 @@
     });
   }
 
-  fetch('../data/publications.json?v=' + Date.now())
-    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(boot)
+  Promise.all([
+    fetch('../data/publications.json?v=' + Date.now()).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+    fetch('../data/project-pages.json?v=' + Date.now()).then(function (r) { return r.ok ? r.json() : { items: [] }; }).catch(function () { return { items: [] }; })
+  ])
+    .then(function (res) { boot(res[0], res[1]); })
     .catch(function (e) {
       document.getElementById('pub-list').innerHTML =
         '<div class="bg-white rounded-xl border border-red-200 p-8 text-center">' +

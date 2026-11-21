@@ -1,0 +1,456 @@
+{
+  "generatedFrom": "saaillab.github.io",
+  "count": 45,
+  "items": [
+    {
+      "slug": "cropguardnet",
+      "title": "CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection",
+      "normTitle": "cropguardnet a unified lightweight cnn transformer framework with multi scale attention and explainable ai for cross crop leaf disease detection",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/cropguardnet/",
+      "repoPageUrl": "https://saaillab.github.io/CropGuardNet/",
+      "codeUrl": "https://github.com/saaillab/CropGuardNet",
+      "award": null
+    },
+    {
+      "slug": "cropkd-net",
+      "title": "CropKD-Net: Multi-Teacher Knowledge Distillation and Quantization-Aware Compression for Sub-150KB Cross-Crop Edge Leaf Diagnostics",
+      "normTitle": "cropkd net multi teacher knowledge distillation and quantization aware compression for sub 150kb cross crop edge leaf diagnostics",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/cropkd-net/",
+      "repoPageUrl": "https://saaillab.github.io/CropKD-Net/",
+      "codeUrl": "https://github.com/saaillab/CropKD-Net",
+      "award": null
+    },
+    {
+      "slug": "dgs-bench",
+      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics \u2014 A Cassava Case Study",
+      "normTitle": "dgs bench measuring the deployment gap in african agricultural ai requires balanced metrics a cassava case study",
+      "doi": "10.13140/rg.2.2.12603.17448",
+      "projectUrl": "https://saaillab.github.io/papers/dgs-bench/",
+      "repoPageUrl": "https://saaillab.github.io/dgs-bench/",
+      "codeUrl": "https://github.com/saaillab/dgs-bench",
+      "award": "Best Poster Award \u2014 Deep Learning Indaba 2026 (Lagos, Nigeria)"
+    },
+    {
+      "slug": "cloves-4603",
+      "title": "CLOVES-4603: Benchmarking Classical Texture Features and Fine-Tuned Deep Models for Clove Quality Grading",
+      "normTitle": "cloves 4603 benchmarking classical texture features and fine tuned deep models for clove quality grading",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/cloves-4603/",
+      "repoPageUrl": "https://saaillab.github.io/CLOVES-4603/",
+      "codeUrl": "https://github.com/saaillab/CLOVES-4603",
+      "award": null
+    },
+    {
+      "slug": "trustworthy-ai-iclr2026",
+      "title": "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization",
+      "normTitle": "unifying perspectives on learning biases a data centric intervention for holistic fairness robustness and generalization",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/trustworthy-ai-iclr2026/",
+      "repoPageUrl": "https://saaillab.github.io/trustworthy-ai-iclr2026/",
+      "codeUrl": "https://github.com/saaillab/trustworthy-ai-iclr2026",
+      "award": null
+    },
+    {
+      "slug": "cara-fm",
+      "title": "Culturally Attuned and Resource-Aware Foundation Models for East African Agriculture: A Theoretical Framework and Research Agenda",
+      "normTitle": "culturally attuned and resource aware foundation models for east african agriculture a theoretical framework and research agenda",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/cara-fm/",
+      "repoPageUrl": "https://saaillab.github.io/cara-fm/",
+      "codeUrl": "https://github.com/saaillab/cara-fm",
+      "award": "Best Poster Award (Publication & Dataset Category) \u2014 Deep Learning Indaba 2025, Kigali"
+    },
+    {
+      "slug": "clove-xai-etri2026",
+      "title": "Explainable AI for Clove Quality Grading: Benchmarking Post Hoc XAI and Compositional Interpretability Under Domain Shift",
+      "normTitle": "explainable ai for clove quality grading benchmarking post hoc xai and compositional interpretability under domain shift",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/clove-xai-etri2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "zstc-clove-v1",
+      "title": "Deep Learning Feasibility Study for Automated Clove Quality Classification Using CNN Architectures on a Novel Zanzibar Dataset",
+      "normTitle": "deep learning feasibility study for automated clove quality classification using cnn architectures on a novel zanzibar dataset",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/zstc-clove-v1/",
+      "repoPageUrl": "https://saaillab.github.io/zstc-clove-v1/",
+      "codeUrl": "https://github.com/saaillab/zstc-clove-v1",
+      "award": "Competitive Travel Grant Award \u2014 EAC STI 2026, Kigali"
+    },
+    {
+      "slug": "dcgan-cassava-dsa2026",
+      "title": "When Synthetic Data Hurts: DCGAN Augmentation Failure Under Extreme Data Scarcity for Cassava Disease Classification in East Africa",
+      "normTitle": "when synthetic data hurts dcgan augmentation failure under extreme data scarcity for cassava disease classification in east africa",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/dcgan-cassava-dsa2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": "Oral Presentation \u2014 Data Science Africa 2026, Kampala"
+    },
+    {
+      "slug": "auditing-crop-datasets-dsa2026",
+      "title": "Auditing Representation in Crop Disease Benchmark Datasets Intended for Sub-Saharan African Deployment",
+      "normTitle": "auditing representation in crop disease benchmark datasets intended for sub saharan african deployment",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/auditing-crop-datasets-dsa2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "few-shot-cassava-dsa2026",
+      "title": "Few-Shot Transfer Learning for Cassava Leaf Disease Detection Under East African Field Conditions",
+      "normTitle": "few shot transfer learning for cassava leaf disease detection under east african field conditions",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/few-shot-cassava-dsa2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "ai-policy-harmonization-tais2026",
+      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
+      "normTitle": "ai policy harmonization in east africa cultural sustainability in the new technological age",
+      "doi": "10.13140/rg.2.2.19812.13443",
+      "projectUrl": "https://saaillab.github.io/papers/ai-policy-harmonization-tais2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "ai-sovereignty-global-south-aaai2026",
+      "title": "AI Sovereignty in the Global South: Power, Dependency, and Strategic Futures",
+      "normTitle": "ai sovereignty in the global south power dependency and strategic futures",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/ai-sovereignty-global-south-aaai2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "eac-ai-strategy-aaiac2026",
+      "title": "From Digital Consumerism to Strategic Sovereignty: Analyzing the Draft EAC Regional AI Strategy (2026)",
+      "normTitle": "from digital consumerism to strategic sovereignty analyzing the draft eac regional ai strategy 2026",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/eac-ai-strategy-aaiac2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "leakage-free-fraud-aaiac2026",
+      "title": "Leakage-Free Fraud Detection in Mobile-First Banking: A PR-AUC Benchmark of XGBoost, Random Forest, and Isolation Forest for East Africa",
+      "normTitle": "leakage free fraud detection in mobile first banking a pr auc benchmark of xgboost random forest and isolation forest for east africa",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/leakage-free-fraud-aaiac2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "physics-informed-solar-aaiac2026",
+      "title": "A Physics-Informed Random Forest Framework for Multi-Decadal Solar Irradiance Forecasting in Tanzanian Off-Grid Mini-Grids",
+      "normTitle": "a physics informed random forest framework for multi decadal solar irradiance forecasting in tanzanian off grid mini grids",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/physics-informed-solar-aaiac2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "military-5g-cyber-aaiac2026",
+      "title": "Resilient Cyber Defence for African Military 5G Networks: A Multi-Stage Hybrid ML Framework for Zero-Day Detection",
+      "normTitle": "resilient cyber defence for african military 5g networks a multi stage hybrid ml framework for zero day detection",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/military-5g-cyber-aaiac2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "sahel-insurgency-aaiac2026",
+      "title": "Predicting Insurgency Hotspots in the Sahel: Leveraging GTD Data for Regional Defence Resource Allocation",
+      "normTitle": "predicting insurgency hotspots in the sahel leveraging gtd data for regional defence resource allocation",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/sahel-insurgency-aaiac2026/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "bafnet-polyp-2025",
+      "title": "BAFNet: Deep contour-aware features for colorectal polyps segmentation",
+      "normTitle": "bafnet deep contour aware features for colorectal polyps segmentation",
+      "doi": "10.1016/j.eswa.2025.129998",
+      "projectUrl": "https://saaillab.github.io/papers/bafnet-polyp-2025/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "cassava-weakened-signals-2025",
+      "title": "Rectifying the extremely weakened signals for cassava leaf disease detection",
+      "normTitle": "rectifying the extremely weakened signals for cassava leaf disease detection",
+      "doi": "10.1016/j.compag.2025.110107",
+      "projectUrl": "https://saaillab.github.io/papers/cassava-weakened-signals-2025/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "digital-sovereignty-serfdom-2025",
+      "title": "Digital Sovereignty or Digital Serfdom? AI Strategies, Geopolitics, and the Quest for an Equitable Global South",
+      "normTitle": "digital sovereignty or digital serfdom ai strategies geopolitics and the quest for an equitable global south",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/digital-sovereignty-serfdom-2025/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "clove-codesign-africhi2025",
+      "title": "From Art to Algorithms: Co-Designing AI for Clove Grading with Zanzibar's Indigenous Experts",
+      "normTitle": "from art to algorithms co designing ai for clove grading with zanzibar s indigenous experts",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/clove-codesign-africhi2025/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "prime-directives-dsa2025",
+      "title": "Prime Directives for Responsible AI for Africa: A Manifesto for Inclusive Technology",
+      "normTitle": "prime directives for responsible ai for africa a manifesto for inclusive technology",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/prime-directives-dsa2025/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "cassava-salient-feature-2024",
+      "title": "A salient feature establishment tactic for cassava disease recognition",
+      "normTitle": "a salient feature establishment tactic for cassava disease recognition",
+      "doi": "10.1016/j.aiia.2024.11.004",
+      "projectUrl": "https://saaillab.github.io/papers/cassava-salient-feature-2024/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "chicken-carcass-3d-2024",
+      "title": "Online chicken carcass volume estimation using depth imaging and 3-D reconstruction",
+      "normTitle": "online chicken carcass volume estimation using depth imaging and 3 d reconstruction",
+      "doi": "10.1016/j.psj.2024.104232",
+      "projectUrl": "https://saaillab.github.io/papers/chicken-carcass-3d-2024/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "maianet-cassava-2024",
+      "title": "MAIANet: Signal modulation in cassava leaf disease classification",
+      "normTitle": "maianet signal modulation in cassava leaf disease classification",
+      "doi": "10.1016/j.compag.2024.109351",
+      "projectUrl": "https://saaillab.github.io/papers/maianet-cassava-2024/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "poultry-cv-review-2021",
+      "title": "Weight and volume estimation of poultry and products based on computer vision systems: a review",
+      "normTitle": "weight and volume estimation of poultry and products based on computer vision systems a review",
+      "doi": "10.1016/j.psj.2021.101072",
+      "projectUrl": "https://saaillab.github.io/papers/poultry-cv-review-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "occluded-tomatoes-2021",
+      "title": "Weight and volume estimation of single and occluded tomatoes using machine vision",
+      "normTitle": "weight and volume estimation of single and occluded tomatoes using machine vision",
+      "doi": "10.1080/10942912.2021.1933024",
+      "projectUrl": "https://saaillab.github.io/papers/occluded-tomatoes-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "precise-subsoiling-2021",
+      "title": "Prediction of precise subsoiling based on analytical method, discrete element simulation and experimental data from soil bin",
+      "normTitle": "prediction of precise subsoiling based on analytical method discrete element simulation and experimental data from soil bin",
+      "doi": "10.1038/s41598-021-90682-w",
+      "projectUrl": "https://saaillab.github.io/papers/precise-subsoiling-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "broiler-carcass-weight-2021",
+      "title": "On-line weight estimation of broiler carcass and cuts by a computer vision system",
+      "normTitle": "on line weight estimation of broiler carcass and cuts by a computer vision system",
+      "doi": "10.1016/j.psj.2021.101474",
+      "projectUrl": "https://saaillab.github.io/papers/broiler-carcass-weight-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "tea-chrysanthemum-fyolo-2021",
+      "title": "Detecting the Early Flowering Stage of Tea Chrysanthemum Using the F-YOLO Model",
+      "normTitle": "detecting the early flowering stage of tea chrysanthemum using the f yolo model",
+      "doi": "10.3390/agronomy11050834",
+      "projectUrl": "https://saaillab.github.io/papers/tea-chrysanthemum-fyolo-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "garlic-drying-optimization-2021",
+      "title": "Drying process optimization of garlic slices in closed-loop heat pump drying system by Box-Behnken design",
+      "normTitle": "drying process optimization of garlic slices in closed loop heat pump drying system by box behnken design",
+      "doi": "10.1111/jfpp.16190",
+      "projectUrl": "https://saaillab.github.io/papers/garlic-drying-optimization-2021/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "poultry-welfare-review-2020",
+      "title": "A review on computer vision systems in monitoring of poultry: A welfare perspective",
+      "normTitle": "a review on computer vision systems in monitoring of poultry a welfare perspective",
+      "doi": "10.1016/j.aiia.2020.09.002",
+      "projectUrl": "https://saaillab.github.io/papers/poultry-welfare-review-2020/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "egg-volume-cv-2020",
+      "title": "Egg volume estimation based on image processing and computer vision",
+      "normTitle": "egg volume estimation based on image processing and computer vision",
+      "doi": "10.1016/j.jfoodeng.2020.110041",
+      "projectUrl": "https://saaillab.github.io/papers/egg-volume-cv-2020/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "wheat-grain-yield-2020",
+      "title": "Wheat Grain Yield Estimation Based on Image Morphological Properties and Wheat Biomass",
+      "normTitle": "wheat grain yield estimation based on image morphological properties and wheat biomass",
+      "doi": "10.1155/2020/1571936",
+      "projectUrl": "https://saaillab.github.io/papers/wheat-grain-yield-2020/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "rice-kernels-separation-2020",
+      "title": "Separation of partially occluded rice kernels and variety classification based on computer vision",
+      "normTitle": "separation of partially occluded rice kernels and variety classification based on computer vision",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/rice-kernels-separation-2020/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "sick-birds-broiler-2019",
+      "title": "A machine vision system for early detection and prediction of sick birds: A broiler chicken model",
+      "normTitle": "a machine vision system for early detection and prediction of sick birds a broiler chicken model",
+      "doi": "10.1016/j.biosystemseng.2019.09.015",
+      "projectUrl": "https://saaillab.github.io/papers/sick-birds-broiler-2019/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "cherry-tomato-volume-2019",
+      "title": "Tomato volume and mass estimation using computer vision and machine learning algorithms: Cherry tomato model",
+      "normTitle": "tomato volume and mass estimation using computer vision and machine learning algorithms cherry tomato model",
+      "doi": "10.1016/j.jfoodeng.2019.07.012",
+      "projectUrl": "https://saaillab.github.io/papers/cherry-tomato-volume-2019/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "activated-carbon-sludge-2019",
+      "title": "Production of activated carbon from sludge and herb residue of traditional Chinese medicine industry and its application for methylene blue removal",
+      "normTitle": "production of activated carbon from sludge and herb residue of traditional chinese medicine industry and its application for methylene blue removal",
+      "doi": "10.15376/biores.14.1.1333-1346",
+      "projectUrl": "https://saaillab.github.io/papers/activated-carbon-sludge-2019/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "paddy-drying-efficiency-2019",
+      "title": "Influence of environmental conditions on drying efficiency and heat pump performance in closed and open loop drying of paddy",
+      "normTitle": "influence of environmental conditions on drying efficiency and heat pump performance in closed and open loop drying of paddy",
+      "doi": "10.1080/07373937.2019.1691011",
+      "projectUrl": "https://saaillab.github.io/papers/paddy-drying-efficiency-2019/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "sow-asphyxia-farrowing-2018",
+      "title": "Asphyxia occurrence detection in sows during the farrowing phase by inter-birth interval evaluation",
+      "normTitle": "asphyxia occurrence detection in sows during the farrowing phase by inter birth interval evaluation",
+      "doi": "10.1016/j.compag.2018.07.007",
+      "projectUrl": "https://saaillab.github.io/papers/sow-asphyxia-farrowing-2018/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "farrowing-onset-classification-2018",
+      "title": "Detection of an onset of farrowing by classification of crated sow's activities",
+      "normTitle": "detection of an onset of farrowing by classification of crated sow s activities",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/farrowing-onset-classification-2018/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "wsn-localization-virtual-force-2016",
+      "title": "Research on range-based localisation algorithm with virtual force and time synchronisation in wireless sensor and actor networks",
+      "normTitle": "research on range based localisation algorithm with virtual force and time synchronisation in wireless sensor and actor networks",
+      "doi": "10.1504/ijcnds.2016.076650",
+      "projectUrl": "https://saaillab.github.io/papers/wsn-localization-virtual-force-2016/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "intelligent-greenhouse-arduino-2016",
+      "title": "Design and Implementation of an Intelligent Greenhouse Control and Monitoring System Based on Arduino",
+      "normTitle": "design and implementation of an intelligent greenhouse control and monitoring system based on arduino",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/intelligent-greenhouse-arduino-2016/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "intelligent-energy-saving-2015",
+      "title": "Intelligent energy saving system",
+      "normTitle": "intelligent energy saving system",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/intelligent-energy-saving-2015/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    }
+  ]
+}
