@@ -2,55 +2,29 @@ Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 
 Copyright (c) 2026 Innocent Nyalala & SAAIL Lab, Indian Institute of Technology Madras Zanzibar
 
-Full License Text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
-
-------------------------------------------------------------------------------
-MANDATORY RESEARCH, ATTRIBUTION & NON-COMMERCIALIZATION TERMS
-------------------------------------------------------------------------------
-
-1. Non-Commercial Research Scope Only:
-   All software implementations, model architectures, training/evaluation scripts,
-   dataset splits, documentation, and research materials distributed by
-   Innocent Nyalala and SAAIL Lab (Sustainable AI for Agriculture and
-   Intelligent Livelihoods Lab, IIT Madras Zanzibar) are released exclusively
-   for non-commercial scientific research, benchmarking, and academic education.
-
-2. Mandatory Attribution & Citation:
-   You must give appropriate credit, provide a link to this license, cite the
-   corresponding peer-reviewed paper or preprint, and indicate if changes were
-   made. Attribution must explicitly acknowledge:
-   "Innocent Nyalala, SAAIL Lab, Indian Institute of Technology Madras Zanzibar
-   (https://saaillab.github.io/ | https://www.iitmz.ac.in/schools/engineering-and-science/faculty/prof-innocent-nyalala)"
-
-3. Strictly No Commercialization Without Author Inclusion:
-   Commercial use, commercial redistribution, proprietary SaaS or API
-   deployment, paid agricultural/clinical productization, or for-profit
-   licensing of this work (or derivatives thereof) is strictly prohibited
-   without prior written authorization and direct inclusion of
-   Innocent Nyalala (innocent@iitmz.ac.in).
-
-4. Third-Party Datasets & Upstream Dependencies:
-   Upstream image corpora referenced by downloader scripts or benchmarks remain
-   governed by their respective original institutional and dataset licenses.
-
-------------------------------------------------------------------------------
-CC BY-NC 4.0 SUMMARY (NON-EXHAUSTIVE; SEE LEGAL CODE URL ABOVE)
-------------------------------------------------------------------------------
+Full Legal Code: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+Human-Readable Deed: https://creativecommons.org/licenses/by-nc/4.0/
 
 You are free to:
-- Share: copy and redistribute the material in any medium or format for
-  non-commercial scientific and educational purposes.
-- Adapt: remix, transform, and build upon the material for non-commercial
-  research purposes.
+- Share: copy and redistribute the material in any medium or format
+- Adapt: remix, transform, and build upon the material
 
 Under the following terms:
 - Attribution: You must give appropriate credit, provide a link to the license,
   and indicate if changes were made. You may do so in any reasonable manner,
-  but not in any way that suggests endorsement without permission.
+  but not in any way that suggests the licensor endorses you or your use.
 - NonCommercial: You may not use the material for commercial purposes.
 - No additional restrictions: You may not apply legal terms or technological
   measures that legally restrict others from doing anything the license permits.
 
+Commercial licensing inquiries: innocent@iitmz.ac.in
+Upstream third-party image corpora referenced by downloader scripts remain
+governed by their respective original licenses.
+
 THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+WORK.
