@@ -1,6 +1,6 @@
 {
   "generatedFrom": "saaillab.github.io",
-  "count": 45,
+  "count": 42,
   "items": [
     {
       "slug": "cropguardnet",
@@ -13,24 +13,54 @@
       "award": null
     },
     {
-      "slug": "cropkd-net",
-      "title": "CropKD-Net: Multi-Teacher Knowledge Distillation and Quantization-Aware Compression for Sub-150KB Cross-Crop Edge Leaf Diagnostics",
-      "normTitle": "cropkd net multi teacher knowledge distillation and quantization aware compression for sub 150kb cross crop edge leaf diagnostics",
+      "slug": "capture-session-confounding-cloves",
+      "title": "Capture-session confounding undermines the measurement validity of deep learning clove grading: evidence from Zanzibar",
+      "normTitle": "capture session confounding undermines the measurement validity of deep learning clove grading evidence from zanzibar",
       "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/cropkd-net/",
-      "repoPageUrl": "https://saaillab.github.io/CropKD-Net/",
-      "codeUrl": "https://github.com/saaillab/CropKD-Net",
+      "projectUrl": "https://saaillab.github.io/papers/capture-session-confounding-cloves/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "digital-authoritarianism-east-africa",
+      "title": "AI-Powered Surveillance, Internet Shutdowns, and Digital Citizenship as Resistance in East Africa: Evidence from Tanzania and Kenya",
+      "normTitle": "ai powered surveillance internet shutdowns and digital citizenship as resistance in east africa evidence from tanzania and kenya",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/digital-authoritarianism-east-africa/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "digital-ag-platform-failure-east-africa",
+      "title": "Launched, Celebrated, Forgotten: A Critical Review of Why Digital and AI-Enabled Agriculture Platforms Fail, Stall, or Survive in East Africa",
+      "normTitle": "launched celebrated forgotten a critical review of why digital and ai enabled agriculture platforms fail stall or survive in east africa",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/digital-ag-platform-failure-east-africa/",
+      "repoPageUrl": null,
+      "codeUrl": null,
+      "award": null
+    },
+    {
+      "slug": "institutional-drivers-digital-ag-ssa",
+      "title": "Between Promise and Practice: Institutional Drivers and Barriers to Digital Transformation in Sub-Saharan African Smallholder Agriculture",
+      "normTitle": "between promise and practice institutional drivers and barriers to digital transformation in sub saharan african smallholder agriculture",
+      "doi": null,
+      "projectUrl": "https://saaillab.github.io/papers/institutional-drivers-digital-ag-ssa/",
+      "repoPageUrl": null,
+      "codeUrl": null,
       "award": null
     },
     {
       "slug": "dgs-bench",
-      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics \u2014 A Cassava Case Study",
+      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics: A Cassava Case Study",
       "normTitle": "dgs bench measuring the deployment gap in african agricultural ai requires balanced metrics a cassava case study",
       "doi": "10.13140/rg.2.2.12603.17448",
       "projectUrl": "https://saaillab.github.io/papers/dgs-bench/",
       "repoPageUrl": "https://saaillab.github.io/dgs-bench/",
       "codeUrl": "https://github.com/saaillab/dgs-bench",
-      "award": "Best Poster Award \u2014 Deep Learning Indaba 2026 (Lagos, Nigeria)"
+      "award": "Best Poster Award, Deep Learning Indaba 2026 (Lagos, Nigeria)"
     },
     {
       "slug": "cloves-4603",
@@ -60,13 +90,13 @@
       "projectUrl": "https://saaillab.github.io/papers/cara-fm/",
       "repoPageUrl": "https://saaillab.github.io/cara-fm/",
       "codeUrl": "https://github.com/saaillab/cara-fm",
-      "award": "Best Poster Award (Publication & Dataset Category) \u2014 Deep Learning Indaba 2025, Kigali"
+      "award": "Best Poster Award (Publication & Dataset Category) , Deep Learning Indaba 2025, Kigali"
     },
     {
       "slug": "clove-xai-etri2026",
-      "title": "Explainable AI for Clove Quality Grading: Benchmarking Post Hoc XAI and Compositional Interpretability Under Domain Shift",
+      "title": "Explainable AI for clove quality grading: Benchmarking post hoc XAI and compositional interpretability under domain shift",
       "normTitle": "explainable ai for clove quality grading benchmarking post hoc xai and compositional interpretability under domain shift",
-      "doi": null,
+      "doi": "10.4218/etrij.2026-0225",
       "projectUrl": "https://saaillab.github.io/papers/clove-xai-etri2026/",
       "repoPageUrl": null,
       "codeUrl": null,
@@ -80,7 +110,7 @@
       "projectUrl": "https://saaillab.github.io/papers/zstc-clove-v1/",
       "repoPageUrl": "https://saaillab.github.io/zstc-clove-v1/",
       "codeUrl": "https://github.com/saaillab/zstc-clove-v1",
-      "award": "Competitive Travel Grant Award \u2014 EAC STI 2026, Kigali"
+      "award": "Competitive Travel Grant Award , EAC STI 2026, Kigali"
     },
     {
       "slug": "dcgan-cassava-dsa2026",
@@ -90,7 +120,7 @@
       "projectUrl": "https://saaillab.github.io/papers/dcgan-cassava-dsa2026/",
       "repoPageUrl": null,
       "codeUrl": null,
-      "award": "Oral Presentation \u2014 Data Science Africa 2026, Kampala"
+      "award": "Oral Presentation , Data Science Africa 2026, Kampala"
     },
     {
       "slug": "auditing-crop-datasets-dsa2026",
@@ -133,56 +163,6 @@
       "award": null
     },
     {
-      "slug": "eac-ai-strategy-aaiac2026",
-      "title": "From Digital Consumerism to Strategic Sovereignty: Analyzing the Draft EAC Regional AI Strategy (2026)",
-      "normTitle": "from digital consumerism to strategic sovereignty analyzing the draft eac regional ai strategy 2026",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/eac-ai-strategy-aaiac2026/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
-      "slug": "leakage-free-fraud-aaiac2026",
-      "title": "Leakage-Free Fraud Detection in Mobile-First Banking: A PR-AUC Benchmark of XGBoost, Random Forest, and Isolation Forest for East Africa",
-      "normTitle": "leakage free fraud detection in mobile first banking a pr auc benchmark of xgboost random forest and isolation forest for east africa",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/leakage-free-fraud-aaiac2026/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
-      "slug": "physics-informed-solar-aaiac2026",
-      "title": "A Physics-Informed Random Forest Framework for Multi-Decadal Solar Irradiance Forecasting in Tanzanian Off-Grid Mini-Grids",
-      "normTitle": "a physics informed random forest framework for multi decadal solar irradiance forecasting in tanzanian off grid mini grids",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/physics-informed-solar-aaiac2026/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
-      "slug": "military-5g-cyber-aaiac2026",
-      "title": "Resilient Cyber Defence for African Military 5G Networks: A Multi-Stage Hybrid ML Framework for Zero-Day Detection",
-      "normTitle": "resilient cyber defence for african military 5g networks a multi stage hybrid ml framework for zero day detection",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/military-5g-cyber-aaiac2026/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
-      "slug": "sahel-insurgency-aaiac2026",
-      "title": "Predicting Insurgency Hotspots in the Sahel: Leveraging GTD Data for Regional Defence Resource Allocation",
-      "normTitle": "predicting insurgency hotspots in the sahel leveraging gtd data for regional defence resource allocation",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/sahel-insurgency-aaiac2026/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
       "slug": "bafnet-polyp-2025",
       "title": "BAFNet: Deep contour-aware features for colorectal polyps segmentation",
       "normTitle": "bafnet deep contour aware features for colorectal polyps segmentation",
@@ -218,16 +198,6 @@
       "normTitle": "from art to algorithms co designing ai for clove grading with zanzibar s indigenous experts",
       "doi": null,
       "projectUrl": "https://saaillab.github.io/papers/clove-codesign-africhi2025/",
-      "repoPageUrl": null,
-      "codeUrl": null,
-      "award": null
-    },
-    {
-      "slug": "prime-directives-dsa2025",
-      "title": "Prime Directives for Responsible AI for Africa: A Manifesto for Inclusive Technology",
-      "normTitle": "prime directives for responsible ai for africa a manifesto for inclusive technology",
-      "doi": null,
-      "projectUrl": "https://saaillab.github.io/papers/prime-directives-dsa2025/",
       "repoPageUrl": null,
       "codeUrl": null,
       "award": null

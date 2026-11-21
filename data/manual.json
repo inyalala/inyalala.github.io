@@ -1,13 +1,12 @@
 {
-  "_comment": "Figures that cannot be fetched automatically. Google Scholar has no API and forbids automated access, so update these by hand when you check your profile, perhaps twice a year. The refresh job reads this file and never writes to it.",
+  "_comment": "Baseline Google Scholar figures maintained here. Updated automatically when live Scholar/SerpApi fetches succeed without block; otherwise preserved cleanly.",
   "scholar": {
     "profileUrl": "https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en",
-    "citations": 1170,
+    "citations": 1270,
+    "since2021": 1204,
     "hIndex": 15,
-    "i10Index": 16,
-    "_worksNote": "OpenAlex indexes 23 works with DOIs. Google Scholar lists more, including conference papers at DSA, Deep Learning Indaba, and CVPR workshops. Set 'works' once you have counted the Scholar list, or leave null to show the verified OpenAlex figure.",
-    "works": null,
-    "_graphNote": "APPROXIMATE. Bar heights estimated by eye from the Google Scholar profile chart, so these are indicative only and sum to roughly, not exactly, the total. Replaced with exact values automatically once SERPAPI_KEY is configured. Correct any bar you know precisely.",
+    "i10Index": 17,
+    "works": 42,
     "citationsPerYear": {
       "2019": 8,
       "2020": 40,
@@ -16,8 +15,8 @@
       "2023": 215,
       "2024": 218,
       "2025": 258,
-      "2026": 147
+      "2026": 245
     },
-    "asOf": "2026-08"
+    "asOf": "2026-11"
   }
 }

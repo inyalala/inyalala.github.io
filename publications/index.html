@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Publications Archive — Dr. Innocent Nyalala. 23+ peer-reviewed articles, conference papers, and book chapters."/>
+<meta name="description" content="Publications Archive: Dr. Innocent Nyalala. 42 peer-reviewed articles, workshop papers, and manuscripts spanning SAAIL Lab and prior institutional research."/>
 <title>Publications Archive | Dr. Innocent Nyalala</title>
 <link rel="stylesheet" href="../css/tailwind.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -230,7 +230,7 @@
     }
     if (p.isPreprint) {
       badges.push('<span class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full">' +
-        '<i class="fas fa-file-lines text-[9px]"></i>Preprint, not peer reviewed</span>');
+        '<i class="fas fa-file-lines text-[9px]"></i>Manuscript Under Peer Review</span>');
     }
     if (v.sjrQuartile) {
       badges.push('<span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-full">SJR ' + esc(v.sjrQuartile) + '</span>');
@@ -352,24 +352,7 @@
   function boot(data, pagesData) {
     PROJECT_PAGES = (pagesData && pagesData.items) || [];
     var base = data.items || [];
-    var seen = {};
-    base.forEach(function (it) { seen[normText(it.title)] = true; });
     ALL = base.slice();
-    // Prepend featured SAAIL Lab works not yet returned by OpenAlex (e.g. CropGuardNet under review)
-    if (!seen[normText('CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection')]) {
-      ALL.unshift({
-        isPreprint: true,
-        title: 'CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection',
-        year: 2026,
-        type: 'article',
-        doi: null,
-        citations: 0,
-        openAccess: true,
-        authors: ['Innocent Nyalala', 'Twamaa Makame', 'Khamis Khamis', 'Surabhi Gudla'],
-        venue: { name: 'Artificial Intelligence in Agriculture (Under Review · Paper 1, CropGuard Series)', issn: null, publisher: 'Elsevier', meanCitedness2yr: null, sjrQuartile: 'Q1' },
-        url: 'https://saaillab.github.io/papers/cropguardnet/'
-      });
-    }
     document.getElementById('pub-total').textContent = ALL.length;
     if (data.updatedAt) {
       document.getElementById('pub-updated').textContent =

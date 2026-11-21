@@ -1,10 +1,131 @@
 {
-  "updatedAt": "2026-08-12T00:00:00+00:00",
-  "count": 33,
+  "updatedAt": "2026-11-21T00:00:00+00:00",
+  "count": 42,
   "items": [
     {
       "isPreprint": false,
-      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics — A Cassava Case Study",
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 2,
+      "openAccess": true,
+      "authors": [
+        "Patrick Vincent Ndowo",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "ICLR 2026 Workshop on Principled Design for Trustworthy AI: Interpretability, Robustness, and Safety across Modalities, Rio de Janeiro, Brazil",
+        "issn": null,
+        "publisher": "ICLR",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://openreview.net/forum?id=RCEEHTbSDk"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Culturally Attuned and Resource-Aware Foundation Models for East African Agriculture: A Theoretical Framework and Research Agenda",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Nirav Bhatt"
+      ],
+      "venue": {
+        "name": "Deep Learning Indaba 2025 Research Track , Proceedings of Machine Learning Research (PMLR Vol. 302, pp. 1–11, 2026)",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://proceedings.mlr.press/v302/nyalala26a.html"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Explainable AI for clove quality grading: Benchmarking post hoc XAI and compositional interpretability under domain shift",
+      "year": 2026,
+      "type": "article",
+      "doi": "10.4218/etrij.2026-0225",
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Patrick Vincent Ndowo"
+      ],
+      "venue": {
+        "name": "ETRI Journal (Wiley / Electronics and Telecommunications Research Institute)",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.4218/etrij.2026-0225"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "When Synthetic Data Hurts: DCGAN Augmentation Failure Under Extreme Data Scarcity for Cassava Disease Classification in East Africa",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "Patrick Vincent Ndowo",
+        "Innocent Nyalala",
+        "Khamis Haji"
+      ],
+      "venue": {
+        "name": "Data Science Africa (DSA) 2026 Workshop, Makerere University, Kampala, Uganda",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/dcgan-cassava-dsa2026/"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "AI Sovereignty in the Global South: Power, Dependency, and Strategic Futures",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 1,
+      "openAccess": true,
+      "authors": [
+        "S. Davies",
+        "Vikranth H. Nagaraja",
+        "Innocent Nyalala",
+        "Nirav Bhatt",
+        "Soumya Banerjee"
+      ],
+      "venue": {
+        "name": "AAAI 2026 Workshop on Equitable and Sustainable Global AI (EGSAI), Philadelphia, USA",
+        "issn": null,
+        "publisher": "AAAI",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/ai-sovereignty-global-south-aaai2026/"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "DGS-Bench: Measuring the Deployment Gap in African Agricultural AI Requires Balanced Metrics: A Cassava Case Study",
       "year": 2026,
       "type": "article",
       "doi": "10.13140/rg.2.2.12603.17448",
@@ -13,10 +134,10 @@
       "authors": [
         "Innocent Nyalala",
         "Surabhi Gudla",
-        "Patrick Vincent"
+        "Patrick Vincent Ndowo"
       ],
       "venue": {
-        "name": "Deep Learning Indaba 2026",
+        "name": "Deep Learning Indaba 2026, Pan-Atlantic University, Lagos, Nigeria",
         "issn": null,
         "publisher": "Deep Learning Indaba",
         "meanCitedness2yr": null,
@@ -26,111 +147,8 @@
     },
     {
       "isPreprint": false,
-      "title": "When Synthetic Data Hurts: DCGAN Augmentation Failure Under Extreme Data Scarcity for Cassava Disease Classification in East Africa",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": null,
-      "citations": 0,
-      "openAccess": true,
-      "authors": [
-        "Innocent Nyalala"
-      ],
-      "venue": {
-        "name": "Data Science Africa 2026, Makerere University, Kampala",
-        "issn": null,
-        "publisher": "Data Science Africa",
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": null
-    },
-    {
-      "isPreprint": false,
-      "title": "Auditing Representation in Crop Disease Benchmark Datasets Intended for Sub-Saharan African Deployment",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": null,
-      "citations": 0,
-      "openAccess": true,
-      "authors": [
-        "Innocent Nyalala"
-      ],
-      "venue": {
-        "name": "Data Science Africa 2026, Makerere University, Kampala",
-        "issn": null,
-        "publisher": "Data Science Africa",
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": null
-    },
-    {
-      "isPreprint": false,
-      "title": "Few-Shot Transfer Learning for Cassava Leaf Disease Detection Under East African Field Conditions",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": null,
-      "citations": 0,
-      "openAccess": true,
-      "authors": [
-        "Innocent Nyalala"
-      ],
-      "venue": {
-        "name": "Data Science Africa 2026, Makerere University, Kampala",
-        "issn": null,
-        "publisher": "Data Science Africa",
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": null
-    },
-    {
-      "isPreprint": false,
-      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": "10.13140/rg.2.2.19812.13443",
-      "citations": 0,
-      "openAccess": true,
-      "authors": [
-        "Hope K Mccoy",
-        "Innocent Nyalala"
-      ],
-      "venue": {
-        "name": "3rd Technical AI Safety Conference (TAIS 2026), University of Oxford",
-        "issn": null,
-        "publisher": "University of Oxford",
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": "https://doi.org/10.13140/rg.2.2.19812.13443"
-    },
-    {
-      "isPreprint": false,
-      "title": "AI Sovereignty in the Global South: Power, Dependency, and Strategic Futures",
-      "year": 2026,
-      "type": "conference-abstract",
-      "doi": null,
-      "citations": 1,
-      "openAccess": true,
-      "authors": [
-        "S Davies",
-        "VH Nagaraja",
-        "Innocent Nyalala",
-        "N Bhatt",
-        "S Banerjee"
-      ],
-      "venue": {
-        "name": "AAAI 2026 Workshop on Equitable and Sustainable Global AI (EGSAI), Philadelphia",
-        "issn": null,
-        "publisher": "AAAI",
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": null
-    },
-    {
-      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
       "title": "CLOVES-4603: Benchmarking Classical Texture Features and Fine-Tuned Deep Models for Clove Quality Grading",
       "year": 2026,
       "type": "conference-abstract",
@@ -139,10 +157,10 @@
       "openAccess": true,
       "authors": [
         "Innocent Nyalala",
-        "Patrick Vincent"
+        "Patrick Vincent Ndowo"
       ],
       "venue": {
-        "name": "Computer Vision and Pattern Recognition (CVPR 2026) — Vision for Agriculture Workshop",
+        "name": "CVPR 2026 , 7th Workshop on Vision for Agriculture (CV4A / V4A), Denver, USA",
         "issn": null,
         "publisher": "IEEE / CVF",
         "meanCitedness2yr": null,
@@ -152,32 +170,221 @@
     },
     {
       "isPreprint": false,
-      "title": "Unifying Perspectives on Learning Biases: A Data-Centric Intervention for Holistic Fairness, Robustness, and Generalization",
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Deep Learning Feasibility Study for Automated Clove Quality Classification Using CNN Architectures on a Novel Zanzibar Dataset",
       "year": 2026,
       "type": "conference-abstract",
       "doi": null,
-      "citations": 1,
+      "citations": 0,
       "openAccess": true,
       "authors": [
-        "Patrick Vincent",
+        "Patrick Vincent Ndowo",
         "Innocent Nyalala"
       ],
       "venue": {
-        "name": "ICLR 2026 Workshop on Principled Design for Trustworthy AI-Interpretability",
+        "name": "4th EAC STI Conference / AI for East Africa Conference (AI4EAC 2026), Kigali, Rwanda",
         "issn": null,
-        "publisher": "ICLR",
+        "publisher": null,
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
-      "url": null
+      "url": "https://saaillab.github.io/papers/zstc-clove-v1/"
     },
     {
       "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Auditing Representation in Crop Disease Benchmark Datasets Intended for Sub-Saharan African Deployment",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Patrick Vincent Ndowo",
+        "Khamis Haji"
+      ],
+      "venue": {
+        "name": "Data Science Africa (DSA) 2026 Workshop, Makerere University, Kampala, Uganda",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/auditing-crop-datasets-dsa2026/"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Few-Shot Transfer Learning for Cassava Leaf Disease Detection Under East African Field Conditions",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Patrick Vincent Ndowo",
+        "Shivam Vyas",
+        "Twamaa Makame",
+        "Surabhi Gudla",
+        "Khamis Haji"
+      ],
+      "venue": {
+        "name": "Data Science Africa (DSA) 2026 Workshop, Makerere University, Kampala, Uganda",
+        "issn": null,
+        "publisher": "Data Science Africa",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/few-shot-cassava-dsa2026/"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "AI Policy Harmonization in East Africa: Cultural Sustainability in the New Technological Age",
+      "year": 2026,
+      "type": "conference-abstract",
+      "doi": "10.13140/rg.2.2.19812.13443",
+      "citations": 0,
+      "openAccess": true,
+      "authors": [
+        "Hope K. McCoy",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "3rd Technical AI Safety Conference (TAIS 2026), University of Oxford, UK",
+        "issn": null,
+        "publisher": "University of Oxford",
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.13140/rg.2.2.19812.13443"
+    },
+    {
+      "isPreprint": true,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "CropGuardNet: A Unified Lightweight CNN-Transformer Framework with Multi-Scale Attention and Explainable AI for Cross-Crop Leaf Disease Detection",
+      "year": 2026,
+      "type": "preprint",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Manuscript Under Peer Review",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/cropguardnet/"
+    },
+    {
+      "isPreprint": true,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Capture-session confounding undermines the measurement validity of deep learning clove grading: evidence from Zanzibar",
+      "year": 2026,
+      "type": "preprint",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Patrick Vincent Ndowo",
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Manuscript Under Peer Review",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/capture-session-confounding-cloves/"
+    },
+    {
+      "isPreprint": true,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "AI-Powered Surveillance, Internet Shutdowns, and Digital Citizenship as Resistance in East Africa: Evidence from Tanzania and Kenya",
+      "year": 2026,
+      "type": "preprint",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Manuscript Under Peer Review",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/digital-authoritarianism-east-africa/"
+    },
+    {
+      "isPreprint": true,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Launched, Celebrated, Forgotten: A Critical Review of Why Digital and AI-Enabled Agriculture Platforms Fail, Stall, or Survive in East Africa",
+      "year": 2026,
+      "type": "preprint",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Manuscript Under Peer Review",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/digital-ag-platform-failure-east-africa/"
+    },
+    {
+      "isPreprint": true,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "Between Promise and Practice: Institutional Drivers and Barriers to Digital Transformation in Sub-Saharan African Smallholder Agriculture",
+      "year": 2026,
+      "type": "preprint",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala"
+      ],
+      "venue": {
+        "name": "Manuscript Under Peer Review",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/institutional-drivers-digital-ag-ssa/"
+    },
+    {
+      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": true,
       "title": "Rectifying the extremely weakened signals for cassava leaf disease detection",
       "year": 2025,
       "type": "article",
       "doi": "10.1016/j.compag.2025.110107",
-      "citations": 4,
+      "citations": 5,
       "openAccess": false,
       "authors": [
         "Jiayu Zhang",
@@ -189,7 +396,7 @@
         "Junfeng Gao"
       ],
       "venue": {
-        "name": "Computers and Electronics in Agriculture",
+        "name": "Computers and Electronics in Agriculture (Elsevier), Vol. 232, 110107",
         "issn": "0168-1699",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 9.77,
@@ -199,6 +406,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": true,
       "title": "BAFNet: Deep contour-aware features for colorectal polyps segmentation",
       "year": 2025,
       "type": "article",
@@ -215,7 +424,7 @@
         "Junfeng Gao"
       ],
       "venue": {
-        "name": "Expert Systems with Applications",
+        "name": "Expert Systems with Applications (Elsevier)",
         "issn": "0957-4174",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 6.96,
@@ -225,6 +434,8 @@
     },
     {
       "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
       "title": "Digital Sovereignty or Digital Serfdom? AI Strategies, Geopolitics, and the Quest for an Equitable Global South",
       "year": 2025,
       "type": "article",
@@ -232,28 +443,53 @@
       "citations": 0,
       "openAccess": true,
       "authors": [
-        "S Davies",
-        "VH Nagaraja",
+        "S. Davies",
+        "Vikranth H. Nagaraja",
         "Innocent Nyalala",
-        "N Bhatt",
-        "S Banerjee"
+        "Nirav Bhatt",
+        "Soumya Banerjee"
       ],
       "venue": {
-        "name": null,
+        "name": "PAIG Workshop @ EurIPS / NeurIPS 2025 (Private AI Governance)",
         "issn": null,
         "publisher": null,
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
-      "url": null
+      "url": "https://saaillab.github.io/papers/digital-sovereignty-serfdom-2025/"
     },
     {
       "isPreprint": false,
+      "manual": true,
+      "isSaailLab": true,
+      "title": "From Art to Algorithms: Co-Designing AI for Clove Grading with Zanzibar's Indigenous Experts",
+      "year": 2025,
+      "type": "conference-abstract",
+      "doi": null,
+      "citations": 0,
+      "openAccess": false,
+      "authors": [
+        "Innocent Nyalala",
+        "Patrick Vincent Ndowo"
+      ],
+      "venue": {
+        "name": "AfriCHI ACM Conference 2025",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/clove-codesign-africhi2025/"
+    },
+    {
+      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "MAIANet: Signal modulation in cassava leaf disease classification",
       "year": 2024,
       "type": "article",
       "doi": "10.1016/j.compag.2024.109351",
-      "citations": 19,
+      "citations": 20,
       "openAccess": false,
       "authors": [
         "Jiayu Zhang",
@@ -265,7 +501,7 @@
         "Junfeng Gao"
       ],
       "venue": {
-        "name": "Computers and Electronics in Agriculture",
+        "name": "Computers and Electronics in Agriculture (Elsevier), Vol. 225, 109351",
         "issn": "0168-1699",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 9.77,
@@ -275,30 +511,8 @@
     },
     {
       "isPreprint": false,
-      "title": "Online chicken carcass volume estimation using depth imaging and 3-D reconstruction",
-      "year": 2024,
-      "type": "article",
-      "doi": "10.1016/j.psj.2024.104232",
-      "citations": 10,
-      "openAccess": true,
-      "authors": [
-        "Innocent Nyalala",
-        "Zhang Jiayu",
-        "Zixuan Chen",
-        "Chen Junlong",
-        "Kunjie Chen"
-      ],
-      "venue": {
-        "name": "Poultry Science",
-        "issn": "0032-5791",
-        "publisher": "Elsevier BV",
-        "meanCitedness2yr": 3.81,
-        "sjrQuartile": null
-      },
-      "url": "https://doi.org/10.1016/j.psj.2024.104232"
-    },
-    {
-      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "A salient feature establishment tactic for cassava disease recognition",
       "year": 2024,
       "type": "article",
@@ -314,7 +528,7 @@
         "Junfeng Gao"
       ],
       "venue": {
-        "name": "Artificial Intelligence in Agriculture",
+        "name": "Artificial Intelligence in Agriculture (Elsevier), Vol. 14, pp. 115–132",
         "issn": "2589-7217",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 8.55,
@@ -324,6 +538,34 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
+      "title": "Online chicken carcass volume estimation using depth imaging and 3-D reconstruction",
+      "year": 2024,
+      "type": "article",
+      "doi": "10.1016/j.psj.2024.104232",
+      "citations": 12,
+      "openAccess": true,
+      "authors": [
+        "Innocent Nyalala",
+        "Jiayu Zhang",
+        "Zixuan Chen",
+        "Junlong Chen",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "Poultry Science (Elsevier), Vol. 103, 104232",
+        "issn": "0032-5791",
+        "publisher": "Elsevier BV",
+        "meanCitedness2yr": 3.81,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.1016/j.psj.2024.104232"
+    },
+    {
+      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Weight and volume estimation of poultry and products based on computer vision systems: a review",
       "year": 2021,
       "type": "article",
@@ -339,7 +581,7 @@
         "Qi Chao"
       ],
       "venue": {
-        "name": "Poultry Science",
+        "name": "Poultry Science (Elsevier), Vol. 100, 101072",
         "issn": "0032-5791",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 3.81,
@@ -349,6 +591,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Weight and volume estimation of single and occluded tomatoes using machine vision",
       "year": 2021,
       "type": "article",
@@ -363,12 +607,12 @@
         "Tchalla Korohou",
         "Yi Zuo",
         "Samuel Nyalala",
-        "Zhang Jiayu",
+        "Jiayu Zhang",
         "Chao Liu",
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "International Journal of Food Properties",
+        "name": "International Journal of Food Properties (Taylor & Francis), Vol. 24, pp. 818–832",
         "issn": "1094-2912",
         "publisher": "Marcel Dekker",
         "meanCitedness2yr": 4.2,
@@ -378,6 +622,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Prediction of precise subsoiling based on analytical method, discrete element simulation and experimental data from soil bin",
       "year": 2021,
       "type": "article",
@@ -392,7 +638,7 @@
         "Samwel Opiyo"
       ],
       "venue": {
-        "name": "Scientific Reports",
+        "name": "Scientific Reports (Nature Portfolio)",
         "issn": "2045-2322",
         "publisher": "Nature Portfolio",
         "meanCitedness2yr": 4.74,
@@ -402,6 +648,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "On-line weight estimation of broiler carcass and cuts by a computer vision system",
       "year": 2021,
       "type": "article",
@@ -415,14 +663,14 @@
         "Tchalla Korohou",
         "Qi Chao",
         "Luke Nyalala",
-        "Zhang Jiayu",
+        "Jiayu Zhang",
         "Yi Zuo",
         "Khurram Yousaf",
         "Chao Liu",
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "Poultry Science",
+        "name": "Poultry Science (Elsevier), Vol. 100, 101474",
         "issn": "0032-5791",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 3.81,
@@ -432,11 +680,13 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Detecting the Early Flowering Stage of Tea Chrysanthemum Using the F-YOLO Model",
       "year": 2021,
       "type": "article",
       "doi": "10.3390/agronomy11050834",
-      "citations": 18,
+      "citations": 21,
       "openAccess": true,
       "authors": [
         "Qi Chao",
@@ -444,7 +694,7 @@
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "Agronomy",
+        "name": "Agronomy (MDPI), Vol. 11(5), 834",
         "issn": "2073-4395",
         "publisher": "Multidisciplinary Digital Publishing Institute",
         "meanCitedness2yr": 4.66,
@@ -454,7 +704,9 @@
     },
     {
       "isPreprint": false,
-      "title": "Drying process optimization of garlic slices in closed‐loop heat pump drying system by Box‐Behnken design",
+      "manual": false,
+      "isSaailLab": false,
+      "title": "Drying process optimization of garlic slices in closed-loop heat pump drying system by Box-Behnken design",
       "year": 2021,
       "type": "article",
       "doi": "10.1111/jfpp.16190",
@@ -470,7 +722,7 @@
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "Journal of Food Processing and Preservation",
+        "name": "Journal of Food Processing and Preservation (Wiley)",
         "issn": "0145-8892",
         "publisher": "Wiley",
         "meanCitedness2yr": 2.24,
@@ -480,6 +732,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "A review on computer vision systems in monitoring of poultry: A welfare perspective",
       "year": 2020,
       "type": "article",
@@ -498,7 +752,7 @@
         "Mingxia Shen"
       ],
       "venue": {
-        "name": "Artificial Intelligence in Agriculture",
+        "name": "Artificial Intelligence in Agriculture (Elsevier), Vol. 4, pp. 184–208",
         "issn": "2589-7217",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 8.55,
@@ -508,6 +762,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Egg volume estimation based on image processing and computer vision",
       "year": 2020,
       "type": "article",
@@ -524,7 +780,7 @@
         "Mingxia Shen"
       ],
       "venue": {
-        "name": "Journal of Food Engineering",
+        "name": "Journal of Food Engineering (Elsevier), Vol. 283, 110041",
         "issn": "0260-8774",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 5.36,
@@ -534,11 +790,13 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Wheat Grain Yield Estimation Based on Image Morphological Properties and Wheat Biomass",
       "year": 2020,
       "type": "article",
       "doi": "10.1155/2020/1571936",
-      "citations": 34,
+      "citations": 36,
       "openAccess": true,
       "authors": [
         "Tchalla Korohou",
@@ -552,7 +810,7 @@
         "Qishuo Ding"
       ],
       "venue": {
-        "name": "Journal of Sensors",
+        "name": "Journal of Sensors, 1571936",
         "issn": "1687-725X",
         "publisher": "Hindawi Publishing Corporation",
         "meanCitedness2yr": 2.02,
@@ -562,6 +820,8 @@
     },
     {
       "isPreprint": false,
+      "manual": true,
+      "isSaailLab": false,
       "title": "Separation of partially occluded rice kernels and variety classification based on computer vision",
       "year": 2020,
       "type": "article",
@@ -569,25 +829,25 @@
       "citations": 0,
       "openAccess": false,
       "authors": [
-        "Q Korohou",
-        "Tchalla",
-        "C Okinda",
-        "I Nyalala",
-        "I Torotwa",
-        "E Mwangi",
-        "Wang"
+        "Tchalla Korohou",
+        "Cedric Okinda",
+        "Innocent Nyalala",
+        "I. Torotwa",
+        "E. Mwangi"
       ],
       "venue": {
-        "name": "International Agricultural Engineering Journal",
+        "name": "International Agricultural Engineering Journal, ISSN 0858-2114",
         "issn": "0858-2114",
         "publisher": null,
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
-      "url": null
+      "url": "https://saaillab.github.io/papers/rice-kernels-separation-2020/"
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "A machine vision system for early detection and prediction of sick birds: A broiler chicken model",
       "year": 2019,
       "type": "article",
@@ -605,7 +865,7 @@
         "Mingxia Shen"
       ],
       "venue": {
-        "name": "Biosystems Engineering",
+        "name": "Biosystems Engineering (Elsevier), Vol. 188, pp. 229–242",
         "issn": "1537-5110",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 6.46,
@@ -615,6 +875,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Tomato volume and mass estimation using computer vision and machine learning algorithms: Cherry tomato model",
       "year": 2019,
       "type": "article",
@@ -632,7 +894,7 @@
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "Journal of Food Engineering",
+        "name": "Journal of Food Engineering (Elsevier), Vol. 263, pp. 288–298",
         "issn": "0260-8774",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 5.36,
@@ -642,31 +904,8 @@
     },
     {
       "isPreprint": false,
-      "title": "Production of activated carbon from sludge and herb residue of traditional Chinese medicine industry and its application for methylene blue removal",
-      "year": 2019,
-      "type": "article",
-      "doi": "10.15376/biores.14.1.1333-1346",
-      "citations": 26,
-      "openAccess": true,
-      "authors": [
-        "Zhenwei Yu",
-        "Qi Gao",
-        "Yue Zhang",
-        "Dandan Wang",
-        "Innocent Nyalala",
-        "Kunjie Chen"
-      ],
-      "venue": {
-        "name": "BioResources",
-        "issn": "1930-2126",
-        "publisher": "North Carolina State University",
-        "meanCitedness2yr": 1.74,
-        "sjrQuartile": null
-      },
-      "url": "https://doi.org/10.15376/biores.14.1.1333-1346"
-    },
-    {
-      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Influence of environmental conditions on drying efficiency and heat pump performance in closed and open loop drying of paddy",
       "year": 2019,
       "type": "article",
@@ -685,7 +924,7 @@
         "Kunjie Chen"
       ],
       "venue": {
-        "name": "Drying Technology",
+        "name": "Drying Technology (Taylor & Francis)",
         "issn": "0737-3937",
         "publisher": "Taylor & Francis",
         "meanCitedness2yr": 3.07,
@@ -695,6 +934,35 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
+      "title": "Production of activated carbon from sludge and herb residue of traditional Chinese medicine industry and its application for methylene blue removal",
+      "year": 2019,
+      "type": "article",
+      "doi": "10.15376/biores.14.1.1333-1346",
+      "citations": 26,
+      "openAccess": true,
+      "authors": [
+        "Zhenwei Yu",
+        "Qi Gao",
+        "Yue Zhang",
+        "Dandan Wang",
+        "Innocent Nyalala",
+        "Kunjie Chen"
+      ],
+      "venue": {
+        "name": "BioResources, Vol. 14(1), pp. 1333–1346",
+        "issn": "1930-2126",
+        "publisher": "North Carolina State University",
+        "meanCitedness2yr": 1.74,
+        "sjrQuartile": null
+      },
+      "url": "https://doi.org/10.15376/biores.14.1.1333-1346"
+    },
+    {
+      "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Asphyxia occurrence detection in sows during the farrowing phase by inter-birth interval evaluation",
       "year": 2018,
       "type": "article",
@@ -709,7 +977,7 @@
         "Mingxia Shen"
       ],
       "venue": {
-        "name": "Computers and Electronics in Agriculture",
+        "name": "Computers and Electronics in Agriculture (Elsevier), Vol. 152, pp. 221–232",
         "issn": "0168-1699",
         "publisher": "Elsevier BV",
         "meanCitedness2yr": 9.77,
@@ -718,8 +986,10 @@
       "url": "https://doi.org/10.1016/j.compag.2018.07.007"
     },
     {
-      "isPreprint": true,
-      "title": "Detection of an onset of farrowing by classification of crated sow's activities.",
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": false,
+      "title": "Detection of an onset of farrowing by classification of crated sow's activities",
       "year": 2018,
       "type": "article",
       "doi": null,
@@ -727,15 +997,15 @@
       "openAccess": false,
       "authors": [
         "Cedric Okinda",
-        "Shen MingXia",
+        "Mingxia Shen",
         "Jiawei Li",
         "Innocent Nyalala",
         "Longshen Liu",
-        "Lu MingZhou",
-        "Zhang GuangYue"
+        "Mingzhou Lu",
+        "Guangyue Zhang"
       ],
       "venue": {
-        "name": "Asian Agricultural Engineering",
+        "name": "International Agricultural Engineering Journal / Asian Agricultural Engineering",
         "issn": "0858-2114",
         "publisher": null,
         "meanCitedness2yr": null,
@@ -745,6 +1015,8 @@
     },
     {
       "isPreprint": false,
+      "manual": false,
+      "isSaailLab": false,
       "title": "Research on range-based localisation algorithm with virtual force and time synchronisation in wireless sensor and actor networks",
       "year": 2016,
       "type": "article",
@@ -760,7 +1032,7 @@
         "Huanliang Xu"
       ],
       "venue": {
-        "name": "International Journal of Communication Networks and Distributed Systems",
+        "name": "International Journal of Communication Networks and Distributed Systems (Inderscience)",
         "issn": "1754-3916",
         "publisher": "Inderscience Publishers",
         "meanCitedness2yr": 0.35,
@@ -770,30 +1042,9 @@
     },
     {
       "isPreprint": false,
-      "title": "Intelligent energy saving system",
-      "year": 2015,
-      "type": "article",
-      "doi": null,
-      "citations": 4,
-      "openAccess": false,
-      "authors": [
-        "CS Okinda",
-        "Innocent Nyalala",
-        "Z Chi",
-        "S Mingxia"
-      ],
-      "venue": {
-        "name": "International Journal of Emerging Technology and Advanced Engineering",
-        "issn": null,
-        "publisher": null,
-        "meanCitedness2yr": null,
-        "sjrQuartile": null
-      },
-      "url": null
-    },
-    {
-      "isPreprint": false,
-      "title": "基于ARDUINO的温室控制和监测智能化系统设计与实现",
+      "manual": true,
+      "isSaailLab": false,
+      "title": "Design and Implementation of an Intelligent Greenhouse Control and Monitoring System Based on Arduino",
       "year": 2016,
       "type": "article",
       "doi": null,
@@ -803,13 +1054,38 @@
         "Innocent Nyalala"
       ],
       "venue": {
-        "name": "Nanjing Agricultural University",
+        "name": "Nanjing Agricultural University (M.Sc. Thesis Monograph)",
         "issn": null,
         "publisher": null,
         "meanCitedness2yr": null,
         "sjrQuartile": null
       },
-      "url": null
+      "url": "https://saaillab.github.io/papers/intelligent-greenhouse-arduino-2016/"
+    },
+    {
+      "isPreprint": false,
+      "manual": true,
+      "isSaailLab": false,
+      "title": "Intelligent energy saving system",
+      "year": 2015,
+      "type": "article",
+      "doi": null,
+      "citations": 4,
+      "openAccess": false,
+      "authors": [
+        "Cedric Okinda",
+        "Innocent Nyalala",
+        "Z. Chi",
+        "Mingxia Shen"
+      ],
+      "venue": {
+        "name": "International Journal of Emerging Technology and Advanced Engineering (IJETAE), Vol. 5, Issue 5, 2015",
+        "issn": null,
+        "publisher": null,
+        "meanCitedness2yr": null,
+        "sjrQuartile": null
+      },
+      "url": "https://saaillab.github.io/papers/intelligent-energy-saving-2015/"
     }
   ]
 }

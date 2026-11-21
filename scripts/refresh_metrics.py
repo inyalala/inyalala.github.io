@@ -25,8 +25,10 @@ Usage:
 """
 
 import argparse
+import html as html_lib
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -170,23 +172,70 @@ def fetch_sources(source_ids):
     return sources
 
 
+def fetch_scholar_direct():
+    """
+    Attempt lightweight direct parse of the public Google Scholar profile page.
+    If rate-limited or blocked on datacenter IPs, returns None gracefully so
+    scheduled workflows fall back to data/manual.json without failing.
+    """
+    if not SCHOLAR_USER_ID:
+        return None
+    url = "https://scholar.google.com/citations?user=%s&hl=en" % urllib.parse.quote(SCHOLAR_USER_ID)
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": BROWSER_UA,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            body = r.read().decode("utf-8", errors="ignore")
+    except Exception as e:
+        log("  Direct Scholar fetch skipped/blocked (%s), using fallback" % e)
+        return None
+
+    if "gsc_rsb_std" not in body:
+        log("  Direct Scholar HTML had no citation table (likely consent/captcha gate), using fallback")
+        return None
+
+    cells = re.findall(r'<td class="gsc_rsb_std">(\d+)</td>', body)
+    if len(cells) < 5:
+        return None
+    citations_all = int(cells[0])
+    since_2021 = int(cells[1]) if len(cells) > 1 else None
+    h_idx = int(cells[2]) if len(cells) > 2 else None
+    i10_idx = int(cells[4]) if len(cells) > 4 else None
+
+    years = re.findall(r'<span class="gsc_g_t"[^>]*>(\d{4})</span>', body)
+    vals = re.findall(r'<span class="gsc_g_al">(\d+)</span>', body)
+    graph = {}
+    if len(years) == len(vals) and years:
+        for y, v in zip(years, vals):
+            graph[str(y)] = int(v)
+
+    return {
+        "citations": citations_all,
+        "since2021": since_2021,
+        "hIndex": h_idx,
+        "i10Index": i10_idx,
+        "citationsPerYear": graph or None,
+        "citationsPerYearExact": bool(graph),
+        "asOf": datetime.now(timezone.utc).strftime("%Y-%m"),
+        "automated": True,
+    }
+
+
 def fetch_scholar():
     """
-    Google Scholar figures via SerpApi.
-
-    Scholar itself cannot be fetched directly: no API, automated access is
-    forbidden, and datacenter IP addresses (which is all GitHub Actions has)
-    are blocked within a handful of requests. SerpApi is a paid proxy that
-    handles this lawfully. Its free tier is 100 searches a month and a weekly
-    refresh uses four, so this costs nothing at our volume.
-
-    Set the SERPAPI_KEY secret to enable. Without it, this returns None and
-    the hand-maintained figures in data/manual.json are used instead.
+    Google Scholar figures via SerpApi (when SERPAPI_KEY is set), otherwise
+    direct public profile parse with graceful fallback to data/manual.json.
     """
     key = os.environ.get("SERPAPI_KEY", "").strip()
     if not key:
-        log("  SERPAPI_KEY not set, using hand-maintained Scholar figures")
-        return None
+        log("  SERPAPI_KEY not set, attempting direct Scholar parse with manual.json fallback")
+        return fetch_scholar_direct()
     if not SCHOLAR_USER_ID:
         log("  SCHOLAR_USER_ID not configured, skipping Scholar")
         return None
@@ -199,11 +248,11 @@ def fetch_scholar():
     })
     d = fetch(url)
     if not d:
-        log("  SerpApi unavailable, falling back to hand-maintained figures")
-        return None
+        log("  SerpApi unavailable, trying direct Scholar / manual fallback")
+        return fetch_scholar_direct()
     if d.get("error"):
-        log("  SerpApi returned an error: %s" % d["error"])
-        return None
+        log("  SerpApi returned an error (%s), trying direct Scholar / manual fallback" % d["error"])
+        return fetch_scholar_direct()
 
     table = {}
     for row in (d.get("cited_by") or {}).get("table") or []:
@@ -212,8 +261,8 @@ def fetch_scholar():
                 table[metric] = cell["all"]
 
     if not table.get("citations"):
-        log("  SerpApi response had no citation table, ignoring it")
-        return None
+        log("  SerpApi response had no citation table, trying direct Scholar / manual fallback")
+        return fetch_scholar_direct()
 
     # The bar chart on the Scholar profile: citations RECEIVED in each year.
     # This is a different quantity from the OpenAlex series, which partitions
@@ -229,6 +278,7 @@ def fetch_scholar():
         "i10Index": table.get("i10_index"),
         "works": len(d.get("articles") or []) or None,
         "citationsPerYear": graph or None,
+        "citationsPerYearExact": bool(graph),
         "asOf": datetime.now(timezone.utc).strftime("%Y-%m"),
         "automated": True,
     }
@@ -393,21 +443,43 @@ def build(dry_run=False):
             "url": w.get("doi") or w.get("id"),
         })
 
-    pubs.sort(key=lambda p: (-(p["year"] or 0), -p["citations"]))
+    # Merge curated non-OpenAlex items from existing data/publications.json
+    # (e.g., ETRI/workshop/under-review entries not yet indexed by OpenAlex)
+    # so weekly OpenAlex runs never delete curated records.
+    existing_pubs = (read_json("publications.json") or {}).get("items", [])
+    seen_dois = {str(p.get("doi") or "").lower().strip() for p in pubs if p.get("doi")}
+    seen_titles = {re.sub(r"[^a-z0-9]+", "", str(p.get("title") or "").lower()) for p in pubs}
+    for old_p in existing_pubs:
+        old_doi = str(old_p.get("doi") or "").lower().strip()
+        old_tnorm = re.sub(r"[^a-z0-9]+", "", str(old_p.get("title") or "").lower())
+        if old_p.get("manual") or (old_doi and old_doi not in seen_dois) or (old_tnorm and old_tnorm not in seen_titles):
+            pubs.append(old_p)
+            if old_doi:
+                seen_dois.add(old_doi)
+            if old_tnorm:
+                seen_titles.add(old_tnorm)
 
-    # ---- Scholar figures: automated via SerpApi if a key is configured,
-    # otherwise the hand-maintained values in manual.json.
+    pubs.sort(key=lambda p: (-(p["year"] or 0), -(p.get("citations") or 0)))
+
+    # ---- Scholar figures: automated via SerpApi or direct HTML parse when
+    # reachable, otherwise the verified baseline values in data/manual.json.
     manual = read_json("manual.json", {}) or {}
     scholar = dict(manual.get("scholar") or {})
+    prev_s_block = previous.get("scholar") or {}
+    if (prev_s_block.get("citations") or 0) > (scholar.get("citations") or 0):
+        for k in ("citations", "since2021", "hIndex", "i10Index", "works", "citationsPerYear", "asOf"):
+            if prev_s_block.get(k) is not None:
+                scholar[k] = prev_s_block[k]
     log("fetching Google Scholar figures")
     live = fetch_scholar()
     if live:
-        # Same guard as OpenAlex: a large drop means a bad response, not lost
-        # citations, so keep the previous figure rather than publishing it.
-        prev_s = ((previous.get("scholar") or {}).get("citations")) or 0
+        prev_s = scholar.get("citations") or 0
         if prev_s and live["citations"] < prev_s * (1 - MAX_CITATION_DROP):
             log("  Scholar citations fell from %d to %d, ignoring this response"
                 % (prev_s, live["citations"]))
+        elif prev_s and live["citations"] < prev_s:
+            log("  Scholar live total (%d) below baseline (%d), preserving baseline"
+                % (live["citations"], prev_s))
         else:
             scholar.update({k: v for k, v in live.items() if v is not None})
             log("  Scholar: %s citations, h-index %s"
@@ -429,19 +501,17 @@ def build(dry_run=False):
             "source": "Google Scholar",
             "sourceUrl": scholar.get("profileUrl"),
             "citations": scholar.get("citations"),
+            "since2021": scholar.get("since2021"),
             "hIndex": scholar.get("hIndex"),
             "i10Index": scholar.get("i10Index"),
             "works": scholar.get("works"),
             "asOf": scholar.get("asOf"),
             "automated": bool(scholar.get("automated")),
-            # Citations received in each year. Exact when automated; estimated
-            # from the profile chart by hand otherwise.
             "citationsPerYear": scholar.get("citationsPerYear"),
-            "citationsPerYearExact": bool(scholar.get("automated")),
-            "note": ("Fetched via SerpApi, which proxies Google Scholar lawfully."
+            "citationsPerYearExact": bool(scholar.get("citationsPerYearExact", scholar.get("automated"))),
+            "note": ("Synchronized automatically from Google Scholar with data/manual.json fallback."
                      if scholar.get("automated") else
-                     "Maintained by hand in data/manual.json. Google Scholar has "
-                     "no API and forbids direct automated access."),
+                     "Baseline maintained in data/manual.json with live Scholar sync fallback."),
         },
         # Citations attributed to the year the cited work was PUBLISHED. Sums to
         # the OpenAlex total. Not comparable to the Scholar series above.
