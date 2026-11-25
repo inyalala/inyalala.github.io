@@ -44,7 +44,6 @@ const coursesSchema = {
               '@type': 'CourseInstance',
               name: `${c.code} (${c.term})`,
               courseMode: 'Onsite',
-              courseWorkload: c.credits,
               instructor: { '@id': 'https://inyalala.github.io/#person' },
               location: {
                 '@type': 'Place',
@@ -207,33 +206,48 @@ const coursesSchema = {
       var groups = document.querySelectorAll('[data-course-group]');
       var countEl = document.getElementById('courseResultCount');
 
+      function applyCourseFilter(f, skipUrl) {
+        var visible = 0;
+        btns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String((b.getAttribute('data-filter') || 'all') === f));
+        });
+        entries.forEach(function (entry) {
+          var prog = entry.getAttribute('data-prog') || '';
+          var status = entry.getAttribute('data-status') || '';
+          var show = f === 'all' || (f === 'active' && status === 'active') || prog === f;
+          entry.style.display = show ? 'grid' : 'none';
+          if (show) visible++;
+        });
+
+        groups.forEach(function (grp) {
+          var anyVisible = Array.prototype.some.call(grp.querySelectorAll('.course-entry'), function (el) {
+            return el.style.display !== 'none';
+          });
+          grp.style.display = anyVisible ? 'block' : 'none';
+        });
+
+        if (countEl) {
+          countEl.textContent = 'Showing ' + visible + ' of ' + entries.length + ' courses';
+        }
+        if (!skipUrl) {
+          try {
+            var params = new URLSearchParams(window.location.search);
+            if (f !== 'all') params.set('filter', f);
+            else params.delete('filter');
+            var qs = params.toString();
+            window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+          } catch (e) {}
+        }
+      }
+
+      try {
+        var initF = new URLSearchParams(window.location.search).get('filter');
+        if (initF) applyCourseFilter(initF, true);
+      } catch (e) {}
+
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          btns.forEach(function (b) {
-            b.setAttribute('aria-pressed', 'false');
-          });
-          btn.setAttribute('aria-pressed', 'true');
-          var f = btn.getAttribute('data-filter') || 'all';
-          var visible = 0;
-
-          entries.forEach(function (entry) {
-            var prog = entry.getAttribute('data-prog') || '';
-            var status = entry.getAttribute('data-status') || '';
-            var show = f === 'all' || (f === 'active' && status === 'active') || prog === f;
-            entry.style.display = show ? 'grid' : 'none';
-            if (show) visible++;
-          });
-
-          groups.forEach(function (grp) {
-            var anyVisible = Array.prototype.some.call(grp.querySelectorAll('.course-entry'), function (el) {
-              return el.style.display !== 'none';
-            });
-            grp.style.display = anyVisible ? 'block' : 'none';
-          });
-
-          if (countEl) {
-            countEl.textContent = 'Showing ' + visible + ' of ' + entries.length + ' courses';
-          }
+          applyCourseFilter(btn.getAttribute('data-filter') || 'all');
         });
       });
     });

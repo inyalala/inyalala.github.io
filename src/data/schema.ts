@@ -192,7 +192,6 @@ export function courseSchemaNode(c: CourseData) {
       '@type': 'CourseInstance',
       name: `${c.code} (${c.term})`,
       courseMode: 'Onsite',
-      courseWorkload: c.credits,
       instructor: { '@id': `${BASE}/#person` },
       location: {
         '@type': 'Place',
@@ -208,7 +207,7 @@ export function scholarlyArticleNode(p: PublicationEntry) {
     '@type': 'ScholarlyArticle',
     headline: p.title,
     datePublished: p.dateISO || String(p.year),
-    isPartOf: { '@type': 'PublicationIssue', name: p.venue },
+    isPartOf: { '@type': p.category === 'journal' ? 'Periodical' : 'PublicationVolume', name: p.venue },
     author: p.authors.map((name) =>
       isInnocentNyalala(name)
         ? { '@id': `${BASE}/#person` }

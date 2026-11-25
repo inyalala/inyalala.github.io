@@ -1,29 +1,62 @@
 ---
+import CommandPalette from '../components/CommandPalette.astro';
+
+export interface HrefAlternate {
+  hreflang: string;
+  href: string;
+}
+
 export interface Props {
   title?: string;
   description?: string;
   canonical?: string;
   ogImage?: string;
   ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   ogType?: 'website' | 'profile' | 'article';
+  publishedTime?: string;
+  tags?: string[];
+  lang?: string;
+  alternates?: HrefAlternate[];
   keywords?: string;
   noindex?: boolean;
 }
 
 const {
-  title = 'Innocent Nyalala, PhD | Data Science & AI · IITM Zanzibar',
-  description = 'Faculty monograph of Dr. Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab.',
+  title = 'Innocent Nyalala, PhD | Data Science & AI · IITMZ',
+  description = 'Faculty monograph of Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab.',
   canonical = 'https://inyalala.github.io/',
   ogImage = 'https://inyalala.github.io/images/og-innocent-nyalala.png',
   ogImageAlt = 'Innocent Nyalala, Assistant Professor of Data Science and AI at IIT Madras Zanzibar',
+  ogImageWidth,
+  ogImageHeight,
   ogType = 'website',
+  publishedTime,
+  tags = [],
+  lang = 'en',
+  alternates,
   keywords = 'Innocent Nyalala, IIT Madras Zanzibar, Data Science, Artificial Intelligence, Deep Learning, Computer Vision, Agricultural AI, Swahili NLP, East Africa, Tanzania, Kenya, WSAI IIT Madras, SAAIL Lab',
   noindex = false
 } = Astro.props;
+
+const ogLower = ogImage.toLowerCase();
+const ogImageType = ogLower.endsWith('.webp')
+  ? 'image/webp'
+  : ogLower.endsWith('.jpg') || ogLower.endsWith('.jpeg')
+    ? 'image/jpeg'
+    : 'image/png';
+const isDefaultOg = ogImage === 'https://inyalala.github.io/images/og-innocent-nyalala.png';
+const resolvedOgW = ogImageWidth ?? (isDefaultOg ? 1200 : undefined);
+const resolvedOgH = ogImageHeight ?? (isDefaultOg ? 630 : undefined);
+const resolvedAlternates: HrefAlternate[] = alternates && alternates.length > 0
+  ? alternates
+  : [{ hreflang: lang, href: canonical }];
+const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
@@ -49,7 +82,9 @@ const {
         <meta name="googlebot" content="index, follow" />
         <meta name="bingbot" content="index, follow" />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hreflang="en" href={canonical} />
+        {resolvedAlternates.map((alt) => (
+          <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+        ))}
       </>
     )}
 
@@ -89,15 +124,24 @@ const {
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Innocent Nyalala | IIT Madras Zanzibar" />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content={ogImageType} />
+    {resolvedOgW && <meta property="og:image:width" content={String(resolvedOgW)} />}
+    {resolvedOgH && <meta property="og:image:height" content={String(resolvedOgH)} />}
     <meta property="og:image:alt" content={ogImageAlt} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocale} />
     {ogType === 'profile' && (
       <>
         <meta property="profile:first_name" content="Innocent" />
         <meta property="profile:last_name" content="Nyalala" />
+      </>
+    )}
+    {ogType === 'article' && (
+      <>
+        {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+        <meta property="article:author" content="https://inyalala.github.io/about/" />
+        {tags.map((tag) => (
+          <meta property="article:tag" content={tag} />
+        ))}
       </>
     )}
 
@@ -138,6 +182,8 @@ const {
     <div class="monograph-shell">
       <slot />
     </div>
+
+    <CommandPalette />
 
     <button id="backToTop" type="button" class="back-to-top" aria-label="Back to top">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -574,6 +620,61 @@ const {
     }
     .rule-section {
       padding: 2rem 0;
+    }
+  }
+
+  @media print {
+    :root {
+      --bg-primary: #ffffff !important;
+      --bg-surface: #ffffff !important;
+      --bg-secondary: #ffffff !important;
+      --text-primary: #000000 !important;
+      --text-secondary: #1a1a1a !important;
+      --text-muted: #444444 !important;
+      --accent-forest: #000000 !important;
+      --accent-clove: #000000 !important;
+      --rule: #cccccc !important;
+      --rule-strong: #888888 !important;
+    }
+    .monograph-rail,
+    .mobile-header,
+    .mobile-drawer,
+    .filter-strip,
+    #backToTop,
+    .telemetry-row,
+    .cmd-palette-backdrop,
+    .skip-link,
+    .reading-progress,
+    .bib-btn,
+    .reset-btn,
+    .zoom-cue {
+      display: none !important;
+    }
+    .monograph-shell {
+      display: block !important;
+    }
+    .monograph-canvas {
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    main {
+      padding: 0 !important;
+    }
+    .pub-entry,
+    .news-entry,
+    .course-entry,
+    .pillar-row,
+    .grant-row,
+    .monograph-panel {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    a[href^='http']::after {
+      content: ' (' attr(href) ')';
+      font-size: 0.78em;
+      color: #444444;
+      word-break: break-all;
     }
   }
 </style>

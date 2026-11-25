@@ -133,6 +133,11 @@ const writingSchema = {
             );
           })}
         </ol>
+
+        <div id="writingEmptyState" class="filter-empty-state" hidden>
+          <p>No articles or guides matched the current filter or search term.</p>
+          <button type="button" id="resetWritingFilters" class="filter-btn">Reset Filters</button>
+        </div>
       </section>
     </main>
 
@@ -141,13 +146,28 @@ const writingSchema = {
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
-      var btns = document.querySelectorAll('.filter-btn');
+      var btns = document.querySelectorAll('.filter-btn[data-wcat]');
       var rows = document.querySelectorAll('.essay-row');
       var countEl = document.getElementById('writingCount');
       var searchEl = document.getElementById('writingSearch');
+      var emptyEl = document.getElementById('writingEmptyState');
+      var resetEl = document.getElementById('resetWritingFilters');
       var activeCat = 'All';
 
-      function applyFilters() {
+      function syncUrl() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          if (activeCat !== 'All') params.set('cat', activeCat);
+          else params.delete('cat');
+          var qVal = ((searchEl && searchEl.value) || '').trim();
+          if (qVal) params.set('q', qVal);
+          else params.delete('q');
+          var qs = params.toString();
+          window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+        } catch (e) {}
+      }
+
+      function applyFilters(skipUrl) {
         var q = ((searchEl && searchEl.value) || '').trim().toLowerCase();
         var vis = 0;
         rows.forEach(function (r) {
@@ -157,8 +177,25 @@ const writingSchema = {
           r.style.display = show ? 'grid' : 'none';
           if (show) vis++;
         });
+        if (emptyEl) emptyEl.hidden = vis > 0;
         if (countEl) countEl.textContent = 'Showing ' + vis + ' of ' + rows.length + ' articles';
+        if (!skipUrl) syncUrl();
       }
+
+      try {
+        var initP = new URLSearchParams(window.location.search);
+        var initCat = initP.get('cat');
+        var initQ = initP.get('q');
+        if (initCat) {
+          btns.forEach(function (b) {
+            var match = b.getAttribute('data-wcat') === initCat;
+            b.setAttribute('aria-pressed', String(match));
+            if (match) activeCat = initCat;
+          });
+        }
+        if (initQ && searchEl) searchEl.value = initQ;
+        if (initCat || initQ) applyFilters(true);
+      } catch (e) {}
 
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -171,7 +208,18 @@ const writingSchema = {
         });
       });
 
-      searchEl && searchEl.addEventListener('input', applyFilters);
+      resetEl &&
+        resetEl.addEventListener('click', function () {
+          activeCat = 'All';
+          if (searchEl) searchEl.value = '';
+          btns.forEach(function (b) {
+            b.setAttribute('aria-pressed', String(b.getAttribute('data-wcat') === 'All'));
+          });
+          applyFilters();
+          searchEl && searchEl.focus();
+        });
+
+      searchEl && searchEl.addEventListener('input', function () { applyFilters(); });
     });
   </script>
 </BaseLayout>
@@ -205,6 +253,25 @@ const writingSchema = {
     font-size: 0.78rem;
     color: var(--text-muted);
     margin-top: 0.8rem;
+  }
+  .filter-empty-state {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .filter-empty-state[hidden] {
+    display: none;
+  }
+  .filter-empty-state p {
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    margin: 0;
   }
 
   .essay-ledger {

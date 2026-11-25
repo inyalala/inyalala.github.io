@@ -35,3 +35,4 @@ User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://inyalala.github.io/sitemap.xml
+Sitemap: https://inyalala.github.io/iitmz-teaching-site/sitemap.xml

@@ -1,6 +1,24 @@
 {
   "items": [
     {
+      "id": "2026-12-02-zstc-5th-conference",
+      "date": "2026-12-02",
+      "dateRange": "2 - 3 December 2026",
+      "category": "Conference",
+      "featured": false,
+      "headline": "Attending the 5th ZSTC Conference in Zanzibar (Dec 2-3, 2026)",
+      "summary": "Scheduled participation at the 5th Conference for the Zanzibar State Trading Corporation (ZSTC) on commercial clove quality grading and inspection.",
+      "body": "Innocent Nyalala will attend the 5th Conference for the Zanzibar State Trading Corporation (ZSTC) on December 2 to 3, 2026, continuing joint work on CLOVES-4603, ZSTC-Clove-V1, and compositional explainable AI grading pipelines.",
+      "link": "https://saaillab.github.io/projects/ubora-ai/",
+      "linkLabel": "View Ubora-AI ZSTC Project",
+      "image": "/images/news/eac-sti-2026-clove-grading.webp",
+      "imageAlt": "Zanzibar State Trading Corporation commercial clove quality inspection research card",
+      "focal": "50% 35%",
+      "fit": "contain",
+      "source": "SAAIL Lab",
+      "sourceUrl": "https://saaillab.github.io/news/"
+    },
+    {
       "id": "2026-11-16-odd-semester-teaching-2026-27",
       "date": "2026-11-16",
       "dateRange": "November 2026",
@@ -53,7 +71,7 @@
       "body": "IC&SR (Industrial Consultancy and Sponsored Research), IIT Madras awarded Rs. 9.35 lakhs under ERP 2026-27 for CashewAI, a dual-stream phenology-aware computer vision project targeting disease detection, pest identification, and yield forecasting in Tanzanian smallholder cashew orchards.",
       "link": "https://saaillab.github.io/projects/cashew-ai/",
       "linkLabel": "Explore CashewAI Project",
-      "image": "/images/research/cashew-ai-samples.jpg",
+      "image": "/images/research/cashew-ai-samples.webp",
       "imageAlt": "CashewAI field plate comparing healthy cashew foliage, anthracnose, gummosis, and red rust symptoms",
       "focal": "50% 50%",
       "source": "SAAIL Lab",
@@ -126,9 +144,9 @@
       "sourceUrl": "https://saaillab.github.io/gallery/"
     },
     {
-      "id": "2026-05-15-oxford-tais-2026-policy",
-      "date": "2026-05-15",
-      "dateRange": "May 2026",
+      "id": "2026-03-15-oxford-tais-2026-policy",
+      "date": "2026-03-15",
+      "dateRange": "March 2026",
       "category": "Conference",
       "featured": false,
       "headline": "East African AI Policy Harmonization Presented at Oxford TAIS 2026",
@@ -214,6 +232,24 @@
       "source": "IIT Madras Zanzibar",
       "sourceUrl": "https://www.linkedin.com/posts/iitmzanzibar_artificialintelligence-deeplearning-agritech-activity-7443156335917137920-fvvi",
       "fit": "contain"
+    },
+    {
+      "id": "2026-02-20-cara-fm-pmlr-vol-302",
+      "date": "2026-02-20",
+      "dateRange": "2026 · PMLR Vol. 302",
+      "category": "Publication",
+      "featured": false,
+      "headline": "CARA-FM Published in Proceedings of Machine Learning Research (Vol. 302)",
+      "summary": "Following its DLI 2025 Best Poster Award in Kigali, CARA-FM appeared in PMLR Vol. 302 with open CEI and DFS edge-readiness indices.",
+      "body": "Culturally Attuned and Resource-Aware Foundation Models for East African Agriculture (CARA-FM), co-authored with Prof. Nirav Bhatt, appeared in Proceedings of Machine Learning Research (PMLR Vol. 302, pp. 1-11, 2026), formalizing 1-4 GB memory budgets and regional readiness evaluation indices.",
+      "link": "https://proceedings.mlr.press/v302/nyalala26a.html",
+      "linkLabel": "Read PMLR Vol. 302 Paper",
+      "image": "/images/news/cara-fm-dli-spotlight.webp",
+      "imageAlt": "CARA-FM research spotlight visual for Proceedings of Machine Learning Research Vol. 302",
+      "focal": "50% 35%",
+      "fit": "contain",
+      "source": "PMLR Vol. 302",
+      "sourceUrl": "https://saaillab.github.io/papers/cara-fm/"
     },
     {
       "id": "2026-02-11-alliance4ai-invited-talk",

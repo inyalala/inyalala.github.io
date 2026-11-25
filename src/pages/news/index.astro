@@ -228,6 +228,10 @@ const newsSchema = {
             </article>
           </>
         ))}
+        <div id="newsEmptyState" class="filter-empty-state" hidden>
+          <p>No dispatches matched the selected category.</p>
+          <button type="button" id="resetNewsFilters" class="filter-btn">Reset Filters</button>
+        </div>
       </section>
     </main>
 
@@ -252,33 +256,56 @@ const newsSchema = {
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
-    var btns = document.querySelectorAll('.filter-btn');
+    var btns = document.querySelectorAll('.filter-btn[data-cat]');
     var entries = document.querySelectorAll('.news-entry');
     var dividers = document.querySelectorAll('.year-divider');
     var countEl = document.getElementById('newsResultCount');
+    var emptyEl = document.getElementById('newsEmptyState');
+    var resetEl = document.getElementById('resetNewsFilters');
+
+    function applyCat(cat, skipUrl) {
+      var vis = 0;
+      btns.forEach(function (b) {
+        b.setAttribute('aria-pressed', String((b.getAttribute('data-cat') || 'all') === cat));
+      });
+      entries.forEach(function (e) {
+        var match = cat === 'all' || e.getAttribute('data-category') === cat;
+        e.style.display = match ? 'block' : 'none';
+        if (match) vis++;
+      });
+      dividers.forEach(function (d) {
+        d.style.display = cat === 'all' ? 'flex' : 'none';
+      });
+      if (emptyEl) emptyEl.hidden = vis > 0;
+      if (countEl) {
+        countEl.textContent = 'Showing ' + vis + ' of ' + entries.length + ' dispatches';
+      }
+      if (!skipUrl) {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          if (cat !== 'all') params.set('cat', cat);
+          else params.delete('cat');
+          var qs = params.toString();
+          window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+        } catch (e) {}
+      }
+    }
+
+    try {
+      var initCat = new URLSearchParams(window.location.search).get('cat');
+      if (initCat) applyCat(initCat, true);
+    } catch (e) {}
 
     btns.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        btns.forEach(function (b) {
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.setAttribute('aria-pressed', 'true');
-        var cat = btn.getAttribute('data-cat') || 'all';
-        var vis = 0;
-
-        entries.forEach(function (e) {
-          var match = cat === 'all' || e.getAttribute('data-category') === cat;
-          e.style.display = match ? 'block' : 'none';
-          if (match) vis++;
-        });
-        dividers.forEach(function (d) {
-          d.style.display = cat === 'all' ? 'flex' : 'none';
-        });
-        if (countEl) {
-          countEl.textContent = 'Showing ' + vis + ' of ' + entries.length + ' dispatches';
-        }
+        applyCat(btn.getAttribute('data-cat') || 'all');
       });
     });
+
+    resetEl &&
+      resetEl.addEventListener('click', function () {
+        applyCat('all');
+      });
 
     document.querySelectorAll('.news-gallery').forEach(function (gal) {
       var track = gal.querySelector('.gallery-track');
@@ -358,6 +385,25 @@ const newsSchema = {
     font-size: 0.78rem;
     color: var(--text-muted);
     margin-top: 0.85rem;
+  }
+  .filter-empty-state {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .filter-empty-state[hidden] {
+    display: none;
+  }
+  .filter-empty-state p {
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    margin: 0;
   }
 
   .year-divider {

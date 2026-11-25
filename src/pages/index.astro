@@ -53,9 +53,14 @@ const schemaGraph = {
 ---
 
 <BaseLayout
-  title="Innocent Nyalala, PhD | Data Science & AI · IITM Zanzibar"
+  title="Innocent Nyalala, PhD | Data Science & AI · IITMZ"
   description="Faculty monograph of Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab."
   canonical="https://inyalala.github.io/"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/' },
+    { hreflang: 'sw', href: 'https://inyalala.github.io/sw/' },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/' }
+  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
@@ -362,8 +367,14 @@ const schemaGraph = {
                   {pub.doi && (
                     <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener" class="row-ext">DOI &#8599;</a>
                   )}
+                  {!pub.doi && pub.paperUrl && (
+                    <a href={pub.paperUrl} target="_blank" rel="noopener" class="row-ext">Paper / PDF &#8599;</a>
+                  )}
                   {pub.codeUrl && (
                     <a href={pub.codeUrl} target="_blank" rel="noopener" class="row-ext">Code &#8599;</a>
+                  )}
+                  {pub.datasetUrl && (
+                    <a href={pub.datasetUrl} target="_blank" rel="noopener" class="row-ext">Dataset &#8599;</a>
                   )}
                   <a href={pub.saailPaperUrl} target="_blank" rel="noopener" class="row-ext">SAAIL Companion &#8599;</a>
                 </p>

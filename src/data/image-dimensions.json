@@ -203,10 +203,6 @@
     "width": 1500,
     "height": 760
   },
-  "/images/papers/prior/carbon2019_sem.jpg": {
-    "width": 1652,
-    "height": 677
-  },
   "/images/papers/prior/carcass2024.jpeg": {
     "width": 1500,
     "height": 556
@@ -218,10 +214,6 @@
   "/images/papers/prior/carcass2024_bagged_tree.jpeg": {
     "width": 1200,
     "height": 1007
-  },
-  "/images/papers/prior/carcass2024_workflow.jpeg": {
-    "width": 1928,
-    "height": 1546
   },
   "/images/papers/prior/subsoiling2021_dem.jpeg": {
     "width": 945,
@@ -267,25 +259,13 @@
     "width": 938,
     "height": 596
   },
-  "/images/research/cashew-ai-samples.jpg": {
-    "width": 1592,
-    "height": 1282
-  },
   "/images/research/cloves-etri2026-abstract.png": {
     "width": 1600,
     "height": 689
   },
-  "/images/research/cropguardnet-architecture.png": {
-    "width": 2698,
-    "height": 2110
-  },
   "/images/research/dgs-bench-gap.png": {
     "width": 2971,
     "height": 852
-  },
-  "/images/research/placentavision-pipeline.png": {
-    "width": 1936,
-    "height": 1176
   },
   "/images/research/swahili-corpus.png": {
     "width": 1650,
@@ -428,24 +408,24 @@
     "height": 480
   },
   "/images/thumbs/research/cashew-ai-samples.webp": {
-    "width": 760,
-    "height": 612
+    "width": 680,
+    "height": 547
   },
   "/images/thumbs/research/cloves-etri2026-abstract.webp": {
     "width": 760,
     "height": 327
   },
   "/images/thumbs/research/cropguardnet-architecture.webp": {
-    "width": 760,
-    "height": 594
+    "width": 680,
+    "height": 532
   },
   "/images/thumbs/research/dgs-bench-gap.webp": {
     "width": 760,
     "height": 218
   },
   "/images/thumbs/research/placentavision-pipeline.webp": {
-    "width": 760,
-    "height": 462
+    "width": 680,
+    "height": 413
   },
   "/images/thumbs/research/swahili-corpus.webp": {
     "width": 760,
@@ -706,5 +686,25 @@
   "/images/writing/zanzibar-seaweed-coast.webp": {
     "width": 1200,
     "height": 750
+  },
+  "/images/research/cropguardnet-architecture.webp": {
+    "width": 1400,
+    "height": 1095
+  },
+  "/images/research/placentavision-pipeline.webp": {
+    "width": 1400,
+    "height": 850
+  },
+  "/images/research/cashew-ai-samples.webp": {
+    "width": 1400,
+    "height": 1127
+  },
+  "/images/papers/prior/carcass2024_workflow.webp": {
+    "width": 1400,
+    "height": 1123
+  },
+  "/images/papers/prior/carbon2019_sem.webp": {
+    "width": 1400,
+    "height": 574
   }
 }

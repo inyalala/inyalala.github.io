@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { PROFILE } from '../../data/profile';
+import { PUBLICATIONS } from '../../data/publications';
+import { COURSES } from '../../data/courses';
+import { WRITING_POSTS } from '../../data/writing';
+import metrics from '../../data/scholar-metrics.json';
+import { personEntity, webPageEntity, websiteEntity, breadcrumbList } from '../../data/schema';
+
+const pageUrl = 'https://inyalala.github.io/sw/';
+const activeCourses = COURSES.filter((c) => c.status === 'active');
+
+const swSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      ...webPageEntity({
+        url: pageUrl,
+        name: 'Dkt. Innocent Nyalala · Toleo la Kiswahili | IITMZ',
+        description:
+          'Wasifu wa kitaaluma, miradi ya akili mnemba katika kilimo na afya, na mtaala wa ufundishaji wa Dkt. Innocent Nyalala katika Chuo Kikuu cha IIT Madras Zanzibar.',
+        breadcrumbId: `${pageUrl}#breadcrumb`,
+        mainEntityId: 'https://inyalala.github.io/#person'
+      }),
+      inLanguage: 'sw-TZ'
+    },
+    breadcrumbList(
+      [
+        { name: 'Home (English)', url: 'https://inyalala.github.io/' },
+        { name: 'Kiswahili', url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Dkt. Innocent Nyalala · Toleo la Kiswahili | IITMZ"
+  description="Wasifu wa kitaaluma, utafiti wa akili mnemba katika kilimo na lugha ya Kiswahili, na ufundishaji wa Dkt. Innocent Nyalala katika IIT Madras Zanzibar."
+  canonical={pageUrl}
+  lang="sw"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/' },
+    { hreflang: 'sw', href: pageUrl },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/' }
+  ]}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(swSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="home" lang="sw" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="sw-masthead">
+        <div class="sw-grid">
+          <div class="sw-copy">
+            <span class="calligraphic-flourish" aria-hidden="true">Salama &middot; Karibu Zanzibar</span>
+            <h1 class="sw-h1">Dkt. Innocent Nyalala</h1>
+            <p class="sw-role">Mhadhiri Msaidizi wa Sayansi ya Data na Akili Mnemba</p>
+
+            <div class="sw-affils">
+              <p>
+                Kitivo cha Uhandisi na Sayansi,{' '}
+                <a href="https://www.iitmz.ac.in/" target="_blank" rel="noopener" class="inline-link">
+                  Chuo Kikuu cha IIT Madras Zanzibar
+                </a>
+              </p>
+              <p>Mtafiti Shirikishi, Kituo cha Wadhwani (WSAI), IIT Madras, Chennai</p>
+              <p>
+                Mwanzilishi na Mkurugenzi wa Utafiti,{' '}
+                <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="inline-link">
+                  Maabara ya SAAIL &#8599;
+                </a>
+              </p>
+            </div>
+
+            <p class="sw-bio">
+              Utafiti na ufundishaji wangu unalenga kujenga mifumo ya akili mnemba (AI), ujifunzaji mashine, na uchambuzi wa picha unaofanya kazi katika mazingira halisi ya Afrika Mashariki: kutambua magonjwa ya mazao shambani, kupima ubora wa karafuu kwa uwazi Zanzibar, kuhifadhi Kiswahili asilia cha Pwani, na kusaidia uchunguzi wa afya ya mama na mtoto.
+            </p>
+
+            <div class="sw-actions">
+              <a href="/publications/" class="btn-mono">Machapisho ({PUBLICATIONS.length}) &rarr;</a>
+              <a href="/courses/" class="btn-mono-outline">Mafunzo na Slaidi ({COURSES.length})</a>
+              <a href="/" class="text-action">Switch to English Edition &rarr;</a>
+            </div>
+          </div>
+
+          <figure class="sw-portrait-box">
+            <img
+              src="/images/innocent-nyalala-zanzibar.webp"
+              alt="Dkt. Innocent Nyalala katika Chuo Kikuu cha IIT Madras Zanzibar"
+              width="640"
+              height="640"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <figcaption class="sw-facts">
+              <div>
+                <dt>Ofisi</dt>
+                <dd>Chumba 105 (F1) &middot; Kampasi ya Bweleo, Zanzibar</dd>
+              </div>
+              <div>
+                <dt>Saa za Wanafunzi</dt>
+                <dd>Jumatano, 8:00&ndash;10:00 alasiri (EAT)</dd>
+              </div>
+              <div>
+                <dt>Barua Pepe</dt>
+                <dd><a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a></dd>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <dl class="sw-metrics">
+          <div class="sw-metric-item">
+            <dt>Manukuu (Google Scholar)</dt>
+            <dd class="tabular-nums">{metrics.citations.toLocaleString('en-US')}</dd>
+            <span>h-index {metrics.hIndex} &middot; i10-index {metrics.i10Index}</span>
+          </div>
+          <div class="sw-metric-item">
+            <dt>Machapisho Yaliyoorodheshwa</dt>
+            <dd class="tabular-nums">{PUBLICATIONS.length}</dd>
+            <span>{metrics.saailPublishedCount} ya Maabara ya SAAIL</span>
+          </div>
+          <div class="sw-metric-item">
+            <dt>Kozi Zinazofundishwa</dt>
+            <dd class="tabular-nums">{COURSES.length}</dd>
+            <span>{activeCourses.length} zinazoendelea Muhula wa 2026-27</span>
+          </div>
+          <div class="sw-metric-item">
+            <dt>Tuzo za Deep Learning Indaba</dt>
+            <dd class="tabular-nums">2&times;</dd>
+            <span>Kigali 2025 &amp; Lagos 2026 (Bango Bora)</span>
+          </div>
+        </dl>
+      </header>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">I &middot; Nguzo Nne za Utafiti Zanzibar na Afrika Mashariki</span>
+        <h2 class="section-h" style="margin-bottom: 1.25rem;">Utafiti Unaoendana na Mazingira Halisi</h2>
+
+        <div class="sw-pillars">
+          <article class="sw-pillar">
+            <h3>1. Kilimo cha Karafuu, Korosho, Mihogo na Mwani</h3>
+            <p>
+              Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za karafuu (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (vigezo 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
+            </p>
+            <p class="sw-link-row">
+              <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Jaribu Mfano wa Karafuu Mtandaoni &#8599;</a>
+              <a href="/research/" class="text-action">Soma Ajenda ya Utafiti &rarr;</a>
+            </p>
+          </article>
+
+          <article class="sw-pillar">
+            <h3>2. Lugha ya Kiswahili: Kiunguja, Kipemba na Asili ya Matini</h3>
+            <p>
+              Mifumo mingi ya lugha ya AI barani Afrika hujengwa kwa kutafsiri Kiingereza moja kwa moja, jambo linalopoteza msamiati asilia wa Pwani, kilimo cha mwani, na uvuvi. Kupitia <strong>Korpasi ya Kiswahili cha Zanzibar</strong> na mfumo wa <strong>Dira</strong>, tunakusanya matini asilia ya <em>Kiunguja</em>, <em>Kipemba</em>, na Kiswahili cha Bara ili kubaini maandishi ya tafsiri ya mashine na kuboresha zana za wakulima na wanafunzi.
+            </p>
+            <p class="sw-link-row">
+              <a href="/writing/kiunguja-swahili-coastal-dialect-nlp/" class="text-action">Soma Makala ya Lahaja za Kiswahili &rarr;</a>
+              <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="text-action">Mradi wa Kiswahili Dira &#8599;</a>
+            </p>
+          </article>
+
+          <article class="sw-pillar">
+            <h3>3. Uaminifu wa Takwimu na Sera za AI Afrika Mashariki</h3>
+            <p>
+              Asilimia kubwa ya usahihi wa juu kwenye maabara huficha makosa pindi mfumo unapokwenda shambani au ghalani kwenye mwanga mpya. Kazi yetu ya <strong>DGS-Bench</strong> (iliyotunukiwa Bango Bora katika <em>Deep Learning Indaba 2026</em>, Lagos) pamoja na tafiti zilizowasilishwa Chuo Kikuu cha Oxford (TAIS 2026) na AAAI zinatoa mbinu za kukagua upendeleo wa picha na kuoanisha sera za AI katika nchi za Afrika Mashariki.
+            </p>
+            <p class="sw-link-row">
+              <a href="/writing/accuracy-mirages-field-agricultural-ai/" class="text-action">Kwa Nini Usahihi wa Maabara Hushindwa Shambani &rarr;</a>
+              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">Karatasi ya DGS-Bench &#8599;</a>
+            </p>
+          </article>
+
+          <article class="sw-pillar">
+            <h3>4. Afya ya Mama na Mtoto (Kisiwa cha Pemba)</h3>
+            <p>
+              Tukishirikiana na Chuo Kikuu cha Penn State (Marekani) na Kituo cha <strong>CPHK Pemba</strong>, tunasimamia tafiti nne za shahada ya uzamivu (PhD) zinazochambua picha 9,883 za kondo la uzazi (<strong>PlacentaVision</strong>) pamoja na mifano inayofafanua hatari ya kuzaliwa kabla ya wakati ili kuwasaidia wataalamu wa afya hospitalini.
+            </p>
+            <p class="sw-link-row">
+              <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="text-action">Mradi wa PlacentaVision &#8599;</a>
+              <a href="/writing/zanzibar-seaweed-blue-economy-field-notes/" class="text-action">Makala za Uwandani Zanzibar &rarr;</a>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">II &middot; Ufundishaji na Kozi za IIT Madras Zanzibar</span>
+        <div class="section-bar">
+          <h2 class="section-h">Mtaala, Slaidi za PDF na Madaftari ya Colab</h2>
+          <a href="/courses/" class="text-action">Fungua Kozi Zote ({COURSES.length}) &rarr;</a>
+        </div>
+        <ul class="sw-course-list">
+          {COURSES.map((c) => (
+            <li>
+              <span class="sw-c-code">{c.code} &middot; {c.status === 'active' ? 'Inaendelea 2026-27' : 'Kumbukumbu'}</span>
+              <div>
+                <a href={`/courses/${c.slug}/`} class="sw-c-title">{c.title}</a>
+                <p class="sw-c-meta">{c.program} {c.courseType} &middot; {c.term}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">III &middot; Ushirikiano, Usimamizi wa Wanafunzi na Mawasiliano</span>
+        <div class="sw-contact-panel">
+          <p>
+            Watafiti, washirika wa kilimo na viwanda, waandishi wa habari, pamoja na wanafunzi wa <strong>MTech</strong> na <strong>PhD</strong> wanaopenda kushirikiana katika Maabara ya SAAIL wanaweza kupitia masharti ya ushirikiano au kuandika moja kwa moja kwenda <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a>.
+          </p>
+          <div class="sw-actions" style="margin-top: 1rem;">
+            <a href="/work-with-me/" class="btn-mono">Mwongozo wa Ushirikiano &rarr;</a>
+            <a href="/writing/" class="btn-mono-outline">Makala na Miongozo ({WRITING_POSTS.length})</a>
+            <a href="/contact/" class="btn-mono-outline">Fomu ya Mawasiliano</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .sw-masthead {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .sw-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 0.95fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .sw-h1 {
+    font-size: clamp(2.15rem, 4.2vw, 3.25rem);
+    margin: 0.35rem 0 0.25rem;
+  }
+  .sw-role {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--accent-clove);
+    margin-bottom: 0.85rem;
+  }
+  .sw-affils p {
+    font-size: 0.96rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 0.25rem;
+  }
+  .sw-bio {
+    margin: 1.05rem 0 1.35rem;
+    font-size: 1.02rem;
+    line-height: 1.72;
+    color: var(--text-primary);
+  }
+  .sw-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 0.85rem;
+    align-items: center;
+  }
+  .sw-portrait-box {
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    padding: 0.65rem;
+  }
+  .sw-portrait-box img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .sw-facts {
+    margin: 0.75rem 0 0;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.84rem;
+  }
+  .sw-facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+  }
+  .sw-facts dd {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+  .sw-facts a {
+    color: var(--accent-forest);
+  }
+
+  .sw-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    margin: 2rem 0 0;
+  }
+  .sw-metric-item {
+    padding: 1rem 0.85rem;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .sw-metric-item:last-child {
+    border-right: none;
+  }
+  .sw-metric-item dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .sw-metric-item dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+    line-height: 1.05;
+  }
+  .sw-metric-item span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .sw-pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+  }
+  .sw-pillar {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .sw-pillar h3 {
+    font-size: 1.22rem;
+    color: var(--text-primary);
+  }
+  .sw-pillar p {
+    font-size: 0.94rem;
+    line-height: 1.66;
+    color: var(--text-secondary);
+  }
+  .sw-link-row {
+    margin-top: auto;
+    padding-top: 0.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.15rem;
+  }
+
+  .sw-course-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .sw-course-list li {
+    display: grid;
+    grid-template-columns: 205px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .sw-c-code {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--accent-clove);
+  }
+  .sw-c-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .sw-c-title:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .sw-c-meta {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .sw-contact-panel {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.45rem;
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.68;
+  }
+
+  @media (max-width: 860px) {
+    .sw-grid,
+    .sw-pillars,
+    .sw-course-list li {
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+    }
+    .sw-metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

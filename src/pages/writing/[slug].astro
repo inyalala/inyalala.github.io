@@ -75,6 +75,9 @@ const articleSchema = {
     )
   ]
 };
+const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
+  .sort((a, b) => (a.category === post.category ? -1 : 1) - (b.category === post.category ? -1 : 1) || b.date.localeCompare(a.date))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -82,12 +85,20 @@ const articleSchema = {
   description={metaDesc}
   canonical={pageUrl}
   ogType="article"
+  ogImage={resolvedOgImage}
+  ogImageAlt={post.imageAlt || post.title}
+  ogImageWidth={imgDim ? imgDim.width : 1200}
+  ogImageHeight={imgDim ? imgDim.height : 630}
+  publishedTime={post.date}
+  tags={post.tags}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   </Fragment>
 
   <MonographRail currentPage="writing" />
+
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
 
   <div class="monograph-canvas">
     <main id="main-content">
@@ -261,6 +272,21 @@ const articleSchema = {
           </section>
         )}
 
+        {relatedPosts.length > 0 && (
+          <section class="related-writing" aria-label="Related writing and guides">
+            <span class="mono-eyebrow">Continue Reading</span>
+            <h2 class="related-heading">Related Writing &amp; Guides</h2>
+            <ul class="related-grid">
+              {relatedPosts.map((rp) => (
+                <li>
+                  <span class="related-meta">{rp.category} &middot; {rp.date}</span>
+                  <a href={`/writing/${rp.slug}/`} class="related-title">{rp.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <footer class="article-foot">
           <a href="/writing/" class="text-action">&larr; Back to All Writing &amp; Guides</a>
           <a href="/contact/" class="text-action">Write to Innocent Nyalala &rarr;</a>
@@ -270,6 +296,23 @@ const articleSchema = {
 
     <SiteFooter />
   </div>
+
+  <script is:inline>
+    (function () {
+      var bar = document.getElementById('readingProgress');
+      var article = document.querySelector('.essay-article');
+      if (!bar || !article) return;
+      function updateBar() {
+        var rect = article.getBoundingClientRect();
+        var total = Math.max(1, article.offsetHeight - window.innerHeight * 0.55);
+        var done = Math.min(total, Math.max(0, -rect.top));
+        bar.style.transform = 'scaleX(' + (done / total).toFixed(4) + ')';
+      }
+      window.addEventListener('scroll', updateBar, { passive: true });
+      window.addEventListener('resize', updateBar, { passive: true });
+      updateBar();
+    })();
+  </script>
 
 {isAbcsPrimer && (
   <script is:inline>
@@ -423,6 +466,68 @@ const articleSchema = {
     font-size: 0.86em;
     background: var(--bg-secondary);
     padding: 0.1rem 0.35rem;
+  }
+
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-forest);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 2500;
+    pointer-events: none;
+  }
+
+  .related-writing {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .related-heading {
+    font-size: 1.35rem;
+    margin-bottom: 0.9rem;
+  }
+  .related-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .related-grid li {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .related-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-clove);
+  }
+  .related-title {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.28;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  .related-title:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 780px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .article-foot {

@@ -39,10 +39,10 @@ When models learn mostly from translated text, automated perplexity and benchmar
 
 ## 3. Native Curation, Provenance Auditing & Lightweight Adaptation
 
-Our **Zanzibar Swahili Corpus** and **Dira** stylometric provenance benchmark (`SAAIL Lab`) address these gaps from first principles:
+Our **Zanzibar Swahili Corpus** and **Dira** stylometric provenance benchmark ([Swahili Dira project portal](https://saaillab.github.io/projects/swahili-dira/)) address these gaps from first principles:
 
 1. **Document Dialect & Geography Explicitly:** Tag texts and spoken interviews with source island, region, domain (`maritime`, `cloves`, `cassava`, `maternal health`, `civic prose`), and native authorship metadata rather than flattening every file into untagged `sw`.
 2. **Audit Provenance Before Training:** Use stylometric cues and corpus audits to separate human coastal Swahili prose from machine-translated text before mixing corpora.
-3. **Follow Resource-Aware Foundations (`CARA-FM`):** As formulated in our *PMLR Vol. 302* paper with Prof. Nirav Bhatt, domain-grounded regional corpora paired with community evaluation metrics outperform naive billion-parameter English scaling on real agricultural comprehension.
+3. **Follow Resource-Aware Foundations (`CARA-FM`):** As formulated in our [*PMLR Vol. 302* paper](https://saaillab.github.io/papers/cara-fm/) with Prof. Nirav Bhatt, domain-grounded regional corpora paired with community evaluation metrics outperform naive billion-parameter English scaling on real agricultural comprehension.
 
-Swahili connects over a hundred million speakers across coastal islands, savannah highways, farms, and universities. Preserving **Kiunguja**, **Kipemba**, mainland Tanzania, and Kenyan regional variation is not peripheral folklore: it is basic engineering fidelity for any East African AI system built to serve real communities.
+Swahili connects over a hundred million speakers across coastal islands, savannah highways, farms, and universities. Preserving **Kiunguja**, **Kipemba**, mainland Tanzania, and Kenyan regional variation is not peripheral folklore: it is basic engineering fidelity for any East African AI system built to serve real communities. For broader agricultural context, see the [Kiswahili faculty overview](/sw/) and the [Research Agenda](/research/).

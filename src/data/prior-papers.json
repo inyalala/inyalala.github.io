@@ -283,7 +283,7 @@
       }
     ],
     "isSaailLab": false,
-    "teaserImage": "/images/papers/prior/carcass2024_workflow.jpeg",
+    "teaserImage": "/images/papers/prior/carcass2024_workflow.webp",
     "teaserCaption": "Real-time non-contact grading pipeline pairing Kinect v2 depth acquisition and 3D surface-integration reconstruction with 2D/3D morphological regression for moving poultry carcasses (Poultry Science 2024). Across evaluated regressors, Bagged Tree estimation reaches R² = 0.9988 and 2.125% average relative error in under 1.6 seconds per carcass.",
     "bibtex": "@article{nyalala2024chicken3d,\n  title={Online chicken carcass volume estimation using depth imaging and 3-D reconstruction},\n  author={Nyalala, Innocent and Zhang, Jiayu and Chen, Zixuan and Chen, Junlong and Chen, Kunjie},\n  journal={Poultry Science},\n  pages={104232},\n  year={2024},\n  doi={10.1016/j.psj.2024.104232},\n  publisher={Elsevier}\n}",
     "apa": "Nyalala, I., Zhang, J., Chen, Z., Chen, J., & Chen, K. (2024). Online chicken carcass volume estimation using depth imaging and 3-D reconstruction. Poultry Science, 104232. https://doi.org/10.1016/j.psj.2024.104232"
@@ -2192,7 +2192,7 @@
     "openAccess": true,
     "doi": "10.15376/biores.14.1.1333-1346",
     "paperUrl": "https://doi.org/10.15376/biores.14.1.1333-1346",
-    "teaserImage": "/images/papers/prior/carbon2019_sem.jpg",
+    "teaserImage": "/images/papers/prior/carbon2019_sem.webp",
     "teaserCaption": "Scanning electron micrographs (x1000 SEM) contrasting compact unmodified sewage sludge char (a) with porous activated carbon synthesized using a 40% Chinese medicine herbal residue (CMHR) blend at 1:4 impregnation ratio and 700 C activation for 30 minutes (b). Orthogonal optimization shows that developed microporous channels drive monolayer Langmuir isotherm adsorption for industrial methylene blue wastewater remediation.",
     "tldr": "Valorizes pharmaceutical herb residues and sludge into high-surface-area activated carbon adsorbents for wastewater dye remediation (26+ citations).",
     "abstract": "Sludge-based activated carbon (SAC) was prepared with sewage sludge and Chinese medicine herbal residues (CMHR’s). An orthogonal experimental design method was used to determine the optimum preparation conditions. The effects of the impregnation ratio, activation temperature, activation time, and addition ratio of CMHR’s on the iodine value and Brunauer-Emmett-Teller surface area of activated carbon were studied. X-ray diffraction, Fourier-transform infrared spectrometer, and scanning electron microscopy were used to characterize the prepared SAC. The results showed that the optimal process conditions for preparing the SAC were as follows: an impregnation ratio of 1:4, an activation time of 30 min, an activation temperature of 700 °C, and an addition ratio of CMHR’s of 40%. The adsorption balance of the methylene blue dye was examined at room temperature. Adsorption isotherms were obtained by fitting the data using the Langmuir and Freundlich models, which showed that methylene blue adsorption was most suitable for the Langmuir equation. The results demonstrated that SAC prepared from SS and CMHR’s from a Chinese medicine factory could effectively expel dyes from wastewater.",

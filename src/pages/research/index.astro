@@ -14,7 +14,7 @@ const pillars = [
     title: 'Agricultural Vision, Commodity Grading & Coastal Seaweed Sensing',
     summary:
       'Smallholder crops and coastal livelihoods require lightweight neural models that resist background shortcuts and run offline on modest mobile phones. Work spans cross-crop pathology (CropGuardNet, 35,420 deduplicated leaf images at 5.00 ms CPU ONNX), commercial Zanzibar clove grading (ETRI Journal 2026, CVPR 2026 V4A, ZSTC-Clove-V1), IC&SR-funded CashewAI orchard scouting, and marine heatwave modeling for Zanzibar seaweed.',
-    image: '/images/research/cropguardnet-architecture.png',
+    image: '/images/research/cropguardnet-architecture.webp',
     imageAlt: 'CropGuardNet lightweight CNN-Transformer architecture diagram',
     caption: 'CropGuardNet architecture: 481,574 parameters and 63.8M FLOPs running at 200 FPS on CPU ONNX.',
     labHref: 'https://saaillab.github.io/projects/cropguard-pathology/',
@@ -50,7 +50,7 @@ const pillars = [
     title: 'Placental Morphometry, Maternal Biomarkers & Segmentation',
     summary:
       'In partnership with Penn State University and CPHK Pemba, PlacentaVision automates calibrated three-view placental segmentation across 9,883 bedside photographs (98.92% QC pass rate). Parallel clinical work builds SHAP-explainable preterm birth models and boundary-gated colorectal polyp segmentation (BAFNet, ESWA 2025).',
-    image: '/images/research/placentavision-pipeline.png',
+    image: '/images/research/placentavision-pipeline.webp',
     imageAlt: 'PlacentaVision three-view segmentation and morphometry framework',
     caption: 'PlacentaVision three-view segmentation pipeline pairing anatomical masks with calibration-ruler scaling.',
     labHref: 'https://saaillab.github.io/projects/placentavision/',
@@ -189,6 +189,63 @@ const researchSchema = {
         </div>
       </section>
 
+      <!-- Open Datasets, Benchmarks & Live Tools -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Open Benchmarks, Code &amp; Field Prototypes</span>
+        <div class="section-bar">
+          <h2 class="section-h">Open Datasets &amp; Live Clove AI Demo</h2>
+          <a href="https://saaillab.github.io/datasets/" target="_blank" rel="noopener" class="text-action">
+            All SAAIL Datasets &#8599;
+          </a>
+        </div>
+        <div class="datasets-grid">
+          <article class="ds-card">
+            <span class="ds-k">4,603 Clove Images &middot; CC BY-NC 4.0</span>
+            <h3>CLOVES-4603 &amp; Live ONNX Grader</h3>
+            <p>
+              Lot-aware Zanzibar commercial clove dataset graded across four ZSTC tiers, paired with an in-browser ONNX grading prototype on SAAIL Lab.
+            </p>
+            <p class="ds-links">
+              <a href="https://github.com/saaillab/CLOVES-4603" target="_blank" rel="noopener" class="text-action">Dataset Repo &#8599;</a>
+              <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Live Demo &#8599;</a>
+            </p>
+          </article>
+          <article class="ds-card">
+            <span class="ds-k">35,420 Leaf Images &middot; 5.00 ms CPU</span>
+            <h3>CropGuardNet Cross-Crop Suite</h3>
+            <p>
+              Perceptually deduplicated 8-crop, 38-class pathology benchmark (80,238 duplicates removed) with quantized CPU ONNX inference and four XAI audits.
+            </p>
+            <p class="ds-links">
+              <a href="https://github.com/saaillab/CropGuardNet" target="_blank" rel="noopener" class="text-action">Code &amp; Splits &#8599;</a>
+              <a href="https://saaillab.github.io/papers/cropguardnet/" target="_blank" rel="noopener" class="text-action">Paper Portal &#8599;</a>
+            </p>
+          </article>
+          <article class="ds-card">
+            <span class="ds-k">40 Controlled Runs &middot; DLI Best Poster</span>
+            <h3>DGS-Bench &amp; CARA-FM Calculators</h3>
+            <p>
+              Deployment-gap evaluation suite and closed-form accuracy-mirage threshold calculators engineered for budget Android deployment constraints.
+            </p>
+            <p class="ds-links">
+              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">DGS-Bench &#8599;</a>
+              <a href="https://saaillab.github.io/tools/#calculators" target="_blank" rel="noopener" class="text-action">Calculators &#8599;</a>
+            </p>
+          </article>
+          <article class="ds-card">
+            <span class="ds-k">Coastal Kiunguja &middot; Provenance Audit</span>
+            <h3>Zanzibar Swahili Corpus &amp; Dira</h3>
+            <p>
+              Authentic island-written Swahili corpus paired with translationese provenance detection and cultural-alignment benchmarks for East Africa.
+            </p>
+            <p class="ds-links">
+              <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="text-action">Swahili Dira &#8599;</a>
+              <a href="/writing/kiunguja-swahili-coastal-dialect-nlp/" class="text-action">Read Essay &rarr;</a>
+            </p>
+          </article>
+        </div>
+      </section>
+
       <!-- Partners Table -->
       <section class="rule-section">
         <span class="mono-eyebrow">Institutional Consortia</span>
@@ -293,6 +350,41 @@ const researchSchema = {
     line-height: 1.45;
   }
 
+  .datasets-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .ds-card {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .ds-k {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-clove);
+  }
+  .ds-card h3 {
+    font-size: 1.18rem;
+    color: var(--text-primary);
+  }
+  .ds-card p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.58;
+  }
+  .ds-links {
+    margin-top: auto;
+    padding-top: 0.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+  }
+
   .partners-list {
     list-style: none;
     border-top: 1px solid var(--rule);
@@ -321,6 +413,7 @@ const researchSchema = {
 
   @media (max-width: 820px) {
     .grants-ledger,
+    .datasets-grid,
     .pillar-row,
     .partners-list li {
       grid-template-columns: 1fr;

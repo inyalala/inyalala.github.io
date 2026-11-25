@@ -3,8 +3,9 @@ import { PUBLICATIONS } from '../data/publications';
 
 export interface Props {
   currentPage?: string;
+  lang?: 'en' | 'sw';
 }
-const { currentPage = '' } = Astro.props;
+const { currentPage = '', lang = 'en' } = Astro.props;
 
 const navLinks = [
   { href: '/', label: 'Home', key: 'home' },
@@ -30,6 +31,13 @@ const navLinks = [
     </a>
 
     <div class="mobile-actions">
+      <button type="button" class="theme-toggle-btn js-open-cmd" aria-label="Search site (Ctrl+K)" title="Search (Ctrl+K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+      </button>
+
       <button type="button" class="theme-toggle-btn js-theme-toggle" aria-label="Switch color theme" aria-pressed="false">
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="5" />
@@ -67,12 +75,16 @@ const navLinks = [
       {navLinks.map((item) => (
         <a
           href={item.href}
-          class:list={['drawer-link', { active: currentPage === item.key }]}
-          aria-current={currentPage === item.key ? 'page' : undefined}
+          class:list={['drawer-link', { active: currentPage === item.key && lang === 'en' }]}
+          aria-current={currentPage === item.key && lang === 'en' ? 'page' : undefined}
         >
           {item.label}
         </a>
       ))}
+      <div class="drawer-lang-row" aria-label="Language selection">
+        <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+        <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW (Kiswahili)</a>
+      </div>
       <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="drawer-link drawer-lab">
         SAAIL Lab &#8599;
       </a>
@@ -91,12 +103,23 @@ const navLinks = [
       </a>
     </div>
 
+    <div class="rail-tools-row">
+      <button type="button" class="rail-search-btn js-open-cmd" aria-label="Open quick search (Ctrl+K)">
+        <span>Search</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+      <div class="rail-lang-switch" role="group" aria-label="Language switcher">
+        <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+        <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW</a>
+      </div>
+    </div>
+
     <nav aria-label="Primary Navigation" class="rail-nav">
       {navLinks.map((item) => (
         <a
           href={item.href}
-          class:list={['rail-link', { active: currentPage === item.key }]}
-          aria-current={currentPage === item.key ? 'page' : undefined}
+          class:list={['rail-link', { active: currentPage === item.key && lang === 'en' }]}
+          aria-current={currentPage === item.key && lang === 'en' ? 'page' : undefined}
         >
           {item.label}
         </a>
@@ -255,9 +278,67 @@ const navLinks = [
   }
 
   .rail-mast {
-    padding-bottom: 1.35rem;
+    padding-bottom: 1.15rem;
     border-bottom: 1px solid var(--rule);
-    margin-bottom: 1.35rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .rail-tools-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+  }
+  .rail-search-btn {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.34rem 0.55rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .rail-search-btn:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .rail-search-btn kbd {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    opacity: 0.8;
+  }
+  .rail-lang-switch,
+  .drawer-lang-row {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .drawer-lang-row {
+    align-self: flex-start;
+    margin-top: 0.55rem;
+  }
+  .lang-pill {
+    padding: 0.3rem 0.46rem;
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    background: transparent;
+  }
+  .lang-pill.active {
+    background: var(--accent-forest);
+    color: #f8f5ee;
+    font-weight: 600;
+  }
+  :global([data-theme='dark']) .lang-pill.active {
+    color: #151412;
   }
 
   .rail-sig-link {

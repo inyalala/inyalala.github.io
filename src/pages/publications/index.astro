@@ -237,7 +237,7 @@ const schemaCollection = {
                         {pub.title}
                       </a>
                     ) : (
-                      <a href={`/papers/${pub.slug}/`} target="_blank" rel="noopener">
+                      <a href={`/papers/${pub.slug}/`}>
                         {pub.title}
                       </a>
                     )}
@@ -263,8 +263,8 @@ const schemaCollection = {
                         SAAIL Companion &#8599;
                       </a>
                     ) : (
-                      <a href={`/papers/${pub.slug}/`} target="_blank" rel="noopener" class="row-ext">
-                        Project Companion &#8599;
+                      <a href={`/papers/${pub.slug}/`} class="row-ext">
+                        Project Companion &rarr;
                       </a>
                     )}
                     {pub.doi && (
@@ -272,9 +272,19 @@ const schemaCollection = {
                         DOI &#8599;
                       </a>
                     )}
+                    {!pub.doi && pub.paperUrl && (
+                      <a href={pub.paperUrl} target="_blank" rel="noopener" class="row-ext">
+                        Paper / PDF &#8599;
+                      </a>
+                    )}
                     {pub.codeUrl && (
                       <a href={pub.codeUrl} target="_blank" rel="noopener" class="row-ext">
                         Code &#8599;
+                      </a>
+                    )}
+                    {pub.datasetUrl && (
+                      <a href={pub.datasetUrl} target="_blank" rel="noopener" class="row-ext">
+                        Dataset &#8599;
                       </a>
                     )}
                     {pub.bibtex && (
@@ -295,6 +305,11 @@ const schemaCollection = {
             );
           })}
         </ol>
+
+        <div id="pubEmptyState" class="filter-empty-state" hidden>
+          <p>No publications matched the current filter or search term.</p>
+          <button type="button" id="emptyResetPubs" class="reset-btn">Reset Filters</button>
+        </div>
       </section>
 
       <!-- Graduate Thesis Monographs (Excluded from Paper Count) -->
@@ -318,9 +333,9 @@ const schemaCollection = {
                   <span class="pub-lab">Monograph</span>
                 </div>
                 <div class="pub-body">
-                  <h2 class="pub-title">
+                  <h3 class="pub-title">
                     <a href={`/publications/theses/${th.slug}/`}>{th.title}</a>
-                  </h2>
+                  </h3>
                   <p class="pub-venue-full">
                     <em>{th.degree}</em> &middot; {th.department} &middot; {th.institution} ({th.period})
                   </p>
@@ -331,11 +346,9 @@ const schemaCollection = {
                   <div class="pub-actions">
                     <a
                       href={th.slug === 'msc-thesis-2016' ? '/papers/intelligent-greenhouse-arduino-2016/' : `/papers/${th.slug}/`}
-                      target="_blank"
-                      rel="noopener"
                       class="row-ext"
                     >
-                      Project Companion &#8599;
+                      Project Companion &rarr;
                     </a>
                     <a href={`/publications/theses/${th.slug}/`} class="row-ext">
                       Monograph Record &rarr;
@@ -361,10 +374,13 @@ const schemaCollection = {
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
+    var mainEl = document.getElementById('main-content');
     var listEl = document.getElementById('pubList');
     var searchEl = document.getElementById('pubSearch');
     var sortEl = document.getElementById('pubSort');
     var countEl = document.getElementById('resultCount');
+    var emptyEl = document.getElementById('pubEmptyState');
+    var emptyResetEl = document.getElementById('emptyResetPubs');
     var resetBtn = document.getElementById('resetFilters');
     var announceEl = document.getElementById('copyAnnounce');
     var tabs = document.querySelectorAll('.filter-btn');
@@ -373,7 +389,24 @@ const schemaCollection = {
     var cards = Array.prototype.slice.call(listEl.querySelectorAll('.pub-entry'));
     var activeFilter = 'all';
 
-    function applyFilterAndSort() {
+    function syncUrl() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (activeFilter !== 'all') params.set('filter', activeFilter);
+        else params.delete('filter');
+        var qVal = ((searchEl && searchEl.value) || '').trim();
+        if (qVal) params.set('q', qVal);
+        else params.delete('q');
+        var sVal = (sortEl && sortEl.value) || 'default';
+        if (sVal !== 'default') params.set('sort', sVal);
+        else params.delete('sort');
+        var qs = params.toString();
+        var nextUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+        window.history.replaceState(null, '', nextUrl);
+      } catch (e) {}
+    }
+
+    function applyFilterAndSort(skipUrl) {
       var q = ((searchEl && searchEl.value) || '').trim().toLowerCase();
       var sortMode = (sortEl && sortEl.value) || 'default';
 
@@ -409,6 +442,7 @@ const schemaCollection = {
         if (show) visible++;
       });
 
+      if (emptyEl) emptyEl.hidden = visible > 0;
       var isFiltered = activeFilter !== 'all' || Boolean(q) || sortMode !== 'default';
       if (resetBtn) resetBtn.hidden = !isFiltered;
 
@@ -423,7 +457,39 @@ const schemaCollection = {
         var suffix = parts.length ? ' (' + parts.join(' + ') + ')' : '';
         countEl.textContent = 'Showing ' + visible + ' of ' + cards.length + ' publications' + suffix;
       }
+
+      if (!skipUrl) syncUrl();
     }
+
+    function resetAll() {
+      if (searchEl) searchEl.value = '';
+      if (sortEl) sortEl.value = 'default';
+      activeFilter = 'all';
+      tabs.forEach(function (b) {
+        var isAll = b.getAttribute('data-filter') === 'all';
+        b.setAttribute('aria-pressed', String(isAll));
+      });
+      applyFilterAndSort();
+      searchEl && searchEl.focus();
+    }
+
+    // Hydrate from URL query parameters
+    try {
+      var initParams = new URLSearchParams(window.location.search);
+      var initFilter = initParams.get('filter');
+      var initQ = initParams.get('q');
+      var initSort = initParams.get('sort');
+      if (initFilter) {
+        tabs.forEach(function (b) {
+          var match = b.getAttribute('data-filter') === initFilter;
+          b.setAttribute('aria-pressed', String(match));
+          if (match) activeFilter = initFilter;
+        });
+      }
+      if (initQ && searchEl) searchEl.value = initQ;
+      if (initSort && sortEl) sortEl.value = initSort;
+      if (initFilter || initQ || initSort) applyFilterAndSort(true);
+    } catch (e) {}
 
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -436,23 +502,13 @@ const schemaCollection = {
       });
     });
 
-    resetBtn &&
-      resetBtn.addEventListener('click', function () {
-        if (searchEl) searchEl.value = '';
-        if (sortEl) sortEl.value = 'default';
-        activeFilter = 'all';
-        tabs.forEach(function (b) {
-          var isAll = b.getAttribute('data-filter') === 'all';
-          b.setAttribute('aria-pressed', String(isAll));
-        });
-        applyFilterAndSort();
-        searchEl && searchEl.focus();
-      });
+    resetBtn && resetBtn.addEventListener('click', resetAll);
+    emptyResetEl && emptyResetEl.addEventListener('click', resetAll);
 
-    searchEl && searchEl.addEventListener('input', applyFilterAndSort);
-    sortEl && sortEl.addEventListener('change', applyFilterAndSort);
+    searchEl && searchEl.addEventListener('input', function () { applyFilterAndSort(); });
+    sortEl && sortEl.addEventListener('change', function () { applyFilterAndSort(); });
 
-    listEl.addEventListener('click', function (e) {
+    (mainEl || listEl).addEventListener('click', function (e) {
       var target = e.target;
       var toggle = target.closest('.bib-toggle');
       if (toggle) {
@@ -664,18 +720,40 @@ const schemaCollection = {
     font-weight: 500;
   }
 
-  .pub-body h2 {
+  .pub-body h2,
+  .pub-body h3 {
     font-size: 1.24rem;
     line-height: 1.28;
     margin-bottom: 0.3rem;
   }
-  .pub-body h2 a {
+  .pub-body h2 a,
+  .pub-body h3 a {
     text-decoration: none;
   }
-  .pub-body h2 a:hover {
+  .pub-body h2 a:hover,
+  .pub-body h3 a:hover {
     color: var(--accent-forest);
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+  .filter-empty-state {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .filter-empty-state[hidden] {
+    display: none;
+  }
+  .filter-empty-state p {
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    margin: 0;
   }
   .pub-authors,
   .pub-authors-line {

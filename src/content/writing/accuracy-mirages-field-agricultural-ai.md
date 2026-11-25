@@ -20,7 +20,7 @@ Deep learning classifiers routinely exceed 98% top-1 accuracy on held-out test s
 
 Real crop scouting rarely presents balanced classes. A field survey often contains abundant healthy leaves and a thin tail of early bacterial or viral infections. Under severe class skew, overall accuracy rewards predicting the majority class, whereas balanced per-class sensitivity collapses.
 
-In **DGS-Bench** (Best Poster Award at Deep Learning Indaba 2026 in Lagos), we compared 40 controlled experimental runs on smallholder cassava disease splits. Standard top-1 accuracy overstated practical readiness on rare symptoms by double-digit margins once macro-F1 and per-class recall were inspected. Reporting macro-F1, balanced accuracy, and explicit minority-class sensitivity is a minimum scientific baseline before any field release.
+In **DGS-Bench** (Best Poster Award at Deep Learning Indaba 2026 in Lagos; [publication summary](https://saaillab.github.io/papers/dgs-bench/)), we compared 40 controlled experimental runs on smallholder cassava disease splits. Standard top-1 accuracy overstated practical readiness on rare symptoms by double-digit margins once macro-F1 and per-class recall were inspected. Reporting macro-F1, balanced accuracy, and explicit minority-class sensitivity is a minimum scientific baseline before any field release.
 
 ## 2. Acquisition-Session Confounding Corrupts Supervised Vision
 
@@ -32,8 +32,8 @@ When testing 17 architectures on Zanzibar clove grading, in-session accuracy exc
 
 Post hoc heatmaps such as Grad-CAM or LIME frequently soothe model developers without proving anatomical faithfulness. In our *ETRI Journal* 2026 evaluation across 4,603 ZSTC commercial clove samples and 7 post hoc explanation techniques, attribution overlap fell short by wide margins whenever acquisition shift occurred.
 
-Replacing black box classification plus post hoc saliency with a **compositional two-stage pipeline** (segmenting buds, stems, and extraneous matter before classifying) achieved **99.45% macro-F1** and **100% Explanation Evidence Ratio**. Enforcing spatial grounding inside the architecture makes every prediction auditable by human commodity inspectors in plain physical terms.
+Replacing black box classification plus post hoc saliency with a **compositional two-stage pipeline** (segmenting buds, stems, and extraneous matter before classifying; see [CLOVES-4603 and ETRI details](https://saaillab.github.io/papers/clove-xai-etri2026/)) achieved **99.45% macro-F1** and **100% Explanation Evidence Ratio**. Enforcing spatial grounding inside the architecture makes every prediction auditable by human commodity inspectors in plain physical terms.
 
 ## Implications for Field Tools in East Africa
 
-In projects such as **CropGuardNet** (481,574 parameters, 5.00 ms CPU inference) and **CashewAI** (funded by IC&SR IIT Madras), reliability begins before training starts: strict perceptual deduplication, acquisition-day splits, balanced metrics, and structural interpretability designed to run offline on ordinary Android hardware.
+In projects such as **CropGuardNet** (481,574 parameters, 5.00 ms CPU inference) and **CashewAI** (funded by IC&SR IIT Madras; outlined in the [Research Agenda](/research/)), reliability begins before training starts: strict perceptual deduplication, acquisition-day splits, balanced metrics, and structural interpretability designed to run offline on ordinary Android hardware. Readers exploring reproducible citations for similar experiments can consult the [Overleaf and BibTeX starter guide](/writing/overleaf-latex-citation-starter-guide/) or browse the full [Publications ledger](/publications/).

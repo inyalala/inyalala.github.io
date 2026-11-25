@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import MonographRail from '../../../components/MonographRail.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import { THESES, type ThesisMonograph } from '../../../data/theses';
+import { PUBLICATIONS } from '../../../data/publications';
+import { fitAtWord } from '../../../data/text-utils';
 import { breadcrumbList, personEntity, webPageEntity, websiteEntity } from '../../../data/schema';
 
 export function getStaticPaths() {
@@ -22,7 +24,7 @@ const companionSlug = thesis.slug === 'msc-thesis-2016' ? 'intelligent-greenhous
 const companionPath = `/papers/${companionSlug}/`;
 const pageUrl = `https://inyalala.github.io/publications/theses/${thesis.slug}/`;
 const shortTitle = `${thesis.shortLabel} | Innocent Nyalala`;
-const metaDesc = `${thesis.degree} (${thesis.year}) at ${thesis.institution}: ${thesis.title}.`.slice(0, 160);
+const metaDesc = fitAtWord(`${thesis.degree} (${thesis.year}) at ${thesis.institution}: ${thesis.title}.`, 155);
 
 const thesisSchema = {
   '@context': 'https://schema.org',
@@ -109,13 +111,13 @@ const thesisSchema = {
           )}
           <div>
             <dt>Catalog Scope</dt>
-            <dd>Personal Degree Monograph (excluded from the 41-paper count)</dd>
+            <dd>Personal Degree Monograph (excluded from the {PUBLICATIONS.length}-paper count)</dd>
           </div>
         </dl>
 
         <div class="thesis-actions">
-          <a href={companionPath} target="_blank" rel="noopener" class="btn-mono">
-            Project Companion Page &#8599;
+          <a href={companionPath} class="btn-mono">
+            Project Companion Page &rarr;
           </a>
           <a href="/publications/#theses" class="btn-mono-outline">&larr; Back to Publications &amp; Theses</a>
           {otherThesis && (
@@ -130,7 +132,7 @@ const thesisSchema = {
         <span class="mono-eyebrow">Archival Status</span>
         <div class="monograph-panel" role="note">
           <p style="font-size: 0.96rem; color: var(--text-secondary);">
-            {thesis.archivalNote} Open the standalone <a href={companionPath} target="_blank" rel="noopener" class="inline-link">Project Companion Page &#8599;</a> for full chapter-by-chapter figures, 25-model tables, and extended quantitative analysis.
+            {thesis.archivalNote} Open the standalone <a href={companionPath} class="inline-link">Project Companion Page &rarr;</a> for full chapter-by-chapter figures, 25-model tables, and extended quantitative analysis.
           </p>
         </div>
 
@@ -214,8 +216,8 @@ const thesisSchema = {
                 <p class="ch-venue"><em>{ch.venue}</em></p>
                 <p class="ch-links">
                   {ch.slug && (
-                    <a href={`/papers/${ch.slug}/`} target="_blank" rel="noopener" class="text-action">
-                      Project Companion &#8599;
+                    <a href={`/papers/${ch.slug}/`} class="text-action">
+                      Project Companion &rarr;
                     </a>
                   )}
                   {ch.doi && (
@@ -274,7 +276,7 @@ const thesisSchema = {
       var lbClose = document.getElementById('closeThesisLightbox');
       var lastFocus = null;
       function setInert(active) {
-        document.querySelectorAll('.monograph-shell, #backToTop, .skip-link').forEach(function (el) {
+        document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop, .skip-link').forEach(function (el) {
           el.inert = active;
         });
       }

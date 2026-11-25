@@ -1,3 +1,10 @@
+import metrics from './scholar-metrics.json';
+import { PUBLICATIONS } from './publications';
+
+const dynamicCiteValue = `${metrics.citations.toLocaleString('en-US')} citations · h-index ${metrics.hIndex}`;
+const dynamicPaperCount = PUBLICATIONS.length;
+const dynamicCitationStr = metrics.citations.toLocaleString('en-US');
+
 export const PROFILE = {
   name: 'Innocent Nyalala',
   fullTitle: 'Innocent Nyalala, PhD',
@@ -82,7 +89,7 @@ export const PROFILE = {
     }
   ],
   academicIdentifiers: [
-    { label: 'Google Scholar', value: '1,273 citations · h-index 15', url: 'https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en', icon: '/images/icons/Google_Scholar_logo.svg' },
+    { label: 'Google Scholar', value: dynamicCiteValue, url: 'https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en', icon: '/images/icons/Google_Scholar_logo.svg' },
     { label: 'ORCID', value: '0000-0002-7969-437X', url: 'https://orcid.org/0000-0002-7969-437X', icon: '/images/icons/ORCID_iD.svg' },
     { label: 'Scopus Author ID', value: '57190215419', url: 'https://www.scopus.com/authid/detail.uri?authorId=57190215419', icon: '/images/icons/scopus-icon.svg' },
     { label: 'Web of Science ResearcherID', value: 'X-4277-2018', url: 'https://www.webofscience.com/wos/author/record/X-4277-2018', icon: '/images/icons/wos-icon.svg' },
@@ -180,6 +187,6 @@ export const PROFILE = {
   bios: {
     oneLine: 'Innocent Nyalala is an Assistant Professor of Data Science and Artificial Intelligence at the School of Engineering and Science, Indian Institute of Technology Madras Zanzibar, and Principal Investigator of SAAIL Lab.',
     short: 'Innocent Nyalala is an Assistant Professor of Data Science and Artificial Intelligence at the School of Engineering and Science, Indian Institute of Technology Madras Zanzibar, and an Associate Research Fellow at the Wadhwani School of Data Science and Artificial Intelligence, IIT Madras. He founded and directs the Sustainable AI for Agriculture and Intelligent Livelihoods (SAAIL) Lab in Zanzibar, Tanzania, developing lightweight computer vision systems for African agriculture and blue-economy commodities, native Swahili language evaluation benchmarks, deployment-gap audits, and clinical machine learning models. His work has appeared in ETRI Journal, Computers and Electronics in Agriculture, Expert Systems with Applications, PMLR, CVPR, ICLR, AAAI, Oxford TAIS, and Deep Learning Indaba, where he earned consecutive Best Poster Awards in 2025 and 2026.',
-    long: 'Innocent Nyalala serves as Assistant Professor of Data Science and Artificial Intelligence within the School of Engineering and Science at the Indian Institute of Technology Madras Zanzibar, Tanzania, and as Associate Research Fellow at the Wadhwani School of Data Science and Artificial Intelligence, IIT Madras, Chennai. Prior to joining IIT Madras Zanzibar in October 2024, he served as Part-Time Lecturer in the Department of Computer Science at Egerton University in Kenya, after earning his M.Sc. in Engineering (2016, supervised by Prof. Bai Zhentian and Prof. Xu Huanliang) and Ph.D. in Engineering in Agricultural Electrification and Automation Engineering (2023, supervised by Prof. Chen Kunjie) at Nanjing Agricultural University. At IIT Madras Zanzibar, he founded SAAIL Lab, supervising PhD, MTech, and undergraduate researchers across four areas: computer vision for East African agricultural commodities and coastal seaweed cultivation systems, Swahili natural language processing and translationese provenance auditing, explainable and culturally grounded AI safety governance, and maternal-neonatal clinical machine learning. His research record comprises 41 peer-reviewed papers and preprints alongside both graduate thesis monographs, 1,273 Google Scholar citations, an h-index of 15, two consecutive Deep Learning Indaba Best Poster Awards (Kigali 2025 and Lagos 2026), and editorial board service on Discover Artificial Intelligence (Springer Nature).'
+    long: `Innocent Nyalala serves as Assistant Professor of Data Science and Artificial Intelligence within the School of Engineering and Science at the Indian Institute of Technology Madras Zanzibar, Tanzania, and as Associate Research Fellow at the Wadhwani School of Data Science and Artificial Intelligence, IIT Madras, Chennai. Prior to joining IIT Madras Zanzibar in October 2024, he served as Part-Time Lecturer in the Department of Computer Science at Egerton University in Kenya, after earning his M.Sc. in Engineering (2016, supervised by Prof. Bai Zhentian and Prof. Xu Huanliang) and Ph.D. in Engineering in Agricultural Electrification and Automation Engineering (2023, supervised by Prof. Chen Kunjie) at Nanjing Agricultural University. At IIT Madras Zanzibar, he founded SAAIL Lab, supervising PhD, MTech, and undergraduate researchers across four areas: computer vision for East African agricultural commodities and coastal seaweed cultivation systems, Swahili natural language processing and translationese provenance auditing, explainable and culturally grounded AI safety governance, and maternal-neonatal clinical machine learning. His research record comprises ${dynamicPaperCount} peer-reviewed papers and preprints alongside both graduate thesis monographs, ${dynamicCitationStr} Google Scholar citations, an h-index of ${metrics.hIndex}, two consecutive Deep Learning Indaba Best Poster Awards (Kigali 2025 and Lagos 2026), and editorial board service on Discover Artificial Intelligence (Springer Nature).`
   }
 } as const;

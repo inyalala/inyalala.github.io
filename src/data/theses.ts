@@ -1,4 +1,5 @@
 import rawThesisDetails from './thesis-details.json';
+import { PUBLICATIONS } from './publications';
 
 export interface ThesisChapter {
   label: string;
@@ -94,7 +95,7 @@ export const THESES: ThesisMonograph[] = [
     summary:
       'Doctoral research formulating calibrated RGB, depth-camera imaging, and 3-D point-cloud reconstruction pipelines paired with machine learning estimators for non-destructive volume and mass quantification across tomatoes, eggs, and poultry carcasses.',
     archivalNote:
-      'Indexed separately on this personal archive as a degree monograph and excluded from the 41 peer-reviewed papers and preprints tally. All six peer-reviewed doctoral chapter publications host standalone companion pages under /papers/ alongside their permanent DOIs.',
+      `Indexed separately on this personal archive as a degree monograph and excluded from the ${PUBLICATIONS.length} peer-reviewed papers and preprints tally. All six peer-reviewed doctoral chapter publications host standalone companion pages under /papers/ alongside their permanent DOIs.`,
     abstract: phdRich.abstract,
     teaserImage: phdRich.teaserImage,
     teaserCaption: phdRich.teaserCaption,
@@ -233,7 +234,7 @@ export const THESES: ThesisMonograph[] = [
     summary:
       'Master of Science in Engineering thesis designing and building an embedded Arduino microcontroller architecture combining temperature, soil moisture, humidity, and light sensing with closed-loop actuation rules and serial telemetry for protected crop cultivation.',
     archivalNote:
-      'Indexed separately on this personal archive as a degree monograph and excluded from the 41 peer-reviewed papers and preprints tally.',
+      `Indexed separately on this personal archive as a degree monograph and excluded from the ${PUBLICATIONS.length} peer-reviewed papers and preprints tally.`,
     abstract: mscRich.abstract,
     highlights: mscRich.highlights,
     extraTables: mscRich.tables,
