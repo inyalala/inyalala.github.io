@@ -165,9 +165,11 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
                     if (mq.matches) {
                       det.open = true;
                       sum.setAttribute('tabindex', '-1');
+                      sum.setAttribute('aria-disabled', 'true');
                     } else {
                       if (init) det.open = false;
                       sum.removeAttribute('tabindex');
+                      sum.removeAttribute('aria-disabled');
                     }
                   }
                   syncDesktopToc(true);

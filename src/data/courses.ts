@@ -1,7 +1,7 @@
 export interface CourseLink {
   label: string;
   href: string;
-  kind?: 'pdf' | 'html' | 'pptx' | 'colab' | 'lab' | 'tutorial' | 'hub';
+  kind?: 'pdf' | 'html' | 'pptx' | 'colab' | 'lab' | 'tutorial' | 'hub' | 'notebook';
 }
 
 export interface CourseModule {
@@ -692,6 +692,9 @@ export const COURSES: CourseData[] = [
       { label: 'End-Semester Mock Exam & Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_EndSem_Mock_Exam_and_Solutions.pdf`, kind: 'pdf' },
       { label: 'Algorithms Master Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Algorithms_Master_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Midterm Review Worked Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Midterm_Review_Solutions.pdf`, kind: 'pdf' },
+      { label: 'Project Guidelines (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Project_Guidelines.pdf`, kind: 'pdf' },
+      { label: 'Project Grading Rubric (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Project_Grading_Rubric.pdf`, kind: 'pdf' },
+      { label: 'Project Benchmark Starter (.ipynb)', href: `${TEACH_BASE}/z5007/project/P01_Project_Benchmark_Starter.ipynb`, kind: 'notebook' },
       { label: 'Quiz 1 Practice Bank (40 Questions PDF)', href: `${TEACH_BASE}/z5007/week-06/practice/Z5007_Quiz1_Practice40.pdf`, kind: 'pdf' }
     ]
   },
@@ -863,7 +866,8 @@ export const COURSES: CourseData[] = [
       { label: 'Weeks 1-6 Revision & Mock Quiz (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Weeks1_6_Revision_and_Mock_Quiz.pdf`, kind: 'pdf' },
       { label: 'Data Mining Formula Cheat Sheet (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Data_Mining_Formula_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Mini-Project Brief (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Mini_Project_Brief.pdf`, kind: 'pdf' },
-      { label: 'Mini-Project Starter Notebook (.ipynb)', href: `${TEACH_BASE}/dm-scale/labs/MP01_Mini_Project_Starter.ipynb`, kind: 'notebook' }
+      { label: 'Mini-Project Starter Notebook (.ipynb)', href: `${TEACH_BASE}/dm-scale/labs/MP01_Mini_Project_Starter.ipynb`, kind: 'notebook' },
+      { label: 'Lab Explorer & Part 2 Previews', href: `${TEACH_BASE}/dm-scale/labs/index.html`, kind: 'lab' }
     ]
   },
   {
@@ -1020,7 +1024,8 @@ export const COURSES: CourseData[] = [
       { label: 'Worked SQL & Normalization Workbook (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_Worked_SQL_and_Normalization_Workbook.pdf`, kind: 'pdf' },
       { label: 'Course Schedule (PDF)', href: `${TEACH_BASE}/z2004/lectures/schedule.pdf`, kind: 'pdf' },
       { label: 'SQL Reference Sheet (PDF)', href: `${TEACH_BASE}/z2004/lectures/sql-reference.pdf`, kind: 'pdf' },
-      { label: 'Semester Project Guidelines (PDF)', href: `${TEACH_BASE}/z2004/lectures/project-guidelines.pdf`, kind: 'pdf' }
+      { label: 'Semester Project Guidelines (PDF)', href: `${TEACH_BASE}/z2004/lectures/project-guidelines.pdf`, kind: 'pdf' },
+      { label: 'End-Semester Mock Exam & Solutions (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_EndSem_Mock_Exam_and_Solutions.pdf`, kind: 'pdf' }
     ],
     grading: [
       { component: 'In-Class Assignments (ICA)', weight: 10, note: 'Fortnightly SQL exercises and schema sketches.' },
@@ -1247,7 +1252,8 @@ export const COURSES: CourseData[] = [
     },
     supplementaryDocs: [
       { label: 'Big Data & Lakehouse Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_BigData_Lakehouse_Cheatsheet.pdf`, kind: 'pdf' },
-      { label: 'Spark & Streaming Architecture Workbook (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Spark_Streaming_Architecture_Workbook.pdf`, kind: 'pdf' }
+      { label: 'Spark & Streaming Architecture Workbook (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Spark_Streaming_Architecture_Workbook.pdf`, kind: 'pdf' },
+      { label: 'Practical Capstone Mock & Rubric (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Practical_Capstone_Mock_and_Rubric.pdf`, kind: 'pdf' }
     ]
   }
 ];

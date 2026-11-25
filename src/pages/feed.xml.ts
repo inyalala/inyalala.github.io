@@ -1,6 +1,16 @@
 import type { APIRoute } from 'astro';
 import newsData from '../data/news.json';
 import { WRITING_POSTS } from '../data/writing';
+import rawImageDims from '../data/image-dimensions.json';
+
+const imageDims = rawImageDims as Record<string, { width: number; height: number }>;
+
+function getImageMime(url: string): string {
+  const low = url.toLowerCase();
+  if (low.endsWith('.webp')) return 'image/webp';
+  if (low.endsWith('.png')) return 'image/png';
+  return 'image/jpeg';
+}
 
 function escXml(s: string): string {
   return s
@@ -91,9 +101,14 @@ ${combined
       ? `<p>Topics: ${it.tags.map((t) => escXml(t)).join(', ')}</p>`
       : '';
     const contentHtml = `${figHtml}<p>${escXml(it.description)}</p>${tagsHtml}${linkHtml}`;
-    const mediaTag = it.imageUrl
-      ? `\n      <media:content url="${escXml(it.imageUrl)}" medium="image" />`
-      : '';
+    let mediaTag = '';
+    if (it.imageUrl) {
+      const relKey = it.imageUrl.replace(/^https:\/\/inyalala\.github\.io/, '');
+      const dims = imageDims[relKey];
+      const mime = getImageMime(it.imageUrl);
+      const dimAttrs = dims ? ` width="${dims.width}" height="${dims.height}"` : '';
+      mediaTag = `\n      <media:content url="${escXml(it.imageUrl)}" medium="image" type="${mime}"${dimAttrs} />`;
+    }
     return `    <item>
       <title>${escXml(it.title)}</title>
       <link>${escXml(it.link)}</link>

@@ -245,9 +245,10 @@ const schemaGraph = {
           {latestNews.map((item) => {
             const thumbSrc = item.image ? getThumbSrc(item.image) : '';
             const dim = thumbSrc ? getImageDim(thumbSrc, 640, 400) : { width: 640, height: 400 };
-            const galCount = Array.isArray((item as { gallery?: unknown[] }).gallery)
-              ? ((item as { gallery?: unknown[] }).gallery?.length ?? 0)
-              : 0;
+            const galArr = Array.isArray((item as { gallery?: { src: string }[] }).gallery)
+              ? ((item as { gallery?: { src: string }[] }).gallery ?? [])
+              : [];
+            const totalVisuals = new Set([item.image, ...galArr.map((g) => g.src)].filter(Boolean)).size;
             return (
               <article class="dispatch-row">
                 {thumbSrc && (
@@ -262,8 +263,8 @@ const schemaGraph = {
                       loading="lazy"
                       decoding="async"
                     />
-                    {galCount > 1 && (
-                      <span class="dispatch-vis-count" aria-hidden="true">{galCount} visuals</span>
+                    {totalVisuals > 1 && (
+                      <span class="dispatch-vis-count" aria-hidden="true">{totalVisuals} visuals</span>
                     )}
                   </a>
                 )}

@@ -8,44 +8,55 @@ import { breadcrumbList, personEntity, websiteEntity } from '../../../data/schem
 
 const pageUrl = 'https://inyalala.github.io/sw/writing/';
 
-const swPostMeta: Record<string, { titleSw: string; catSw: string; summarySw: string }> = {
+const swPostMeta: Record<string, { titleSw: string; catSw: string; summarySw: string; altSw: string }> = {
   'abcs-of-ai-in-agriculture': {
     titleSw: 'Alfabeti ya AI katika Kilimo (A hadi Z): Kutoka Matrekta ya Kujiendesha hadi Ramani za Shamba',
     catSw: 'Mwongozo wa Mtafiti',
     summarySw:
-      'Muhtasari wenye michoro unaounganisha dhana 26 za msingi za akili mnemba na uhandisi wa kilimo na tafiti za Maabara ya SAAIL pamoja na data wazi Afrika Mashariki.'
+      'Muhtasari wenye michoro unaounganisha dhana 26 za msingi za akili mnemba na uhandisi wa kilimo na tafiti za Maabara ya SAAIL pamoja na data wazi Afrika Mashariki.',
+    altSw: 'Mchoro wa usanifu wa mfumo wa CropGuardNet unaounganisha picha za mazao na uainishaji mwepesi'
   },
   'accuracy-mirages-field-agricultural-ai': {
     titleSw: 'Kwa Nini Usahihi wa Juu wa Maabara Hushindwa Kwenye Mashamba ya Wakulima Wadogo',
     catSw: 'Makala ya Utafiti',
     summarySw:
-      'Masomo kutoka DGS-Bench, CLOVES-4603, na ETRI Journal 2026 kuhusu udanganyifu wa vipimo vya jumla, athari za mwanga wa maabara, na modeli za utenganishaji wa picha.'
+      'Masomo kutoka DGS-Bench, CLOVES-4603, na ETRI Journal 2026 kuhusu udanganyifu wa vipimo vya jumla, athari za mwanga wa maabara, na modeli za utenganishaji wa picha.',
+    altSw: 'Chati za DGS-Bench zikionyesha pengo kati ya usahihi wa maabara na matumizi halisi shambani'
   },
   'kiunguja-swahili-coastal-dialect-nlp': {
     titleSw: 'Kiunguja, Kipemba, Kiswahili cha Bara na Kenya: Kwa Nini Tofauti za Lahaja Ni Muhimu Kwenye NLP',
     catSw: 'Makala ya Utafiti',
     summarySw:
-      'Tafakuri kutoka Zanzibar kuhusu lahaja za Kiunguja na Kipemba dhidi ya Kiswahili cha Bara na Kenya, na kwa nini ukaguzi wa asili ya matini hushinda tafsiri ya mashine.'
+      'Tafakuri kutoka Zanzibar kuhusu lahaja za Kiunguja na Kipemba dhidi ya Kiswahili cha Bara na Kenya, na kwa nini ukaguzi wa asili ya matini hushinda tafsiri ya mashine.',
+    altSw: 'Usambazaji wa vyanzo halisi vya Kiunguja na Kipemba katika Korpasi ya Kiswahili cha Zanzibar'
   },
   'overleaf-latex-citation-starter-guide': {
     titleSw: 'Kuanza Kutumia Overleaf, LaTeX, na Nukuu Safi za BibTeX',
     catSw: 'Mwongozo wa Mtafiti',
     summarySw:
-      'Mwongozo wa hatua kwa hatua kwa wanafunzi wa shahada ya kwanza, MTech, na PhD wanaoandaa machapisho ya kisayansi yanayojirudia ndani ya Overleaf.'
+      'Mwongozo wa hatua kwa hatua kwa wanafunzi wa shahada ya kwanza, MTech, na PhD wanaoandaa machapisho ya kisayansi yanayojirudia ndani ya Overleaf.',
+    altSw: 'Meza ya kufundishia katika Chuo Kikuu cha IIT Madras Zanzibar yenye kitabu cha algoriti na kompyuta mpakato'
   },
   'visiting-iit-madras-zanzibar-guide': {
     titleSw: 'Kutembelea IIT Madras Zanzibar: Mwongozo wa Kufika Uwanja wa Ndege na Kampasi ya Bweleo',
     catSw: 'Mwongozo wa Zanzibar',
     summarySw:
-      'Maelekezo muhimu ya usafiri, malazi, na mpangilio wa kampasi kwa wahadhiri wageni, wazungumzaji waalikwa, na wanafunzi wapya wanaowasili Zanzibar.'
+      'Maelekezo muhimu ya usafiri, malazi, na mpangilio wa kampasi kwa wahadhiri wageni, wazungumzaji waalikwa, na wanafunzi wapya wanaowasili Zanzibar.',
+    altSw: 'Picha ya ukumbi na mazingira ya mafunzo katika kampasi ya Bweleo ya IIT Madras Zanzibar'
   },
   'zanzibar-seaweed-blue-economy-field-notes': {
     titleSw: 'Kamba za Mwani, Maghala ya Karafuu, na Kwa Nini AI ya Kilimo Lazima Iendane na Kazi za Uwandani',
     catSw: 'Tafakuri ya Uwandani',
     summarySw:
-      'Tafakuri kutoka fukwe za mwani na maghala ya karafuu Zanzibar juu ya kwa nini akili mnemba yenye tija huanza na taratibu za wakulima na fizikia ya mazingira.'
+      'Tafakuri kutoka fukwe za mwani na maghala ya karafuu Zanzibar juu ya kwa nini akili mnemba yenye tija huanza na taratibu za wakulima na fizikia ya mazingira.',
+    altSw: 'Kazi ya uwandani ya uwekaji daraja wa karafuu na uchumi wa buluu katika Pwani ya Zanzibar'
   }
 };
+
+function formatSwReadingTime(rt: string): string {
+  const m = rt.match(/(\d+)/);
+  return m ? `Dakika ${m[1]} za kusoma` : rt;
+}
 
 const swCategories = [
   { key: 'All', label: `Zote (${WRITING_POSTS.length})` },
@@ -85,7 +96,10 @@ const swWritingSchema = {
               headline: meta ? meta.titleSw : p.title,
               description: meta ? meta.summarySw : p.summary,
               datePublished: p.date,
-              inLanguage: 'sw-TZ',
+              inLanguage: 'en-US',
+              image: p.image
+                ? (p.image.startsWith('http') ? p.image : `https://inyalala.github.io${p.image}`)
+                : 'https://inyalala.github.io/images/og-innocent-nyalala.png',
               author: { '@id': 'https://inyalala.github.io/#person' },
               url: `https://inyalala.github.io/writing/${p.slug}/`
             }
@@ -159,7 +173,7 @@ const swWritingSchema = {
                   <a href={`/writing/${post.slug}/`} class="essay-media" aria-label={meta ? meta.titleSw : post.title}>
                     <img
                       src={thumb}
-                      alt={post.imageAlt || post.title}
+                      alt={meta ? meta.altSw : (post.imageAlt || post.title)}
                       width={dim.width}
                       height={dim.height}
                       loading="lazy"
@@ -173,7 +187,7 @@ const swWritingSchema = {
                     <span>&middot;</span>
                     <time datetime={post.date}>{post.date}</time>
                     <span>&middot;</span>
-                    <span>{post.readingTime}</span>
+                    <span>{formatSwReadingTime(post.readingTime)}</span>
                   </p>
                   <h2>
                     <a href={`/writing/${post.slug}/`}>{meta ? meta.titleSw : post.title}</a>

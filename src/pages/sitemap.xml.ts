@@ -66,17 +66,60 @@ export const GET: APIRoute = () => {
 
   const urls = [...staticPages, ...coursePages, ...thesisPages, ...priorPaperPages, ...writingPages];
 
+  const pairedClusters: Record<string, { hreflang: string; href: string }[]> = {
+    '/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/' }
+    ],
+    '/courses/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/courses/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/courses/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/courses/' }
+    ],
+    '/research/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/research/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/research/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/research/' }
+    ],
+    '/writing/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/writing/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/writing/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/writing/' }
+    ],
+    '/faq/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/faq/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/faq/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/faq/' }
+    ],
+    '/contact/': [
+      { hreflang: 'en', href: 'https://inyalala.github.io/contact/' },
+      { hreflang: 'sw', href: 'https://inyalala.github.io/sw/contact/' },
+      { hreflang: 'x-default', href: 'https://inyalala.github.io/contact/' }
+    ]
+  };
+  pairedClusters['/sw/'] = pairedClusters['/'];
+  pairedClusters['/sw/courses/'] = pairedClusters['/courses/'];
+  pairedClusters['/sw/research/'] = pairedClusters['/research/'];
+  pairedClusters['/sw/writing/'] = pairedClusters['/writing/'];
+  pairedClusters['/sw/faq/'] = pairedClusters['/faq/'];
+  pairedClusters['/sw/contact/'] = pairedClusters['/contact/'];
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls
-  .map(
-    (u) => `  <url>
-    <loc>https://inyalala.github.io${u.path}</loc>
+  .map((u) => {
+    const alts = pairedClusters[u.path];
+    const xhtmlLinks = alts
+      ? '\n' + alts.map((a) => `    <xhtml:link rel="alternate" hreflang="${a.hreflang}" href="${a.href}" />`).join('\n')
+      : '';
+    return `  <url>
+    <loc>https://inyalala.github.io${u.path}</loc>${xhtmlLinks}
     <lastmod>${u.lastmod}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
-  </url>`
-  )
+  </url>`;
+  })
   .join('\n')}
 </urlset>
 `;

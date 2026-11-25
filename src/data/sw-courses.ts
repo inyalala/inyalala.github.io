@@ -14,13 +14,13 @@ export const SW_COURSES_MAP: Record<string, SwCourseMeta> = {
   z3003: {
     titleSw: 'Uchimbaji wa Data Kubwa',
     summarySw:
-      'Kozi ya pamoja (Wiki 1-6 na Dkt. Nyalala; Wiki 7-15 na Dkt. Mahendran V) inayofundisha uchimbaji wa mifumo ya takwimu, MapReduce, PySpark, Locality-Sensitive Hashing (LSH), PageRank, na kanuni za Apriori.',
+      'Kozi ya msingi inayofundisha uchimbaji wa mifumo ya takwimu, MapReduce, PySpark, Locality-Sensitive Hashing (LSH), PageRank, na kanuni za Apriori.',
     termSw: 'Muhula wa Kwanza 2026-27 · Okt 2026 - Jan 2027'
   },
   z2005: {
     titleSw: 'Utayarishaji Programu na Miundo ya Data',
     summarySw:
-      'Seti ya kumbukumbu ya mtaala wa BS unaofundishwa kampasini na wahadhiri wenzetu muhula wa 2026-27, yenye slaidi za mihadhara, laha za maabara, na madaftari ya Python/Colab za uchanganuzi wa algoriti, grafu, na upangaji.',
+      'Seti ya kumbukumbu ya mtaala wa BS unaofundishwa kampasini na wahadhiri wenzetu muhula wa 2026-27, yenye slaidi za mihadhara, laha za maabara, na madaftari ya Python/Colab ya uchanganuzi wa algoriti, grafu, na upangaji.',
     termSw: 'Kumbukumbu ya Rejea · Muhula wa Kwanza (BS 2026-27)'
   },
   z2004: {

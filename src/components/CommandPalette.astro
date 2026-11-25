@@ -418,6 +418,10 @@
           e.preventDefault();
           first.focus();
         }
+      } else if (e.key === 'ArrowDown' && (document.activeElement === clearBtn || document.activeElement === closeBtn)) {
+        e.preventDefault();
+        input.focus();
+        setActive(activeIdx + 1);
       }
     });
 
@@ -640,5 +644,18 @@
     background: var(--bg-surface);
     border-radius: 2px;
     margin-right: 0.2rem;
+  }
+  @media (max-width: 640px) {
+    .cmd-head {
+      gap: 0.5rem;
+    }
+    .cmd-clear,
+    .cmd-close {
+      min-width: 38px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 </style>
