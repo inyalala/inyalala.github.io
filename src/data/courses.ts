@@ -689,6 +689,7 @@ export const COURSES: CourseData[] = [
       classroomUrl: ''
     },
     supplementaryDocs: [
+      { label: 'Weeks 1-17 Code & Complexity Explorer', href: `${TEACH_BASE}/z5007/labs/index.html`, kind: 'lab' },
       { label: 'End-Semester Mock Exam & Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_EndSem_Mock_Exam_and_Solutions.pdf`, kind: 'pdf' },
       { label: 'Algorithms Master Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Algorithms_Master_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Midterm Review Worked Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Midterm_Review_Solutions.pdf`, kind: 'pdf' },
@@ -1020,6 +1021,7 @@ export const COURSES: CourseData[] = [
       }
     ],
     supplementaryDocs: [
+      { label: 'SQL & Relational Lab Explorer (DB01-DB08)', href: `${TEACH_BASE}/z2004/labs/index.html`, kind: 'lab' },
       { label: 'SQL & Normalization Cheat Sheet (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_SQL_Normalization_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Worked SQL & Normalization Workbook (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_Worked_SQL_and_Normalization_Workbook.pdf`, kind: 'pdf' },
       { label: 'Course Schedule (PDF)', href: `${TEACH_BASE}/z2004/lectures/schedule.pdf`, kind: 'pdf' },
@@ -1251,6 +1253,7 @@ export const COURSES: CourseData[] = [
       classroomUrl: ''
     },
     supplementaryDocs: [
+      { label: 'Big Data Lab Explorer (BD01-BD07)', href: `${TEACH_BASE}/z5008/labs/index.html`, kind: 'lab' },
       { label: 'Big Data & Lakehouse Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_BigData_Lakehouse_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Spark & Streaming Architecture Workbook (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Spark_Streaming_Architecture_Workbook.pdf`, kind: 'pdf' },
       { label: 'Practical Capstone Mock & Rubric (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Practical_Capstone_Mock_and_Rubric.pdf`, kind: 'pdf' }

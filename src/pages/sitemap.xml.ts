@@ -40,14 +40,14 @@ export const GET: APIRoute = () => {
     path: `/courses/${c.slug}/`,
     priority: c.status === 'active' ? '0.9' : '0.75',
     changefreq: c.status === 'active' ? 'weekly' : 'yearly',
-    lastmod: c.status === 'active' ? latestNewsDate : '2026-07-31'
+    lastmod: clampDate(c.status === 'active' ? latestNewsDate : '2026-07-31')
   }));
 
   const thesisPages = THESES.map((t) => ({
     path: `/publications/theses/${t.slug}/`,
     priority: '0.8',
     changefreq: 'yearly',
-    lastmod: `${t.year}-07-01`
+    lastmod: clampDate(`${t.year}-07-01`)
   }));
 
   const priorPaperPages = PRIOR_COMPANIONS.map((p) => ({

@@ -101,6 +101,7 @@ const swWritingSchema = {
                 ? (p.image.startsWith('http') ? p.image : `https://inyalala.github.io${p.image}`)
                 : 'https://inyalala.github.io/images/og-innocent-nyalala.png',
               author: { '@id': 'https://inyalala.github.io/#person' },
+              publisher: { '@id': 'https://inyalala.github.io/#person' },
               url: `https://inyalala.github.io/writing/${p.slug}/`
             }
           };

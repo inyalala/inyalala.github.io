@@ -57,6 +57,32 @@ const paperLinePoints = years
     return `${cx.toFixed(1)},${py.toFixed(1)}`;
   })
   .join(' ');
+const paperOverlays = years
+  .map((y, idx) => {
+    const cnt = paperCountByYear.get(y) || 0;
+    if (!cnt) return null;
+    const v = vals[idx];
+    const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
+    const yBarText = H - padB - barH - 5;
+    const cx = padL + slot * idx + (slot - barW) / 2 + barW / 2;
+    const py = H - padB - (cnt / maxYearPapers) * (H - padT - padB) * 0.85;
+    const showPeakLbl = cnt === maxYearPapers || (cnt >= 4 && Math.abs(py - yBarText) > 15);
+    const isLast = idx === years.length - 1;
+    const lblX = isLast
+      ? (Math.abs(py - yBarText) <= 15 ? cx - 22 : cx - 6)
+      : cx + 6;
+    return {
+      y,
+      cnt,
+      cx: cx.toFixed(1),
+      py: py.toFixed(1),
+      lblX: lblX.toFixed(1),
+      lblY: (py - 4).toFixed(1),
+      showPeakLbl,
+      anchor: isLast ? 'end' : 'start'
+    };
+  })
+  .filter((x): x is NonNullable<typeof x> => Boolean(x));
 
 const flagshipVenues = ['CVPR', 'ICLR', 'PMLR', 'ESWA', 'ETRI']
   .map((v) => ({
@@ -200,7 +226,7 @@ const schemaCollection = {
             <span>Citations per Year &amp; Annual Paper Output (Updated {metrics.updatedAt})</span>
             <div class="chart-key" aria-hidden="true">
               <span class="ck-item"><span class="ck-bar"></span>Citations/yr</span>
-              <span class="ck-item"><span class="ck-line"></span>Papers/yr</span>
+              <span class="ck-item"><span class="ck-line"></span>Papers/yr (peak {maxYearPapers})</span>
             </div>
             <span id="chartReadout" class="chart-readout tabular-nums">Hover or click any year bar to filter papers</span>
           </div>
@@ -231,7 +257,7 @@ const schemaCollection = {
                   data-action={isThesisYear ? 'thesis' : hasPapers ? 'filter' : 'static'}
                   role={isInteractive ? 'button' : 'presentation'}
                   tabindex={isInteractive ? '0' : undefined}
-                  aria-pressed={isInteractive ? 'false' : undefined}
+                  aria-pressed={hasPapers ? 'false' : undefined}
                   aria-label={
                     isThesisYear
                       ? `Jump to 2023 PhD thesis monograph (${v} citations)`
@@ -271,24 +297,21 @@ const schemaCollection = {
             <g class="chart-paper-overlay" aria-hidden="true">
               <polyline points={paperLinePoints} class="chart-paper-halo" />
               <polyline points={paperLinePoints} class="chart-paper-line" />
-              {years.map((y, idx) => {
-                const cnt = paperCountByYear.get(y) || 0;
-                if (!cnt) return null;
-                const v = vals[idx];
-                const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
-                const yBarText = H - padB - barH - 5;
-                const cx = padL + slot * idx + (slot - barW) / 2 + barW / 2;
-                const py = H - padB - (cnt / maxYearPapers) * (H - padT - padB) * 0.85;
-                const showPeakLbl = (cnt >= 4 || cnt === maxYearPapers) && Math.abs(py - yBarText) > 15;
-                return (
-                  <g>
-                    <circle cx={cx.toFixed(1)} cy={py.toFixed(1)} r="3.2" class="chart-paper-dot" />
-                    {showPeakLbl && (
-                      <text x={(cx + 6).toFixed(1)} y={(py - 4).toFixed(1)} class="chart-paper-lbl tabular-nums">{cnt}p</text>
-                    )}
-                  </g>
-                );
-              })}
+              {paperOverlays.map((pt) => (
+                <g data-paper-year={pt.y}>
+                  <circle cx={pt.cx} cy={pt.py} r="3.2" data-paper-year={pt.y} class="chart-paper-dot" />
+                  {pt.showPeakLbl && (
+                    <text
+                      x={pt.lblX}
+                      y={pt.lblY}
+                      text-anchor={pt.anchor}
+                      class="chart-paper-lbl tabular-nums"
+                    >
+                      {pt.cnt}p
+                    </text>
+                  )}
+                </g>
+              ))}
             </g>
           </svg>
           <div class="chart-year-strip" role="group" aria-label="Filter publications by year">
@@ -301,7 +324,7 @@ const schemaCollection = {
                   class="yr-chip"
                   data-year={y}
                   data-action={y === '2023' ? 'thesis' : 'filter'}
-                  aria-pressed="false"
+                  aria-pressed={y === '2023' ? undefined : 'false'}
                 >
                   {y === '2023' ? '2023 (PhD)' : y}
                 </button>
@@ -653,6 +676,22 @@ const schemaCollection = {
       }
     }
 
+    function syncPaperDots(hoverYr) {
+      document.querySelectorAll('.chart-paper-dot').forEach(function (dot) {
+        var dy = dot.getAttribute('data-paper-year') || '';
+        var lit = (hoverYr && dy === hoverYr) || (activeYear && dy === activeYear);
+        dot.setAttribute('r', lit ? '4.8' : '3.2');
+        dot.classList.toggle('is-lit', Boolean(lit));
+      });
+      document.querySelectorAll('[data-paper-year]').forEach(function (grp) {
+        if (grp.tagName && grp.tagName.toLowerCase() === 'g') {
+          var dy = grp.getAttribute('data-paper-year') || '';
+          var lit = (hoverYr && dy === hoverYr) || (activeYear && dy === activeYear);
+          grp.classList.toggle('is-lit', Boolean(lit));
+        }
+      });
+    }
+
     function syncYearAndTopicUI() {
       chartCols.forEach(function (col) {
         if (col.getAttribute('data-action') !== 'filter') return;
@@ -660,6 +699,7 @@ const schemaCollection = {
         col.classList.toggle('is-active', on);
         col.setAttribute('aria-pressed', String(on));
       });
+      syncPaperDots('');
       yrChips.forEach(function (chip) {
         if (chip.getAttribute('data-action') !== 'filter') return;
         var on = chip.getAttribute('data-year') === activeYear && activeYear !== '';
@@ -852,9 +892,21 @@ const schemaCollection = {
           chartReadout.textContent = yr + ': ' + cites + ' citations across earlier publications';
         }
       };
-      col.addEventListener('mouseenter', updateReadout);
+      col.addEventListener('mouseenter', function () {
+        updateReadout();
+        syncPaperDots(yr);
+      });
+      col.addEventListener('mouseleave', function () {
+        syncPaperDots('');
+      });
       if (action === 'static') return;
-      col.addEventListener('focus', updateReadout);
+      col.addEventListener('focus', function () {
+        updateReadout();
+        syncPaperDots(yr);
+      });
+      col.addEventListener('blur', function () {
+        syncPaperDots('');
+      });
       col.addEventListener('click', function () {
         if (action === 'thesis') jumpToTheses();
         else toggleYear(yr);
@@ -1129,7 +1181,9 @@ const schemaCollection = {
   .chart-col:not(.is-static):hover .chart-bar,
   .chart-col:not(.is-static):focus-visible .chart-bar,
   .chart-col.is-active .chart-bar {
-    fill: var(--accent-clove);
+    fill: var(--accent-forest-hover);
+    stroke: var(--accent-clove);
+    stroke-width: 1.5;
   }
   .chart-col:focus-visible .chart-bar {
     stroke: var(--text-primary);
@@ -1169,11 +1223,19 @@ const schemaCollection = {
     stroke: var(--accent-clove);
     stroke-width: 1.6;
   }
+  .chart-paper-dot.is-lit {
+    fill: var(--accent-clove);
+    stroke: var(--bg-surface);
+  }
   .chart-paper-lbl {
     font-family: var(--font-mono);
     font-size: 9px;
     fill: var(--accent-clove);
     font-weight: 600;
+    paint-order: stroke;
+    stroke: var(--bg-surface);
+    stroke-width: 3px;
+    stroke-linejoin: round;
   }
   #theses.is-flash {
     background: var(--bg-secondary);
