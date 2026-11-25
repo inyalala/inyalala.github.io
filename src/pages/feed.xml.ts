@@ -64,7 +64,7 @@ export const GET: APIRoute = () => {
     : new Date(`${TODAY_ISO}T00:00:00Z`).toUTCString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Innocent Nyalala - Writing, News &amp; Teaching Updates</title>
     <link>https://inyalala.github.io/</link>
@@ -91,11 +91,14 @@ ${combined
       ? `<p>Topics: ${it.tags.map((t) => escXml(t)).join(', ')}</p>`
       : '';
     const contentHtml = `${figHtml}<p>${escXml(it.description)}</p>${tagsHtml}${linkHtml}`;
+    const mediaTag = it.imageUrl
+      ? `\n      <media:content url="${escXml(it.imageUrl)}" medium="image" />`
+      : '';
     return `    <item>
       <title>${escXml(it.title)}</title>
       <link>${escXml(it.link)}</link>
       <description>${escXml(descHtml)}</description>
-      <content:encoded><![CDATA[${contentHtml}]]></content:encoded>
+      <content:encoded><![CDATA[${contentHtml}]]></content:encoded>${mediaTag}
       <pubDate>${pubDate}</pubDate>
       <dc:creator>Innocent Nyalala</dc:creator>
       <category>${escXml(it.category)}</category>

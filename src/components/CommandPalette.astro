@@ -25,6 +25,7 @@
         autocomplete="off"
         spellcheck="false"
       />
+      <button id="cmdPaletteClear" type="button" class="cmd-clear" aria-label="Clear search query" hidden>&times;</button>
       <button id="cmdPaletteClose" type="button" class="cmd-close" aria-label="Close quick search">Esc</button>
     </div>
 
@@ -48,6 +49,7 @@
     var input = document.getElementById('cmdPaletteInput');
     var resultsEl = document.getElementById('cmdPaletteResults');
     var announceEl = document.getElementById('cmdPaletteAnnounce');
+    var clearBtn = document.getElementById('cmdPaletteClear');
     var closeBtn = document.getElementById('cmdPaletteClose');
     var triggers = document.querySelectorAll('.js-open-cmd');
     if (!backdrop || !dialog || !input || !resultsEl) return;
@@ -156,12 +158,14 @@
         if (isSw) {
           if (path.indexOf('/sw/courses') === 0) window.location.href = '/courses/';
           else if (path.indexOf('/sw/research') === 0) window.location.href = '/research/';
+          else if (path.indexOf('/sw/writing') === 0) window.location.href = '/writing/';
           else if (path.indexOf('/sw/contact') === 0) window.location.href = '/contact/';
           else if (path.indexOf('/sw/faq') === 0) window.location.href = '/faq/';
           else window.location.href = '/';
         } else {
           if (path.indexOf('/courses') === 0) window.location.href = '/sw/courses/';
           else if (path.indexOf('/research') === 0) window.location.href = '/sw/research/';
+          else if (path.indexOf('/writing') === 0) window.location.href = '/sw/writing/';
           else if (path.indexOf('/contact') === 0) window.location.href = '/sw/contact/';
           else if (path.indexOf('/faq') === 0) window.location.href = '/sw/faq/';
           else window.location.href = '/sw/';
@@ -312,12 +316,17 @@
       });
     }
 
+    function syncClearBtn() {
+      if (clearBtn) clearBtn.hidden = !(input.value && input.value.length > 0);
+    }
+
     function openPalette() {
       lastFocus = document.activeElement;
       backdrop.hidden = false;
       input.setAttribute('aria-expanded', 'true');
       setBackgroundInert(true);
       document.body.style.overflow = 'hidden';
+      syncClearBtn();
       renderResults(input.value);
       setTimeout(function () { input.focus(); }, 10);
     }
@@ -373,12 +382,19 @@
       btn.addEventListener('click', openPalette);
     });
 
+    clearBtn && clearBtn.addEventListener('click', function () {
+      input.value = '';
+      syncClearBtn();
+      renderResults('');
+      input.focus();
+    });
     closeBtn && closeBtn.addEventListener('click', closePalette);
     backdrop.addEventListener('click', function (e) {
       if (e.target === backdrop) closePalette();
     });
 
     input.addEventListener('input', function () {
+      syncClearBtn();
       renderResults(input.value);
     });
 
@@ -389,8 +405,8 @@
         return;
       }
       if (e.key === 'Tab') {
-        var focusables = [input, closeBtn].filter(function (el) {
-          return el && !el.disabled && el.offsetParent !== null;
+        var focusables = [input, clearBtn, closeBtn].filter(function (el) {
+          return el && !el.hidden && !el.disabled && el.offsetParent !== null;
         });
         if (!focusables.length) return;
         var first = focusables[0];
@@ -510,6 +526,26 @@
     color: var(--text-muted);
   }
 
+  .cmd-clear {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cmd-clear[hidden] {
+    display: none;
+  }
+  .cmd-clear:hover {
+    color: var(--accent-forest);
+    border-color: var(--accent-forest);
+  }
   .cmd-close {
     font-family: var(--font-mono);
     font-size: 0.72rem;

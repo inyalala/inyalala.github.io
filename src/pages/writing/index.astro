@@ -52,6 +52,11 @@ const writingSchema = {
   title="Writing & Travel Guides | Innocent Nyalala · IITMZ"
   description="Research notes on agricultural AI, field evaluation benchmarks, and practical travel and campus guides for visitors to IIT Madras Zanzibar."
   canonical="https://inyalala.github.io/writing/"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/writing/' },
+    { hreflang: 'sw', href: 'https://inyalala.github.io/sw/writing/' },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/writing/' }
+  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(writingSchema)} />

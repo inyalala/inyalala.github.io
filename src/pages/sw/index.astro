@@ -16,12 +16,7 @@ const activeCourses = COURSES.filter((c) => c.status === 'active');
 const swSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      ...personEntity(),
-      jobTitle: 'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba',
-      description:
-        'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba katika Kitivo cha Uhandisi na Sayansi, Chuo Kikuu cha IIT Madras Zanzibar, na Mkurugenzi wa Utafiti wa Maabara ya SAAIL.'
-    },
+    personEntity('sw'),
     {
       ...websiteEntity(),
       name: 'Innocent Nyalala | Toleo la Kiswahili na Kumbukumbu za Kitaaluma',
@@ -54,6 +49,7 @@ const swSchema = {
   description="Wasifu wa kitaaluma, utafiti wa akili mnemba katika kilimo na lugha ya Kiswahili, na ufundishaji wa Dkt. Innocent Nyalala katika IIT Madras Zanzibar."
   canonical={pageUrl}
   lang="sw"
+  preloadDisplayFonts={true}
   alternates={[
     { hreflang: 'en', href: 'https://inyalala.github.io/' },
     { hreflang: 'sw', href: pageUrl },
@@ -86,7 +82,7 @@ const swSchema = {
               <p>
                 Mwanzilishi na Mkurugenzi wa Utafiti,{' '}
                 <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="inline-link">
-                  Maabara ya SAAIL &#8599;
+                  Maabara ya SAAIL (EN) &#8599;
                 </a>
               </p>
             </div>
@@ -96,7 +92,7 @@ const swSchema = {
             </p>
 
             <div class="sw-actions">
-              <a href="/publications/" class="btn-mono">Machapisho ({PUBLICATIONS.length}) &rarr;</a>
+              <a href="/publications/" class="btn-mono">Machapisho ({PUBLICATIONS.length}) (EN) &rarr;</a>
               <a href="/sw/courses/" class="btn-mono-outline">Kozi na Slaidi ({COURSES.length})</a>
               <a href="/" class="text-action">Switch to English Edition &rarr;</a>
             </div>
@@ -125,7 +121,7 @@ const swSchema = {
               </div>
               <div>
                 <dt>Saa za Wanafunzi</dt>
-                <dd>Jumatano, Saa 8:00 mchana&ndash;10:00 alasiri (2:00&ndash;4:00 PM EAT)</dd>
+                <dd>Jumanne (Z5007) na Jumatano, Saa 8:00 mchana&ndash;10:00 alasiri (2:00&ndash;4:00 PM EAT)</dd>
               </div>
               <div>
                 <dt>Barua Pepe</dt>
@@ -170,7 +166,7 @@ const swSchema = {
               Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za <a href="#gloss-karafuu" class="gloss-ref">karafuu</a> (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (paramita 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
             </p>
             <p class="sw-link-row">
-              <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Jaribu Mfumo wa Karafuu Mtandaoni &#8599;</a>
+              <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Jaribu Mfumo wa Karafuu Mtandaoni (EN) &#8599;</a>
               <a href="/sw/research/" class="text-action">Soma Ajenda ya Utafiti &rarr;</a>
             </p>
           </article>
@@ -181,8 +177,8 @@ const swSchema = {
               Mifumo mingi ya lugha ya AI barani Afrika hujengwa kwa kutafsiri Kiingereza moja kwa moja, jambo linalopoteza msamiati asilia wa Pwani, kilimo cha mwani, na uvuvi. Kupitia <strong>Korpasi ya Kiswahili cha Zanzibar</strong> na mfumo wa <strong>Dira</strong>, tunakusanya matini asilia ya <em>Kiunguja</em>, <em>Kipemba</em>, na Kiswahili cha Bara ili kubaini maandishi ya <a href="#gloss-utafsiri-wa-kimashine" class="gloss-ref">tafsiri ya mashine</a> na kuboresha zana za wakulima na wanafunzi.
             </p>
             <p class="sw-link-row">
-              <a href="/writing/kiunguja-swahili-coastal-dialect-nlp/" class="text-action">Soma Makala ya Lahaja za Kiswahili &rarr;</a>
-              <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="text-action">Mradi wa Kiswahili Dira &#8599;</a>
+              <a href="/writing/kiunguja-swahili-coastal-dialect-nlp/" class="text-action">Soma Makala ya Lahaja za Kiswahili (EN) &rarr;</a>
+              <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="text-action">Mradi wa Kiswahili Dira (EN) &#8599;</a>
             </p>
           </article>
 
@@ -192,8 +188,8 @@ const swSchema = {
               Usahihi wa juu katika vipimo vya maabara mara nyingi huficha makosa pindi mfumo unapokwenda shambani au ghalani kwenye mwanga mpya. Kazi yetu ya <strong>DGS-Bench</strong> (iliyotunukiwa Bango Bora katika <em>Deep Learning Indaba 2026</em>, Lagos) pamoja na tafiti zilizowasilishwa Chuo Kikuu cha Oxford (TAIS 2026) na AAAI zinatoa mbinu za kukagua upendeleo wa picha na kuoanisha sera za AI katika nchi za Afrika Mashariki.
             </p>
             <p class="sw-link-row">
-              <a href="/writing/accuracy-mirages-field-agricultural-ai/" class="text-action">Kwa Nini Usahihi wa Maabara Hushindwa Shambani &rarr;</a>
-              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">Chapisho la DGS-Bench &#8599;</a>
+              <a href="/writing/accuracy-mirages-field-agricultural-ai/" class="text-action">Kwa Nini Usahihi wa Maabara Hushindwa Shambani (EN) &rarr;</a>
+              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">Chapisho la DGS-Bench (EN) &#8599;</a>
             </p>
           </article>
 
@@ -203,8 +199,8 @@ const swSchema = {
               Tukishirikiana na Chuo Kikuu cha Penn State (Marekani) na Kituo cha <strong>CPHK Pemba</strong>, tunasimamia tafiti nne za shahada ya uzamivu (PhD) zinazochambua picha 9,883 za <a href="#gloss-kondo-la-uzazi" class="gloss-ref">kondo la uzazi</a> (<strong>PlacentaVision</strong>) pamoja na modeli za ubashiri zinazofafanua hatari ya kuzaliwa kabla ya wakati ili kuwasaidia wataalamu wa afya hospitalini.
             </p>
             <p class="sw-link-row">
-              <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="text-action">Mradi wa PlacentaVision &#8599;</a>
-              <a href="/writing/zanzibar-seaweed-blue-economy-field-notes/" class="text-action">Makala za Uwandani Zanzibar &rarr;</a>
+              <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="text-action">Mradi wa PlacentaVision (EN) &#8599;</a>
+              <a href="/writing/zanzibar-seaweed-blue-economy-field-notes/" class="text-action">Makala za Uwandani Zanzibar (EN) &rarr;</a>
             </p>
           </article>
         </div>
@@ -284,8 +280,8 @@ const swSchema = {
             Watafiti, washirika wa kilimo na viwanda, waandishi wa habari, pamoja na wanafunzi wa <strong>MTech</strong> na <strong>PhD</strong> wanaopenda kushirikiana katika Maabara ya SAAIL wanaweza kupitia masharti ya ushirikiano au kuandika moja kwa moja kupitia <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a>.
           </p>
           <div class="sw-actions" style="margin-top: 1rem;">
-            <a href="/work-with-me/" class="btn-mono">Mwongozo wa Ushirikiano &rarr;</a>
-            <a href="/writing/" class="btn-mono-outline">Makala na Miongozo ({WRITING_POSTS.length})</a>
+            <a href="/work-with-me/" class="btn-mono">Mwongozo wa Ushirikiano (EN) &rarr;</a>
+            <a href="/sw/writing/" class="btn-mono-outline">Makala na Miongozo ({WRITING_POSTS.length})</a>
             <a href="/sw/contact/" class="btn-mono-outline">Fomu ya Mawasiliano</a>
           </div>
         </div>
@@ -295,22 +291,103 @@ const swSchema = {
     <SiteFooter lang="sw" />
   </div>
 
+  <aside id="glossPopover" class="gloss-popover" role="dialog" aria-labelledby="glossPopTitle" hidden>
+    <div class="gloss-pop-head">
+      <div>
+        <strong id="glossPopTitle"></strong>
+        <span id="glossPopEn" class="gloss-pop-en"></span>
+      </div>
+      <button id="glossPopClose" type="button" class="gloss-pop-close" aria-label="Funga ufafanuzi">&times;</button>
+    </div>
+    <p id="glossPopDef" class="gloss-pop-def"></p>
+    <a id="glossPopJump" href="#gloss-akili-mnemba" class="gloss-pop-jump">Fungua kwenye Kamusi &darr;</a>
+  </aside>
+
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
+      var pop = document.getElementById('glossPopover');
+      var popTitle = document.getElementById('glossPopTitle');
+      var popEn = document.getElementById('glossPopEn');
+      var popDef = document.getElementById('glossPopDef');
+      var popJump = document.getElementById('glossPopJump');
+      var popClose = document.getElementById('glossPopClose');
+      var activeRef = null;
+
+      function openGlossaryItem(id) {
+        var det = id ? document.getElementById(id) : null;
+        if (det && det.tagName === 'DETAILS') {
+          det.open = true;
+          det.classList.remove('is-flash');
+          void det.offsetWidth;
+          det.classList.add('is-flash');
+          setTimeout(function () {
+            det.classList.remove('is-flash');
+          }, 1400);
+        }
+      }
+
+      function closePop(restoreFocus) {
+        if (!pop || pop.hidden) return;
+        pop.hidden = true;
+        if (restoreFocus && activeRef && typeof activeRef.focus === 'function') activeRef.focus();
+        activeRef = null;
+      }
+
       document.querySelectorAll('.gloss-ref').forEach(function (link) {
-        link.addEventListener('click', function () {
+        link.addEventListener('click', function (e) {
           var id = (link.getAttribute('href') || '').replace(/^#/, '');
           var det = id ? document.getElementById(id) : null;
-          if (det && det.tagName === 'DETAILS') {
-            det.open = true;
-            det.classList.remove('is-flash');
-            void det.offsetWidth;
-            det.classList.add('is-flash');
-            setTimeout(function () {
-              det.classList.remove('is-flash');
-            }, 1400);
+          if (!det || !pop || !popTitle || !popEn || !popDef || !popJump) {
+            openGlossaryItem(id);
+            return;
           }
+          e.preventDefault();
+          activeRef = link;
+          var swEl = det.querySelector('.g-sw');
+          var enEl = det.querySelector('.g-en');
+          var pEl = det.querySelector('p');
+          popTitle.textContent = swEl ? swEl.textContent : '';
+          popEn.textContent = enEl ? ' (' + enEl.textContent + ')' : '';
+          popDef.textContent = pEl ? pEl.textContent : '';
+          popJump.setAttribute('href', '#' + id);
+
+          pop.hidden = false;
+          var rect = link.getBoundingClientRect();
+          var popW = Math.min(340, window.innerWidth - 24);
+          pop.style.width = popW + 'px';
+          var left = Math.min(Math.max(12, rect.left), window.innerWidth - popW - 12);
+          var top = rect.bottom + 8;
+          if (top + pop.offsetHeight > window.innerHeight - 16) {
+            top = Math.max(12, rect.top - pop.offsetHeight - 8);
+          }
+          pop.style.left = left + 'px';
+          pop.style.top = top + 'px';
         });
+      });
+
+      popJump &&
+        popJump.addEventListener('click', function () {
+          var id = (popJump.getAttribute('href') || '').replace(/^#/, '');
+          closePop(false);
+          openGlossaryItem(id);
+        });
+
+      popClose &&
+        popClose.addEventListener('click', function () {
+          closePop(true);
+        });
+
+      document.addEventListener('click', function (e) {
+        if (!pop || pop.hidden) return;
+        if (!pop.contains(e.target) && !e.target.closest('.gloss-ref')) {
+          closePop(false);
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && pop && !pop.hidden) {
+          closePop(true);
+        }
       });
     });
   </script>
@@ -502,6 +579,59 @@ const swSchema = {
   }
   .gloss-ref:hover {
     color: var(--accent-clove);
+  }
+  .gloss-popover {
+    position: fixed;
+    z-index: 2200;
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-forest);
+    padding: 0.8rem 0.95rem;
+    border-radius: 2px;
+    box-shadow: 0 12px 28px rgba(21, 20, 18, 0.16);
+  }
+  .gloss-popover[hidden] {
+    display: none;
+  }
+  .gloss-pop-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-bottom: 0.35rem;
+  }
+  .gloss-pop-head strong {
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    color: var(--accent-forest);
+  }
+  .gloss-pop-en {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-clove);
+  }
+  .gloss-pop-close {
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--text-muted);
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .gloss-pop-def {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0 0 0.45rem;
+  }
+  .gloss-pop-jump {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-forest);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-forest);
   }
   .glossary-item summary {
     cursor: pointer;

@@ -21,6 +21,7 @@ export interface Props {
   alternates?: HrefAlternate[];
   keywords?: string;
   noindex?: boolean;
+  preloadDisplayFonts?: boolean;
 }
 
 const {
@@ -37,7 +38,8 @@ const {
   lang = 'en',
   alternates,
   keywords = 'Innocent Nyalala, IIT Madras Zanzibar, Data Science, Artificial Intelligence, Deep Learning, Computer Vision, Agricultural AI, Swahili NLP, East Africa, Tanzania, Kenya, WSAI IIT Madras, SAAIL Lab',
-  noindex = false
+  noindex = false,
+  preloadDisplayFonts = false
 } = Astro.props;
 
 const ogLower = ogImage.toLowerCase();
@@ -49,9 +51,12 @@ const ogImageType = ogLower.endsWith('.webp')
 const isDefaultOg = ogImage === 'https://inyalala.github.io/images/og-innocent-nyalala.png';
 const resolvedOgW = ogImageWidth ?? (isDefaultOg ? 1200 : undefined);
 const resolvedOgH = ogImageHeight ?? (isDefaultOg ? 630 : undefined);
-const resolvedAlternates: HrefAlternate[] = alternates && alternates.length > 0
+const baseAlternates: HrefAlternate[] = alternates && alternates.length > 0
   ? alternates
   : [{ hreflang: lang, href: canonical }];
+const resolvedAlternates: HrefAlternate[] = baseAlternates.some((a) => a.hreflang === 'x-default')
+  ? baseAlternates
+  : [...baseAlternates, { hreflang: 'x-default', href: canonical }];
 const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
 ---
 
@@ -157,10 +162,14 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
 
     <!-- Preload Self-Hosted Monograph Typography (Zero FOUT Flash) -->
     <link rel="preload" href="/fonts/cormorant-garamond-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/cormorant-garamond-600-italic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/newsreader-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/pinyon-script-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/ibm-plex-mono-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    {preloadDisplayFonts && (
+      <>
+        <link rel="preload" href="/fonts/cormorant-garamond-600-italic.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/fonts/pinyon-script-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+      </>
+    )}
 
     <!-- Day/Night Theme Initialization (Zero Flash) -->
     <script is:inline>

@@ -20,14 +20,14 @@ const faqsSw: FaqItem[] = [
   {
     id: 'faq-saail-tofauti',
     q: 'Tovuti hii binafsi inatofautianaje na tovuti ya Maabara ya SAAIL?',
-    plainA: `Tovuti hii ni kumbukumbu binafsi ya kitaaluma ya Dkt. Innocent Nyalala: nyadhifa rasmi, machapisho yote ${metrics.totalWorks} (nukuu ${metrics.citations.toLocaleString('en-US')}), kozi za IIT Madras Zanzibar, makala, na mawasiliano ya moja kwa moja. Orodha za wanafunzi, watafiti waliopita, tovuti za miradi, na programu za Android za maabara zinapatikana kwenye tovuti ya Maabara ya SAAIL.`,
+    plainA: `Tovuti hii ni kumbukumbu binafsi ya kitaaluma ya Dkt. Innocent Nyalala: nyadhifa rasmi, machapisho yote ${metrics.totalWorks} (manukuu ${metrics.citations.toLocaleString('en-US')}), kozi za IIT Madras Zanzibar, makala, na mawasiliano ya moja kwa moja. Orodha za wanafunzi, watafiti waliopita, tovuti za miradi, na programu za Android za maabara zinapatikana kwenye tovuti ya Maabara ya SAAIL.`,
     linkText: 'Tembelea Maabara ya SAAIL (saaillab.github.io)',
     linkHref: 'https://saaillab.github.io/',
     external: true
   },
   {
     id: 'faq-slaidi',
-    q: 'Wanafunzi wa IIT Madras Zanzibar wanaweza kupata wapi slaidi na daftari za masomo?',
+    q: 'Wanafunzi wa IIT Madras Zanzibar wanaweza kupata wapi slaidi na madaftari ya masomo?',
     plainA:
       'Kozi zinazoendelea za Muhula wa Kwanza 2026-27 kwa Z5007 (Utayarishaji Programu na Miundo ya Data, MTech) na Z3003 (Uchimbaji wa Data, BS Core pamoja na Dkt. Mahendran V), pamoja na kumbukumbu za Z2005, Z2004, na Z5008, zinapatikana kwenye ukurasa wa Kozi na Slaidi.',
     linkText: 'Fungua Ukurasa wa Kozi na Slaidi',
@@ -79,7 +79,7 @@ const faqsSw: FaqItem[] = [
 const swFaqSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    personEntity(),
+    personEntity('sw'),
     {
       ...websiteEntity(),
       inLanguage: ['en-US', 'sw-TZ']

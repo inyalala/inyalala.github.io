@@ -14,7 +14,7 @@ const previousCourses = COURSES.filter((c) => c.status === 'previous');
 const swCoursesSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    personEntity(),
+    personEntity('sw'),
     {
       ...websiteEntity(),
       inLanguage: ['en-US', 'sw-TZ']
@@ -33,6 +33,15 @@ const swCoursesSchema = {
         numberOfItems: COURSES.length,
         itemListElement: COURSES.map((c, idx) => {
           const loc = SW_COURSES_MAP[c.slug];
+          const instructors: Record<string, unknown>[] = [{ '@id': 'https://inyalala.github.io/#person' }];
+          if (c.coInstructor) {
+            instructors.push({
+              '@type': 'Person',
+              name: c.coInstructor.name,
+              affiliation: { '@type': 'CollegeOrUniversity', name: c.coInstructor.institution }
+            });
+          }
+          const isActive = c.status === 'active';
           return {
             '@type': 'ListItem',
             position: idx + 1,
@@ -57,12 +66,19 @@ const swCoursesSchema = {
                 name: PROFILE.institution,
                 url: 'https://www.iitmz.ac.in/'
               },
-              instructor: { '@id': 'https://inyalala.github.io/#person' },
+              instructor: instructors.length === 1 ? instructors[0] : instructors,
               hasCourseInstance: {
                 '@type': 'CourseInstance',
                 name: `${c.code} (${loc ? loc.termSw : c.term})`,
                 courseMode: 'Onsite',
-                instructor: { '@id': 'https://inyalala.github.io/#person' },
+                startDate: isActive ? '2026-10-05' : '2026-03-01',
+                endDate: isActive ? '2027-01-31' : '2026-07-31',
+                courseSchedule: {
+                  '@type': 'Schedule',
+                  repeatFrequency: 'P1W',
+                  repeatCount: isActive ? 17 : 15
+                },
+                instructor: instructors.length === 1 ? instructors[0] : instructors,
                 location: {
                   '@type': 'Place',
                   name: PROFILE.campusAddress
@@ -107,7 +123,7 @@ const swCoursesSchema = {
         <span class="mono-eyebrow">IIT Madras Zanzibar &middot; Kozi na Slaidi za Wanafunzi</span>
         <h1 class="page-title">Ufundishaji na Kozi za Kitaaluma</h1>
         <p class="page-lead">
-          Mihtasari ya kozi, ratiba za wiki, slaidi za PDF na Reveal.js, maabara za vitendo, na daftari za Jupyter/Colab zilizohifadhiwa chini ya viungo visivyobadilika kwa wanafunzi wa IIT Madras Zanzibar.
+          Mihtasari ya kozi, ratiba za wiki, slaidi za PDF na Reveal.js, maabara za vitendo, na madaftari ya Jupyter/Colab zilizohifadhiwa chini ya viungo visivyobadilika kwa wanafunzi wa IIT Madras Zanzibar.
         </p>
 
         <div class="filter-strip" role="group" aria-label="Chuja kozi kwa programu au muhula">
@@ -204,7 +220,7 @@ const swCoursesSchema = {
           <div>
             <h3>Vifaa Bila Nywila</h3>
             <p>
-              Slaidi za kivinjari (Reveal.js), makabrasha ya PDF, maelekezo ya maabara, na daftari za Google Colab hufunguka moja kwa moja kupitia HTTPS bila kuhitaji usajili.
+              Slaidi za kivinjari (Reveal.js), muhtasari wa PDF, maelekezo ya maabara, na madaftari ya Google Colab hufunguka moja kwa moja kupitia HTTPS bila kuhitaji usajili.
             </p>
           </div>
           <div>

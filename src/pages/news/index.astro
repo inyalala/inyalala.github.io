@@ -169,7 +169,13 @@ const newsSchema = {
 
               {item.slides.length > 0 && (
                 <div class="news-gallery" data-count={item.slides.length}>
-                  <div class="gallery-track" tabindex="0" aria-label={`Photo gallery for ${item.headline}`}>
+                  <div
+                    class="gallery-track"
+                    tabindex="0"
+                    role="region"
+                    aria-roledescription="scrollable photo gallery"
+                    aria-label={`Photo gallery for ${item.headline}`}
+                  >
                     {item.slides.map((sl) => {
                       const thumb = getThumbSrc(sl.src);
                       const dim = getImageDim(thumb, 640, 420);

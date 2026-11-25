@@ -10,7 +10,7 @@ const pageUrl = 'https://inyalala.github.io/sw/contact/';
 const swContactSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    personEntity(),
+    personEntity('sw'),
     {
       ...websiteEntity(),
       inLanguage: ['en-US', 'sw-TZ']

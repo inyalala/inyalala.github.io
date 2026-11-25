@@ -24,12 +24,12 @@ const pillarsSw = [
   {
     id: 'kiswahili',
     num: 'II · Usanifu wa Lugha ya Kiswahili na Asili ya Matini',
-    title: 'Zanzibar Swahili Corpus na Kigunduzi cha Dira cha Tafsiri ya Mashine',
+    title: 'Korpasi ya Kiswahili cha Zanzibar na Kigunduzi cha Dira',
     summary:
       'Mkusanyiko mwingi wa data za Kiswahili mtandaoni hutegemea matini yaliyotafsiriwa kutoka lugha ya Kiingereza kwa programu za kompyuta na kupoteza lahaja halisi ya Kiunguja. Tunakusanya matini asilia ya magazeti, kilimo na mazungumzo ya Zanzibar pamoja na mfumo wa Dira wa kukagua asili ya matini dhidi ya tafsiri ya mashine, na mfumo wa CARA-FM (PMLR Vol. 302).',
     image: '/images/research/swahili-corpus.png',
-    imageAlt: 'Chati ya usambazaji wa vyanzo katika Zanzibar Swahili Corpus',
-    caption: 'Usambazaji wa vyanzo halisi vya Kiunguja na Kipemba ndani ya Zanzibar Swahili Corpus.',
+    imageAlt: 'Chati ya usambazaji wa vyanzo katika Korpasi ya Kiswahili cha Zanzibar',
+    caption: 'Usambazaji wa vyanzo halisi vya Kiunguja na Kipemba ndani ya Korpasi ya Kiswahili cha Zanzibar.',
     labHref: 'https://saaillab.github.io/projects/swahili-dira/',
     labLabel: 'Mradi wa Kiswahili na Dira'
   },
@@ -85,7 +85,7 @@ const datasetsSw = [
 const swResearchSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    personEntity(),
+    personEntity('sw'),
     {
       ...websiteEntity(),
       inLanguage: ['en-US', 'sw-TZ']
@@ -136,7 +136,7 @@ const swResearchSchema = {
     {
       '@type': 'Dataset',
       '@id': `${pageUrl}#dataset-swahili-dira`,
-      name: 'Zanzibar Swahili Corpus na Kipimo cha Asili cha Dira',
+      name: 'Korpasi ya Kiswahili cha Zanzibar na Kipimo cha Asili cha Dira',
       description: 'Mkusanyiko wa matini halisi ya Kiunguja na Kipemba pamoja na migawanyo ya ukaguzi wa tafsiri ya mashine.',
       url: 'https://saaillab.github.io/projects/swahili-dira/',
       sameAs: 'https://inyalala.github.io/research/#dataset-swahili-dira',

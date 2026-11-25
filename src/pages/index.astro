@@ -56,6 +56,7 @@ const schemaGraph = {
   title="Innocent Nyalala, PhD | Data Science & AI · IITMZ"
   description="Faculty monograph of Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab."
   canonical="https://inyalala.github.io/"
+  preloadDisplayFonts={true}
   alternates={[
     { hreflang: 'en', href: 'https://inyalala.github.io/' },
     { hreflang: 'sw', href: 'https://inyalala.github.io/sw/' },
@@ -244,6 +245,9 @@ const schemaGraph = {
           {latestNews.map((item) => {
             const thumbSrc = item.image ? getThumbSrc(item.image) : '';
             const dim = thumbSrc ? getImageDim(thumbSrc, 640, 400) : { width: 640, height: 400 };
+            const galCount = Array.isArray((item as { gallery?: unknown[] }).gallery)
+              ? ((item as { gallery?: unknown[] }).gallery?.length ?? 0)
+              : 0;
             return (
               <article class="dispatch-row">
                 {thumbSrc && (
@@ -258,6 +262,9 @@ const schemaGraph = {
                       loading="lazy"
                       decoding="async"
                     />
+                    {galCount > 1 && (
+                      <span class="dispatch-vis-count" aria-hidden="true">{galCount} visuals</span>
+                    )}
                   </a>
                 )}
                 <div class="dispatch-body">
@@ -709,11 +716,25 @@ const schemaGraph = {
     align-items: start;
   }
   .dispatch-media {
+    position: relative;
     display: block;
     border: 1px solid var(--rule);
     background: var(--bg-surface);
     aspect-ratio: 16 / 10;
     overflow: hidden;
+  }
+  .dispatch-vis-count {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    padding: 0.14rem 0.42rem;
+    background: rgba(21, 20, 18, 0.84);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
+    border-radius: 2px;
+    pointer-events: none;
   }
   .dispatch-media img {
     width: 100%;

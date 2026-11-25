@@ -9,7 +9,8 @@ export interface BreadcrumbItem {
   url: string;
 }
 
-export function personEntity() {
+export function personEntity(lang: 'en' | 'sw' = 'en') {
+  const isSw = lang === 'sw';
   return {
     '@type': 'Person',
     '@id': `${BASE}/#person`,
@@ -18,8 +19,10 @@ export function personEntity() {
     givenName: 'Innocent',
     familyName: 'Nyalala',
     honorificSuffix: 'PhD',
-    jobTitle: PROFILE.role,
-    description: PROFILE.bios.short,
+    jobTitle: isSw ? 'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba' : PROFILE.role,
+    description: isSw
+      ? 'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba katika Kitivo cha Uhandisi na Sayansi, Chuo Kikuu cha IIT Madras Zanzibar, na Mkurugenzi wa Utafiti wa Maabara ya SAAIL.'
+      : PROFILE.bios.short,
     url: `${BASE}/`,
     email: `mailto:${PROFILE.email}`,
     knowsLanguage: ['en', 'sw'],
@@ -200,7 +203,14 @@ export function courseSchemaNode(c: CourseData) {
       '@type': 'CourseInstance',
       name: `${c.code} (${c.term})`,
       courseMode: 'Onsite',
-      instructor: { '@id': `${BASE}/#person` },
+      startDate: c.status === 'active' ? '2026-10-05' : '2026-03-01',
+      endDate: c.status === 'active' ? '2027-01-31' : '2026-07-31',
+      courseSchedule: {
+        '@type': 'Schedule',
+        repeatFrequency: 'P1W',
+        repeatCount: c.status === 'active' ? 17 : 15
+      },
+      instructor: instructors.length === 1 ? instructors[0] : instructors,
       location: {
         '@type': 'Place',
         name: PROFILE.campusAddress

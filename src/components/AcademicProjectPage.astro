@@ -1424,9 +1424,25 @@ const jsonLdGraph = {
   @media (max-width: 760px) {
     .detail-figures-grid { grid-template-columns: 1fr; }
     .more-works-dropdown {
+      right: 0;
+      left: auto;
+      max-width: calc(100vw - 2.5rem);
+    }
+  }
+  @media (max-width: 640px) {
+    .section-jump-nav {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      gap: 0.4rem 1rem;
+    }
+  }
+  @media (max-width: 520px) {
+    .more-works-dropdown {
       left: 0;
       right: auto;
-      max-width: calc(100vw - 2.5rem);
     }
   }
   @media print {

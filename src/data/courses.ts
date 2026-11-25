@@ -689,6 +689,7 @@ export const COURSES: CourseData[] = [
       classroomUrl: ''
     },
     supplementaryDocs: [
+      { label: 'End-Semester Mock Exam & Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_EndSem_Mock_Exam_and_Solutions.pdf`, kind: 'pdf' },
       { label: 'Algorithms Master Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Algorithms_Master_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Midterm Review Worked Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Midterm_Review_Solutions.pdf`, kind: 'pdf' },
       { label: 'Quiz 1 Practice Bank (40 Questions PDF)', href: `${TEACH_BASE}/z5007/week-06/practice/Z5007_Quiz1_Practice40.pdf`, kind: 'pdf' }
@@ -859,6 +860,7 @@ export const COURSES: CourseData[] = [
       classroomUrl: ''
     },
     supplementaryDocs: [
+      { label: 'Weeks 1-6 Revision & Mock Quiz (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Weeks1_6_Revision_and_Mock_Quiz.pdf`, kind: 'pdf' },
       { label: 'Data Mining Formula Cheat Sheet (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Data_Mining_Formula_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Mini-Project Brief (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Mini_Project_Brief.pdf`, kind: 'pdf' },
       { label: 'Mini-Project Starter Notebook (.ipynb)', href: `${TEACH_BASE}/dm-scale/labs/MP01_Mini_Project_Starter.ipynb`, kind: 'notebook' }

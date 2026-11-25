@@ -46,6 +46,13 @@ export const GET: APIRoute = () => {
     },
     {
       group: 'Pages',
+      title: 'Makala na Miongozo (Kiswahili)',
+      meta: 'Insha · Kiunguja · Overleaf · Kampasi ya Bweleo',
+      url: '/sw/writing/',
+      keywords: 'kiswahili makala miongozo kiunguja overleaf bweleo mwani'
+    },
+    {
+      group: 'Pages',
       title: 'Maswali Yanayoulizwa Mara kwa Mara (Kiswahili)',
       meta: 'Usimamizi · Saa za Ofisi · Leseni',
       url: '/sw/faq/',

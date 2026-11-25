@@ -37,6 +37,33 @@ const milestones: Record<string, string> = {
   '2024': '2024 IITMZ',
   '2025': '2025–26 DLI'
 };
+const hoverNotes: Record<string, string> = {
+  '2023': '2023 PhD',
+  '2024': '2024 IITMZ',
+  '2025': '2025–26 DLI',
+  '2026': 'Kigali 2025 & Lagos 2026 DLI Best Poster'
+};
+const paperCountByYear = new Map<string, number>();
+for (const pub of sortedPubs) {
+  const ys = String(pub.year);
+  paperCountByYear.set(ys, (paperCountByYear.get(ys) || 0) + 1);
+}
+const maxYearPapers = Math.max(...years.map((y) => paperCountByYear.get(y) || 0), 1);
+const paperLinePoints = years
+  .map((y, idx) => {
+    const cx = padL + slot * idx + (slot - barW) / 2 + barW / 2;
+    const cnt = paperCountByYear.get(y) || 0;
+    const py = H - padB - (cnt / maxYearPapers) * (H - padT - padB) * 0.85;
+    return `${cx.toFixed(1)},${py.toFixed(1)}`;
+  })
+  .join(' ');
+
+const flagshipVenues = ['CVPR', 'ICLR', 'PMLR', 'ESWA', 'ETRI']
+  .map((v) => ({
+    venue: v,
+    count: sortedPubs.filter((p) => `${p.venueShort} ${p.venue}`.toUpperCase().includes(v)).length
+  }))
+  .filter((x) => x.count > 0);
 
 const topicCounts = new Map<string, number>();
 for (const pub of sortedPubs) {
@@ -53,6 +80,10 @@ function formatApaCitation(pub: (typeof sortedPubs)[number]): string {
   const authList = pub.authors.slice(0, 20).join(', ');
   const doiPart = pub.doi ? ` https://doi.org/${pub.doi}` : pub.paperUrl ? ` ${pub.paperUrl}` : '';
   return `${authList} (${pub.year}). ${pub.title}. ${pub.venue}.${doiPart}`.trim();
+}
+
+function formatThesisApa(th: (typeof THESES)[number]): string {
+  return `Nyalala, I. (${th.year}). ${th.title} [${th.degree}, ${th.institution}]. https://inyalala.github.io/publications/theses/${th.slug}/`;
 }
 
 const schemaCollection = {
@@ -166,10 +197,10 @@ const schemaCollection = {
 
         <div class="chart-panel">
           <div class="chart-head">
-            <span>Citations per Year (Google Scholar Exact, Updated {metrics.updatedAt})</span>
+            <span>Citations per Year &amp; Annual Paper Output (Updated {metrics.updatedAt})</span>
             <span id="chartReadout" class="chart-readout tabular-nums">Hover or click any year bar to filter papers</span>
           </div>
-          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Interactive citations per year from ${years[0]} to ${years[years.length - 1]}`}>
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Interactive citations per year and annual paper count from ${years[0]} to ${years[years.length - 1]}`}>
             {years.map((y, idx) => {
               const v = vals[idx];
               const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
@@ -177,11 +208,13 @@ const schemaCollection = {
               const yTop = H - padB - barH;
               const cx = x + barW / 2;
               const ms = milestones[y];
+              const note = hoverNotes[y];
+              const papersY = paperCountByYear.get(y) || 0;
               const hasPapers = yearsWithPapers.has(y);
               const isThesisYear = y === '2023';
               const isInteractive = hasPapers || isThesisYear;
               const titleText = hasPapers
-                ? `${y}: ${v} citations${ms ? ` (${ms})` : ''} · click to filter ${y} papers`
+                ? `${y}: ${v} citations, ${papersY} ${papersY === 1 ? 'paper' : 'papers'}${note ? ` (${note})` : ''} · click to filter ${y} papers`
                 : isThesisYear
                 ? `${y}: ${v} citations (2023 PhD) · click to jump to thesis monograph`
                 : `${y}: ${v} citations across prior works`;
@@ -190,6 +223,7 @@ const schemaCollection = {
                   class:list={['chart-col', !isInteractive ? 'is-static' : '']}
                   data-year={y}
                   data-cites={v}
+                  data-papers={papersY}
                   data-action={isThesisYear ? 'thesis' : hasPapers ? 'filter' : 'static'}
                   role={isInteractive ? 'button' : 'presentation'}
                   tabindex={isInteractive ? '0' : undefined}
@@ -198,7 +232,7 @@ const schemaCollection = {
                     isThesisYear
                       ? `Jump to 2023 PhD thesis monograph (${v} citations)`
                       : hasPapers
-                      ? `Filter publications from ${y} (${v} citations)`
+                      ? `Filter publications from ${y} (${v} citations, ${papersY} papers)`
                       : undefined
                   }
                 >
@@ -230,6 +264,16 @@ const schemaCollection = {
                 </g>
               );
             })}
+            <g class="chart-paper-overlay" aria-hidden="true">
+              <polyline points={paperLinePoints} class="chart-paper-line" />
+              {years.map((y, idx) => {
+                const cnt = paperCountByYear.get(y) || 0;
+                if (!cnt) return null;
+                const cx = padL + slot * idx + (slot - barW) / 2 + barW / 2;
+                const py = H - padB - (cnt / maxYearPapers) * (H - padT - padB) * 0.85;
+                return <circle cx={cx.toFixed(1)} cy={py.toFixed(1)} r="3.1" class="chart-paper-dot" />;
+              })}
+            </g>
           </svg>
           <div class="chart-year-strip" role="group" aria-label="Filter publications by year">
             <span class="yr-strip-lbl">Filter by year:</span>
@@ -301,6 +345,15 @@ const schemaCollection = {
           ))}
         </div>
 
+        <div class="venue-filter-bar" role="group" aria-label="Filter publications by flagship venue">
+          <span class="yr-strip-lbl">Flagship venues:</span>
+          {flagshipVenues.map(({ venue, count }) => (
+            <button type="button" class="topic-pill venue-pill" data-venue={venue} aria-pressed="false">
+              {venue} ({count})
+            </button>
+          ))}
+        </div>
+
         <p id="copyAnnounce" class="sr-only" aria-live="polite"></p>
 
         <ol class="bib-list" id="pubList">
@@ -317,6 +370,7 @@ const schemaCollection = {
                 data-category={pub.category}
                 data-oa={pub.openAccess ? 'yes' : 'no'}
                 data-topics={pub.topics.map((t) => t.toLowerCase()).join('|')}
+                data-venue-hay={`${pub.venueShort} ${pub.venue}`.toUpperCase()}
                 data-extra={`${pub.doi} ${pub.topics.join(' ')}`.toLowerCase()}
               >
                 <div class="pub-yr-col">
@@ -481,6 +535,9 @@ const schemaCollection = {
                     <button type="button" class="bib-btn bib-toggle" aria-expanded="false" aria-controls={bibId}>
                       BibTeX
                     </button>
+                    <button type="button" class="bib-btn copy-apa-inline" data-apa={formatThesisApa(th)}>
+                      Cite (APA)
+                    </button>
                   </div>
                   <div id={bibId} class="bib-panel" hidden>
                     <pre><code>{th.bibtex}</code></pre>
@@ -512,7 +569,8 @@ const schemaCollection = {
     var chartReadout = document.getElementById('chartReadout');
     var chartCols = document.querySelectorAll('.chart-col');
     var yrChips = document.querySelectorAll('.yr-chip');
-    var topicPills = document.querySelectorAll('.topic-pill');
+    var topicPills = document.querySelectorAll('.topic-pill[data-topic]');
+    var venuePills = document.querySelectorAll('.venue-pill');
     var announceEl = document.getElementById('copyAnnounce');
     var tabs = document.querySelectorAll('.filter-btn');
     if (!listEl) return;
@@ -521,6 +579,7 @@ const schemaCollection = {
     var activeFilter = 'all';
     var activeYear = '';
     var activeTopic = '';
+    var activeVenue = '';
 
     function copyTextFallback(text) {
       if (!text) return Promise.resolve(false);
@@ -555,7 +614,7 @@ const schemaCollection = {
         }
       });
       var q = ((searchEl && searchEl.value) || '').trim();
-      var isUnfiltered = activeFilter === 'all' && !activeYear && !activeTopic && !q;
+      var isUnfiltered = activeFilter === 'all' && !activeYear && !activeTopic && !activeVenue && !q;
       if (isUnfiltered) {
         var thesesSec = document.getElementById('theses');
         if (thesesSec) {
@@ -597,6 +656,12 @@ const schemaCollection = {
         pill.classList.toggle('is-active', on);
         pill.setAttribute('aria-pressed', String(on));
       });
+      venuePills.forEach(function (pill) {
+        var vUp = (pill.getAttribute('data-venue') || '').toUpperCase();
+        var on = Boolean(activeVenue) && vUp === activeVenue.toUpperCase();
+        pill.classList.toggle('is-active', on);
+        pill.setAttribute('aria-pressed', String(on));
+      });
       document.querySelectorAll('.pub-topic-link').forEach(function (link) {
         var tLow = (link.getAttribute('data-topic') || '').toLowerCase();
         link.classList.toggle('is-active', Boolean(activeTopic) && tLow === activeTopic.toLowerCase());
@@ -612,6 +677,8 @@ const schemaCollection = {
         else params.delete('year');
         if (activeTopic) params.set('topic', activeTopic);
         else params.delete('topic');
+        if (activeVenue) params.set('venue', activeVenue);
+        else params.delete('venue');
         var qVal = ((searchEl && searchEl.value) || '').trim();
         if (qVal) params.set('q', qVal);
         else params.delete('q');
@@ -659,14 +726,16 @@ const schemaCollection = {
 
         var matchYear = !activeYear || yr === activeYear;
         var matchTopic = !tLow || topicsArr.indexOf(tLow) !== -1;
+        var vHay = card.getAttribute('data-venue-hay') || '';
+        var matchVenue = !activeVenue || vHay.indexOf(activeVenue.toUpperCase()) !== -1;
         var matchSearch = !q || hay.indexOf(q) !== -1;
-        var show = matchTab && matchYear && matchTopic && matchSearch;
+        var show = matchTab && matchYear && matchTopic && matchVenue && matchSearch;
         card.style.display = show ? 'grid' : 'none';
         if (show) visible++;
       });
 
       if (emptyEl) emptyEl.hidden = visible > 0;
-      var isFiltered = activeFilter !== 'all' || Boolean(activeYear) || Boolean(activeTopic) || Boolean(q) || sortMode !== 'default';
+      var isFiltered = activeFilter !== 'all' || Boolean(activeYear) || Boolean(activeTopic) || Boolean(activeVenue) || Boolean(q) || sortMode !== 'default';
       if (resetBtn) resetBtn.hidden = !isFiltered;
 
       var bibBundle = getVisibleBibBundle();
@@ -688,6 +757,7 @@ const schemaCollection = {
         }
         if (activeYear) parts.push('Year: ' + activeYear);
         if (activeTopic) parts.push('Topic: ' + activeTopic);
+        if (activeVenue) parts.push('Venue: ' + activeVenue);
         if (q && searchEl) parts.push('"' + searchEl.value.trim() + '"');
         var suffix = parts.length ? ' (' + parts.join(' + ') + ')' : '';
         countEl.textContent = 'Showing ' + visible + ' of ' + cards.length + ' publications' + suffix;
@@ -707,12 +777,18 @@ const schemaCollection = {
       applyFilterAndSort();
     }
 
+    function toggleVenue(venue) {
+      activeVenue = activeVenue.toUpperCase() === venue.toUpperCase() ? '' : venue;
+      applyFilterAndSort();
+    }
+
     function resetAll() {
       if (searchEl) searchEl.value = '';
       if (sortEl) sortEl.value = 'default';
       activeFilter = 'all';
       activeYear = '';
       activeTopic = '';
+      activeVenue = '';
       tabs.forEach(function (b) {
         var isAll = b.getAttribute('data-filter') === 'all';
         b.setAttribute('aria-pressed', String(isAll));
@@ -727,6 +803,7 @@ const schemaCollection = {
       var initFilter = initParams.get('filter');
       var initYear = initParams.get('year');
       var initTopic = initParams.get('topic');
+      var initVenue = initParams.get('venue');
       var initQ = initParams.get('q');
       var initSort = initParams.get('sort');
       if (initFilter) {
@@ -738,21 +815,23 @@ const schemaCollection = {
       }
       if (initYear) activeYear = initYear;
       if (initTopic) activeTopic = initTopic;
+      if (initVenue) activeVenue = initVenue;
       if (initQ && searchEl) searchEl.value = initQ;
       if (initSort && sortEl) sortEl.value = initSort;
-      if (initFilter || initYear || initTopic || initQ || initSort) applyFilterAndSort(true);
+      if (initFilter || initYear || initTopic || initVenue || initQ || initSort) applyFilterAndSort(true);
     } catch (e) {}
 
     chartCols.forEach(function (col) {
       var yr = col.getAttribute('data-year') || '';
       var cites = col.getAttribute('data-cites') || '';
+      var papersCnt = col.getAttribute('data-papers') || '0';
       var action = col.getAttribute('data-action') || 'static';
       var updateReadout = function () {
         if (!chartReadout) return;
         if (action === 'thesis') {
           chartReadout.textContent = yr + ': ' + cites + ' citations (click to view 2023 PhD thesis monograph)';
         } else if (action === 'filter') {
-          chartReadout.textContent = yr + ': ' + cites + ' citations (click to filter ' + yr + ' papers)';
+          chartReadout.textContent = yr + ': ' + cites + ' citations, ' + papersCnt + ' ' + (papersCnt === '1' ? 'paper' : 'papers') + ' (click to filter)';
         } else {
           chartReadout.textContent = yr + ': ' + cites + ' citations across earlier publications';
         }
@@ -834,7 +913,13 @@ const schemaCollection = {
 
     (mainEl || listEl).addEventListener('click', function (e) {
       var target = e.target;
-      var topicBtn = target.closest('.topic-pill');
+      var venueBtn = target.closest('.venue-pill');
+      if (venueBtn) {
+        toggleVenue(venueBtn.getAttribute('data-venue') || '');
+        return;
+      }
+
+      var topicBtn = target.closest('.topic-pill[data-topic]');
       if (topicBtn) {
         toggleTopic(topicBtn.getAttribute('data-topic') || '');
         return;
@@ -1003,7 +1088,29 @@ const schemaCollection = {
     flex-wrap: wrap;
     align-items: center;
     gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .venue-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
     margin-bottom: 1.05rem;
+  }
+  .chart-paper-overlay {
+    pointer-events: none;
+  }
+  .chart-paper-line {
+    fill: none;
+    stroke: var(--accent-clove);
+    stroke-width: 1.4;
+    stroke-dasharray: 3 2;
+    opacity: 0.85;
+  }
+  .chart-paper-dot {
+    fill: var(--bg-surface);
+    stroke: var(--accent-clove);
+    stroke-width: 1.5;
   }
   #theses.is-flash {
     background: var(--bg-secondary);
@@ -1358,6 +1465,7 @@ const schemaCollection = {
     .result-actions,
     .pub-ext-links,
     .topic-filter-bar,
+    .venue-filter-bar,
     .controls-bar,
     .pub-actions {
       display: none !important;

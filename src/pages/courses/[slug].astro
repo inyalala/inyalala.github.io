@@ -167,20 +167,29 @@ const schemaCourse = {
           Open slide PDFs directly in your browser, read LaTeX lecture notes and worksheets (PDF), preview PowerPoint decks online, or download laboratory notebooks without login walls.
         </p>
 
-        <nav class="mod-jump-strip" aria-label="Module or week quick jump">
-          {course.modules.map((m) => {
-            const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            return (
-              <a
-                href={`#mod-${modSlug}`}
-                class:list={['mod-jump-pill', m.assignment ? 'is-exam' : '']}
-                title={m.assignment ? `${m.title} (${m.assignment})` : m.title}
-              >
-                {m.code}
-              </a>
-            );
-          })}
-        </nav>
+        <div class="mod-jump-bar">
+          <nav class="mod-jump-strip" aria-label="Module or week quick jump">
+            {course.modules.map((m) => {
+              const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+              return (
+                <a
+                  href={`#mod-${modSlug}`}
+                  class:list={['mod-jump-pill', m.assignment ? 'is-exam' : '']}
+                  title={m.assignment ? `${m.title} (${m.assignment})` : m.title}
+                >
+                  {m.code}
+                  {m.assignment && <span class="sr-only"> (assessment due)</span>}
+                </a>
+              );
+            })}
+          </nav>
+          {course.modules.some((m) => Boolean(m.assignment)) && (
+            <span class="mod-legend">
+              <span class="legend-dot" aria-hidden="true"></span>
+              Assessment checkpoint
+            </span>
+          )}
+        </div>
 
         <ol class="module-ledger">
           {course.modules.map((m) => {
@@ -498,11 +507,41 @@ const schemaCourse = {
   }
 
   /* Module Ledger */
+  .mod-jump-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.2rem;
+  }
   .mod-jump-strip {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin-bottom: 1.2rem;
+  }
+  .mod-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-clove);
+    display: inline-block;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
   .mod-jump-pill {
     display: inline-flex;
@@ -796,6 +835,10 @@ const schemaCourse = {
     }
     .module-entry {
       scroll-margin-top: calc(var(--mobile-bar-height) + 18px);
+    }
+    .mod-jump-pill {
+      min-height: 40px;
+      padding: 0.35rem 0.65rem;
     }
     .res-link {
       min-height: 42px;

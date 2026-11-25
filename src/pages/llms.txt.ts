@@ -51,6 +51,7 @@ export const GET: APIRoute = () => {
     '- Kiswahili Monograph Overview (Swahili): https://inyalala.github.io/sw/',
     '- Kiswahili Teaching & Courses: https://inyalala.github.io/sw/courses/',
     '- Kiswahili Research Agenda: https://inyalala.github.io/sw/research/',
+    '- Kiswahili Writing Digest: https://inyalala.github.io/sw/writing/',
     '- Kiswahili FAQ & Contact: https://inyalala.github.io/sw/faq/ and https://inyalala.github.io/sw/contact/',
     '- Research Agenda & IC&SR CashewAI Grant: https://inyalala.github.io/research/',
     `- Complete ${pCount}-Paper Publications Catalog, BibTeX & Thesis Monographs: https://inyalala.github.io/publications/`,
