@@ -140,16 +140,21 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
         <div class:list={['essay-body-layout', hasToc ? 'has-toc' : '']}>
           {hasToc && (
             <nav id="articleToc" class="article-toc" aria-label="On this page">
-              <span class="mono-eyebrow">On This Page</span>
-              <ol id="articleTocList" class="toc-list">
-                {tocHeadings.map((h) => (
-                  <li class={h.depth === 3 ? 'toc-sub' : undefined}>
-                    <a href={`#${h.slug}`} class="toc-link">
-                      {h.text}
-                    </a>
-                  </li>
-                ))}
-              </ol>
+              <details class="toc-details" open>
+                <summary class="toc-summary">
+                  <span class="mono-eyebrow">On This Page</span>
+                  <span class="toc-caret" aria-hidden="true">+</span>
+                </summary>
+                <ol id="articleTocList" class="toc-list">
+                  {tocHeadings.map((h) => (
+                    <li class={h.depth === 3 ? 'toc-sub' : undefined}>
+                      <a href={`#${h.slug}`} class="toc-link">
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </details>
             </nav>
           )}
 
@@ -448,12 +453,35 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     max-width: 68ch;
     border-top: 1px solid var(--rule-strong);
     border-bottom: 1px solid var(--rule);
-    padding: 0.95rem 0 1.05rem;
+    padding: 0.75rem 0 0.85rem;
     margin-bottom: 1.75rem;
+  }
+  .toc-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .toc-summary::-webkit-details-marker {
+    display: none;
+  }
+  .toc-summary .mono-eyebrow {
+    margin-bottom: 0;
+  }
+  .toc-caret {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent-clove);
+    transition: transform 0.16s ease;
+  }
+  .toc-details[open] .toc-caret {
+    transform: rotate(45deg);
+    color: var(--accent-forest);
   }
   .toc-list {
     list-style: none;
-    padding: 0;
+    padding: 0.65rem 0 0;
     margin: 0;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -478,11 +506,11 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     border-left-color: var(--accent-forest);
     font-weight: 500;
   }
-  @media (min-width: 1320px) {
+  @media (min-width: 1180px) {
     .essay-body-layout.has-toc {
       display: grid;
-      grid-template-columns: minmax(0, 68ch) minmax(200px, 1fr);
-      gap: 2.5rem;
+      grid-template-columns: minmax(0, 66ch) minmax(185px, 1fr);
+      gap: 2rem;
       align-items: start;
     }
     .essay-body-layout.has-toc .prose-body {
@@ -500,8 +528,24 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
       border-bottom: none;
       border-left: 1px solid var(--rule);
     }
+    .essay-body-layout.has-toc .toc-caret {
+      display: none;
+    }
+    .essay-body-layout.has-toc .toc-summary {
+      cursor: default;
+      pointer-events: none;
+    }
     .essay-body-layout.has-toc .toc-list {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (min-width: 1320px) {
+    main {
+      max-width: 1060px;
+    }
+    .essay-body-layout.has-toc {
+      grid-template-columns: minmax(0, 68ch) minmax(200px, 1fr);
+      gap: 2.5rem;
     }
   }
   @media (max-width: 680px) {

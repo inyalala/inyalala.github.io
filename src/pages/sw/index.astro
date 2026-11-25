@@ -5,6 +5,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import { PROFILE } from '../../data/profile';
 import { PUBLICATIONS } from '../../data/publications';
 import { COURSES } from '../../data/courses';
+import { SW_COURSES_MAP } from '../../data/sw-courses';
 import { WRITING_POSTS } from '../../data/writing';
 import metrics from '../../data/scholar-metrics.json';
 import { personEntity, webPageEntity, websiteEntity, breadcrumbList } from '../../data/schema';
@@ -166,7 +167,7 @@ const swSchema = {
           <article class="sw-pillar">
             <h3>1. Kilimo cha Karafuu, Korosho, Mihogo na Mwani</h3>
             <p>
-              Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za karafuu (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (paramita 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
+              Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za <a href="#gloss-karafuu" class="gloss-ref">karafuu</a> (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (paramita 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
             </p>
             <p class="sw-link-row">
               <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Jaribu Mfumo wa Karafuu Mtandaoni &#8599;</a>
@@ -243,8 +244,8 @@ const swSchema = {
             </details>
             <details id="gloss-utafsiri-wa-kimashine" class="glossary-item">
               <summary>
-                <span class="g-sw">utafsiri wa kimashine</span>
-                <span class="g-en">Asili ya Matini dhidi ya Tafsiri ya Mashine</span>
+                <span class="g-sw">Asili ya Matini</span>
+                <span class="g-en">translationese vs. native provenance</span>
               </summary>
               <p>
                 Kubaini iwapo matini ya Kiswahili imeandikwa moja kwa moja na mwandishi asilia wa Pwani (kama Kiunguja au Kipemba) au imetafsiriwa moja kwa moja kutoka lugha ya Kiingereza kwa programu za kompyuta.
@@ -261,15 +262,18 @@ const swSchema = {
           <a href="/sw/courses/" class="text-action">Fungua Kozi Zote ({COURSES.length}) &rarr;</a>
         </div>
         <ul class="sw-course-list">
-          {COURSES.map((c) => (
-            <li>
-              <span class="sw-c-code">{c.code} &middot; {c.status === 'active' ? 'Inaendelea 2026-27' : 'Kumbukumbu'}</span>
-              <div>
-                <a href={`/courses/${c.slug}/`} class="sw-c-title">{c.title}</a>
-                <p class="sw-c-meta">{c.program} {c.courseType} &middot; {c.term}</p>
-              </div>
-            </li>
-          ))}
+          {COURSES.map((c) => {
+            const loc = SW_COURSES_MAP[c.slug];
+            return (
+              <li>
+                <span class="sw-c-code">{c.code} &middot; {c.status === 'active' ? 'Inaendelea 2026-27' : 'Kumbukumbu'}</span>
+                <div>
+                  <a href={`/courses/${c.slug}/`} class="sw-c-title">{loc ? loc.titleSw : c.title}</a>
+                  <p class="sw-c-meta">{c.program} {c.courseType} &middot; {loc ? loc.termSw : c.term}</p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </section>
 
@@ -299,6 +303,12 @@ const swSchema = {
           var det = id ? document.getElementById(id) : null;
           if (det && det.tagName === 'DETAILS') {
             det.open = true;
+            det.classList.remove('is-flash');
+            void det.offsetWidth;
+            det.classList.add('is-flash');
+            setTimeout(function () {
+              det.classList.remove('is-flash');
+            }, 1400);
           }
         });
       });
@@ -477,6 +487,12 @@ const swSchema = {
     border-top: 1px solid var(--rule);
     padding: 0.65rem 0;
     scroll-margin-top: 32px;
+    transition: background-color 0.25s ease;
+  }
+  .glossary-item.is-flash {
+    background-color: rgba(122, 75, 30, 0.12);
+    padding-left: 0.45rem;
+    padding-right: 0.45rem;
   }
   .gloss-ref {
     color: var(--accent-forest);

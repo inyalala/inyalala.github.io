@@ -199,6 +199,7 @@ const researchSchema = {
           <h2 id="lineageTitle" class="section-h">Pillars, Open Systems &amp; Bibliography Links</h2>
           <div class="lineage-controls">
             <span id="lineageStatus" class="lineage-status" aria-live="polite">Hover, focus, or click a pillar to trace links</span>
+            <a id="lineageJumpBtn" href="#agriculture" class="lineage-clear" hidden>Jump to section &darr;</a>
             <button id="lineageClearBtn" type="button" class="lineage-clear" hidden>Clear pin</button>
           </div>
         </div>
@@ -483,6 +484,7 @@ const researchSchema = {
     document.addEventListener('DOMContentLoaded', function () {
       var statusEl = document.getElementById('lineageStatus');
       var clearPinBtn = document.getElementById('lineageClearBtn');
+      var jumpBtn = document.getElementById('lineageJumpBtn');
       var nodes = document.querySelectorAll('.lin-node');
       var edges = document.querySelectorAll('.lin-edge');
       var pinnedNode = null;
@@ -510,9 +512,18 @@ const researchSchema = {
           edges.forEach(function (e) { e.classList.remove('is-dim', 'is-lit'); });
           if (statusEl) statusEl.textContent = 'Hover, focus, or click a pillar to trace links';
           if (clearPinBtn) clearPinBtn.hidden = true;
+          if (jumpBtn) jumpBtn.hidden = true;
           return;
         }
         if (clearPinBtn) clearPinBtn.hidden = !pinnedNode;
+        if (jumpBtn) {
+          if (pinnedNode) {
+            jumpBtn.href = pinnedNode.getAttribute('href') || '#agriculture';
+            jumpBtn.hidden = false;
+          } else {
+            jumpBtn.hidden = true;
+          }
+        }
         var tk = node.getAttribute('data-kind');
         if (statusEl) statusEl.textContent = node.getAttribute('data-desc') || '';
         edges.forEach(function (e) {
@@ -540,10 +551,16 @@ const researchSchema = {
         node.addEventListener('focus', function () { setHighlight(node); });
         node.addEventListener('mouseleave', function () { setHighlight(pinnedNode); });
         node.addEventListener('blur', function () { setHighlight(pinnedNode); });
-        node.addEventListener('click', function () {
+        node.addEventListener('click', function (e) {
           if (node.getAttribute('data-kind') === 'pillar') {
-            pinnedNode = pinnedNode === node ? null : node;
-            setHighlight(pinnedNode);
+            if (pinnedNode !== node) {
+              e.preventDefault();
+              pinnedNode = node;
+              setHighlight(pinnedNode);
+            } else {
+              pinnedNode = null;
+              setHighlight(null);
+            }
           }
         });
       });

@@ -31,6 +31,7 @@
     <div id="cmdPaletteResults" class="cmd-results" role="listbox" aria-label="Search results">
       <p class="cmd-hint">Type a keyword such as <em>clove</em>, <em>z5007</em>, <em>swahili</em>, or <em>theme</em>.</p>
     </div>
+    <p id="cmdPaletteAnnounce" class="sr-only" aria-live="polite"></p>
 
     <div class="cmd-foot">
       <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Select</span>
@@ -46,6 +47,7 @@
     var dialog = document.getElementById('cmdPaletteDialog');
     var input = document.getElementById('cmdPaletteInput');
     var resultsEl = document.getElementById('cmdPaletteResults');
+    var announceEl = document.getElementById('cmdPaletteAnnounce');
     var closeBtn = document.getElementById('cmdPaletteClose');
     var triggers = document.querySelectorAll('.js-open-cmd');
     if (!backdrop || !dialog || !input || !resultsEl) return;
@@ -224,6 +226,7 @@
           activeIdx = -1;
           input.setAttribute('aria-activedescendant', '');
           resultsEl.innerHTML = '<p class="cmd-hint">No matching monograph records for "' + escapeHtml(query) + '".</p>';
+          if (announceEl) announceEl.textContent = 'No matching monograph records.';
           return;
         }
 
@@ -301,6 +304,11 @@
         resultsEl.innerHTML = html;
         activeIdx = 0;
         input.setAttribute('aria-activedescendant', 'cmdOpt-0');
+        if (announceEl) {
+          announceEl.textContent = q
+            ? idxCounter + ' matching monograph records'
+            : idxCounter + ' quick commands and pages';
+        }
       });
     }
 
@@ -405,6 +413,12 @@
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         setActive(activeIdx - 1);
+      } else if (e.key === 'Home' && opts.length) {
+        e.preventDefault();
+        setActive(0);
+      } else if (e.key === 'End' && opts.length) {
+        e.preventDefault();
+        setActive(opts.length - 1);
       } else if (e.key === 'Enter' && activeIdx >= 0 && opts[activeIdx]) {
         e.preventDefault();
         opts[activeIdx].click();

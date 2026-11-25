@@ -25,7 +25,9 @@ export const GET: APIRoute = () => {
   const newsEntries = newsData.items.map((it) => {
     const canonicalLink = `https://inyalala.github.io/news/#${it.id}`;
     const extLink = it.link ? toAbsUrl(it.link) : '';
-    const firstSlide = (it as { slides?: { src: string; alt: string }[] }).slides?.[0];
+    const rawIt = it as { image?: string; imageAlt?: string; gallery?: { src: string; alt?: string }[] };
+    const imgSrc = rawIt.image || rawIt.gallery?.[0]?.src || '';
+    const imgAlt = rawIt.imageAlt || rawIt.gallery?.[0]?.alt || it.headline;
     return {
       title: it.headline,
       description: it.body,
@@ -35,8 +37,8 @@ export const GET: APIRoute = () => {
       extLink,
       extLabel: it.linkLabel || 'Reference',
       tags: [] as string[],
-      imageUrl: firstSlide ? toAbsUrl(firstSlide.src) : '',
-      imageAlt: firstSlide ? firstSlide.alt : ''
+      imageUrl: imgSrc ? toAbsUrl(imgSrc) : '',
+      imageAlt: imgAlt
     };
   });
 

@@ -50,7 +50,7 @@ const pillarsSw = [
     num: 'IV · Afya ya Mama na Mtoto na Picha za Kliniki',
     title: 'PlacentaVision: Uchambuzi wa Kondo la Uzazi na Utabiri wa Kliniki',
     summary:
-      'Kwa ushirikiano na Chuo Kikuu cha Penn State na CPHK Pemba, PlacentaVision inachambua picha 9,883 za kondo la uzazi kutoka hospitali za Pemba kwa kipimo sanifu cha rula (udhibiti wa ubora 98.92%). Kazi sambamba zinahusu modeli za ubashiri zinazofafanua kuzaliwa kabla ya wakati na utambuzi wa vivimbe (BAFNet, ESWA 2025).',
+      'Kwa ushirikiano na Chuo Kikuu cha Penn State na CPHK Pemba, PlacentaVision inachambua picha 9,883 za kondo la uzazi kutoka hospitali za Pemba kwa kipimo sanifu cha rula (udhibiti wa ubora 98.92%). Kazi sambamba zinahusu modeli za ubashiri zinazofafanua hatari ya kuzaliwa kabla ya wakati na utambuzi wa vivimbe (BAFNet, ESWA 2025).',
     image: '/images/research/placentavision-pipeline.webp',
     imageAlt: 'Mfumo wa PlacentaVision wa kupima kondo la uzazi kwa picha tatu',
     caption: 'PlacentaVision ikiunganisha uchambuzi wa picha tatu na kipimo sanifu cha milimita.',
@@ -100,6 +100,50 @@ const swResearchSchema = {
       about: { '@id': 'https://inyalala.github.io/#person' },
       breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
     },
+    {
+      '@type': 'Dataset',
+      '@id': `${pageUrl}#dataset-cloves-4603`,
+      name: 'CLOVES-4603: Mkusanyiko wa Picha za Karafuu za Zanzibar',
+      description: 'Mkusanyiko wa picha 4,603 za karafuu za biashara za Zanzibar zilizopangwa na wataalamu wa ZSTC katika madaraja manne.',
+      url: 'https://github.com/saaillab/CLOVES-4603',
+      sameAs: 'https://inyalala.github.io/research/#dataset-cloves-4603',
+      inLanguage: 'sw-TZ',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': `${pageUrl}#dataset-cropguardnet`,
+      name: 'CropGuardNet: Kipimo cha Magonjwa ya Majani ya Mazao Mengi',
+      description: 'Mkusanyiko wa picha 35,420 zilizosafishwa zinazoshughulikia mazao 8 na madaraja 38 ya magonjwa ya majani.',
+      url: 'https://github.com/saaillab/CropGuardNet',
+      sameAs: 'https://inyalala.github.io/research/#dataset-cropguardnet',
+      inLanguage: 'sw-TZ',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': `${pageUrl}#dataset-dgs-bench`,
+      name: 'DGS-Bench: Kipimo cha Pengo la Matumizi Halisi Shambani',
+      description: 'Majaribio 40 yaliyodhibitiwa yanayopima upungufu wa usahihi kwenye makundi machache ya data halisi shambani.',
+      url: 'https://saaillab.github.io/papers/dgs-bench/',
+      sameAs: 'https://inyalala.github.io/research/#dataset-dgs-bench',
+      inLanguage: 'sw-TZ',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': `${pageUrl}#dataset-swahili-dira`,
+      name: 'Zanzibar Swahili Corpus na Kipimo cha Asili cha Dira',
+      description: 'Mkusanyiko wa matini halisi ya Kiunguja na Kipemba pamoja na migawanyo ya ukaguzi wa tafsiri ya mashine.',
+      url: 'https://saaillab.github.io/projects/swahili-dira/',
+      sameAs: 'https://inyalala.github.io/research/#dataset-swahili-dira',
+      inLanguage: 'sw-TZ',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
     breadcrumbList(
       [
         { name: 'Nyumbani (Kiswahili)', url: 'https://inyalala.github.io/sw/' },
@@ -134,14 +178,14 @@ const swResearchSchema = {
         <span class="mono-eyebrow">Maabara ya SAAIL &middot; Nguzo Nne za Utafiti</span>
         <h1 class="page-title">Ajenda ya Utafiti na Takwimu Wazi</h1>
         <p class="page-lead">
-          Tunaunganisha usanifu mwepesi wa kompyuta, ukaguzi wa kina wa takwimu, na matumizi halisi ya uwanjani katika kilimo cha Afrika Mashariki, lugha ya Kiswahili, afya ya uzazi huko Pemba, na sera za utawala wa AI. Kazi zote zinajumuisha machapisho {metrics.totalWorks} yenye nukuu {metrics.citations.toLocaleString('en-US')}.
+          Tunaunganisha usanifu mwepesi wa kompyuta, ukaguzi wa kina wa takwimu, na matumizi halisi ya uwanjani katika kilimo cha Afrika Mashariki, lugha ya Kiswahili, afya ya uzazi huko Pemba, na sera za utawala wa AI. Kazi zote zinajumuisha machapisho {metrics.totalWorks} yenye Manukuu {metrics.citations.toLocaleString('en-US')}.
         </p>
         <p style="margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center;">
-          <a href="https://ubora-karafuu-ai.hf.space" target="_blank" rel="noopener" class="btn-mono">
-            Jaribu Mfumo wa Karafuu Mtandaoni &#8599;
+          <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="btn-mono">
+            Jaribu Mfumo wa Karafuu Mtandaoni (EN) &#8599;
           </a>
-          <a href="/research/" class="btn-mono-outline">Mchoro Kamili wa Utafiti (English) &rarr;</a>
-          <a href="/publications/" class="text-action">Orodha ya Machapisho Yote &rarr;</a>
+          <a href="/research/" class="btn-mono-outline">Mchoro Kamili wa Utafiti (EN) &rarr;</a>
+          <a href="/publications/" class="text-action">Orodha ya Machapisho Yote (EN) &rarr;</a>
         </p>
       </header>
 
@@ -157,19 +201,28 @@ const swResearchSchema = {
                   <p class="sw-pillar-body">{p.summary}</p>
                   <p class="sw-pillar-links">
                     <a href={p.labHref} target="_blank" rel="noopener" class="text-action">
-                      {p.labLabel} &#8599;
+                      {p.labLabel} (EN) &#8599;
                     </a>
                   </p>
                 </div>
                 <figure class="sw-fig">
-                  <img
-                    src={getThumbSrc(p.image, 760)}
-                    alt={p.imageAlt}
-                    width={dim.width}
-                    height={dim.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <button
+                    type="button"
+                    class="sw-zoom-btn"
+                    data-zoom-src={p.image}
+                    data-zoom-alt={p.caption}
+                    aria-label={`Kuza mchoro: ${p.imageAlt}`}
+                  >
+                    <img
+                      src={getThumbSrc(p.image, 760)}
+                      alt={p.imageAlt}
+                      width={dim.width}
+                      height={dim.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="sw-zoom-cue" aria-hidden="true">Kuza</span>
+                  </button>
                   <figcaption>{p.caption}</figcaption>
                 </figure>
               </article>
@@ -201,6 +254,115 @@ const swResearchSchema = {
 
     <SiteFooter lang="sw" />
   </div>
+
+  <div id="swResearchLightbox" class="sw-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="swLbCap">
+    <div class="sw-lb-backdrop"></div>
+    <button id="swLbPrev" type="button" class="sw-lb-nav sw-lb-prev" aria-label="Mchoro uliopita">&lsaquo;</button>
+    <button id="swLbNext" type="button" class="sw-lb-nav sw-lb-next" aria-label="Mchoro unaofuata">&rsaquo;</button>
+    <button id="swLbClose" type="button" class="sw-lb-close" aria-label="Funga mwonekano wa mchoro">&times;</button>
+    <figure class="sw-lb-figure">
+      <img
+        id="swLbImg"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        alt="Mchoro wa utafiti uliokuzwa"
+        width="1200"
+        height="800"
+      />
+      <figcaption class="sw-lb-meta">
+        <span id="swLbCount" class="sw-lb-count"></span>
+        <span id="swLbCap"></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var lb = document.getElementById('swResearchLightbox');
+      var lbImg = document.getElementById('swLbImg');
+      var lbCap = document.getElementById('swLbCap');
+      var lbCount = document.getElementById('swLbCount');
+      var lbPrev = document.getElementById('swLbPrev');
+      var lbNext = document.getElementById('swLbNext');
+      var lbClose = document.getElementById('swLbClose');
+      var lbBackdrop = lb && lb.querySelector('.sw-lb-backdrop');
+      var bgEls = document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop');
+      var zoomBtns = Array.prototype.slice.call(document.querySelectorAll('.sw-zoom-btn'));
+      var lbIdx = 0;
+      var lastFocus = null;
+      var touchStartX = null;
+      var blankSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+      function setInert(state) {
+        bgEls.forEach(function (el) {
+          if (state) el.setAttribute('inert', '');
+          else el.removeAttribute('inert');
+        });
+      }
+
+      function showSlide(idx) {
+        if (!zoomBtns.length || !lbImg || !lbCap) return;
+        lbIdx = (idx + zoomBtns.length) % zoomBtns.length;
+        var btn = zoomBtns[lbIdx];
+        lbImg.src = btn.getAttribute('data-zoom-src') || blankSrc;
+        lbImg.alt = btn.getAttribute('data-zoom-alt') || 'Mchoro wa utafiti';
+        lbCap.textContent = btn.getAttribute('data-zoom-alt') || '';
+        if (lbCount) lbCount.textContent = (lbIdx + 1) + ' / ' + zoomBtns.length;
+      }
+
+      function closeLb() {
+        if (!lb) return;
+        lb.hidden = true;
+        document.body.style.overflow = '';
+        setInert(false);
+        if (lbImg) lbImg.src = blankSrc;
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+
+      zoomBtns.forEach(function (btn, idx) {
+        btn.addEventListener('click', function () {
+          if (!lb) return;
+          lastFocus = btn;
+          showSlide(idx);
+          lb.hidden = false;
+          setInert(true);
+          document.body.style.overflow = 'hidden';
+          lbClose && lbClose.focus();
+        });
+      });
+
+      lbPrev && lbPrev.addEventListener('click', function () { showSlide(lbIdx - 1); });
+      lbNext && lbNext.addEventListener('click', function () { showSlide(lbIdx + 1); });
+      lbClose && lbClose.addEventListener('click', closeLb);
+      lbBackdrop && lbBackdrop.addEventListener('click', closeLb);
+
+      lb &&
+        lb.addEventListener('touchstart', function (e) {
+          if (e.touches && e.touches.length === 1) touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+      lb &&
+        lb.addEventListener('touchend', function (e) {
+          if (touchStartX === null || !e.changedTouches || !e.changedTouches.length) return;
+          var dx = e.changedTouches[0].clientX - touchStartX;
+          touchStartX = null;
+          if (Math.abs(dx) > 42) showSlide(dx < 0 ? lbIdx + 1 : lbIdx - 1);
+        }, { passive: true });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lb || lb.hidden) return;
+        if (e.key === 'Escape') closeLb();
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(lbIdx - 1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); showSlide(lbIdx + 1); }
+        else if (e.key === 'Tab') {
+          var focusables = [lbPrev, lbNext, lbClose].filter(function (el) { return el && el.offsetParent !== null; });
+          if (!focusables.length) return;
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -233,14 +395,112 @@ const swResearchSchema = {
     background: var(--bg-surface);
     padding: 0.5rem;
   }
+  .sw-zoom-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
   .sw-fig img {
     width: 100%;
     height: auto;
     display: block;
-    background: #ffffff;
+    background: var(--bg-surface);
+    mix-blend-mode: multiply;
   }
   :global([data-theme='dark']) .sw-fig img {
     background: #ede7db;
+    mix-blend-mode: normal;
+  }
+  .sw-zoom-cue {
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    padding: 0.18rem 0.45rem;
+    background: rgba(21, 20, 18, 0.86);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .sw-zoom-btn:hover .sw-zoom-cue,
+  .sw-zoom-btn:focus-visible .sw-zoom-cue {
+    opacity: 1;
+  }
+  .sw-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .sw-lightbox[hidden] {
+    display: none;
+  }
+  .sw-lb-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(21, 20, 18, 0.92);
+  }
+  .sw-lb-close,
+  .sw-lb-nav {
+    position: fixed;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(248, 245, 238, 0.4);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-size: 1.6rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3002;
+    border-radius: 2px;
+  }
+  .sw-lb-close { top: 1.25rem; right: 1.45rem; }
+  .sw-lb-nav { top: 50%; transform: translateY(-50%); }
+  .sw-lb-prev { left: 1rem; }
+  .sw-lb-next { right: 1rem; }
+  .sw-lb-figure {
+    position: relative;
+    z-index: 3001;
+    max-width: min(1080px, 84vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .sw-lb-figure img {
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    border: 1px solid rgba(248, 245, 238, 0.25);
+    background: #ede7db;
+    padding: 0.45rem;
+  }
+  .sw-lb-meta {
+    color: #f2efe9;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 70ch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .sw-lb-count {
+    font-size: 0.72rem;
+    color: #d7b48a;
   }
   .sw-fig figcaption {
     margin-top: 0.5rem;

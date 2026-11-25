@@ -683,10 +683,16 @@ export const COURSES: CourseData[] = [
     ],
     links: {
       teachingSiteHome: `${TEACH_BASE}/z5007/index.html`,
+      questionBank: `${TEACH_BASE}/z5007/question-bank/index.html`,
       syllabusPdf: `${TEACH_BASE}/z5007/syllabus/Z5007_Institute_Syllabus.pdf`,
       githubRepo: 'https://github.com/inyalala/iitmz-teaching-site/tree/main/courses/z5007',
       classroomUrl: ''
-    }
+    },
+    supplementaryDocs: [
+      { label: 'Algorithms Master Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Algorithms_Master_Cheatsheet.pdf`, kind: 'pdf' },
+      { label: 'Midterm Review Worked Solutions (PDF)', href: `${TEACH_BASE}/z5007/resources/Z5007_Midterm_Review_Solutions.pdf`, kind: 'pdf' },
+      { label: 'Quiz 1 Practice Bank (40 Questions PDF)', href: `${TEACH_BASE}/z5007/week-06/practice/Z5007_Quiz1_Practice40.pdf`, kind: 'pdf' }
+    ]
   },
   {
     slug: 'z3003',
@@ -848,9 +854,15 @@ export const COURSES: CourseData[] = [
     policies: STANDARD_POLICIES,
     links: {
       teachingSiteHome: `${TEACH_BASE}/dm-scale/index.html`,
+      questionBank: `${TEACH_BASE}/dm-scale/question-bank/index.html`,
       githubRepo: 'https://github.com/inyalala/iitmz-teaching-site/tree/main/courses/dm-scale',
       classroomUrl: ''
-    }
+    },
+    supplementaryDocs: [
+      { label: 'Data Mining Formula Cheat Sheet (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Data_Mining_Formula_Cheatsheet.pdf`, kind: 'pdf' },
+      { label: 'Mini-Project Brief (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Mini_Project_Brief.pdf`, kind: 'pdf' },
+      { label: 'Mini-Project Starter Notebook (.ipynb)', href: `${TEACH_BASE}/dm-scale/labs/MP01_Mini_Project_Starter.ipynb`, kind: 'notebook' }
+    ]
   },
   {
     slug: 'z2004',
@@ -1002,6 +1014,8 @@ export const COURSES: CourseData[] = [
       }
     ],
     supplementaryDocs: [
+      { label: 'SQL & Normalization Cheat Sheet (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_SQL_Normalization_Cheatsheet.pdf`, kind: 'pdf' },
+      { label: 'Worked SQL & Normalization Workbook (PDF)', href: `${TEACH_BASE}/z2004/resources/Z2004_Worked_SQL_and_Normalization_Workbook.pdf`, kind: 'pdf' },
       { label: 'Course Schedule (PDF)', href: `${TEACH_BASE}/z2004/lectures/schedule.pdf`, kind: 'pdf' },
       { label: 'SQL Reference Sheet (PDF)', href: `${TEACH_BASE}/z2004/lectures/sql-reference.pdf`, kind: 'pdf' },
       { label: 'Semester Project Guidelines (PDF)', href: `${TEACH_BASE}/z2004/lectures/project-guidelines.pdf`, kind: 'pdf' }
@@ -1228,6 +1242,10 @@ export const COURSES: CourseData[] = [
       questionBank: `${TEACH_BASE}/z5008/question-bank/index.html`,
       githubRepo: 'https://github.com/inyalala/iitmz-teaching-site/tree/main/courses/z5008',
       classroomUrl: ''
-    }
+    },
+    supplementaryDocs: [
+      { label: 'Big Data & Lakehouse Cheat Sheet (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_BigData_Lakehouse_Cheatsheet.pdf`, kind: 'pdf' },
+      { label: 'Spark & Streaming Architecture Workbook (PDF)', href: `${TEACH_BASE}/z5008/resources/Z5008_Spark_Streaming_Architecture_Workbook.pdf`, kind: 'pdf' }
+    ]
   }
 ];

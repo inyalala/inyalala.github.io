@@ -171,7 +171,11 @@ const schemaCourse = {
           {course.modules.map((m) => {
             const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
             return (
-              <a href={`#mod-${modSlug}`} class="mod-jump-pill" title={m.title}>
+              <a
+                href={`#mod-${modSlug}`}
+                class:list={['mod-jump-pill', m.assignment ? 'is-exam' : '']}
+                title={m.assignment ? `${m.title} (${m.assignment})` : m.title}
+              >
                 {m.code}
               </a>
             );
@@ -198,7 +202,15 @@ const schemaCourse = {
 
                 <div class="mod-resources">
                   {m.slides.length === 0 && !m.labHref && !m.colabHref && !m.notebookHref ? (
-                    <span class="res-pending">Verified slide PDFs, LaTeX notes (PDF), and lab files publishing from Classroom</span>
+                    course.status === 'previous' ? (
+                      <span class="res-pending">
+                        Archived reference module; see active{' '}
+                        <a href="/courses/z5007/" class="inline-link">Z5007</a> or the{' '}
+                        <a href={course.links.githubRepo} target="_blank" rel="noopener" class="inline-link">teaching repository &#8599;</a>
+                      </span>
+                    ) : (
+                      <span class="res-pending">Verified slide PDFs, LaTeX notes (PDF), and lab files publishing from Classroom</span>
+                    )
                   ) : (
                     <>
                       {m.slides.map((sl) =>
@@ -507,6 +519,15 @@ const schemaCourse = {
   .mod-jump-pill:hover {
     border-color: var(--accent-forest);
     color: var(--accent-forest);
+  }
+  .mod-jump-pill.is-exam::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-clove);
+    margin-left: 0.35rem;
+    flex-shrink: 0;
   }
   .module-ledger {
     list-style: none;

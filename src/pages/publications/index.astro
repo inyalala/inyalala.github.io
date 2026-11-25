@@ -49,6 +49,12 @@ const topTopics = Array.from(topicCounts.entries())
   .slice(0, 8)
   .map(([topic, count]) => ({ topic, count }));
 
+function formatApaCitation(pub: (typeof sortedPubs)[number]): string {
+  const authList = pub.authors.slice(0, 20).join(', ');
+  const doiPart = pub.doi ? ` https://doi.org/${pub.doi}` : pub.paperUrl ? ` ${pub.paperUrl}` : '';
+  return `${authList} (${pub.year}). ${pub.title}. ${pub.venue}.${doiPart}`.trim();
+}
+
 const schemaCollection = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -197,12 +203,26 @@ const schemaCollection = {
                   }
                 >
                   <title>{titleText}</title>
-                  {ms && (
+                  {ms && y === '2025' && years[idx + 1] === '2026' ? (() => {
+                    const cxNext = padL + slot * (idx + 1) + (slot - barW) / 2 + barW / 2;
+                    const midX = (cx + cxNext) / 2;
+                    const vNext = vals[idx + 1];
+                    const barHNext = Math.max(4, (vNext / maxVal) * (H - padT - padB));
+                    const yTopNext = H - padB - barHNext;
+                    return (
+                      <g class="chart-milestone-grp" aria-hidden="true">
+                        <line x1={cx.toFixed(1)} y1="15" x2={cxNext.toFixed(1)} y2="15" class="chart-ms-line" />
+                        <line x1={cx.toFixed(1)} y1="15" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
+                        <line x1={cxNext.toFixed(1)} y1="15" x2={cxNext.toFixed(1)} y2={(yTopNext - 16).toFixed(1)} class="chart-ms-line" />
+                        <text x={midX.toFixed(1)} y="11" text-anchor="middle" class="chart-milestone">{ms}</text>
+                      </g>
+                    );
+                  })() : ms ? (
                     <g class="chart-milestone-grp" aria-hidden="true">
                       <line x1={cx.toFixed(1)} y1="15" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
                       <text x={cx.toFixed(1)} y="11" text-anchor="middle" class="chart-milestone">{ms}</text>
                     </g>
-                  )}
+                  ) : null}
                   <rect x={(x - 4).toFixed(1)} y={padT - 14} width={(barW + 8).toFixed(1)} height={H - padT - padB + 28} fill="transparent" />
                   <rect x={x.toFixed(1)} y={yTop.toFixed(1)} width={barW.toFixed(1)} height={barH.toFixed(1)} rx="1" class="chart-bar" />
                   <text x={cx.toFixed(1)} y={(yTop - 5).toFixed(1)} text-anchor="middle" class="chart-val tabular-nums">{v}</text>
@@ -394,6 +414,9 @@ const schemaCollection = {
                         BibTeX
                       </button>
                     )}
+                    <button type="button" class="bib-btn copy-apa-inline" data-apa={formatApaCitation(pub)}>
+                      Cite (APA)
+                    </button>
                   </div>
 
                   {pub.bibtex && (
@@ -820,7 +843,31 @@ const schemaCollection = {
       var topicLink = target.closest('.pub-topic-link');
       if (topicLink && !e.metaKey && !e.ctrlKey && !e.shiftKey) {
         e.preventDefault();
-        toggleTopic(topicLink.getAttribute('data-topic') || '');
+        var chosen = topicLink.getAttribute('data-topic') || '';
+        toggleTopic(chosen);
+        if (announceEl) {
+          announceEl.textContent = activeTopic ? 'Filtered to topic: ' + activeTopic : 'Cleared topic filter';
+        }
+        var controlsEl = document.querySelector('.controls-bar');
+        if (activeTopic && controlsEl) {
+          controlsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
+
+      var apaBtn = target.closest('.copy-apa-inline');
+      if (apaBtn) {
+        var apaTxt = apaBtn.getAttribute('data-apa') || '';
+        copyTextFallback(apaTxt).then(function (ok) {
+          if (ok) {
+            apaBtn.textContent = 'Copied!';
+            if (announceEl) announceEl.textContent = 'APA citation copied to clipboard.';
+            if (window.__showMonoToast) window.__showMonoToast('APA citation copied to clipboard');
+            setTimeout(function () {
+              apaBtn.textContent = 'Cite (APA)';
+            }, 1600);
+          }
+        });
         return;
       }
 
@@ -1299,9 +1346,11 @@ const schemaCollection = {
     }
     .bib-btn,
     .bib-batch-btn,
-    .reset-btn {
-      min-height: 42px;
-      padding: 0.45rem 0.85rem;
+    .reset-btn,
+    .yr-chip,
+    .topic-pill {
+      min-height: 40px;
+      padding: 0.42rem 0.8rem;
     }
   }
   @media print {

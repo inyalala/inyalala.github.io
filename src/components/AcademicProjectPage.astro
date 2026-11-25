@@ -833,6 +833,38 @@ const jsonLdGraph = {
           });
         });
       }
+
+      var jumpLinks = Array.prototype.slice.call(document.querySelectorAll('.section-jump-nav .jump-link'));
+      if (jumpLinks.length && 'IntersectionObserver' in window) {
+        var linkById = {};
+        var sections = [];
+        jumpLinks.forEach(function (lnk) {
+          var href = lnk.getAttribute('href') || '';
+          if (href.indexOf('#') === 0) {
+            var sid = href.slice(1);
+            var sec = document.getElementById(sid);
+            if (sec) {
+              linkById[sid] = lnk;
+              sections.push(sec);
+            }
+          }
+        });
+        if (sections.length) {
+          var setActiveJump = function (sid) {
+            Object.keys(linkById).forEach(function (k) {
+              linkById[k].classList.toggle('is-active', k === sid);
+            });
+          };
+          var secObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting && entry.target && entry.target.id) {
+                setActiveJump(entry.target.id);
+              }
+            });
+          }, { rootMargin: '-18% 0px -65% 0px', threshold: 0 });
+          sections.forEach(function (s) { secObserver.observe(s); });
+        }
+      }
     })();
   </script>
 </BaseLayout>
@@ -1054,9 +1086,13 @@ const jsonLdGraph = {
     border-bottom: 2px solid transparent;
   }
   .jump-link:hover,
-  .jump-link:focus-visible {
+  .jump-link:focus-visible,
+  .jump-link.is-active {
     color: var(--accent-forest);
     border-bottom-color: var(--accent-forest);
+  }
+  .rule-section {
+    scroll-margin-top: 56px;
   }
 
   .teaser-section {
@@ -1362,9 +1398,12 @@ const jsonLdGraph = {
     width: auto;
     height: auto;
     border: 1px solid rgba(248, 245, 238, 0.25);
-    background: #ede7db;
+    background: var(--bg-surface);
     border-radius: 2px;
     padding: 0.45rem;
+  }
+  :global([data-theme='dark']) .lb-figure img {
+    background: #ede7db;
   }
   .lb-figure figcaption {
     color: #f2efe9;
@@ -1378,12 +1417,16 @@ const jsonLdGraph = {
     .section-jump-nav {
       top: var(--mobile-bar-height);
     }
+    .rule-section {
+      scroll-margin-top: calc(var(--mobile-bar-height) + 56px);
+    }
   }
   @media (max-width: 760px) {
     .detail-figures-grid { grid-template-columns: 1fr; }
     .more-works-dropdown {
       left: 0;
       right: auto;
+      max-width: calc(100vw - 2.5rem);
     }
   }
   @media print {

@@ -53,14 +53,14 @@ export const GET: APIRoute = () => {
     path: `/papers/${p.slug}/`,
     priority: '0.8',
     changefreq: 'yearly',
-    lastmod: p.dateISO || `${p.year}-01-01`
+    lastmod: clampDate(p.dateISO || `${p.year}-01-01`)
   }));
 
   const writingPages = WRITING_POSTS.map((p) => ({
     path: `/writing/${p.slug}/`,
     priority: '0.85',
     changefreq: 'monthly',
-    lastmod: p.date
+    lastmod: clampDate(p.date)
   }));
 
   const urls = [...staticPages, ...coursePages, ...thesisPages, ...priorPaperPages, ...writingPages];
