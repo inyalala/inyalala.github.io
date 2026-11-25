@@ -1,63 +1,29 @@
-# Dr. Innocent Nyalala - Personal Website
+# Innocent Nyalala: Faculty Website
 
-Official website of Dr. Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar.
+Source repository for the personal faculty website of Dr. Innocent Nyalala (`https://inyalala.github.io`), Assistant Professor in the School of Engineering and Science, Indian Institute of Technology Madras Zanzibar, and Associate Research Fellow in the Wadhwani School of Data Science and Artificial Intelligence, IIT Madras.
 
-## About
+## Architecture Overview
 
-This website showcases the academic profile, research work, publications, and achievements of Dr. Innocent Nyalala, who serves as:
-- Assistant Professor of Data Science and AI at IIT Madras Zanzibar
-- Associate Research Fellow at Wadhwani School of Data Science & AI, IIT Madras Chennai
-- Principal Investigator of SAAIL Lab (Sustainable AI for Agriculture & Intelligent Livelihoods)
-
-## Research Focus
-
-- Artificial Intelligence for Agriculture
-- Healthcare AI and Medical Imaging
-- Computer Vision
-- Machine Learning and Deep Learning
-- Natural Language Processing (Swahili)
-- Precision Agriculture
-- Responsible AI Development
-
-## Structure
-
-- `index.html` — homepage (profile, latest news, latest lab output, contact)
-- `research/`, `publications/`, `news/`, `courses/` — main content sections
-- `faq/`, `work-with-me/`, `media-kit/` — prospective student/collaborator/press pages
-- `data/` — JSON files driving news, courses, and live metrics (edit these, not the HTML, to update content)
-- `.github/workflows/` — automation for posting news via issue form and refreshing citation metrics
-
-## Technology
-
-Static HTML/JS with Font Awesome. Styling is Tailwind CSS, **compiled and purged at build time**
-(`css/tailwind.css`) rather than loaded from Tailwind's CDN — the CDN build is explicitly
-unsuitable for production (ships the full unminified framework and recompiles in-browser on every
-load). Content that changes regularly (news, course listings, citation counts) is data-driven from
-JSON in `data/` and `courses/data/`, not hand-edited in HTML, so it stays consistent across pages.
+- **Framework**: Astro 5 (`output: 'static'`, zero client-side framework overhead, native CSS design tokens)
+- **Course Delivery Hub**: Companion repository `iitmz-teaching-site` (`https://inyalala.github.io/iitmz-teaching-site/`) hosting standalone lecture HTML decks, downloadable PDFs, PPTX slide decks, Jupyter/Colab notebooks, tutorials, and question banks
+- **Lab Website Separation**: Research group members, project companion sites, datasets, software releases, and student spotlights live on `https://saaillab.github.io/`
+- **Hosting & Automation**: GitHub Pages deployed via GitHub Actions (`.github/workflows/deploy.yml`), weekly Google Scholar metric updates via `scripts/refresh_scholar_metrics.py`, and issue-driven news publishing via `scripts/news_from_issue.py`
 
 ## Local Development
 
-Open `index.html` directly in a browser to view the site as-is. If you change any Tailwind
-utility classes in the HTML, rebuild the compiled CSS:
-
-```
+```bash
 npm install
-npx tailwindcss -i css/tailwind-source.css -o css/tailwind.css --minify
+npm run dev      # http://localhost:4321
+npm run build    # outputs static bundle to ./dist
+npm run preview  # previews built ./dist bundle
 ```
 
-## Editing this site
+## Long-Term Maintenance
 
-This is a public repository — anyone can view or fork it, but only accounts explicitly added as
-collaborators can push changes. Currently that is only the repository owner. Branch protection on
-`main` blocks force-pushes as an extra safeguard.
+See [LONG_TERM_MAINTENANCE_AND_TEACHING_ARCHITECTURE.md](docs/LONG_TERM_MAINTENANCE_AND_TEACHING_ARCHITECTURE.md) for the 25-year zero-database storage design, semester archiving with Git tags, one-command lecture upload workflows, and large-file handling via GitHub Releases.
 
-## Contact
+## Licensing
 
-- **Email**: innocent@iitmz.ac.in
-- **Website**: https://inyalala.github.io
-- **LinkedIn**: [Dr. Innocent Nyalala](https://www.linkedin.com/in/innocentnyalala/)
-- **Google Scholar**: [Profile](https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en)
-
-## License
-
-© 2026 Dr. Innocent Nyalala. All rights reserved.
+- Editorial prose and site pages: Creative Commons Attribution-NonCommercial 4.0 International (`CC BY-NC 4.0`)
+- Course notes, slides, and tutorials: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (`CC BY-NC-SA 4.0`)
+- Site source code and build scripts: MIT License (see `LICENSE`)

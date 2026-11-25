@@ -1,0 +1,604 @@
+{
+  "phd": {
+    "slug": "phd-dissertation-2023",
+    "title": "Research on Agricultural Products Volume Estimation Method Based on Depth Imaging and Machine Learning Technology",
+    "shortTitle": "Agricultural Products Volume Estimation via Depth Imaging & ML (Ph.D. Dissertation 2023)",
+    "authors": [
+      {
+        "name": "Innocent Nyalala",
+        "url": "https://inyalala.github.io/",
+        "affiliations": [
+          1
+        ]
+      }
+    ],
+    "affiliations": [
+      "College of Engineering, Nanjing Agricultural University, Nanjing, China"
+    ],
+    "venue": "Nanjing Agricultural University · Doctor of Philosophy (Ph.D.) in Engineering: Agricultural Electrification and Automation Engineering (Supervisor: Prof. Chen Kunjie)",
+    "venueShort": "Ph.D. Dissertation · NAU 2023",
+    "year": 2023,
+    "month": "Dec",
+    "dateISO": "2023-12-01",
+    "category": "journal",
+    "status": "Ph.D. Monograph · Sept 2017 - Dec 2023 · 500+ Chapter Citations",
+    "citations": 503,
+    "isSaailLab": false,
+    "openAccess": true,
+    "paperUrl": "https://inyalala.github.io/publications/theses/phd-dissertation-2023/",
+    "teaserImage": "/images/papers/prior/carcass2024_workflow.jpeg",
+    "teaserCaption": "Doctoral end-to-end depth imaging, 3-D point-cloud surface reconstruction, morphological feature extraction, multi-family machine learning regression, processing-latency testing, and statistical validation pipeline developed at Nanjing Agricultural University (2017-2023).",
+    "tldr": "Doctoral dissertation (Nanjing Agricultural University, 2017-2023, Supervisor: Prof. Chen Kunjie) establishing calibrated RGB-D imaging, occlusion-splitting geometry, 3-D point-cloud reconstruction, and machine learning regressors for non-contact volume and mass grading across tomatoes, eggs, and poultry carcasses.",
+    "abstract": "Accurate, non-contact size and weight grading in horticultural packing houses and poultry processing lines remains constrained by irregular three-dimensional commodity geometry, mutual fruit or egg occlusion on moving conveyors, and ambient illumination shifts. Conducted from September 2017 to December 2023 in the College of Engineering at Nanjing Agricultural University under Prof. Chen Kunjie, this doctoral dissertation formulates and validates depth-imaging and machine learning pipelines for agricultural product volume and mass estimation across five linked empirical investigations. Calibrated Kinect RGB-D sensors acquire multi-orientation depth frames that are filtered, background-subtracted, and transformed into 2-D contour descriptors, active shape cut masks, and 3-D reconstructed surface-integration meshes. Single-commodity regression models benchmarked across tomatoes, intact eggs, and dressed poultry establish RBF Support Vector Regression (RBF-SVR), Exponential Gaussian Process Regression (GPR), Bayesian-regularized artificial neural networks, and Bagged Decision Trees as reliable inline estimators: RBF-SVR achieves 97.06% mass accuracy and 96.94% volume accuracy on cherry tomatoes (allometric power law M = 1.312 V^0.9551, R² = 0.9824); Exponential GPR attains R² = 0.984 (RMSE = 1.175 cm³) on isolated eggs and 1.080 to 1.294 cm³ under partial occlusion via M-circle contour fitting; concave-convex polygon splitting resolves touching tomato clusters at R² = 0.982 for volume and R² = 0.971 for mass; Active Shape Models partition broiler carcasses into commercial cuts (whole carcass R² = 0.9981); and 25-model 3-D surface reconstruction benchmarks confirm Bagged Trees achieve R² = 0.9988 (RMSE = 5.335 cm³, ARE = 2.125%) in under 1.6 s per carcass with paired t-test agreement (P < 0.05).",
+    "keywords": [
+      "depth imaging",
+      "3-D reconstruction",
+      "volume estimation",
+      "machine learning",
+      "postharvest grading",
+      "poultry carcass",
+      "occlusion segmentation",
+      "Nanjing Agricultural University"
+    ],
+    "topics": [
+      "Agriculture",
+      "Computer Vision",
+      "3D Reconstruction"
+    ],
+    "highlights": [
+      {
+        "value": "R² = 0.9988",
+        "label": "3-D Carcass Volume",
+        "sublabel": "Bagged Trees · RMSE 5.335 cm³"
+      },
+      {
+        "value": "R² = 0.984",
+        "label": "Egg Volume (Exp. GPR)",
+        "sublabel": "RMSE 1.080 - 1.294 cm³ occluded"
+      },
+      {
+        "value": "R² = 0.982",
+        "label": "Occluded Tomatoes",
+        "sublabel": "Polygon split + RBF-SVM"
+      },
+      {
+        "value": "< 1.6 s",
+        "label": "Online Conveyor Speed",
+        "sublabel": "n = 30 test carcasses (25 models)"
+      }
+    ],
+    "figureHeading": "Calibration Apparatus, 3-D Point Clouds & Volumetric Regression Validation",
+    "figures": [
+      {
+        "title": "Calibrated Overhead Kinect Acquisition Station (0.7 m)",
+        "src": "/images/papers/prior/tomato2019.jpeg",
+        "caption": "Overhead depth sensor positioning (0.7 m focal distance above a 0.5 m belt) engineered for non-contact horticultural volume and mass acquisition without halting conveyor flow.",
+        "alt": "Overhead Kinect camera and cherry tomato conveyor acquisition setup"
+      },
+      {
+        "title": "Conveyor Broiler Carcass 3-D Point-Cloud Reconstruction",
+        "src": "/images/papers/prior/carcass2024_3d_cloud.jpeg",
+        "caption": "Segmented overhead Kinect v2 depth silhouettes transformed into registered 3-D point clouds and closed surface meshes for surface-integration volume computation on moving shackle lines.",
+        "alt": "Chicken carcass Kinect v2 depth silhouettes and 3-D point clouds"
+      },
+      {
+        "title": "Held-Out Bagged Tree Volumetric Correlation (R² = 0.9988)",
+        "src": "/images/papers/prior/carcass2024_bagged_tree.jpeg",
+        "caption": "Predicted carcass volume plotted against physical Water Displacement Method (WDM) ground truth for Bagged Trees across the held-out test set (R² = 0.9988, RMSE = 5.335 cm³, ARE = 2.125%).",
+        "alt": "Scatter correlation plot comparing estimated carcass volume against measured water displacement volume"
+      }
+    ],
+    "resultsSummary": "Across five experimental studies and 25 evaluated regression families spanning Support Vector Regression, Gaussian Process Regression, Decision Tree ensembles, Kernel Approximation, and Artificial Neural Networks, combining calibrated depth morphology with 3-D surface reconstruction consistently yields R² ≥ 0.982 on held-out postharvest samples. Paired two-sample t-tests between Bagged Tree predictions (1,420.874 ± 191.456 cm³) and physical Water Displacement Method reference measurements (1,412.736 ± 182.634 cm³) confirm agreement (P < 0.05) at < 1.6 s end-to-end processing time per moving carcass.",
+    "contributions": [
+      "Formulated calibrated RGB-D acquisition geometry (0.7 m overhead horticultural belt and 1.2 m × 2.0 m side-view poultry shackle rig) eliminating manual caliper or water-displacement contact.",
+      "Developed occlusion-tolerant contour segmentation combining concave-convex polygon approximation for clustered tomatoes and contour curvature plus k-closest M-circle centers for grouped eggs.",
+      "Constructed Active Shape Models and 3-D point-cloud surface integration pipelines extracting anatomical cut boundaries, major/minor axes, convex area, eccentricity, and volumetric descriptors.",
+      "Evaluated 25 regression architectures across training, validation, and held-out test partitions, verifying statistical equivalence against physical WDM measurements in under 1.6 s per item."
+    ],
+    "tables": [
+      {
+        "title": "Master Doctoral Matrix: Commodities, Modalities & Held-Out Test Performance",
+        "caption": "Cross-study comparison uniting all five peer-reviewed empirical studies completed for the 2023 Nanjing Agricultural University doctoral dissertation.",
+        "headers": [
+          "Commodity / Study",
+          "Publication Venue",
+          "Segmentation / Features",
+          "Top Model",
+          "Held-Out Accuracy / Error"
+        ],
+        "rows": [
+          [
+            "Cherry Tomatoes (Single)",
+            "J. Food Eng. 263 (2019)",
+            "2-D + 3-D depth features",
+            "RBF-SVM",
+            "96.94% vol · 97.06% mass · Power law R² = 0.9824"
+          ],
+          [
+            "Chicken Eggs (Occluded)",
+            "J. Food Eng. 283 (2020)",
+            "Curvature + k-closest M-circles",
+            "Exponential GPR",
+            "R² = 0.984 · RMSE 1.175 cm³ (1.080 / 1.294 occluded)"
+          ],
+          [
+            "Tomato Clusters (Occluded)",
+            "Int. J. Food Prop. 24 (2021)",
+            "Concave-convex polygon split",
+            "RBF-SVM / Bayes ANN",
+            "R² = 0.982 vol (1.268 cm³) · R² = 0.971 weight (1.468 g)"
+          ],
+          [
+            "Broiler Carcass & 4 Cuts",
+            "Poultry Sci. 100 (2021)",
+            "Active Shape Model (ASM) masks",
+            "Bayes ANN / RBF-SVR",
+            "Whole R² = 0.9981 · Wings 0.9896 · Head/neck 0.9847"
+          ],
+          [
+            "Online 3-D Chicken Carcass",
+            "Poultry Sci. 103 (2024)",
+            "3-D mesh + 2-D/3-D morphology",
+            "Bagged Trees",
+            "R² = 0.9988 · RMSE = 5.335 cm³ · ARE = 2.125% (< 1.6 s)"
+          ]
+        ]
+      },
+      {
+        "title": "Paired t-Test Validation Against Physical Water Displacement Method (Table 15)",
+        "caption": "Bagged Trees volume estimates compared directly against laboratory Water Displacement Method (WDM) measurements on held-out poultry carcasses (P < 0.05).",
+        "headers": [
+          "Model",
+          "Measured WDM Volume (cm³, mean ± SD)",
+          "Estimated Volume (cm³, mean ± SD)",
+          "Evaluation Latency"
+        ],
+        "rows": [
+          [
+            "Bagged Trees (Ours)",
+            "1,412.736 ± 182.634",
+            "1,420.874 ± 191.456",
+            "< 1.6 s / carcass (n = 30)"
+          ]
+        ]
+      }
+    ],
+    "detailSections": [
+      {
+        "id": "study-1-cherry-tomato",
+        "title": "Chapter Study I: Single Cherry Tomato Volume & Mass Calibration (J. Food Eng. 2019)",
+        "paragraphs": [
+          "Multi-orientation Kinect depth acquisitions established how sensor height calibration (0.7 m above the 0.5 m conveyor belt) records surface height alongside 2-D silhouette descriptors. Across five candidate regression models, RBF-SVM reached 97.06% accuracy in mass estimation from 2-D features and 96.94% in volume estimation using combined 2-D and depth descriptors.",
+          "An empirical power-law calibration M = 1.312 V^0.9551 translated vision-estimated volumes directly into fruit mass on held-out test samples at R² = 0.9824 and RMSE = 15.84 g, creating an inline proxy for produce density sorting."
+        ],
+        "figures": [
+          {
+            "title": "Depth Feature Extraction Workflow",
+            "src": "/images/papers/prior/tomato2019_pipeline.jpeg",
+            "caption": "Sequential acquisition, thresholding, orientation alignment, and 2-D/3-D feature extraction pipeline feeding five candidate regression models.",
+            "alt": "Cherry tomato depth feature extraction flowchart"
+          },
+          {
+            "title": "Allometric Mass-Volume Power Law (R² = 0.9824)",
+            "src": "/images/papers/prior/tomato2019_mass_volume.jpeg",
+            "caption": "Calibration curve establishing M = 1.312 V^0.9551 on held-out cherry tomato test samples (RMSE = 15.84 g).",
+            "alt": "Cherry tomato mass vs volume calibration curves"
+          }
+        ],
+        "table": {
+          "title": "Cherry Tomato RBF-SVM & Allometric Performance Summary",
+          "headers": [
+            "Target Estimator",
+            "Input Representation",
+            "Held-Out Performance"
+          ],
+          "rows": [
+            [
+              "RBF-SVM Mass Estimator",
+              "2-D geometric features",
+              "97.06% prediction accuracy"
+            ],
+            [
+              "RBF-SVM Volume Estimator",
+              "Combined 2-D + 3-D depth features",
+              "96.94% prediction accuracy"
+            ],
+            [
+              "Allometric Calibration Model",
+              "M = 1.312 × V^0.9551",
+              "R² = 0.9824 · RMSE = 15.84 g"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "study-2-occluded-tomatoes",
+        "title": "Chapter Study II: Splitting Occluded Tomato Clusters on Moving Belts (Int. J. Food Prop. 2021)",
+        "paragraphs": [
+          "Packing-line belts rarely isolate single fruits cleanly; mutual contact distorts projected silhouettes and breaks naive area-to-volume regressors. Concave and convex contour vertex detection combined with polygon approximation separates touching multi-tomato clusters cleanly prior to feature computation.",
+          "Evaluated across seven regression algorithms trained on isolated tomato geometry, RBF-SVM reached R² = 0.982 (RMSE = 1.2683 cm³) for fruit volume and Bayesian-regularized neural networks achieved R² = 0.971 (RMSE = 1.468 g) for fruit weight across isolated and clustered runs."
+        ],
+        "figures": [
+          {
+            "title": "Single & Multi-Fruit Belt Acquisitions",
+            "src": "/images/papers/prior/tomato2021_clusters.jpeg",
+            "caption": "RGB and depth frames spanning isolated single fruits and partially occluded multi-tomato clusters.",
+            "alt": "Single and partially occluded tomato clusters in RGB and depth views"
+          },
+          {
+            "title": "Orientation-Invariant 2-D & 3-D Descriptors",
+            "src": "/images/papers/prior/tomato2021_geometry.png",
+            "caption": "Geometric measurements parameterized around radial contours, axes ratios, and surface height profiles.",
+            "alt": "Geometric shape descriptors extracted from tomato depth silhouettes"
+          },
+          {
+            "title": "Polygon & Watershed Occlusion Separation",
+            "src": "/images/papers/prior/tomato2021_watershed.jpeg",
+            "caption": "Concave/convex polygon approximation recovering clean individual fruit boundaries from touching conveyor clusters.",
+            "alt": "Watershed and polygon segmentation of touching tomatoes"
+          },
+          {
+            "title": "Volume & Weight Held-Out Regression",
+            "src": "/images/papers/prior/tomato2021_regression.jpeg",
+            "caption": "Predicted vs. physical measurements attaining R² = 0.982 for volume (RBF-SVM) and R² = 0.971 for mass (Bayesian ANN).",
+            "alt": "Tomato weight and volume regression validation scatter plots"
+          }
+        ],
+        "table": {
+          "title": "Single vs. Partially Occluded Tomato Regression Results (7 Models)",
+          "headers": [
+            "Estimated Property",
+            "Selected Top Model",
+            "Test R²",
+            "Test RMSE"
+          ],
+          "rows": [
+            [
+              "Displacement Volume (cm³)",
+              "RBF Support Vector Machine",
+              "0.982",
+              "1.2683 cm³"
+            ],
+            [
+              "Fruit Mass (g)",
+              "Bayesian Regularized ANN",
+              "0.971",
+              "1.468 g"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "study-3-egg-volume",
+        "title": "Chapter Study III: Infrared-Depth Chicken Egg Volume & M-Circle Segmentation (J. Food Eng. 2020)",
+        "paragraphs": [
+          "Hatchery and table-egg grading lines present ellipsoidal geometry compounded by tight tray packing and specular shell reflections. Contour curvature analysis paired with a k-closest M-circle-center fitting algorithm separated both simple adjacent pairs and complex multi-egg clusters.",
+          "Across 13 trained regression models using non-contact infrared depth descriptors, Exponential Gaussian Process Regression (GPR) achieved R² = 0.984 and RMSE = 1.175 cm³ on isolated eggs, sustaining 1.080 cm³ under simple occlusion and 1.294 cm³ under complex occlusion."
+        ],
+        "table": {
+          "title": "Exponential GPR Accuracy Across Egg Occlusion Regimes (13 Models Evaluated)",
+          "headers": [
+            "Belt / Tray Configuration",
+            "Segmentation Algorithm",
+            "Test RMSE (cm³)",
+            "Validation Status"
+          ],
+          "rows": [
+            [
+              "Isolated Single Egg",
+              "Morphological depth thresholding",
+              "1.175",
+              "R² = 0.984"
+            ],
+            [
+              "Simple Multi-Egg Contact",
+              "Contour curvature + M-circle centers",
+              "1.080",
+              "Held-out validation"
+            ],
+            [
+              "Complex Multi-Egg Cluster",
+              "Contour curvature + k-closest M-circles",
+              "1.294",
+              "Held-out validation"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "study-4-broiler-cuts",
+        "title": "Chapter Study IV: Broiler Carcass & Anatomical Cut Weight Estimation (Poultry Sci. 2021)",
+        "paragraphs": [
+          "Whole-carcass inspection masks uneven value across commercial poultry cuts. This chapter formulated an Active Shape Model (ASM) capable of segmenting overhead broiler depth frames into drumsticks, breasts, wings, and head-neck regions under processing-plant ambient illumination.",
+          "Among five evaluated regression families, Bayesian-regularized neural networks predicted whole-carcass (R² = 0.9981) and head-neck mass (R² = 0.9847), whereas RBF-SVR excelled across articulated cuts (wings R² = 0.9896, breast R² = 0.9352, drumsticks R² = 0.9129)."
+        ],
+        "table": {
+          "title": "Active Shape Model Cut Segmentation & Per-Part Weight Accuracy",
+          "headers": [
+            "Anatomical Target",
+            "Best Regression Family",
+            "Held-Out R²"
+          ],
+          "rows": [
+            [
+              "Whole Broiler Carcass",
+              "Bayesian Regularized ANN",
+              "0.9981"
+            ],
+            [
+              "Wings",
+              "RBF Support Vector Regression",
+              "0.9896"
+            ],
+            [
+              "Head and Neck",
+              "Bayesian Regularized ANN",
+              "0.9847"
+            ],
+            [
+              "Breast",
+              "RBF Support Vector Regression",
+              "0.9352"
+            ],
+            [
+              "Drumsticks",
+              "RBF Support Vector Regression",
+              "0.9129"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "study-5-carcass-3d",
+        "title": "Chapter Study V: Live Conveyor 3-D Carcass Reconstruction & 25-Model Benchmark (Poultry Sci. 2024)",
+        "paragraphs": [
+          "The culminating experimental study replaced static 2-D projections with real-time 3-D surface reconstruction on moving shackle conveyors imaged from a calibrated 1.2 m height and 2.0 m standoff with Kinect v2. Background subtraction, ROI cropping, boundary smoothing, and point-cloud alignment yield watertight triangular meshes whose geometric surface-integration volume joins nine 2-D and 3-D morphological predictors.",
+          "Benchmarking 25 regression architectures across Regression Trees, SVRs, GPRs, Kernel Approximation, Tree Ensembles, and Neural Networks identified Bagged Trees as top performer (test R² = 0.9988, RMSE = 5.335 cm³, MAE = 4.950 cm³, MSE = 28.462 cm⁶, ARE = 2.125%), finishing end-to-end acquisition, reconstruction, and inference in under 1.6 s across 30 timed carcasses."
+        ],
+        "figures": [
+          {
+            "title": "Live Processing-Line Acquisition Geometry (1.2 m × 2.0 m)",
+            "src": "/images/papers/phd2023/fig_conveyor_carcasses.jpg",
+            "caption": "Side-profile Kinect v2 acquisition geometry positioned beside suspended poultry shackles along a moving industrial processing conveyor.",
+            "alt": "Kinect v2 sensor positioned beside moving poultry shackle conveyor"
+          },
+          {
+            "title": "Depth Background Subtraction & Noise Filtering (a-f)",
+            "src": "/images/papers/phd2023/fig_depth_stages.jpg",
+            "caption": "Sequential raw depth frame (a), background suppression (b), morphological erosion/opening (c-e), and smooth ROI mask (f).",
+            "alt": "Six sequential grayscale carcass depth processing stages"
+          },
+          {
+            "title": "Normalized Depth Height Maps Before Mesh Conversion",
+            "src": "/images/papers/phd2023/fig_depth_colormaps.jpg",
+            "caption": "Calibrated foreground depth distributions separating thoracic height gradients from conveyor hangers across raw and filtered views.",
+            "alt": "Pseudocolor depth height maps of suspended poultry carcasses"
+          },
+          {
+            "title": "2-D & 3-D Surface Morphological Descriptors",
+            "src": "/images/papers/phd2023/fig_carcass_features.jpg",
+            "caption": "Major/minor axes, perimeter, convex area, eccentricity, reconstructed surface area, and surface-integration volume predictors.",
+            "alt": "Labeled diagram of extracted morphological features on a 3-D carcass model"
+          },
+          {
+            "title": "Reconstructed Multi-View 3-D Surface Meshes (a-e)",
+            "src": "/images/papers/phd2023/fig_3d_surface_recon.jpg",
+            "caption": "Registered anterior, lateral, and rotated 3-D surface meshes converted from Kinect v2 depth point clouds.",
+            "alt": "Five rotated views of reconstructed 3-D chicken carcass surface meshes"
+          },
+          {
+            "title": "Online Conveyor Latency Over 30 Timed Carcasses (< 1.6 s)",
+            "src": "/images/papers/phd2023/fig_processing_speed.jpg",
+            "caption": "End-to-end runtime per moving carcass from depth frame acquisition to Bagged Tree volume prediction across 900-1,700 cm³ carcasses (mean ≤ 1.6 s).",
+            "alt": "Processing speed line plot versus carcass volume across 30 carcasses"
+          }
+        ],
+        "table": {
+          "title": "25-Model Quantitative Comparison: Top Performers vs. Baseline Regressors (Tables 13 & 14)",
+          "caption": "Selected held-out test metrics from all 25 evaluated algorithms for online 3-D chicken carcass volume prediction.",
+          "headers": [
+            "Model (Index)",
+            "Train R²",
+            "Val R²",
+            "Test R²",
+            "Test RMSE (cm³)",
+            "Test MAE (cm³)",
+            "ARE (%)"
+          ],
+          "rows": [
+            [
+              "Bagged Trees (#16, Ours)",
+              "0.9902",
+              "0.9856",
+              "0.9988",
+              "5.335",
+              "4.950",
+              "2.125"
+            ],
+            [
+              "Exponential GPR (#13)",
+              "0.9989",
+              "0.9947",
+              "0.9984",
+              "6.113",
+              "5.639",
+              "2.971"
+            ],
+            [
+              "Rational Quadratic GPR (#10)",
+              "0.9712",
+              "0.9639",
+              "0.9983",
+              "7.016",
+              "6.027",
+              "3.036"
+            ],
+            [
+              "Matern 5/2 GPR (#12)",
+              "0.9938",
+              "0.9853",
+              "0.9982",
+              "8.475",
+              "7.765",
+              "3.456"
+            ],
+            [
+              "Fine Gaussian SVR (#7)",
+              "0.9852",
+              "0.9815",
+              "0.9928",
+              "12.978",
+              "6.168",
+              "3.015"
+            ],
+            [
+              "Medium Neural Network (#20)",
+              "0.9800",
+              "0.9751",
+              "0.9922",
+              "13.443",
+              "6.102",
+              "3.250"
+            ],
+            [
+              "Bayesian Reg. ANN (#24)",
+              "0.9922",
+              "0.9899",
+              "0.9910",
+              "14.539",
+              "6.772",
+              "2.975"
+            ],
+            [
+              "Fine Tree (#1)",
+              "0.9338",
+              "0.9053",
+              "0.9591",
+              "21.532",
+              "8.937",
+              "4.613"
+            ],
+            [
+              "Linear SVR (#4)",
+              "0.8726",
+              "0.8572",
+              "0.9088",
+              "28.773",
+              "10.752",
+              "4.973"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "study-6-synthesis",
+        "title": "Literature Taxonomy, Calibration Physics & Continuity at SAAIL Lab (Zanzibar)",
+        "paragraphs": [
+          "Alongside five experimental systems papers, the doctoral synthesis mapped vision-based metrology across live birds, carcasses, cuts, and eggs (Poultry Science 2021 Review, 144 citations; 503 combined citations across all six doctoral publications), isolating low-quality mesh granularity (5-10% sensitivity) and background illumination shifts as dominant deployment failure modes.",
+          "At SAAIL Lab (IIT Madras Zanzibar), those exact calibration and occlusion lessons inform current lightweight computer vision pipelines for Zanzibar export clove grading, smallholder foliar disease diagnostics under domain shift (DGS-Bench, CropGuardNet), and point-of-care edge vision systems."
+        ],
+        "figure": {
+          "title": "Conveyor Imaging Station (Processing Line Standoff View)",
+          "src": "/images/papers/prior/carcass2024.jpeg",
+          "caption": "Overhead calibration field-of-view verification used on the processing conveyor during online 3-D volume data acquisition.",
+          "alt": "Processing line imaging setup view over suspended broilers"
+        }
+      }
+    ],
+    "bibtex": "@phdthesis{nyalala2023volume,\n  title={Research on Agricultural Products Volume Estimation Method Based on Depth Imaging and Machine Learning Technology},\n  author={Nyalala, Innocent},\n  school={Nanjing Agricultural University},\n  department={College of Engineering, Agricultural Electrification and Automation Engineering},\n  address={Nanjing, China},\n  year={2023},\n  note={Supervisor: Prof. Chen Kunjie}\n}",
+    "apa": "Nyalala, I. (2023). Research on Agricultural Products Volume Estimation Method Based on Depth Imaging and Machine Learning Technology [Doctoral dissertation, Nanjing Agricultural University]. Supervisor: Prof. Chen Kunjie."
+  },
+  "msc": {
+    "slug": "intelligent-greenhouse-arduino-2016",
+    "title": "Intelligent Control and Monitoring System Based on Arduino for the Greenhouse Environment",
+    "shortTitle": "Intelligent Greenhouse Control System (M.Sc. Thesis 2016)",
+    "authors": [
+      {
+        "name": "Innocent Nyalala",
+        "url": "https://inyalala.github.io/",
+        "affiliations": [
+          1
+        ]
+      }
+    ],
+    "affiliations": [
+      "College of Engineering, Nanjing Agricultural University, Nanjing, China"
+    ],
+    "venue": "Nanjing Agricultural University · Master of Science (M.Sc.) in Engineering: Computer Science and Technology (Supervisors: Prof. Bai Zhentian & Prof. Xu Huanliang)",
+    "venueShort": "M.Sc. Thesis · NAU 2016",
+    "year": 2016,
+    "month": "Jul",
+    "dateISO": "2016-07-01",
+    "category": "journal",
+    "status": "Published · M.Sc. Monograph",
+    "tldr": "Embedded microcontroller and multi-sensor greenhouse automation architecture for real-time microclimate monitoring and actuation.",
+    "abstract": "Controlled-environment greenhouse horticulture demands responsive telemetry and actuation without prohibitive industrial controller costs. Developed as an M.Sc. thesis at Nanjing Agricultural University (2016), this work designs and validates a low-cost Arduino-based intelligent greenhouse monitoring and closed-loop control platform integrating temperature, relative humidity, soil moisture, and ambient illumination sensors with relay-driven ventilation, irrigation, shading, and supplemental lighting actuators for automated protected crop management.",
+    "keywords": [
+      "smart greenhouse",
+      "Arduino",
+      "embedded IoT",
+      "agricultural automation"
+    ],
+    "topics": [
+      "Agriculture",
+      "IoT"
+    ],
+    "highlights": [
+      {
+        "value": "4 Sensors",
+        "label": "Microclimate Variables",
+        "sublabel": "Temp, RH, Soil, Light"
+      },
+      {
+        "value": "Closed-Loop",
+        "label": "Automated Actuation",
+        "sublabel": "Vents, irrigation, shading"
+      },
+      {
+        "value": "Arduino",
+        "label": "Low-Cost Embedded",
+        "sublabel": "Open-hardware architecture"
+      },
+      {
+        "value": "M.Sc. Thesis",
+        "label": "Nanjing Agric. Univ.",
+        "sublabel": "CSC Scholarship Research"
+      }
+    ],
+    "contributions": [
+      "Engineered a low-cost Arduino embedded greenhouse controller integrating continuous air temperature, relative humidity, volumetric soil moisture, and lux sensing.",
+      "Implemented hysteresis-bounded relay actuation driving irrigation pumps, ventilation fans, and shade motors.",
+      "Established the embedded hardware sensing baseline extended into modern edge AI and agricultural IoT telemetry at SAAIL Lab."
+    ],
+    "tables": [
+      {
+        "title": "Greenhouse Telemetry & Actuation Control Loop (2016)",
+        "headers": [
+          "Sensed Variable",
+          "Actuation Channel",
+          "Control Mode"
+        ],
+        "rows": [
+          [
+            "Air Temp & Humidity",
+            "Ventilation fans & misting",
+            "Threshold hysteresis feedback"
+          ],
+          [
+            "Soil Moisture",
+            "Solenoid drip irrigation valve",
+            "Demand-driven watering"
+          ],
+          [
+            "Solar Irradiance",
+            "Motorized greenhouse shading",
+            "Photoperiod regulation"
+          ]
+        ]
+      }
+    ],
+    "isSaailLab": false,
+    "bibtex": "@mastersthesis{nyalala2016greenhouse,\n  title={Intelligent Control and Monitoring System Based on Arduino for the Greenhouse Environment},\n  author={Nyalala, Innocent},\n  school={Nanjing Agricultural University},\n  department={Computer Science and Technology},\n  address={Nanjing, China},\n  year={2016},\n  note={Supervisors: Prof. Bai Zhentian and Prof. Xu Huanliang}\n}",
+    "apa": "Nyalala, I. (2016). Intelligent Control and Monitoring System Based on Arduino for the Greenhouse Environment [Master's thesis, Nanjing Agricultural University]. Supervisors: Prof. Bai Zhentian & Prof. Xu Huanliang."
+  }
+}

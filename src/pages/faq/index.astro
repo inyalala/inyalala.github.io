@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import metrics from '../../data/scholar-metrics.json';
+import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+
+interface FaqItem {
+  q: string;
+  plainA: string;
+  linkText?: string;
+  linkHref?: string;
+  external?: boolean;
+}
+
+const faqs: FaqItem[] = [
+  {
+    q: 'How is this personal faculty website separated from SAAIL Lab?',
+    plainA: `This site serves as the personal academic monograph of Dr. Innocent Nyalala: verified appointments, all ${metrics.totalWorks} publications (${metrics.citations.toLocaleString()} citations), IIT Madras Zanzibar coursework, essays, and direct collaboration inquiries. Research group member rosters, alumni directories, project sites, datasets, and Android apps reside on the SAAIL Lab website.`,
+    linkText: 'Visit SAAIL Lab (saaillab.github.io)',
+    linkHref: 'https://saaillab.github.io/',
+    external: true
+  },
+  {
+    q: 'Where can IIT Madras Zanzibar students download lecture slides and notebooks?',
+    plainA:
+      'Active Odd Semester 2026-27 coursework for Z5007 (MTech Programming & Data Structures) and Z3003 (Data Mining, BS Core, co-taught with Dr. Mahendran V), alongside archived reference sets (Z2005, Z2004, and Z5008), is organized inside the Teaching Portal.',
+    linkText: 'Open Teaching & Courses Portal',
+    linkHref: '/courses/'
+  },
+  {
+    q: 'How can prospective MTech, PhD, or postdoctoral candidates apply for mentorship?',
+    plainA:
+      'First review SAAIL Lab focus areas and hiring guidance, then email innocent@iitmz.ac.in with your CV, transcript summary, code or Scholar links, and a paragraph naming two lab studies closest to your interests.',
+    linkText: 'Review Collaboration & Supervision Guide',
+    linkHref: '/work-with-me/'
+  },
+  {
+    q: 'Do you partner with East African agricultural cooperatives, NGOs, or health agencies?',
+    plainA:
+      'Yes. Active partnerships span the Zanzibar State Trading Corporation (clove grading and Ubora-AI), Tanzanian smallholder cashew scouting under IC&SR IIT Madras funding, and maternal imaging consortia with CPHK Pemba and Penn State University.',
+    linkText: 'Contact Room 105 (F1) via Form or Email',
+    linkHref: '/contact/'
+  },
+  {
+    q: 'When are student office hours held on the Bweleo campus?',
+    plainA:
+      'Walk-in student office hours run on Wednesdays from 2:00 PM to 4:00 PM EAT in Room 105 (F1), School of Engineering and Science, IIT Madras Zanzibar, or by scheduled appointment via email.',
+    linkText: 'Read the IIT Madras Zanzibar Visitor & Campus Guide',
+    linkHref: '/writing/visiting-iit-madras-zanzibar-guide/'
+  },
+  {
+    q: 'May other universities reuse or adapt course slides and problem sheets?',
+    plainA:
+      'Yes, under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0): credit the author, preserve the same license on adaptations, and refrain from commercial redistribution.',
+    linkText: 'View License Details on Creative Commons',
+    linkHref: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+    external: true
+  },
+  {
+    q: 'Where can conference organizers obtain approved bios and photos?',
+    plainA:
+      'Official square portraits, institutional logos for IIT Madras Zanzibar and SAAIL Lab, and one-click copyable short and extended biographies are curated in the Media Kit.',
+    linkText: 'Open Media Kit & Press Bios',
+    linkHref: '/media-kit/'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://inyalala.github.io/faq/#webpage',
+      url: 'https://inyalala.github.io/faq/',
+      name: 'Frequently Asked Questions | Innocent Nyalala · IITMZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/faq/#breadcrumb' },
+      mainEntity: faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.plainA
+        }
+      }))
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'FAQ', url: 'https://inyalala.github.io/faq/' }
+      ],
+      'https://inyalala.github.io/faq/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Frequently Asked Questions | Innocent Nyalala · IITMZ"
+  description="Answers on MTech and PhD supervision, collaborations, IIT Madras Zanzibar course materials, SAAIL Lab separation, and campus visits."
+  canonical="https://inyalala.github.io/faq/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="faq" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Reference Answers</span>
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        <p class="page-lead">
+          Direct answers on accessing lecture slides, applying for graduate supervision, academic and industry collaborations, and visiting IIT Madras Zanzibar.
+        </p>
+      </header>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="faq-list">
+          {faqs.map((item, idx) => (
+            <details class="faq-row" open={idx < 2}>
+              <summary>
+                <span>{item.q}</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-ans">
+                <p>{item.plainA}</p>
+                {item.linkHref && item.linkText && (
+                  <p class="faq-link-wrap">
+                    <a
+                      href={item.linkHref}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener' : undefined}
+                      class="text-action"
+                    >
+                      {item.linkText} {item.external ? '↗' : '→'}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <p style="margin-top: 2rem;">
+          <a href="/contact/" class="btn-mono">Still Have a Question? Contact Office &rarr;</a>
+        </p>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .faq-list {
+    border-top: 1px solid var(--rule);
+    max-width: 78ch;
+  }
+  .faq-row {
+    border-bottom: 1px solid var(--rule);
+    padding: 0.25rem 0;
+  }
+  .faq-row summary {
+    list-style: none;
+    padding: 1rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .faq-row summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-marker {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--accent-clove);
+    transition: transform 0.16s ease;
+    flex-shrink: 0;
+  }
+  .faq-row[open] .faq-marker {
+    transform: rotate(45deg);
+    color: var(--accent-forest);
+  }
+  .faq-ans {
+    padding: 0 0 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.68;
+    font-size: 0.98rem;
+  }
+  .faq-link-wrap {
+    margin-top: 0.65rem;
+  }
+</style>

@@ -1,0 +1,352 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { COURSES } from '../../data/courses';
+import { PROFILE } from '../../data/profile';
+import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+
+const activeCourses = COURSES.filter((c) => c.status === 'active');
+const previousCourses = COURSES.filter((c) => c.status === 'previous');
+
+const coursesSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://inyalala.github.io/courses/#webpage',
+      url: 'https://inyalala.github.io/courses/',
+      name: 'Teaching & Courses | Innocent Nyalala · IITM Zanzibar',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/courses/#breadcrumb' },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: COURSES.length,
+        itemListElement: COURSES.map((c, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          item: {
+            '@type': 'Course',
+            name: `${c.code}: ${c.title}`,
+            courseCode: c.code,
+            description: c.summary,
+            url: `https://inyalala.github.io/courses/${c.slug}/`,
+            provider: {
+              '@type': 'CollegeOrUniversity',
+              name: PROFILE.institution,
+              url: 'https://www.iitmz.ac.in/'
+            },
+            instructor: { '@id': 'https://inyalala.github.io/#person' },
+            hasCourseInstance: {
+              '@type': 'CourseInstance',
+              name: `${c.code} (${c.term})`,
+              courseMode: 'Onsite',
+              courseWorkload: c.credits,
+              instructor: { '@id': 'https://inyalala.github.io/#person' },
+              location: {
+                '@type': 'Place',
+                name: PROFILE.campusAddress
+              }
+            }
+          }
+        }))
+      }
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Teaching & Courses', url: 'https://inyalala.github.io/courses/' }
+      ],
+      'https://inyalala.github.io/courses/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Teaching & Courses | Innocent Nyalala · IITM Zanzibar"
+  description="Active Odd Semester 2026-27 courses (Z5007, Z3003) and archived reference sets at IIT Madras Zanzibar with direct slides, labs, and notebooks."
+  canonical="https://inyalala.github.io/courses/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(coursesSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="courses" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">IIT Madras Zanzibar &middot; Course Archive &amp; Syllabi</span>
+        <h1 class="page-title">Teaching &amp; Student Materials</h1>
+        <p class="page-lead">
+          Canonical course syllabi, weekly module schedules, PDF slides, browser Reveal.js decks, PowerPoint files, Jupyter/Colab notebooks, lab sheets, and question banks kept permanent under stable URLs across academic years.
+        </p>
+
+        <div class="filter-strip" role="group" aria-label="Filter courses by program or offering">
+          <button type="button" class="filter-btn" aria-pressed="true" data-filter="all">All ({COURSES.length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="active">Odd 2026-27 Active ({activeCourses.length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="bs">BS Programme ({COURSES.filter((c) => c.program === 'BS').length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="mtech">MTech DSAI ({COURSES.filter((c) => c.program === 'MTech').length})</button>
+        </div>
+        <p id="courseResultCount" class="course-count" aria-live="polite">
+          Showing {COURSES.length} of {COURSES.length} courses
+        </p>
+      </header>
+
+      <!-- Active Semester Block -->
+      <section class="rule-section" data-course-group="active">
+        <span class="mono-eyebrow">Current Term &middot; October 2026 - January 2027</span>
+        <div class="section-bar">
+          <h2 class="section-h">Odd Semester 2026-27 (Active)</h2>
+        </div>
+
+        <ol class="course-ledger">
+          {activeCourses.map((c) => (
+            <li class="course-entry" data-prog={c.program.toLowerCase()} data-status={c.status}>
+              <div class="c-meta">
+                <span class="c-code">{c.code}</span>
+                <span class="c-prog">{c.program} {c.courseType}</span>
+                <span class="c-term">{c.term}</span>
+              </div>
+              <div class="c-body">
+                <h3>
+                  <a href={`/courses/${c.slug}/`}>{c.title}</a>
+                </h3>
+                <p class="c-desc">{c.summary}</p>
+                {c.coInstructor && (
+                  <p class="c-note">Co-taught with {c.coInstructor.name} ({c.coInstructor.institution})</p>
+                )}
+                <p class="c-links">
+                  <a href={`/courses/${c.slug}/`} class="btn-mono">Course Overview &amp; Syllabus &rarr;</a>
+                  <a href={c.links.teachingSiteHome} target="_blank" rel="noopener" class="row-ext">Course Materials Portal &#8599;</a>
+                  {c.links.questionBank && (
+                    <a href={c.links.questionBank} target="_blank" rel="noopener" class="row-ext">Question Bank &#8599;</a>
+                  )}
+                  {c.links.syllabusPdf && (
+                    <a href={c.links.syllabusPdf} target="_blank" rel="noopener" class="row-ext">Syllabus PDF &#8599;</a>
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Archived & Reference Offerings -->
+      <section class="rule-section" data-course-group="previous">
+        <span class="mono-eyebrow">Archived &amp; Reference Offerings &middot; 2026</span>
+        <div class="section-bar">
+          <h2 class="section-h">Previous &amp; Reference Courses</h2>
+        </div>
+
+        <ol class="course-ledger">
+          {previousCourses.map((c) => (
+            <li class="course-entry" data-prog={c.program.toLowerCase()} data-status={c.status}>
+              <div class="c-meta">
+                <span class="c-code">{c.code}</span>
+                <span class="c-prog">{c.program} {c.courseType}</span>
+                <span class="c-term">{c.term}</span>
+              </div>
+              <div class="c-body">
+                <h3>
+                  <a href={`/courses/${c.slug}/`}>{c.title}</a>
+                </h3>
+                <p class="c-desc">{c.summary}</p>
+                <p class="c-links">
+                  <a href={`/courses/${c.slug}/`} class="btn-mono-outline">Course Overview &amp; Archive &rarr;</a>
+                  <a href={c.links.teachingSiteHome} target="_blank" rel="noopener" class="row-ext">Course Materials Portal &#8599;</a>
+                  {c.links.questionBank && (
+                    <a href={c.links.questionBank} target="_blank" rel="noopener" class="row-ext">Question Bank &#8599;</a>
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Student Access Principles -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Course Delivery &amp; Licensing</span>
+        <h2 class="section-h" style="margin-bottom: 1.25rem;">Open Access &amp; Semester Reuse</h2>
+        <div class="principles-grid">
+          <div>
+            <h3>Zero-Login Direct Materials</h3>
+            <p>
+              Browser Reveal.js slides, printable PDFs, lab instructions, and Jupyter/Google Colab notebooks open over HTTPS from each module without password walls.
+            </p>
+          </div>
+          <div>
+            <h3>Permanent Canonical Links</h3>
+            <p>
+              Course URLs stay fixed across academic years whereas historical offerings remain preserved via immutable Git tags, keeping student bookmarks and references valid long term.
+            </p>
+          </div>
+          <div>
+            <h3>CC BY-NC-SA 4.0 License</h3>
+            <p>
+              Instructors and students may study, adapt, and redistribute course notes and labs non-commercially with attribution under{' '}
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener" class="inline-link">CC BY-NC-SA 4.0</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btns = document.querySelectorAll('.filter-btn');
+      var entries = document.querySelectorAll('.course-entry');
+      var groups = document.querySelectorAll('[data-course-group]');
+      var countEl = document.getElementById('courseResultCount');
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) {
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.setAttribute('aria-pressed', 'true');
+          var f = btn.getAttribute('data-filter') || 'all';
+          var visible = 0;
+
+          entries.forEach(function (entry) {
+            var prog = entry.getAttribute('data-prog') || '';
+            var status = entry.getAttribute('data-status') || '';
+            var show = f === 'all' || (f === 'active' && status === 'active') || prog === f;
+            entry.style.display = show ? 'grid' : 'none';
+            if (show) visible++;
+          });
+
+          groups.forEach(function (grp) {
+            var anyVisible = Array.prototype.some.call(grp.querySelectorAll('.course-entry'), function (el) {
+              return el.style.display !== 'none';
+            });
+            grp.style.display = anyVisible ? 'block' : 'none';
+          });
+
+          if (countEl) {
+            countEl.textContent = 'Showing ' + visible + ' of ' + entries.length + ' courses';
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .course-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.85rem;
+  }
+
+  .course-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .course-entry {
+    display: grid;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.45rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .c-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+  .c-code {
+    font-family: var(--font-mono);
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .c-prog {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .c-term {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .c-body h3 {
+    font-size: 1.42rem;
+    margin-bottom: 0.35rem;
+  }
+  .c-body h3 a {
+    text-decoration: none;
+  }
+  .c-body h3 a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .c-desc {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.55rem;
+  }
+  .c-note {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-clove);
+    margin-bottom: 0.75rem;
+  }
+  .c-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1.25rem;
+  }
+  .row-ext {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .row-ext:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+  .principles-grid h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .principles-grid p {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+  }
+
+  @media (max-width: 780px) {
+    .course-entry,
+    .principles-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

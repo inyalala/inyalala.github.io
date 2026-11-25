@@ -1,0 +1,756 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { PUBLICATIONS } from '../../data/publications';
+import { THESES } from '../../data/theses';
+import metrics from '../../data/scholar-metrics.json';
+import { breadcrumbList, isInnocentNyalala, personEntity, scholarlyArticleNode, websiteEntity } from '../../data/schema';
+
+const sortedPubs = [...PUBLICATIONS].sort((a, b) => {
+  if (a.slug === 'cropguardnet') return -1;
+  if (b.slug === 'cropguardnet') return 1;
+  if (b.year !== a.year) return b.year - a.year;
+  return b.dateISO.localeCompare(a.dateISO);
+});
+
+const saailCount = sortedPubs.filter((p) => p.isSaailLab).length;
+const priorCount = sortedPubs.filter((p) => !p.isSaailLab).length;
+const underReviewCount = sortedPubs.filter((p) => p.category === 'preprint').length;
+const openAccessCount = sortedPubs.filter((p) => p.openAccess).length;
+const datedCitationSum = Object.values(metrics.citationsPerYear).reduce((a, b) => a + b, 0);
+const undatedCitationDelta = Math.max(0, metrics.citations - datedCitationSum);
+
+const years = Object.keys(metrics.citationsPerYear).sort();
+const vals = years.map((y) => metrics.citationsPerYear[y as keyof typeof metrics.citationsPerYear]);
+const maxVal = Math.max(...vals, 1);
+const W = 720;
+const H = 175;
+const padL = 10;
+const padT = 22;
+const padB = 26;
+const slot = (W - padL * 2) / years.length;
+const barW = Math.min(44, slot * 0.56);
+
+const schemaCollection = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://inyalala.github.io/publications/#webpage',
+      url: 'https://inyalala.github.io/publications/',
+      name: `Publications (${sortedPubs.length}) | Innocent Nyalala · IITM Zanzibar`,
+      description: `Bibliography of ${sortedPubs.length} papers by Innocent Nyalala in agricultural vision, Swahili NLP, responsible AI, and clinical ML (${metrics.citations} citations).`,
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/publications/#breadcrumb' },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: sortedPubs.length,
+        itemListElement: sortedPubs.map((pub, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          item: scholarlyArticleNode(pub)
+        }))
+      }
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Publications', url: 'https://inyalala.github.io/publications/' }
+      ],
+      'https://inyalala.github.io/publications/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title={`Publications (${sortedPubs.length}) | Innocent Nyalala · IITM Zanzibar`}
+  description={`Bibliography of ${sortedPubs.length} papers by Innocent Nyalala in agricultural vision, Swahili NLP, responsible AI, and clinical ML (${metrics.citations.toLocaleString()} citations).`}
+  canonical="https://inyalala.github.io/publications/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schemaCollection)} />
+  </Fragment>
+
+  <MonographRail currentPage="publications" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Peer-Reviewed Bibliography &middot; 2015 - 2026</span>
+        <h1 class="page-title">Publications ({sortedPubs.length})</h1>
+        <p class="page-lead">
+          Complete publication index spanning {saailCount} SAAIL Lab works ({metrics.saailPublishedCount} published or accepted, {underReviewCount} under review; project pages on{' '}
+          <a href="https://saaillab.github.io/publications/" target="_blank" rel="noopener" class="inline-link">SAAIL Lab &#8599;</a>) and {priorCount} prior studies (2015–2024) hosted natively in this personal archive.
+        </p>
+
+        <div class="pub-ext-links">
+          <a href="https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en" target="_blank" rel="noopener" class="text-action">
+            Google Scholar &#8599;
+          </a>
+          <a href="https://orcid.org/0000-0002-7969-437X" target="_blank" rel="noopener" class="text-action">
+            ORCID &#8599;
+          </a>
+          <a href="https://www.scopus.com/authid/detail.uri?authorId=57190215419" target="_blank" rel="noopener" class="text-action">
+            Scopus &#8599;
+          </a>
+          <a href="https://www.webofscience.com/wos/author/record/X-4277-2018" target="_blank" rel="noopener" class="text-action">
+            Web of Science &#8599;
+          </a>
+          <a href="https://openreview.net/profile?id=~Innocent_Nyalala1" target="_blank" rel="noopener" class="text-action">
+            OpenReview &#8599;
+          </a>
+          <a href="https://www.semanticscholar.org/author/3406658" target="_blank" rel="noopener" class="text-action">
+            Semantic Scholar &#8599;
+          </a>
+          <a href="https://openalex.org/A5013656785" target="_blank" rel="noopener" class="text-action">
+            OpenAlex &#8599;
+          </a>
+          <a href="#theses" class="text-action">
+            Ph.D. &amp; M.Sc. Theses ({THESES.length}) &darr;
+          </a>
+        </div>
+      </header>
+
+      <!-- Metrics & Yearly Citations -->
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="ledger-five" aria-label="Verified Google Scholar metrics">
+          <div class="l-tile">
+            <strong class="tabular-nums">{metrics.citations.toLocaleString()}</strong>
+            <span>Citations</span>
+          </div>
+          <div class="l-tile">
+            <strong class="tabular-nums">{(metrics.citationsSinceRecent ?? metrics.citationsSince2021).toLocaleString()}</strong>
+            <span>Since {metrics.citationsSinceYear}</span>
+          </div>
+          <div class="l-tile">
+            <strong class="tabular-nums">{metrics.hIndex}</strong>
+            <span>h-index</span>
+          </div>
+          <div class="l-tile">
+            <strong class="tabular-nums">{metrics.i10Index}</strong>
+            <span>i10-index</span>
+          </div>
+          <div class="l-tile">
+            <strong class="tabular-nums">{sortedPubs.length}</strong>
+            <span>Cataloged Papers</span>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="chart-head">
+            <span>Citations per Year (Google Scholar Exact, Updated {metrics.updatedAt})</span>
+            <span class="tabular-nums">Total: {metrics.citations.toLocaleString()}</span>
+          </div>
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Citations received per year from ${years[0]} to ${years[years.length - 1]}`}>
+            {years.map((y, idx) => {
+              const v = vals[idx];
+              const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
+              const x = padL + slot * idx + (slot - barW) / 2;
+              const yTop = H - padB - barH;
+              return (
+                <g>
+                  <rect x={x.toFixed(1)} y={yTop.toFixed(1)} width={barW.toFixed(1)} height={barH.toFixed(1)} rx="1" class="chart-bar" />
+                  <text x={(x + barW / 2).toFixed(1)} y={(yTop - 6).toFixed(1)} text-anchor="middle" class="chart-val tabular-nums">{v}</text>
+                  <text x={(x + barW / 2).toFixed(1)} y={(H - 7).toFixed(1)} text-anchor="middle" class="chart-yr">{y}</text>
+                </g>
+              );
+            })}
+          </svg>
+          {undatedCitationDelta > 0 && (
+            <p class="chart-footnote tabular-nums">
+              {datedCitationSum.toLocaleString()} dated citations ({years[0]}&ndash;{years[years.length - 1]}) + {undatedCitationDelta} undated Google Scholar citations = {metrics.citations.toLocaleString()} total.
+            </p>
+          )}
+        </div>
+      </section>
+
+      <!-- Filter, Search & Bibliography Ledger -->
+      <section class="rule-section">
+        <div class="controls-bar">
+          <div class="filter-strip" style="margin-top: 0;" role="group" aria-label="Filter publications by category or venue">
+            <button type="button" class="filter-btn" aria-pressed="true" data-filter="all">All ({sortedPubs.length})</button>
+            <button type="button" class="filter-btn" aria-pressed="false" data-filter="saail">SAAIL Lab ({saailCount})</button>
+            <button type="button" class="filter-btn" aria-pressed="false" data-filter="journal">Journals</button>
+            <button type="button" class="filter-btn" aria-pressed="false" data-filter="conference">Conferences &amp; Workshops</button>
+            <button type="button" class="filter-btn" aria-pressed="false" data-filter="preprint">Under Review ({underReviewCount})</button>
+            <button type="button" class="filter-btn" aria-pressed="false" data-filter="oa">Open Access ({openAccessCount})</button>
+          </div>
+
+          <div class="search-sort">
+            <input id="pubSearch" type="search" placeholder="Search title, author, venue, DOI..." aria-label="Search publications" class="search-input" />
+            <select id="pubSort" aria-label="Sort publications" class="sort-select">
+              <option value="default">Newest First</option>
+              <option value="citations">Most Cited</option>
+              <option value="title">Title A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="result-bar">
+          <p class="result-count" id="resultCount" aria-live="polite">
+            Showing {sortedPubs.length} of {sortedPubs.length} publications
+          </p>
+          <button type="button" id="resetFilters" class="reset-btn" hidden>Reset Filters</button>
+        </div>
+
+        <p id="copyAnnounce" class="sr-only" aria-live="polite"></p>
+
+        <ol class="bib-list" id="pubList">
+          {sortedPubs.map((pub, idx) => {
+            const bibId = `bib-${pub.slug}`;
+            return (
+              <li
+                class="pub-entry"
+                data-idx={idx}
+                data-citations={pub.citations}
+                data-title={pub.title.toLowerCase()}
+                data-saail={pub.isSaailLab ? 'yes' : 'no'}
+                data-category={pub.category}
+                data-oa={pub.openAccess ? 'yes' : 'no'}
+                data-extra={`${pub.doi} ${pub.topics.join(' ')}`.toLowerCase()}
+              >
+                <div class="pub-yr-col">
+                  <span class="pub-yr tabular-nums">{pub.year}</span>
+                  <span class:list={['pub-short', pub.category === 'preprint' ? 'is-review' : '']}>{pub.venueShort}</span>
+                  {pub.isSaailLab && <span class="pub-lab">SAAIL Lab</span>}
+                  {pub.award && <span class="pub-award">{pub.award}</span>}
+                  {pub.citations > 0 && (
+                    <span class="pub-cit tabular-nums">
+                      {pub.citations} {pub.citations === 1 ? 'citation' : 'citations'}
+                    </span>
+                  )}
+                </div>
+
+                <div class="pub-body">
+                  <h2 class="pub-title">
+                    {pub.doi ? (
+                      <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener">
+                        {pub.title}
+                      </a>
+                    ) : pub.isSaailLab ? (
+                      <a href={pub.saailPaperUrl} target="_blank" rel="noopener">
+                        {pub.title}
+                      </a>
+                    ) : (
+                      <a href={`/papers/${pub.slug}/`} target="_blank" rel="noopener">
+                        {pub.title}
+                      </a>
+                    )}
+                  </h2>
+                  <p class="pub-authors">
+                    {pub.authors.map((a, i) => (
+                      <>
+                        {isInnocentNyalala(a) ? <strong>{a}</strong> : a}
+                        {i < pub.authors.length - 1 ? ', ' : ''}
+                      </>
+                    ))}
+                  </p>
+                  <p class="pub-venue-full">
+                    <em>{pub.venue}</em>
+                    {pub.impactFactor ? ` · ${pub.impactFactor}` : ''}
+                    {pub.openAccess ? ' · Open Access' : ''}
+                  </p>
+                  <p class="pub-tldr">{pub.tldr}</p>
+
+                  <div class="pub-actions">
+                    {pub.isSaailLab ? (
+                      <a href={pub.saailPaperUrl} target="_blank" rel="noopener" class="row-ext">
+                        SAAIL Companion &#8599;
+                      </a>
+                    ) : (
+                      <a href={`/papers/${pub.slug}/`} target="_blank" rel="noopener" class="row-ext">
+                        Project Companion &#8599;
+                      </a>
+                    )}
+                    {pub.doi && (
+                      <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener" class="row-ext">
+                        DOI &#8599;
+                      </a>
+                    )}
+                    {pub.codeUrl && (
+                      <a href={pub.codeUrl} target="_blank" rel="noopener" class="row-ext">
+                        Code &#8599;
+                      </a>
+                    )}
+                    {pub.bibtex && (
+                      <button type="button" class="bib-btn bib-toggle" aria-expanded="false" aria-controls={bibId}>
+                        BibTeX
+                      </button>
+                    )}
+                  </div>
+
+                  {pub.bibtex && (
+                    <div id={bibId} class="bib-panel" hidden>
+                      <pre><code>{pub.bibtex}</code></pre>
+                      <button type="button" class="bib-btn copy-bib">Copy BibTeX</button>
+                    </div>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <!-- Graduate Thesis Monographs (Excluded from Paper Count) -->
+      <section id="theses" class="rule-section">
+        <span class="mono-eyebrow">Graduate Monographs &middot; Excluded from {sortedPubs.length}-Paper Tally</span>
+        <div class="section-bar">
+          <h2 class="section-h">Graduate Thesis Monographs ({THESES.length})</h2>
+        </div>
+        <p class="section-intro">
+          Doctoral and master&rsquo;s engineering degree monographs are indexed separately from the {sortedPubs.length} peer-reviewed papers and preprints above.
+        </p>
+
+        <ol class="bib-list">
+          {THESES.map((th) => {
+            const bibId = `bib-${th.slug}`;
+            return (
+              <li class="pub-entry">
+                <div class="pub-yr-col">
+                  <span class="pub-yr tabular-nums">{th.year}</span>
+                  <span class="pub-short">{th.shortLabel}</span>
+                  <span class="pub-lab">Monograph</span>
+                </div>
+                <div class="pub-body">
+                  <h2 class="pub-title">
+                    <a href={`/publications/theses/${th.slug}/`}>{th.title}</a>
+                  </h2>
+                  <p class="pub-venue-full">
+                    <em>{th.degree}</em> &middot; {th.department} &middot; {th.institution} ({th.period})
+                  </p>
+                  <p class="pub-authors-line">
+                    Supervisor{th.supervisors.includes(' and ') ? 's' : ''}: {th.supervisors}
+                  </p>
+                  <p class="pub-tldr">{th.summary}</p>
+                  <div class="pub-actions">
+                    <a
+                      href={th.slug === 'msc-thesis-2016' ? '/papers/intelligent-greenhouse-arduino-2016/' : `/papers/${th.slug}/`}
+                      target="_blank"
+                      rel="noopener"
+                      class="row-ext"
+                    >
+                      Project Companion &#8599;
+                    </a>
+                    <a href={`/publications/theses/${th.slug}/`} class="row-ext">
+                      Monograph Record &rarr;
+                    </a>
+                    <button type="button" class="bib-btn bib-toggle" aria-expanded="false" aria-controls={bibId}>
+                      BibTeX
+                    </button>
+                  </div>
+                  <div id={bibId} class="bib-panel" hidden>
+                    <pre><code>{th.bibtex}</code></pre>
+                    <button type="button" class="bib-btn copy-bib">Copy BibTeX</button>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var listEl = document.getElementById('pubList');
+    var searchEl = document.getElementById('pubSearch');
+    var sortEl = document.getElementById('pubSort');
+    var countEl = document.getElementById('resultCount');
+    var resetBtn = document.getElementById('resetFilters');
+    var announceEl = document.getElementById('copyAnnounce');
+    var tabs = document.querySelectorAll('.filter-btn');
+    if (!listEl) return;
+
+    var cards = Array.prototype.slice.call(listEl.querySelectorAll('.pub-entry'));
+    var activeFilter = 'all';
+
+    function applyFilterAndSort() {
+      var q = ((searchEl && searchEl.value) || '').trim().toLowerCase();
+      var sortMode = (sortEl && sortEl.value) || 'default';
+
+      var sorted = cards.slice().sort(function (a, b) {
+        if (sortMode === 'citations') {
+          return Number(b.getAttribute('data-citations') || 0) - Number(a.getAttribute('data-citations') || 0);
+        }
+        if (sortMode === 'title') {
+          return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
+        }
+        return Number(a.getAttribute('data-idx') || 0) - Number(b.getAttribute('data-idx') || 0);
+      });
+
+      var visible = 0;
+      sorted.forEach(function (card) {
+        listEl.appendChild(card);
+        var cat = card.getAttribute('data-category') || '';
+        var saail = card.getAttribute('data-saail') === 'yes';
+        var oa = card.getAttribute('data-oa') === 'yes';
+        var hay = (card.textContent + ' ' + (card.getAttribute('data-extra') || '')).toLowerCase();
+
+        var matchTab =
+          activeFilter === 'all' ||
+          (activeFilter === 'saail' && saail) ||
+          (activeFilter === 'journal' && cat === 'journal') ||
+          (activeFilter === 'conference' && (cat === 'conference' || cat === 'workshop')) ||
+          (activeFilter === 'preprint' && cat === 'preprint') ||
+          (activeFilter === 'oa' && oa);
+
+        var matchSearch = !q || hay.indexOf(q) !== -1;
+        var show = matchTab && matchSearch;
+        card.style.display = show ? 'grid' : 'none';
+        if (show) visible++;
+      });
+
+      var isFiltered = activeFilter !== 'all' || Boolean(q) || sortMode !== 'default';
+      if (resetBtn) resetBtn.hidden = !isFiltered;
+
+      if (countEl) {
+        var parts = [];
+        if (activeFilter !== 'all') {
+          var activeBtn = document.querySelector('.filter-btn[aria-pressed="true"]');
+          var lbl = activeBtn ? activeBtn.textContent.replace(/\s*\(\d+\)\s*$/, '') : activeFilter;
+          parts.push(lbl);
+        }
+        if (q && searchEl) parts.push('"' + searchEl.value.trim() + '"');
+        var suffix = parts.length ? ' (' + parts.join(' + ') + ')' : '';
+        countEl.textContent = 'Showing ' + visible + ' of ' + cards.length + ' publications' + suffix;
+      }
+    }
+
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabs.forEach(function (b) {
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        activeFilter = btn.getAttribute('data-filter') || 'all';
+        applyFilterAndSort();
+      });
+    });
+
+    resetBtn &&
+      resetBtn.addEventListener('click', function () {
+        if (searchEl) searchEl.value = '';
+        if (sortEl) sortEl.value = 'default';
+        activeFilter = 'all';
+        tabs.forEach(function (b) {
+          var isAll = b.getAttribute('data-filter') === 'all';
+          b.setAttribute('aria-pressed', String(isAll));
+        });
+        applyFilterAndSort();
+        searchEl && searchEl.focus();
+      });
+
+    searchEl && searchEl.addEventListener('input', applyFilterAndSort);
+    sortEl && sortEl.addEventListener('change', applyFilterAndSort);
+
+    listEl.addEventListener('click', function (e) {
+      var target = e.target;
+      var toggle = target.closest('.bib-toggle');
+      if (toggle) {
+        var panel = toggle.closest('.pub-body') && toggle.closest('.pub-body').querySelector('.bib-panel');
+        if (!panel) return;
+        var willOpen = panel.hidden;
+        panel.hidden = !willOpen;
+        toggle.setAttribute('aria-expanded', String(willOpen));
+        return;
+      }
+
+      var copyBtn = target.closest('.copy-bib');
+      if (copyBtn) {
+        var preEl = copyBtn.previousElementSibling;
+        var txt = preEl ? preEl.textContent || '' : '';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(txt).then(function () {
+            copyBtn.textContent = 'Copied!';
+            if (announceEl) announceEl.textContent = 'BibTeX entry copied to clipboard.';
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy BibTeX';
+            }, 1600);
+          });
+        }
+      }
+    });
+  });
+</script>
+</BaseLayout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .pub-ext-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.15rem;
+    margin-top: 1.1rem;
+  }
+
+  .ledger-five {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    margin-bottom: 1.5rem;
+  }
+  .l-tile {
+    padding: 0.95rem 0.75rem;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+  }
+  .l-tile:last-child {
+    border-right: none;
+  }
+  .l-tile strong {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--accent-forest);
+    line-height: 1.05;
+  }
+  .l-tile span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .chart-panel {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1.1rem 1.25rem 0.8rem;
+  }
+  .chart-head {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+  }
+  .chart-panel svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .chart-footnote {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--rule);
+  }
+  .chart-bar {
+    fill: var(--accent-forest);
+  }
+  .chart-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text-secondary);
+  }
+  .chart-yr {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text-muted);
+  }
+
+  .controls-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .search-sort {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .search-input,
+  .sort-select {
+    padding: 0.48rem 0.8rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    font-size: 0.94rem;
+    border-radius: 2px;
+  }
+  .search-input {
+    min-width: 260px;
+    flex: 1 1 260px;
+    max-width: 440px;
+  }
+
+  .result-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .result-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .reset-btn {
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--accent-forest);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  .bib-list {
+    list-style: none;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .pub-entry {
+    display: grid;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .pub-yr-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.24rem;
+  }
+  .pub-yr {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .pub-short {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+  }
+  .pub-short.is-review {
+    color: var(--accent-clove);
+  }
+  .pub-lab,
+  .pub-award,
+  .pub-cit {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .pub-award {
+    color: var(--accent-clove);
+    font-weight: 500;
+  }
+
+  .pub-body h2 {
+    font-size: 1.24rem;
+    line-height: 1.28;
+    margin-bottom: 0.3rem;
+  }
+  .pub-body h2 a {
+    text-decoration: none;
+  }
+  .pub-body h2 a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pub-authors,
+  .pub-authors-line {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.28rem;
+  }
+  .pub-authors-line {
+    color: var(--accent-clove);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .pub-venue-full {
+    font-size: 0.9rem;
+    color: var(--accent-forest);
+    margin-bottom: 0.42rem;
+  }
+  .pub-tldr {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 0.65rem;
+  }
+  .pub-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.15rem;
+    align-items: center;
+  }
+  .row-ext {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .row-ext:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+  .bib-btn {
+    padding: 0.22rem 0.65rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .bib-btn:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .bib-panel {
+    margin-top: 0.75rem;
+    border: 1px solid var(--rule);
+    background: var(--bg-secondary);
+    padding: 0.85rem;
+  }
+  .bib-panel pre {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    overflow-x: auto;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 780px) {
+    .ledger-five {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pub-entry {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+  }
+</style>

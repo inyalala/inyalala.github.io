@@ -1,3 +1,11 @@
-.qodo
+# Build & dependencies
 node_modules/
-css/tailwind-source.css
+dist/
+.astro/
+
+# Environment & OS
+.env
+.env.*
+.DS_Store
+Thumbs.db
+*.log

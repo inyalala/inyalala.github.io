@@ -1,0 +1,710 @@
+{
+  "/images/brand/iitmz-logo.png": {
+    "width": 857,
+    "height": 291
+  },
+  "/images/brand/saail-crest.png": {
+    "width": 332,
+    "height": 332
+  },
+  "/images/brand/saail-lab-logo.png": {
+    "width": 500,
+    "height": 500
+  },
+  "/images/email/iitmz-sig-crest.png": {
+    "width": 112,
+    "height": 112
+  },
+  "/images/email/iitmz-sig-logo.png": {
+    "width": 308,
+    "height": 92
+  },
+  "/images/email/saail-sig-crest.png": {
+    "width": 112,
+    "height": 112
+  },
+  "/images/email/saail-sig-logo.png": {
+    "width": 196,
+    "height": 104
+  },
+  "/images/email/saail-sig-wide.png": {
+    "width": 308,
+    "height": 92
+  },
+  "/images/icons/iitmz-crest.webp": {
+    "width": 64,
+    "height": 64
+  },
+  "/images/innocent-nyalala-cutout.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/innocent-nyalala-zanzibar.jpg": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/innocent-nyalala-zanzibar.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/news/aaai-2026-sovereignty.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/news/africhi-2025-poster.webp": {
+    "width": 1080,
+    "height": 1080
+  },
+  "/images/news/alliance4ai-feb2026.webp": {
+    "width": 1600,
+    "height": 900
+  },
+  "/images/news/cara-fm-dli-spotlight.webp": {
+    "width": 1200,
+    "height": 1696
+  },
+  "/images/news/cara-fm-poster-dli2025.webp": {
+    "width": 1400,
+    "height": 1979
+  },
+  "/images/news/cvpr-cloves-2026.webp": {
+    "width": 1080,
+    "height": 1080
+  },
+  "/images/news/discover-ai-editorial.webp": {
+    "width": 1125,
+    "height": 452
+  },
+  "/images/news/dli-2026-award-graphic.webp": {
+    "width": 1080,
+    "height": 1350
+  },
+  "/images/news/dli-2026-award-photo.webp": {
+    "width": 1200,
+    "height": 1600
+  },
+  "/images/news/dli-2026-lagos-poster.webp": {
+    "width": 1080,
+    "height": 1080
+  },
+  "/images/news/dsa-2026-kampala.webp": {
+    "width": 1067,
+    "height": 1600
+  },
+  "/images/news/dsa-2026-poster-auditing-representation.webp": {
+    "width": 960,
+    "height": 1280
+  },
+  "/images/news/dsa-2026-poster-few-shot-cassava.webp": {
+    "width": 960,
+    "height": 1280
+  },
+  "/images/news/dsa-day-3-57.webp": {
+    "width": 1200,
+    "height": 800
+  },
+  "/images/news/dsa-day-3-58.webp": {
+    "width": 1280,
+    "height": 853
+  },
+  "/images/news/dsa-day-4-61.webp": {
+    "width": 1200,
+    "height": 800
+  },
+  "/images/news/dsa2026-dcgan-poster.webp": {
+    "width": 1400,
+    "height": 1979
+  },
+  "/images/news/eac-sti-2026-clove-grading.webp": {
+    "width": 1080,
+    "height": 1080
+  },
+  "/images/news/etri-2026-xai-comparison.webp": {
+    "width": 1200,
+    "height": 1130
+  },
+  "/images/news/etri-2026-xai-pipeline.webp": {
+    "width": 1200,
+    "height": 582
+  },
+  "/images/news/etri-cloves-editorial.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/news/fumba-times-mosquito-hunt.webp": {
+    "width": 1110,
+    "height": 1600
+  },
+  "/images/news/graduation.webp": {
+    "width": 1080,
+    "height": 720
+  },
+  "/images/news/iclr-2026-trustworthy-ai.webp": {
+    "width": 1080,
+    "height": 1080
+  },
+  "/images/news/iit-join-oct2024.webp": {
+    "width": 1219,
+    "height": 1214
+  },
+  "/images/news/publication-compag-2025.webp": {
+    "width": 1106,
+    "height": 1058
+  },
+  "/images/news/tais2026-oxford-framework.webp": {
+    "width": 1200,
+    "height": 538
+  },
+  "/images/news/tais2026-oxford-poster.webp": {
+    "width": 1400,
+    "height": 990
+  },
+  "/images/news/teaching-odd-2026.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/news/wsai-faculty-talks-poster.webp": {
+    "width": 940,
+    "height": 788
+  },
+  "/images/news/wsai-talk-sept2025.webp": {
+    "width": 1600,
+    "height": 1200
+  },
+  "/images/og-innocent-nyalala.png": {
+    "width": 1200,
+    "height": 630
+  },
+  "/images/papers/cassava/cassava_leaf_classes.jpg": {
+    "width": 850,
+    "height": 459
+  },
+  "/images/papers/phd2023/fig_3d_surface_recon.jpg": {
+    "width": 1500,
+    "height": 1930
+  },
+  "/images/papers/phd2023/fig_carcass_features.jpg": {
+    "width": 900,
+    "height": 1124
+  },
+  "/images/papers/phd2023/fig_conveyor_carcasses.jpg": {
+    "width": 950,
+    "height": 1022
+  },
+  "/images/papers/phd2023/fig_depth_colormaps.jpg": {
+    "width": 900,
+    "height": 975
+  },
+  "/images/papers/phd2023/fig_depth_stages.jpg": {
+    "width": 1300,
+    "height": 1236
+  },
+  "/images/papers/phd2023/fig_processing_speed.jpg": {
+    "width": 1500,
+    "height": 760
+  },
+  "/images/papers/prior/carbon2019_sem.jpg": {
+    "width": 1652,
+    "height": 677
+  },
+  "/images/papers/prior/carcass2024.jpeg": {
+    "width": 1500,
+    "height": 556
+  },
+  "/images/papers/prior/carcass2024_3d_cloud.jpeg": {
+    "width": 1300,
+    "height": 1326
+  },
+  "/images/papers/prior/carcass2024_bagged_tree.jpeg": {
+    "width": 1200,
+    "height": 1007
+  },
+  "/images/papers/prior/carcass2024_workflow.jpeg": {
+    "width": 1928,
+    "height": 1546
+  },
+  "/images/papers/prior/subsoiling2021_dem.jpeg": {
+    "width": 945,
+    "height": 594
+  },
+  "/images/papers/prior/subsoiling2021_furrow.jpeg": {
+    "width": 2008,
+    "height": 645
+  },
+  "/images/papers/prior/subsoiling2021_rig.jpeg": {
+    "width": 945,
+    "height": 710
+  },
+  "/images/papers/prior/subsoiling2021_validation.png": {
+    "width": 1772,
+    "height": 1466
+  },
+  "/images/papers/prior/tomato2019.jpeg": {
+    "width": 1422,
+    "height": 998
+  },
+  "/images/papers/prior/tomato2019_mass_volume.jpeg": {
+    "width": 1895,
+    "height": 800
+  },
+  "/images/papers/prior/tomato2019_pipeline.jpeg": {
+    "width": 1422,
+    "height": 906
+  },
+  "/images/papers/prior/tomato2021_clusters.jpeg": {
+    "width": 1146,
+    "height": 538
+  },
+  "/images/papers/prior/tomato2021_geometry.png": {
+    "width": 1008,
+    "height": 682
+  },
+  "/images/papers/prior/tomato2021_regression.jpeg": {
+    "width": 1138,
+    "height": 972
+  },
+  "/images/papers/prior/tomato2021_watershed.jpeg": {
+    "width": 938,
+    "height": 596
+  },
+  "/images/research/cashew-ai-samples.jpg": {
+    "width": 1592,
+    "height": 1282
+  },
+  "/images/research/cloves-etri2026-abstract.png": {
+    "width": 1600,
+    "height": 689
+  },
+  "/images/research/cropguardnet-architecture.png": {
+    "width": 2698,
+    "height": 2110
+  },
+  "/images/research/dgs-bench-gap.png": {
+    "width": 2971,
+    "height": 852
+  },
+  "/images/research/placentavision-pipeline.png": {
+    "width": 1936,
+    "height": 1176
+  },
+  "/images/research/swahili-corpus.png": {
+    "width": 1650,
+    "height": 924
+  },
+  "/images/theses/phd-carcass-3d.webp": {
+    "width": 1300,
+    "height": 1326
+  },
+  "/images/theses/phd-occlusion-split.webp": {
+    "width": 938,
+    "height": 596
+  },
+  "/images/theses/phd-tomato-station.webp": {
+    "width": 1422,
+    "height": 998
+  },
+  "/images/thumbs/news/aaai-2026-sovereignty.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/news/africhi-2025-poster.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/thumbs/news/alliance4ai-feb2026.webp": {
+    "width": 640,
+    "height": 360
+  },
+  "/images/thumbs/news/cara-fm-dli-spotlight.webp": {
+    "width": 500,
+    "height": 707
+  },
+  "/images/thumbs/news/cara-fm-poster-dli2025.webp": {
+    "width": 500,
+    "height": 707
+  },
+  "/images/thumbs/news/cvpr-cloves-2026.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/thumbs/news/discover-ai-editorial.webp": {
+    "width": 640,
+    "height": 257
+  },
+  "/images/thumbs/news/dli-2026-award-graphic.webp": {
+    "width": 640,
+    "height": 800
+  },
+  "/images/thumbs/news/dli-2026-award-photo.webp": {
+    "width": 640,
+    "height": 853
+  },
+  "/images/thumbs/news/dli-2026-lagos-poster.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/thumbs/news/dsa-2026-kampala.webp": {
+    "width": 500,
+    "height": 750
+  },
+  "/images/thumbs/news/dsa-2026-poster-auditing-representation.webp": {
+    "width": 640,
+    "height": 853
+  },
+  "/images/thumbs/news/dsa-2026-poster-few-shot-cassava.webp": {
+    "width": 500,
+    "height": 667
+  },
+  "/images/thumbs/news/dsa-day-3-57.webp": {
+    "width": 640,
+    "height": 426
+  },
+  "/images/thumbs/news/dsa-day-3-58.webp": {
+    "width": 640,
+    "height": 426
+  },
+  "/images/thumbs/news/dsa-day-4-61.webp": {
+    "width": 640,
+    "height": 426
+  },
+  "/images/thumbs/news/dsa2026-dcgan-poster.webp": {
+    "width": 640,
+    "height": 905
+  },
+  "/images/thumbs/news/eac-sti-2026-clove-grading.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/thumbs/news/etri-2026-xai-comparison.webp": {
+    "width": 640,
+    "height": 603
+  },
+  "/images/thumbs/news/etri-2026-xai-pipeline.webp": {
+    "width": 640,
+    "height": 311
+  },
+  "/images/thumbs/news/etri-cloves-editorial.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/news/fumba-times-mosquito-hunt.webp": {
+    "width": 500,
+    "height": 721
+  },
+  "/images/thumbs/news/graduation.webp": {
+    "width": 640,
+    "height": 427
+  },
+  "/images/thumbs/news/iclr-2026-trustworthy-ai.webp": {
+    "width": 640,
+    "height": 640
+  },
+  "/images/thumbs/news/iit-join-oct2024.webp": {
+    "width": 640,
+    "height": 637
+  },
+  "/images/thumbs/news/publication-compag-2025.webp": {
+    "width": 640,
+    "height": 612
+  },
+  "/images/thumbs/news/tais2026-oxford-framework.webp": {
+    "width": 640,
+    "height": 287
+  },
+  "/images/thumbs/news/tais2026-oxford-poster.webp": {
+    "width": 640,
+    "height": 453
+  },
+  "/images/thumbs/news/teaching-odd-2026.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/news/wsai-faculty-talks-poster.webp": {
+    "width": 640,
+    "height": 537
+  },
+  "/images/thumbs/news/wsai-talk-sept2025.webp": {
+    "width": 640,
+    "height": 480
+  },
+  "/images/thumbs/research/cashew-ai-samples.webp": {
+    "width": 760,
+    "height": 612
+  },
+  "/images/thumbs/research/cloves-etri2026-abstract.webp": {
+    "width": 760,
+    "height": 327
+  },
+  "/images/thumbs/research/cropguardnet-architecture.webp": {
+    "width": 760,
+    "height": 594
+  },
+  "/images/thumbs/research/dgs-bench-gap.webp": {
+    "width": 760,
+    "height": 218
+  },
+  "/images/thumbs/research/placentavision-pipeline.webp": {
+    "width": 760,
+    "height": 462
+  },
+  "/images/thumbs/research/swahili-corpus.webp": {
+    "width": 760,
+    "height": 426
+  },
+  "/images/thumbs/writing/abcs-ai-agriculture-hero.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/writing/abcs/a-autonomous-tractors.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/b-big-data.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/c-computer-vision.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/d-disease-detection.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/e-edge-computing.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/f-forecasting.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/g-gps-guidance.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/h-harvest-robots.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/i-iot-sensors.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/j-judgement.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/k-knowledge-graphs.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/l-large-language-models.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/m-machine-learning.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/n-ndvi.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/o-object-detection.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/p-precision-agriculture.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/q-quality-grading.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/r-remote-sensing.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/s-soil-sensing.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/t-training-data.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/u-uavs.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/v-vertical-farming.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/w-weed-detection.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/x-xai.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/y-yield-prediction.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/abcs/z-zone-mapping.webp": {
+    "width": 400,
+    "height": 250
+  },
+  "/images/thumbs/writing/kiunguja-swahili-zanzibar.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/writing/overleaf-latex-guide.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/writing/smallholder-field-vision.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/writing/visiting-iitmz-zanzibar.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/thumbs/writing/zanzibar-seaweed-coast.webp": {
+    "width": 640,
+    "height": 400
+  },
+  "/images/writing/abcs-ai-agriculture-hero.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/writing/abcs/a-autonomous-tractors.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/b-big-data.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/c-computer-vision.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/d-disease-detection.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/e-edge-computing.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/f-forecasting.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/g-gps-guidance.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/h-harvest-robots.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/i-iot-sensors.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/j-judgement.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/k-knowledge-graphs.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/l-large-language-models.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/m-machine-learning.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/n-ndvi.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/o-object-detection.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/p-precision-agriculture.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/q-quality-grading.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/r-remote-sensing.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/s-soil-sensing.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/t-training-data.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/u-uavs.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/v-vertical-farming.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/w-weed-detection.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/x-xai.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/y-yield-prediction.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/abcs/z-zone-mapping.webp": {
+    "width": 960,
+    "height": 600
+  },
+  "/images/writing/kiunguja-swahili-zanzibar.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/writing/overleaf-latex-guide.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/writing/smallholder-field-vision.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/writing/visiting-iitmz-zanzibar.webp": {
+    "width": 1200,
+    "height": 750
+  },
+  "/images/writing/zanzibar-seaweed-coast.webp": {
+    "width": 1200,
+    "height": 750
+  }
+}

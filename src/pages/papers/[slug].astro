@@ -1,0 +1,19 @@
+---
+import AcademicProjectPage from '../../components/AcademicProjectPage.astro';
+import { PRIOR_COMPANIONS, type PriorPaper } from '../../data/prior-papers';
+
+export function getStaticPaths() {
+  return PRIOR_COMPANIONS.map((pub) => ({
+    params: { slug: pub.slug },
+    props: { pub }
+  }));
+}
+
+interface Props {
+  pub: PriorPaper;
+}
+
+const { pub } = Astro.props;
+---
+
+<AcademicProjectPage pub={pub} />

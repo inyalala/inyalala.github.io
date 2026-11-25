@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MonographRail from '../components/MonographRail.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { PUBLICATIONS } from '../data/publications';
+---
+
+<BaseLayout
+  title="Page Not Found | Innocent Nyalala · IITM Zanzibar"
+  description="Requested page unavailable on Innocent Nyalala's faculty website. Browse courses, publications, essays, news, or research directions."
+  canonical="https://inyalala.github.io/404.html"
+  noindex={true}
+>
+  <MonographRail />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <div class="monograph-panel" style="max-width: 620px; margin: 2.5rem auto;">
+        <span class="mono-eyebrow">HTTP 404</span>
+        <h1 class="page-title" style="font-size: 2.15rem;">Page Not Found</h1>
+        <p class="page-lead" style="margin-bottom: 1.5rem;">
+          The requested path is not available. Choose one of the main academic directories below.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center;">
+          <a href="/" class="btn-mono">Faculty Home &rarr;</a>
+          <a href="/courses/" class="btn-mono-outline">Teaching &amp; Courses</a>
+          <a href="/publications/" class="text-action">Publications ({PUBLICATIONS.length})</a>
+          <a href="/writing/" class="text-action">Writing &amp; Guides</a>
+        </div>
+      </div>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

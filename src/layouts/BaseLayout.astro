@@ -1,0 +1,587 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'profile' | 'article';
+  keywords?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'Innocent Nyalala, PhD | Data Science & AI · IITM Zanzibar',
+  description = 'Faculty monograph of Dr. Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab.',
+  canonical = 'https://inyalala.github.io/',
+  ogImage = 'https://inyalala.github.io/images/og-innocent-nyalala.png',
+  ogImageAlt = 'Innocent Nyalala, Assistant Professor of Data Science and AI at IIT Madras Zanzibar',
+  ogType = 'website',
+  keywords = 'Innocent Nyalala, IIT Madras Zanzibar, Data Science, Artificial Intelligence, Deep Learning, Computer Vision, Agricultural AI, Swahili NLP, East Africa, Tanzania, Kenya, WSAI IIT Madras, SAAIL Lab',
+  noindex = false
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>{title}</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1B3B2F" />
+
+    <meta name="description" content={description} />
+    {!noindex && keywords && <meta name="keywords" content={keywords} />}
+    <meta name="author" content="Innocent Nyalala" />
+
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hreflang="en" href={canonical} />
+      </>
+    )}
+
+    <link rel="alternate" type="application/rss+xml" title="Innocent Nyalala - Writing, News & Updates" href="/feed.xml" />
+    <link rel="alternate" type="text/plain" title="Innocent Nyalala LLMs Index" href="/llms.txt" />
+
+    <!-- Dublin Core & Geographic Indexing -->
+    <meta name="dc.title" content={title} />
+    <meta name="dc.creator" content="Innocent Nyalala" />
+    <meta name="dc.subject" content="Artificial Intelligence, Data Science, Deep Learning, Computer Vision, Precision Agriculture, Swahili NLP, Healthcare AI, Engineering Education" />
+    <meta name="dc.description" content={description} />
+    <meta name="geo.region" content="TZ-15" />
+    <meta name="geo.placename" content="Zanzibar, Tanzania" />
+    <meta name="geo.position" content="-6.29556;39.28768" />
+    <meta name="ICBM" content="-6.29556, 39.28768" />
+    <meta name="coverage" content="East Africa" />
+    <meta name="distribution" content="global" />
+
+    <!-- Identity & Cross-Site Verification -->
+    <link rel="me" href="https://saaillab.github.io/" />
+    <link rel="me" href="https://www.iitmz.ac.in/schools/engineering-and-science/faculty/prof-innocent-nyalala" />
+    <link rel="me" href="https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en" />
+    <link rel="me" href="https://orcid.org/0000-0002-7969-437X" />
+    <link rel="me" href="https://www.scopus.com/authid/detail.uri?authorId=57190215419" />
+    <link rel="me" href="https://www.webofscience.com/wos/author/record/X-4277-2018" />
+    <link rel="me" href="https://openreview.net/profile?id=~Innocent_Nyalala1" />
+    <link rel="me" href="https://www.semanticscholar.org/author/3406658" />
+    <link rel="me" href="https://openalex.org/A5013656785" />
+    <link rel="me" href="https://github.com/inyalala" />
+    <link rel="me" href="https://www.linkedin.com/in/innocentnyalala/" />
+    <link rel="me" href="https://www.researchgate.net/profile/Innocent-Nyalala" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Innocent Nyalala | IIT Madras Zanzibar" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:locale" content="en_US" />
+    {ogType === 'profile' && (
+      <>
+        <meta property="profile:first_name" content="Innocent" />
+        <meta property="profile:last_name" content="Nyalala" />
+      </>
+    )}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <!-- Preconnects & Non-Blocking Monograph Typography -->
+    <link rel="dns-prefetch" href="https://visitor-badge.laobi.icu" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Pinyon+Script&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Pinyon+Script&display=swap"
+      />
+    </noscript>
+
+    <!-- Day/Night Theme Initialization (Zero Flash) -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="monograph-shell">
+      <slot />
+    </div>
+
+    <button id="backToTop" type="button" class="back-to-top" aria-label="Back to top">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 19V5M5 12L12 5L19 12" />
+      </svg>
+    </button>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function () {
+        var backBtn = document.getElementById('backToTop');
+        window.addEventListener(
+          'scroll',
+          function () {
+            if (!backBtn) return;
+            if (window.scrollY > 420) backBtn.classList.add('visible');
+            else backBtn.classList.remove('visible');
+          },
+          { passive: true }
+        );
+        backBtn &&
+          backBtn.addEventListener('click', function () {
+            var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+          });
+
+        // Retire any legacy Service Worker without repeatedly re-registering /sw.js
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then(function (regs) {
+              regs.forEach(function (reg) {
+                reg.unregister();
+              });
+            })
+            .catch(function () {});
+        }
+        if ('caches' in window) {
+          caches
+            .keys()
+            .then(function (keys) {
+              keys.forEach(function (k) {
+                if (k.indexOf('v1') !== -1 || k.indexOf('v2') !== -1 || k.indexOf('innocent') !== -1 || k.indexOf('inyalala') !== -1) {
+                  caches.delete(k);
+                }
+              });
+            })
+            .catch(function () {});
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --bg-primary: #f8f5ee;
+    --bg-rail: #f1ece1;
+    --bg-secondary: #efeae0;
+    --bg-surface: #fcfbf7;
+    --text-primary: #181a18;
+    --text-secondary: #343833;
+    --text-muted: #565c55;
+    --accent-forest: #1b3b2f;
+    --accent-forest-hover: #10261d;
+    --accent-clove: #7a4b1e;
+    --accent-clove-rule: #8a5a2b;
+    --rule: #ddd4c4;
+    --rule-strong: #b9ae9a;
+    --rail-width: 256px;
+    --mobile-bar-height: 62px;
+    --font-script: 'Pinyon Script', Georgia, cursive;
+    --font-display: 'Cormorant Garamond', Georgia, Cambria, 'Times New Roman', serif;
+    --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Compatibility aliases */
+    --bg-card: var(--bg-surface);
+    --accent-primary: var(--accent-forest);
+    --accent-hover: var(--accent-forest-hover);
+    --accent-warm: var(--accent-clove);
+    --accent-teal: var(--accent-forest);
+    --border-color: var(--rule);
+  }
+
+  [data-theme='dark'] {
+    color-scheme: dark;
+    --bg-primary: #151412;
+    --bg-rail: #1a1815;
+    --bg-secondary: #1e1c18;
+    --bg-surface: #211f1b;
+    --text-primary: #f2efe9;
+    --text-secondary: #cec8be;
+    --text-muted: #a39c92;
+    --accent-forest: #8fb89e;
+    --accent-forest-hover: #abd0b9;
+    --accent-clove: #d7b48a;
+    --accent-clove-rule: #c79e6d;
+    --rule: #2f2c26;
+    --rule-strong: #4a453c;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 28px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    font-size: 1.04rem;
+    line-height: 1.68;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    line-height: 1.18;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-forest);
+    outline-offset: 2px;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--accent-forest);
+    color: #f8f5ee;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    z-index: 3000;
+    text-decoration: none;
+  }
+  [data-theme='dark'] .skip-link {
+    color: #151412;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Two-Column Swiss-Oxbridge Monograph Architecture */
+  .monograph-shell {
+    display: grid;
+    grid-template-columns: var(--rail-width) minmax(0, 1fr);
+    min-height: 100vh;
+  }
+
+  .monograph-canvas {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 3.4rem clamp(1.5rem, 4.5vw, 4rem) 4rem;
+  }
+
+  .mono-eyebrow {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent-clove);
+    margin-bottom: 0.55rem;
+  }
+
+  .page-masthead {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule-strong);
+    margin-bottom: 2.5rem;
+  }
+
+  .page-title {
+    font-size: clamp(2.15rem, 4vw, 3.1rem);
+    font-weight: 600;
+    line-height: 1.08;
+    margin-bottom: 0.85rem;
+  }
+
+  .page-lead {
+    max-width: 66ch;
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: var(--text-secondary);
+  }
+
+  .rule-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .rule-section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-h {
+    font-size: clamp(1.55rem, 2.5vw, 2rem);
+    font-weight: 600;
+  }
+
+  .section-intro {
+    max-width: 66ch;
+    color: var(--text-secondary);
+    margin-bottom: 1.4rem;
+    font-size: 0.98rem;
+  }
+
+  /* Hairline Action Links & Minimalist Buttons (Zero SaaS Pill/Glow Aesthetics) */
+  .text-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent-forest);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .text-action:hover {
+    color: var(--accent-clove);
+  }
+
+  .inline-link {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .inline-link:hover {
+    color: var(--accent-clove);
+  }
+
+  .btn-mono {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.56rem 1.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid var(--accent-forest);
+    background: var(--accent-forest);
+    color: #f8f5ee;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-mono:hover {
+    background: var(--accent-forest-hover);
+    border-color: var(--accent-forest-hover);
+  }
+  [data-theme='dark'] .btn-mono {
+    color: #151412;
+  }
+
+  .btn-mono-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.56rem 1.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .btn-mono-outline:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+
+  .filter-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.35rem;
+  }
+
+  .filter-btn {
+    padding: 0.36rem 0.82rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .filter-btn:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .filter-btn[aria-pressed='true'],
+  .filter-btn.is-active {
+    background: var(--accent-forest);
+    border-color: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  [data-theme='dark'] .filter-btn[aria-pressed='true'],
+  [data-theme='dark'] .filter-btn.is-active {
+    color: #151412;
+  }
+
+  .monograph-panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--rule);
+    padding: 1.5rem;
+    border-radius: 2px;
+  }
+
+  .calligraphic-flourish {
+    font-family: var(--font-script);
+    font-size: 1.65rem;
+    line-height: 1;
+    color: var(--accent-clove);
+    font-weight: 400;
+  }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 1.4rem;
+    right: 1.4rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 2px;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--accent-forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 900;
+  }
+  .back-to-top:hover {
+    border-color: var(--accent-forest);
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1020px) {
+    .monograph-shell {
+      grid-template-columns: 1fr;
+    }
+    html {
+      scroll-padding-top: calc(var(--mobile-bar-height) + 18px);
+    }
+    main {
+      padding: calc(var(--mobile-bar-height) + 2rem) 1.25rem 3.25rem;
+    }
+    .rule-section {
+      padding: 2rem 0;
+    }
+  }
+</style>

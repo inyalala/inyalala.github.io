@@ -1,0 +1,719 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { COURSES, type CourseData } from '../../data/courses';
+import { PROFILE } from '../../data/profile';
+import { breadcrumbList, courseSchemaNode, personEntity, webPageEntity, websiteEntity } from '../../data/schema';
+
+export function getStaticPaths() {
+  return COURSES.map((course) => ({
+    params: { slug: course.slug },
+    props: { course }
+  }));
+}
+
+interface Props {
+  course: CourseData;
+}
+
+const { course } = Astro.props;
+const otherCourses = COURSES.filter((c) => c.slug !== course.slug);
+const shortTitle = `${course.code}: ${course.title.split(':')[0]} (${course.program}) | Nyalala`.slice(0, 60);
+const metaDesc = `${course.code} ${course.title} (${course.program}) at IIT Madras Zanzibar: weekly slides, PDFs, notebooks, labs, grading, and question bank.`.slice(0, 160);
+const pageUrl = `https://inyalala.github.io/courses/${course.slug}/`;
+
+const schemaCourse = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    webPageEntity({
+      url: pageUrl,
+      name: shortTitle,
+      description: metaDesc,
+      breadcrumbId: `${pageUrl}#breadcrumb`,
+      mainEntityId: `${pageUrl}#course`
+    }),
+    courseSchemaNode(course),
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Teaching & Courses', url: 'https://inyalala.github.io/courses/' },
+        { name: course.code, url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title={shortTitle}
+  description={metaDesc}
+  canonical={`https://inyalala.github.io/courses/${course.slug}/`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schemaCourse)} />
+  </Fragment>
+
+  <MonographRail currentPage="courses" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/courses/">Teaching</a>
+        <span>/</span>
+        <span aria-current="page">{course.code}</span>
+      </nav>
+
+      <!-- Course Masthead -->
+      <header class="page-masthead">
+        <span class="mono-eyebrow">
+          {course.code} &middot; {course.program} {course.courseType} &middot;{' '}
+          {course.status === 'active'
+            ? 'Active Odd Semester 2026-27'
+            : course.slug === 'z2005'
+              ? 'Reference Archive · BS Odd Semester'
+              : 'Even Semester 2026 Archive'}
+        </span>
+        <h1 class="page-title">{course.title}</h1>
+        <p class="page-lead">{course.summary}</p>
+
+        {course.crossLink && (
+          <p class="cross-note">
+            <a href={course.crossLink.href} class="inline-link">{course.crossLink.label}</a>
+          </p>
+        )}
+
+        {course.overviewNote && (
+          <div class="monograph-panel" role="note" style="margin-top: 1.25rem;">
+            <strong style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-clove);">
+              Course Structure Note:
+            </strong>{' '}
+            <span style="font-size: 0.95rem; color: var(--text-secondary);">{course.overviewNote}</span>
+          </div>
+        )}
+
+        <div class="meta-ledger">
+          <div>
+            <span class="meta-k">Academic Term</span>
+            <p class="meta-v">{course.term}</p>
+          </div>
+          <div>
+            <span class="meta-k">Credits &amp; Scope</span>
+            <p class="meta-v">{course.credits}</p>
+          </div>
+          <div>
+            <span class="meta-k">Instructor</span>
+            <p class="meta-v">
+              {PROFILE.fullTitle} &middot; {PROFILE.office} &middot;{' '}
+              <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a>
+            </p>
+            {course.coInstructor && (
+              <p class="meta-sub">Co-Instructor: {course.coInstructor.name}, {course.coInstructor.institution}</p>
+            )}
+          </div>
+        </div>
+
+        <div class="course-actions">
+          <a href="#materials" class="btn-mono">Weekly Materials &darr;</a>
+          <a href={course.links.teachingSiteHome} target="_blank" rel="noopener" class="btn-mono-outline">
+            Course Materials Portal &#8599;
+          </a>
+          {course.links.questionBank && (
+            <a href={course.links.questionBank} target="_blank" rel="noopener" class="btn-mono-outline">
+              Question Bank &#8599;
+            </a>
+          )}
+          {course.links.assignments && (
+            <a href={course.links.assignments} target="_blank" rel="noopener" class="btn-mono-outline">
+              Assignments &#8599;
+            </a>
+          )}
+          {course.links.syllabusPdf && (
+            <a href={course.links.syllabusPdf} target="_blank" rel="noopener" class="text-action">
+              Institute Syllabus PDF &#8599;
+            </a>
+          )}
+        </div>
+      </header>
+
+      <!-- In-Page Quick Jump Strip -->
+      <nav class="jump-strip" aria-label="Course sections">
+        <a href="#materials">Lectures &amp; Materials ({course.modules.length})</a>
+        <a href="#schedule">Schedule &amp; Prerequisites</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#grading">Assessment &amp; Grading</a>
+        <a href="#resources">Textbooks &amp; Resources</a>
+        <a href="#policies">Policies</a>
+      </nav>
+
+      <!-- Weekly Lectures & Materials -->
+      <section id="materials" class="rule-section">
+        <div class="section-bar">
+          <div>
+            <span class="mono-eyebrow">Direct Student Downloads</span>
+            <h2 class="section-h">Lectures, Slides, Labs &amp; Notebooks</h2>
+          </div>
+          <a href={course.links.githubRepo} target="_blank" rel="noopener" class="text-action">
+            GitHub Source Folder &#8599;
+          </a>
+        </div>
+        <p class="section-intro">
+          Open slide PDFs directly in your browser, read LaTeX lecture notes and worksheets (PDF), preview PowerPoint decks online, or download laboratory notebooks without login walls.
+        </p>
+
+        <ol class="module-ledger">
+          {course.modules.map((m) => (
+            <li class="module-entry">
+              <div class="mod-left">
+                <span class="mod-code">{m.code}</span>
+                <span class="mod-wk">Week {m.weeks}</span>
+                {m.assignment && <span class="mod-assign">{m.assignment}</span>}
+              </div>
+
+              <div class="mod-right">
+                <h3>{m.title}</h3>
+                <p class="mod-summary">{m.summary}</p>
+                {m.readings && (
+                  <p class="mod-readings">Readings: {m.readings}</p>
+                )}
+
+                <div class="mod-resources">
+                  {m.slides.length === 0 && !m.labHref && !m.colabHref && !m.notebookHref ? (
+                    <span class="res-pending">Verified slide PDFs, LaTeX notes (PDF), and lab files publishing from Classroom</span>
+                  ) : (
+                    <>
+                      {m.slides.map((sl) => (
+                        <a href={sl.href} target="_blank" rel="noopener" class="res-link">
+                          {sl.label} &#8599;
+                        </a>
+                      ))}
+                      {m.labHref && (
+                        <a href={m.labHref} target="_blank" rel="noopener" class="res-link res-accent">
+                          Lab Sheet &#8599;
+                        </a>
+                      )}
+                      {m.colabHref && (
+                        <a href={m.colabHref} target="_blank" rel="noopener" class="res-link res-accent">
+                          Open in Colab &#8599;
+                        </a>
+                      )}
+                      {m.notebookHref && (
+                        <a href={m.notebookHref} target="_blank" rel="noopener" class="res-link">
+                          Download .ipynb &#8599;
+                        </a>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        {course.supplementaryDocs && course.supplementaryDocs.length > 0 && (
+          <div class="monograph-panel" style="margin-top: 1.5rem;">
+            <span class="mono-eyebrow">Supplementary Course Documents</span>
+            <div class="mod-resources" style="margin-top: 0.4rem;">
+              {course.supplementaryDocs.map((doc) => (
+                <a href={doc.href} target="_blank" rel="noopener" class="res-link res-accent">
+                  {doc.label} &#8599;
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+
+      <!-- Schedule & Prerequisites -->
+      <section id="schedule" class="rule-section">
+        <span class="mono-eyebrow">Logistics &amp; Tooling</span>
+        <div class="two-col-split">
+          <div>
+            <h2 class="section-h" style="margin-bottom: 1rem;">Weekly Schedule</h2>
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Frequency</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {course.schedule.map((s) => (
+                  <tr>
+                    <td><strong>{s.session}</strong></td>
+                    <td>{s.frequency}</td>
+                    <td>{s.details}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h2 class="section-h" style="margin-bottom: 1rem;">Prerequisites &amp; Stack</h2>
+            {course.prerequisites.map((p) => (
+              <p class="prereq-p">{p}</p>
+            ))}
+            {course.software && course.software.length > 0 && (
+              <p class="sw-line">
+                <span>Environment:</span> {course.software.join(' · ')}
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Learning Outcomes -->
+      <section id="outcomes" class="rule-section">
+        <span class="mono-eyebrow">Syllabus Objectives</span>
+        <h2 class="section-h" style="margin-bottom: 1.15rem;">Learning Outcomes</h2>
+        <ol class="outcomes-list">
+          {course.outcomes.map((out, i) => (
+            <li>
+              <span class="out-num tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+              <span>{out}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Assessment & Grading -->
+      <section id="grading" class="rule-section">
+        <span class="mono-eyebrow">Evaluation Scheme</span>
+        <h2 class="section-h" style="margin-bottom: 1.15rem;">Assessment &amp; Grading</h2>
+        <div class="grading-list">
+          {course.grading.map((g) => (
+            <div class="grade-row">
+              <div class="grade-head">
+                <strong>{g.component}</strong>
+                <span class="grade-pct tabular-nums">{g.weightLabel || `${g.weight}%`}</span>
+              </div>
+              <div class="grade-track">
+                <div class="grade-fill" style={`width: ${g.weight}%`}></div>
+              </div>
+              <p class="grade-note">{g.note}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Textbooks & Online Study Resources -->
+      <section id="resources" class="rule-section">
+        <span class="mono-eyebrow">References</span>
+        <h2 class="section-h" style="margin-bottom: 1.15rem;">Textbooks &amp; Study Tools</h2>
+        <ul class="books-ledger">
+          {course.textbooks.map((tb) => (
+            <li>
+              <div>
+                <strong>{tb.title}</strong>
+                <p class="tb-auth">{tb.authors}</p>
+                {tb.note && <p class="tb-note">{tb.note}</p>}
+              </div>
+              <span class:list={['tb-role', tb.role === 'Required' ? 'tb-req' : '']}>{tb.role}</span>
+            </li>
+          ))}
+        </ul>
+
+        {course.onlineResources.length > 0 && (
+          <div class="online-grid">
+            {course.onlineResources.map((res) => (
+              <div class="online-row">
+                <span class="online-cat">{res.category}</span>
+                <a href={res.href} target="_blank" rel="noopener" class="inline-link">{res.title} &#8599;</a>
+                <p>{res.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- Policies & Switch Courses -->
+      <section id="policies" class="rule-section">
+        <span class="mono-eyebrow">Standards &amp; Licensing</span>
+        <h2 class="section-h" style="margin-bottom: 1.15rem;">Course Policies &amp; Reuse</h2>
+        <div class="two-col-split">
+          {course.policies.map((pol) => (
+            <div>
+              <h3 style="font-size: 1.12rem; margin-bottom: 0.25rem;">{pol.label}</h3>
+              <p style="font-size: 0.94rem; color: var(--text-secondary); line-height: 1.6;">{pol.text}</p>
+            </div>
+          ))}
+        </div>
+        <p class="course-license">
+          All lecture notes, slides, and laboratory materials for {course.code} are licensed under{' '}
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener" class="inline-link">
+            CC BY-NC-SA 4.0
+          </a>
+          . ShareAlike required; commercial use prohibited without permission.
+        </p>
+
+        <div class="switch-bar">
+          <span class="mono-eyebrow">Switch Course</span>
+          <div class="switch-links">
+            {otherCourses.map((oc) => (
+              <a href={`/courses/${oc.slug}/`} class="text-action">
+                {oc.code} ({oc.program}): {oc.title.split(':')[0]} &rarr;
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 1.15rem;
+  }
+  .breadcrumb a {
+    color: var(--accent-forest);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .cross-note {
+    margin-top: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+  }
+
+  .meta-ledger {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    padding: 1.15rem 0;
+    margin: 1.35rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .meta-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-clove);
+    margin-bottom: 0.25rem;
+  }
+  .meta-v {
+    font-size: 0.94rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+  .meta-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .course-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 0.95rem;
+  }
+
+  .jump-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.35rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .jump-strip a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .jump-strip a:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+
+  /* Module Ledger */
+  .module-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .module-entry {
+    display: grid;
+    grid-template-columns: 165px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .mod-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+  .mod-code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .mod-wk {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .mod-assign {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+    margin-top: 0.2rem;
+  }
+  .mod-right h3 {
+    font-size: 1.28rem;
+    margin-bottom: 0.3rem;
+  }
+  .mod-summary {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 0.35rem;
+  }
+  .mod-readings {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 0.7rem;
+  }
+  .mod-resources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.95rem;
+  }
+  .res-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0.15rem 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .res-link:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+  .res-accent {
+    color: var(--accent-forest);
+    font-weight: 500;
+    border-bottom-color: var(--accent-forest);
+  }
+  .res-pending {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .two-col-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
+  .clean-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .clean-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 0.55rem 0.6rem 0.55rem 0;
+  }
+  .clean-table td {
+    padding: 0.65rem 0.6rem 0.65rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--text-secondary);
+  }
+  .prereq-p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
+    line-height: 1.62;
+  }
+  .sw-line {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--rule);
+    line-height: 1.65;
+  }
+  .sw-line span {
+    color: var(--accent-clove);
+    font-weight: 500;
+  }
+
+  .outcomes-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .outcomes-list li {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.96rem;
+    color: var(--text-secondary);
+  }
+  .out-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-clove);
+    font-weight: 500;
+  }
+
+  .grading-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+  }
+  .grade-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.98rem;
+    margin-bottom: 0.3rem;
+  }
+  .grade-pct {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .grade-track {
+    height: 6px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--rule);
+  }
+  .grade-fill {
+    height: 100%;
+    background: var(--accent-forest);
+  }
+  .grade-note {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 0.28rem;
+  }
+
+  .books-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .books-ledger li {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tb-auth {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .tb-note {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+  .tb-role {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .tb-req {
+    color: var(--accent-clove);
+    font-weight: 600;
+  }
+
+  .online-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .online-row {
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--rule);
+  }
+  .online-cat {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--accent-clove);
+    margin-bottom: 0.2rem;
+  }
+  .online-row p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .course-license {
+    margin-top: 1.35rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .switch-bar {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .switch-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.35rem;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 780px) {
+    .meta-ledger,
+    .module-entry,
+    .two-col-split,
+    .online-grid {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+  }
+</style>

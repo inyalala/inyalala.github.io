@@ -1,0 +1,31 @@
+{
+  "scholarId": "jYVzIZUAAAAJ",
+  "orcid": "0000-0002-7969-437X",
+  "openalexId": "A5013656785",
+  "updatedAt": "2026-11-24",
+  "citations": 1273,
+  "citationsSince2021": 1206,
+  "citationsSinceYear": 2021,
+  "hIndex": 15,
+  "i10Index": 17,
+  "totalWorks": 41,
+  "saailPublishedCount": 15,
+  "saailUnderReviewCount": 5,
+  "priorWorksCount": 21,
+  "journalArticles": 24,
+  "conferencePapers": 12,
+  "grantsAwarded": 3,
+  "openAccessCount": 24,
+  "citationsPerYear": {
+    "2019": 8,
+    "2020": 49,
+    "2021": 122,
+    "2022": 142,
+    "2023": 217,
+    "2024": 224,
+    "2025": 265,
+    "2026": 229
+  },
+  "citationsPerYearExact": true,
+  "source": "Google Scholar Live Profile"
+}

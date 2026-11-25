@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+
+<BaseLayout
+  title="SAAIL Lab Team Directory | Innocent Nyalala"
+  description="The SAAIL Lab research team directory (PhD candidates, MTech researchers, BS fellows, and alumni) is hosted on the official SAAIL Lab portal."
+  canonical="https://saaillab.github.io/people/"
+  noindex={true}
+>
+  <Fragment slot="head">
+    <meta http-equiv="refresh" content="0; url=https://saaillab.github.io/people/" />
+  </Fragment>
+
+  <MonographRail currentPage="" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <div class="monograph-panel" style="max-width: 620px; margin: 2rem auto;">
+        <span class="mono-eyebrow">SAAIL Lab People Directory</span>
+        <h1 class="page-title" style="font-size: 2rem;">Research Team Lives on SAAIL Lab</h1>
+        <p class="page-lead" style="margin-bottom: 1.35rem;">
+          PhD candidates, MTech Data Science and AI researchers, BS fellows, and graduated alumni are maintained in one canonical directory on{' '}
+          <a href="https://saaillab.github.io/people/" class="inline-link">saaillab.github.io/people</a>.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;">
+          <a href="https://saaillab.github.io/people/" class="btn-mono">Open SAAIL Lab People &#8599;</a>
+          <a href="/work-with-me/" class="text-action">Join SAAIL Lab &rarr;</a>
+        </div>
+      </div>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

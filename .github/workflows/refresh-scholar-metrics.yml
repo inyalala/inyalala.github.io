@@ -1,0 +1,37 @@
+name: Refresh Google Scholar Metrics
+
+on:
+  schedule:
+    - cron: "15 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scholar-metrics
+  cancel-in-progress: false
+
+jobs:
+  refresh-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update scholar-metrics.json
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python scripts/refresh_scholar_metrics.py
+
+      - name: Commit updated metrics if changed
+        id: commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh Google Scholar metrics"
+          file_pattern: src/data/scholar-metrics.json

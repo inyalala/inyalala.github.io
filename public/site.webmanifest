@@ -1,0 +1,21 @@
+{
+  "name": "Innocent Nyalala | IIT Madras Zanzibar",
+  "short_name": "Innocent Nyalala",
+  "description": "Assistant Professor of Data Science and AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f5ee",
+  "theme_color": "#1b3b2f",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

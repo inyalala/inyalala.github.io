@@ -1,0 +1,1366 @@
+---
+import type { PriorPaper } from '../data/prior-papers';
+import { PRIOR_COMPANIONS, PHD_CHAPTER_SLUGS, getImageDims } from '../data/prior-papers';
+import { breadcrumbList, personEntity, websiteEntity } from '../data/schema';
+
+export interface Props {
+  pub: PriorPaper;
+}
+
+const { pub } = Astro.props;
+
+const cleanDoi = pub.doi ? pub.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '').trim() : '';
+const doiUrl = cleanDoi ? `https://doi.org/${cleanDoi}` : '';
+const isThesis = pub.slug === 'phd-dissertation-2023' || pub.slug === 'intelligent-greenhouse-arduino-2016' || pub.slug === 'msc-thesis-2016';
+const thesisRouteSlug = pub.slug === 'intelligent-greenhouse-arduino-2016' ? 'msc-thesis-2016' : pub.slug;
+const isPhdChapter = PHD_CHAPTER_SLUGS.has(pub.slug);
+const canonicalUrl = `https://inyalala.github.io/papers/${pub.slug}/`;
+const ogImageUrl = pub.teaserImage
+  ? (pub.teaserImage.endsWith('.svg')
+      ? 'https://inyalala.github.io/images/og-innocent-nyalala.png'
+      : `https://inyalala.github.io${pub.teaserImage}`)
+  : 'https://inyalala.github.io/images/og-innocent-nyalala.png';
+const isSvgTeaser = Boolean(pub.teaserImage && pub.teaserImage.endsWith('.svg'));
+
+function escapeHtmlAttr(val: string): string {
+  return String(val)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+const keywordsMeta = [...(pub.keywords || []), 'Innocent Nyalala', 'Nanjing Agricultural University', 'Agricultural AI', 'Computer Vision'].join(', ');
+const authorsMeta = pub.authors.map((a) => a.name).join(', ');
+const headMetaLines: string[] = [
+  `<meta name="description" content="${escapeHtmlAttr(pub.tldr)}" />`,
+  `<meta name="keywords" content="${escapeHtmlAttr(keywordsMeta)}" />`,
+  `<meta name="author" content="${escapeHtmlAttr(authorsMeta)}" />`,
+  `<link rel="canonical" href="${escapeHtmlAttr(canonicalUrl)}" />`,
+  `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
+  `<meta name="theme-color" content="#2563eb" />`,
+  `<meta property="og:type" content="article" />`,
+  `<meta property="og:locale" content="en_US" />`,
+  `<meta property="og:title" content="${escapeHtmlAttr(pub.title)}" />`,
+  `<meta property="og:description" content="${escapeHtmlAttr(pub.tldr)}" />`,
+  `<meta property="og:url" content="${escapeHtmlAttr(canonicalUrl)}" />`,
+  `<meta property="og:site_name" content="Innocent Nyalala | Personal Research Archive" />`,
+  `<meta property="og:image" content="${escapeHtmlAttr(ogImageUrl)}" />`,
+  `<meta property="og:image:type" content="${ogImageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg'}" />`,
+  `<meta property="og:image:alt" content="${escapeHtmlAttr(pub.title)}" />`,
+  `<meta name="twitter:card" content="summary_large_image" />`,
+  `<meta name="twitter:title" content="${escapeHtmlAttr(pub.title)}" />`,
+  `<meta name="twitter:description" content="${escapeHtmlAttr(pub.tldr)}" />`,
+  `<meta name="twitter:image" content="${escapeHtmlAttr(ogImageUrl)}" />`,
+  `<meta name="citation_title" content="${escapeHtmlAttr(pub.title)}" />`,
+  ...pub.authors.map((a) => `<meta name="citation_author" content="${escapeHtmlAttr(a.name)}" />`),
+  ...pub.affiliations.map((aff) => `<meta name="citation_author_institution" content="${escapeHtmlAttr(aff)}" />`),
+  `<meta name="citation_publication_date" content="${escapeHtmlAttr(pub.dateISO || String(pub.year))}" />`,
+  `<meta name="citation_public_url" content="${escapeHtmlAttr(canonicalUrl)}" />`,
+  `<meta name="citation_language" content="en" />`,
+  `<meta name="citation_abstract" content="${escapeHtmlAttr(pub.abstract)}" />`,
+  `<meta name="citation_keywords" content="${escapeHtmlAttr((pub.keywords || []).join('; '))}" />`,
+];
+if (cleanDoi) {
+  headMetaLines.push(`<meta name="citation_doi" content="${escapeHtmlAttr(cleanDoi)}" />`);
+}
+const headMetaHtml = headMetaLines.join('\n  ');
+
+const rawUsedIndices: number[] = [];
+pub.authors.forEach((a) => {
+  (a.affiliations || []).forEach((idx) => {
+    if (!rawUsedIndices.includes(idx)) rawUsedIndices.push(idx);
+  });
+});
+rawUsedIndices.sort((a, b) => a - b);
+
+const remapAff = new Map<number, number>();
+const visibleAffiliations: { num: number; label: string }[] = [];
+if (rawUsedIndices.length > 0) {
+  rawUsedIndices.forEach((origIdx) => {
+    const label = pub.affiliations[origIdx - 1];
+    if (label) {
+      const seq = visibleAffiliations.length + 1;
+      remapAff.set(origIdx, seq);
+      visibleAffiliations.push({ num: seq, label });
+    }
+  });
+} else {
+  pub.affiliations.forEach((label, idx) => {
+    visibleAffiliations.push({ num: idx + 1, label });
+  });
+}
+
+function formatContributionSentence(raw: string, idx: number): string {
+  const s = raw.trim();
+  if (!s) return '';
+  if (/^(This|We|The|These|Across|Under|Evaluation|Experimental|Together)\b/.test(s)) return s;
+  const firstWord = s.split(/\s+/)[0].replace(/[^A-Za-z]/g, '');
+  const present3rd = [
+    'Demonstrates', 'Quantifies', 'Proves', 'Delivers', 'Defines', 'Establishes',
+    'Reproduces', 'Introduces', 'Profiles', 'Unifies', 'Proposes', 'Documents',
+    'Advances', 'Builds', 'Integrates', 'Reconciles', 'Audits', 'Exposes',
+    'Formulates', 'Categorizes', 'Critiques', 'Identifies'
+  ];
+  if (present3rd.includes(firstWord)) {
+    const subj = idx === 0 ? 'This study ' : idx === 1 ? 'The analysis ' : 'This work ';
+    return subj + s.charAt(0).toLowerCase() + s.slice(1);
+  }
+  const subj = idx === 0 ? 'We ' : idx === 1 ? 'In addition, we ' : 'We also ';
+  return subj + s.charAt(0).toLowerCase() + s.slice(1);
+}
+
+const teaserSummaryText = pub.teaserSummary || pub.teaserCaption || pub.tldr;
+const teaserDims = pub.teaserImage ? getImageDims(pub.teaserImage) : null;
+const allFigs = (pub.figures || []).slice(0, 3);
+const bodyFigs = allFigs.length >= 2 ? allFigs.slice(0, -1) : allFigs;
+const resultsFig = allFigs.length >= 2 ? allFigs[allFigs.length - 1] : null;
+const resultsNarrative =
+  pub.resultsSummary ||
+  (pub.contributions && pub.contributions.length > 0
+    ? pub.contributions.map((c, idx) => formatContributionSentence(c, idx)).join(' ')
+    : '');
+const hasResults = Boolean(resultsNarrative || resultsFig || (pub.tables && pub.tables.length > 0));
+const extraDetails = pub.detailSections || [];
+
+const resultsBand = hasResults ? (bodyFigs.length % 2 === 0 ? 'section-white' : 'section-light') : '';
+const afterResultsIndex = bodyFigs.length + (hasResults ? 1 : 0);
+const afterDetailsIndex = afterResultsIndex + extraDetails.length;
+const bibtexBand = afterDetailsIndex % 2 === 0 ? 'section-white' : 'section-light';
+const footerBand = bibtexBand === 'section-white' ? 'footer-light' : 'footer-white';
+
+const jsonLdGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': isThesis ? 'Thesis' : 'ScholarlyArticle',
+      '@id': `${canonicalUrl}#work`,
+      headline: pub.title,
+      name: pub.title,
+      datePublished: pub.dateISO || String(pub.year),
+      description: pub.tldr,
+      abstract: pub.abstract,
+      keywords: pub.keywords,
+      inLanguage: 'en',
+      url: canonicalUrl,
+      mainEntityOfPage: canonicalUrl,
+      image: ogImageUrl,
+      author: pub.authors.map((a) =>
+        a.name.toLowerCase().includes('innocent') && a.name.toLowerCase().includes('nyalala')
+          ? { '@id': 'https://inyalala.github.io/#person' }
+          : { '@type': 'Person', name: a.name }
+      ),
+      isPartOf: { '@type': isThesis ? 'CollegeOrUniversity' : 'PublicationIssue', name: pub.venue },
+      ...(doiUrl ? { sameAs: doiUrl, identifier: cleanDoi } : {})
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Publications', url: 'https://inyalala.github.io/publications/' },
+        { name: pub.shortTitle || pub.title, url: canonicalUrl }
+      ],
+      `${canonicalUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pub.shortTitle || pub.title} | Innocent Nyalala</title>
+  <Fragment set:html={headMetaHtml} />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="alternate" type="application/rss+xml" title="Innocent Nyalala - Writing, News & Updates" href="/feed.xml" />
+  <link rel="alternate" type="text/plain" title="Innocent Nyalala LLMs Index" href="/llms.txt" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- More Works Dropdown: Strictly Scoped to the 23 Pre-SAAIL Works & Theses (2015-2024) -->
+  <div class="more-works-container">
+    <button
+      id="moreWorksBtn"
+      type="button"
+      class="more-works-btn"
+      aria-expanded="false"
+      aria-controls="moreWorksDropdown"
+      title="Browse Pre-SAAIL Publications &amp; Theses (2015-2024)"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      <span>More Works ({PRIOR_COMPANIONS.length})</span>
+      <svg id="moreWorksChevron" class="dropdown-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+
+    <div id="moreWorksDropdown" class="more-works-dropdown" hidden>
+      <div class="dropdown-head">
+        <span>Pre-SAAIL Works &amp; Theses ({PRIOR_COMPANIONS.length})</span>
+        <button id="closeMoreWorks" type="button" class="close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="dropdown-links">
+        <a href="/publications/" class="dropdown-item dropdown-home-link">
+          <span class="item-kicker">&larr; Main Faculty Website</span>
+          <span class="item-title">All Publications &amp; Thesis Index</span>
+        </a>
+        {PRIOR_COMPANIONS.map((item) => {
+          const kickerLabel = item.venueShort.includes(String(item.year))
+            ? item.venueShort
+            : `${item.venueShort} · ${item.year}`;
+          const isCurrent = item.slug === pub.slug;
+          return (
+            <a
+              href={`/papers/${item.slug}/`}
+              class:list={['dropdown-item', { 'dropdown-item-active': isCurrent }]}
+              aria-current={isCurrent ? 'page' : undefined}
+            >
+              <span class="item-kicker">{kickerLabel}{isCurrent ? ' · Current' : ''}</span>
+              <span class="item-title">{item.shortTitle || item.title}</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <header class="paper-hero">
+      <div class="container-desktop">
+        <h1 class="paper-title">{pub.title}</h1>
+
+        <div class="authors-row">
+          {pub.authors.map((author, idx) => {
+            const mappedAffs = (author.affiliations || [])
+              .map((num) => remapAff.get(num))
+              .filter((n): n is number => typeof n === 'number');
+            const supText = mappedAffs.join(',');
+            const comma = idx < pub.authors.length - 1 ? ', ' : '';
+            return (
+              <span class="author-token">
+                {author.url ? (
+                  <a href={author.url} target="_blank" rel="noopener" class="author-link">{author.name}</a>
+                ) : (
+                  <span class="author-name">{author.name}</span>
+                )}
+                {supText && <sup class="aff-sup">{supText}</sup>}
+                {comma}
+              </span>
+            );
+          })}
+        </div>
+
+        <div class="affiliations-stack">
+          {visibleAffiliations.map((aff) => (
+            <div class="aff-line">
+              <sup>{aff.num}</sup>{aff.label}
+            </div>
+          ))}
+        </div>
+
+        <div class="venue-line">
+          <span>{pub.venue}</span>
+        </div>
+        {pub.award && <div class="award-line">{pub.award}</div>}
+
+        <nav class="action-buttons" aria-label={isThesis ? 'Monograph resources' : 'Paper resources'}>
+          <a href="/publications/" class="action-pill action-pill-outline">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M19 12H5"/>
+              <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            <span>Personal Site</span>
+          </a>
+          {isThesis && (
+            <a href={`/publications/theses/${thesisRouteSlug}/`} class="action-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>Monograph Record</span>
+            </a>
+          )}
+          {!isThesis && isPhdChapter && (
+            <a href="/papers/phd-dissertation-2023/" class="action-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span>Ph.D. Dissertation</span>
+            </a>
+          )}
+          {doiUrl && (
+            <a href={doiUrl} target="_blank" rel="noopener" class="action-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>DOI</span>
+            </a>
+          )}
+        </nav>
+      </div>
+    </header>
+
+    {extraDetails.length > 0 && (
+      <nav class="section-jump-nav" aria-label="Monograph sections">
+        <div class="container-desktop section-jump-inner">
+          <a href="#abstract" class="jump-link">Abstract</a>
+          {bodyFigs.length > 0 && <a href="#methodology" class="jump-link">Methodology</a>}
+          {hasResults && <a href="#results" class="jump-link">Results</a>}
+          {extraDetails.map((sec) => {
+            const shortJump = sec.id === 'study-6-synthesis'
+              ? 'Synthesis'
+              : sec.title.includes(':')
+                ? sec.title.split(':')[0].trim()
+                : sec.title;
+            return <a href={`#${sec.id}`} class="jump-link">{shortJump}</a>;
+          })}
+          <a href="#bibtex" class="jump-link">BibTeX</a>
+        </div>
+      </nav>
+    )}
+
+    <section class:list={['teaser-section', { 'teaser-compact': !pub.teaserImage }]}>
+      <div class="container-desktop">
+        {pub.teaserImage && teaserDims && (
+          <figure class="teaser-figure">
+            <button type="button" class="zoom-trigger" aria-label={`View full size: ${pub.title}`}>
+              <img
+                src={pub.teaserImage}
+                alt={pub.title}
+                width={teaserDims.width}
+                height={teaserDims.height}
+                class:list={['teaser-img', 'zoomable-img', { 'teaser-svg': isSvgTeaser }]}
+                loading="eager"
+              />
+              <span class="zoom-cue" aria-hidden="true">Zoom</span>
+            </button>
+          </figure>
+        )}
+        <p class="teaser-summary">{teaserSummaryText}</p>
+      </div>
+    </section>
+
+    <section id="abstract" class="section-band section-light">
+      <div class="container-desktop">
+        <div class="section-title-block section-title-center">
+          <h2>Abstract</h2>
+          <div class="title-bar title-bar-center"></div>
+        </div>
+        <div class="abstract-prose">
+          <p>{pub.abstract}</p>
+        </div>
+      </div>
+    </section>
+
+    {bodyFigs.map((fig, idx) => {
+      const bandClass = idx % 2 === 0 ? 'section-white' : 'section-light';
+      const heading = fig.title || (idx === 0 ? (pub.figureHeading || 'Methodology & Analysis') : `Analysis ${idx + 1}`);
+      const fd = getImageDims(fig.src);
+      return (
+        <section id={idx === 0 ? 'methodology' : `analysis-${idx + 1}`} class:list={['section-band', bandClass]}>
+          <div class="container-desktop">
+            <div class="section-title-block section-title-left">
+              <h2>{heading}</h2>
+              <div class="title-bar title-bar-left"></div>
+            </div>
+            <figure class="analysis-figure">
+              <button type="button" class="zoom-trigger" aria-label={`View full size: ${fig.alt || fig.caption}`}>
+                <img
+                  src={fig.src}
+                  alt={fig.alt || fig.caption}
+                  width={fd.width}
+                  height={fd.height}
+                  class="analysis-img zoomable-img"
+                  loading="lazy"
+                />
+                <span class="zoom-cue" aria-hidden="true">Zoom</span>
+              </button>
+              <figcaption class="figure-prose">{fig.caption}</figcaption>
+            </figure>
+          </div>
+        </section>
+      );
+    })}
+
+    {hasResults && (
+      <section id="results" class:list={['section-band', resultsBand]}>
+        <div class="container-desktop">
+          <div class="section-title-block section-title-left">
+            <h2>Results</h2>
+            <div class="title-bar title-bar-left"></div>
+          </div>
+
+          {resultsNarrative && <p class="section-prose">{resultsNarrative}</p>}
+
+          {resultsFig && (() => {
+            const rfd = getImageDims(resultsFig.src);
+            return (
+              <figure class="analysis-figure results-figure">
+                <button type="button" class="zoom-trigger" aria-label={`View full size: ${resultsFig.alt || resultsFig.caption}`}>
+                  <img
+                    src={resultsFig.src}
+                    alt={resultsFig.alt || resultsFig.caption}
+                    width={rfd.width}
+                    height={rfd.height}
+                    class="analysis-img zoomable-img"
+                    loading="lazy"
+                  />
+                  <span class="zoom-cue" aria-hidden="true">Zoom</span>
+                </button>
+                <figcaption class="figure-prose">{resultsFig.caption}</figcaption>
+              </figure>
+            );
+          })()}
+
+          {pub.tables && pub.tables.length > 0 && (
+            <div class="tables-stack">
+              {pub.tables.map((table) => (
+                <div class="table-block">
+                  <div class="table-header-text">
+                    <h3>{table.title}</h3>
+                    {table.caption && <p>{table.caption}</p>}
+                  </div>
+                  <div class="table-scroll">
+                    <table>
+                      <thead>
+                        <tr>
+                          {table.headers.map((h) => <th>{h}</th>)}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {table.rows.map((row) => {
+                          const cell0 = row[0] || '';
+                          const isOurs = cell0.includes('(Ours)') || cell0.startsWith('Total');
+                          return (
+                            <tr class:list={[{ 'row-highlight': isOurs }]}>
+                              {row.map((cell) => <td>{cell}</td>)}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    {extraDetails.map((sec, idx) => {
+      const bandCls = (afterResultsIndex + idx) % 2 === 0 ? 'section-white' : 'section-light';
+      return (
+        <section id={sec.id} class:list={['section-band', bandCls]}>
+          <div class="container-desktop">
+            <div class="section-title-block section-title-left">
+              <h2>{sec.title}</h2>
+              <div class="title-bar title-bar-left"></div>
+            </div>
+
+            {sec.paragraphs && sec.paragraphs.map((p) => <p class="section-prose">{p}</p>)}
+
+            {sec.figure && (() => {
+              const sfd = getImageDims(sec.figure.src);
+              return (
+                <figure class="analysis-figure results-figure">
+                  <button type="button" class="zoom-trigger" aria-label={`View full size: ${sec.figure.alt || sec.figure.caption}`}>
+                    <img
+                      src={sec.figure.src}
+                      alt={sec.figure.alt || sec.figure.caption}
+                      width={sfd.width}
+                      height={sfd.height}
+                      class="analysis-img zoomable-img"
+                      loading="lazy"
+                    />
+                    <span class="zoom-cue" aria-hidden="true">Zoom</span>
+                  </button>
+                  <figcaption class="figure-prose">{sec.figure.caption}</figcaption>
+                </figure>
+              );
+            })()}
+
+            {sec.figures && sec.figures.length > 0 && (
+              <div class:list={['detail-figures-grid', { 'detail-figures-single': sec.figures.length === 1 }]}>
+                {sec.figures.map((fig) => {
+                  const dfd = getImageDims(fig.src);
+                  return (
+                    <figure class="detail-fig-card">
+                      <button type="button" class="zoom-trigger" aria-label={`View full size: ${fig.alt || fig.caption}`}>
+                        <img
+                          src={fig.src}
+                          alt={fig.alt || fig.caption}
+                          width={dfd.width}
+                          height={dfd.height}
+                          class="detail-fig-img zoomable-img"
+                          loading="lazy"
+                        />
+                        <span class="zoom-cue" aria-hidden="true">Zoom</span>
+                      </button>
+                      <figcaption class="detail-fig-caption">
+                        {fig.title && <strong>{fig.title}: </strong>}{fig.caption}
+                      </figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+            )}
+
+            {sec.table && (
+              <div class="table-block">
+                <div class="table-header-text">
+                  <h3>{sec.table.title}</h3>
+                  {sec.table.caption && <p>{sec.table.caption}</p>}
+                </div>
+                <div class="table-scroll">
+                  <table>
+                    <thead>
+                      <tr>
+                        {sec.table.headers.map((h) => <th>{h}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sec.table.rows.map((row) => (
+                        <tr>
+                          {row.map((cell) => <td>{cell}</td>)}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    })}
+
+    <section id="bibtex" class:list={['section-band', bibtexBand]}>
+      <div class="container-desktop">
+        <div class="bibtex-header">
+          <h2>BibTeX</h2>
+          <button type="button" id="copyBibBtn" class="copy-bibtex-btn" data-copy-target="bibtexCode" title="Copy BibTeX to clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code" class="bibtex-pre"><code id="bibtexCode">{pub.bibtex}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class:list={['project-footer', footerBand]}>
+    <div class="container-desktop">
+      <div class="footer-content">
+        <p>
+          Pre-SAAIL archival project page hosted on <a href="https://inyalala.github.io/">Innocent Nyalala&rsquo;s Personal Site</a>, using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a> adopted from <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a>. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="imgLightbox" class="img-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure preview">
+    <button id="closeLightbox" type="button" class="lightbox-close" aria-label="Close enlarged view">&times;</button>
+    <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged figure preview" width="1200" height="900" />
+  </div>
+
+  <script is:inline>
+    (function () {
+      const btn = document.getElementById('moreWorksBtn');
+      const dropdown = document.getElementById('moreWorksDropdown');
+      const closeBtn = document.getElementById('closeMoreWorks');
+      const chevron = document.getElementById('moreWorksChevron');
+
+      function setOpen(open) {
+        if (!btn || !dropdown) return;
+        dropdown.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('more-works-open', open);
+        if (chevron) {
+          chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+      }
+
+      if (btn && dropdown) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(dropdown.hidden);
+        });
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function () {
+            setOpen(false);
+            btn.focus();
+          });
+        }
+        document.addEventListener('click', function (e) {
+          if (!dropdown.hidden && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+            setOpen(false);
+          }
+        });
+      }
+
+      const lightbox = document.getElementById('imgLightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const closeLightbox = document.getElementById('closeLightbox');
+      let lastFocusEl = null;
+
+      function setBackgroundInert(active) {
+        document.querySelectorAll('main, footer, .more-works-container').forEach(function (el) {
+          el.inert = active;
+        });
+      }
+
+      function openLightbox(triggerEl, imgEl) {
+        if (!lightbox || !lightboxImg || !imgEl) return;
+        lastFocusEl = triggerEl;
+        lightboxImg.src = imgEl.src;
+        lightboxImg.alt = imgEl.alt || 'Figure';
+        lightbox.hidden = false;
+        setBackgroundInert(true);
+        document.body.style.overflow = 'hidden';
+        if (closeLightbox) closeLightbox.focus();
+      }
+
+      function hideLightbox() {
+        if (!lightbox) return;
+        lightbox.hidden = true;
+        setBackgroundInert(false);
+        document.body.style.overflow = '';
+        if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
+          lastFocusEl.focus();
+        }
+      }
+
+      document.querySelectorAll('.zoom-trigger').forEach(function (triggerEl) {
+        const imgEl = triggerEl.querySelector('img');
+        if (!imgEl) return;
+        triggerEl.title = 'Click to view full size';
+        triggerEl.addEventListener('click', function () { openLightbox(triggerEl, imgEl); });
+      });
+
+      if (closeLightbox && lightbox) {
+        closeLightbox.addEventListener('click', hideLightbox);
+        lightbox.addEventListener('click', function (e) {
+          if (e.target === lightbox) hideLightbox();
+        });
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab' && lightbox && !lightbox.hidden && closeLightbox) {
+          e.preventDefault();
+          closeLightbox.focus();
+        }
+        if (e.key === 'Escape') {
+          if (dropdown && !dropdown.hidden) {
+            setOpen(false);
+            if (btn) btn.focus();
+          }
+          if (lightbox && !lightbox.hidden) hideLightbox();
+        }
+      });
+
+      const copyBtn = document.getElementById('copyBibBtn');
+      if (copyBtn) {
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.addEventListener('click', async function () {
+          const el = document.getElementById('bibtexCode');
+          const text = el ? (el.textContent || '').trim() : '';
+          if (!text) return;
+          let copied = false;
+          try {
+            await navigator.clipboard.writeText(text);
+            copied = true;
+          } catch (_err) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            try { copied = document.execCommand('copy'); } catch (_e2) {}
+            document.body.removeChild(area);
+          }
+          if (copied) {
+            copyBtn.classList.add('copied');
+            copyBtn.innerHTML = '<span>&#10003; Copied!</span>';
+            setTimeout(function () {
+              copyBtn.classList.remove('copied');
+              copyBtn.innerHTML = originalHtml;
+            }, 1800);
+          }
+        });
+      }
+    })();
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --background-primary: #ffffff;
+      --background-secondary: #f8fafc;
+      --background-accent: #f1f5f9;
+      --border-color: #e2e8f0;
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background-primary);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--primary-color);
+      color: #ffffff;
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+      z-index: 2500;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+    }
+
+    .container-desktop {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    main {
+      transition: padding-right 0.18s ease;
+    }
+
+    @media (min-width: 960px) {
+      :global(body.more-works-open) main {
+        padding-right: 360px;
+      }
+    }
+
+    .more-works-container {
+      position: fixed;
+      top: 1.75rem;
+      right: 1.75rem;
+      z-index: 1000;
+    }
+
+    .more-works-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: 16px;
+      border: 2px solid var(--border-color);
+      background: var(--background-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s ease;
+    }
+
+    .more-works-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--background-secondary);
+      transform: translateY(-1px);
+    }
+
+    .more-works-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      left: auto;
+      width: min(360px, 90vw);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1010;
+      overflow: hidden;
+    }
+
+    .more-works-dropdown .dropdown-links {
+      max-height: min(68vh, 520px);
+      overflow-y: auto;
+      padding: 0.45rem;
+    }
+
+    .dropdown-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.1rem;
+      background: var(--background-secondary);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .dropdown-item {
+      display: flex;
+      flex-direction: column;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .dropdown-home-link {
+      border-bottom: 1px solid var(--border-color);
+      border-radius: 0;
+      margin-bottom: 0.25rem;
+      padding-bottom: 0.65rem;
+    }
+
+    .dropdown-item:hover { background: var(--background-secondary); }
+
+    .dropdown-item-active {
+      background: #eff6ff;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .item-kicker {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .item-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.32;
+    }
+
+    .paper-hero {
+      padding: 4.5rem 0 2rem;
+      text-align: center;
+      background: var(--background-primary);
+    }
+
+    .paper-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0 auto 1.35rem;
+      max-width: 900px;
+    }
+
+    .authors-row {
+      font-size: 1.25rem;
+      line-height: 1.55;
+      margin: 0 auto 0.65rem;
+    }
+
+    .author-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .author-link:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    .author-name { font-weight: 600; color: var(--text-primary); }
+
+    .aff-sup {
+      font-size: 0.7em;
+      margin-left: 1px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .affiliations-stack {
+      font-size: 1.12rem;
+      font-weight: 500;
+      line-height: 1.58;
+      color: #1e293b;
+      margin: 0 auto 0.55rem;
+    }
+
+    .aff-line sup {
+      margin-right: 4px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .venue-line {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1e293b;
+      margin-bottom: 0.45rem;
+    }
+
+    .award-line {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #b45309;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.55rem;
+      margin-top: 1.65rem;
+    }
+
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.62rem 1.25rem;
+      border-radius: 9999px;
+      background: #1e293b;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .action-pill-outline {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid var(--border-color);
+    }
+
+    .action-pill:hover {
+      background: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .section-jump-nav {
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      background: var(--background-secondary);
+    }
+
+    .section-jump-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 1rem;
+      padding-top: 0.65rem;
+      padding-bottom: 0.65rem;
+    }
+
+    .jump-link {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.25rem 0.15rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .jump-link:hover,
+    .jump-link:focus-visible {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+
+    .teaser-section {
+      padding: 1.25rem 0 3.5rem;
+      background: var(--background-primary);
+    }
+    .teaser-compact { padding: 0.5rem 0 2.5rem; }
+    .teaser-figure { margin: 0 auto 1.5rem; text-align: center; }
+
+    .zoom-trigger {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .zoom-cue {
+      position: absolute;
+      right: 0.55rem;
+      bottom: 0.55rem;
+      padding: 0.22rem 0.52rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transition: opacity 0.16s ease;
+      pointer-events: none;
+    }
+    .zoom-trigger:hover .zoom-cue,
+    .zoom-trigger:focus-visible .zoom-cue {
+      opacity: 1;
+    }
+    @media (hover: none), (max-width: 760px) {
+      .zoom-cue { opacity: 0.85; }
+    }
+
+    .teaser-img {
+      display: block;
+      width: 100%;
+      max-width: 960px;
+      max-height: 1120px;
+      height: auto;
+      margin: 0 auto;
+      padding: 0 10px;
+      box-sizing: border-box;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      cursor: zoom-in;
+    }
+
+    .teaser-summary {
+      margin: 0;
+      font-size: 1.06rem;
+      line-height: 1.72;
+      color: var(--text-primary);
+      text-align: left;
+    }
+
+    .section-band { padding: 3.5rem 0; }
+    .section-white { background: var(--background-primary); }
+    .section-light {
+      background: var(--background-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title-block h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.55rem, 2.5vw, 1.95rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.7rem;
+    }
+    .section-title-center { text-align: center; margin-bottom: 1.75rem; }
+    .section-title-left { text-align: left; margin-bottom: 1.5rem; }
+
+    .title-bar {
+      width: 60px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    .title-bar-center { margin: 0 auto; }
+    .title-bar-left { margin: 0; }
+
+    .abstract-prose { max-width: 780px; margin: 0 auto; }
+    .abstract-prose p {
+      font-size: 1.06rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 0;
+      text-align: justify;
+    }
+
+    .analysis-figure { margin: 0; }
+    .results-figure { margin: 0 0 2rem; }
+    .analysis-img {
+      display: block;
+      width: 100%;
+      max-width: 960px;
+      max-height: 1120px;
+      height: auto;
+      margin: 0 auto 1.25rem;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      cursor: zoom-in;
+    }
+
+    .figure-prose,
+    .section-prose {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      text-align: left;
+    }
+    .section-prose { margin-bottom: 1.5rem; }
+
+    .detail-figures-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin: 1.35rem 0 1.75rem;
+    }
+    .detail-figures-grid.detail-figures-single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .detail-fig-card {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .detail-fig-img {
+      display: block;
+      width: 100%;
+      max-height: 410px;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      cursor: zoom-in;
+    }
+    .detail-fig-caption {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      text-align: left;
+    }
+
+    @media (max-width: 760px) {
+      .detail-figures-grid { grid-template-columns: 1fr; }
+    }
+
+    .tables-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1.75rem;
+    }
+    .table-block {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .table-header-text h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.3rem;
+      text-align: left;
+    }
+    .table-header-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0 0 0.9rem;
+      text-align: left;
+    }
+    .table-scroll { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      font-variant-numeric: tabular-nums;
+    }
+    th {
+      text-align: left;
+      padding: 0.6rem 0.65rem;
+      background: var(--background-secondary);
+      border-bottom: 2px solid var(--border-color);
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    td {
+      text-align: left;
+      padding: 0.58rem 0.65rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .row-highlight {
+      background: rgba(37, 99, 235, 0.06);
+      font-weight: 700;
+    }
+    .row-highlight td { color: var(--text-primary); }
+
+    .bibtex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .bibtex-header h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.55rem, 2.5vw, 1.95rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .copy-bibtex-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.05rem;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary-color);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .copy-bibtex-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .copy-bibtex-btn.copied { background: #10b981; color: #ffffff; }
+
+    .bibtex-pre {
+      margin: 0;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: var(--background-accent);
+      border: 1px solid var(--border-color);
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: visible;
+      font-family: 'SF Mono', 'Monaco', 'Cascadia Code', ui-monospace, monospace;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-primary);
+      text-align: left;
+    }
+    .bibtex-pre code { background: transparent; color: inherit; font-family: inherit; }
+
+    .project-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 0;
+      font-size: 0.94rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+    .footer-light { background: var(--background-secondary); }
+    .footer-white { background: var(--background-primary); }
+    .footer-content { max-width: 680px; margin: 0 auto; text-align: left; }
+    .footer-content p { margin: 0; }
+    .footer-content a { color: var(--primary-color); text-decoration: none; }
+    .footer-content a:hover { color: var(--primary-hover); text-decoration: underline; }
+
+    .img-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.92);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .img-lightbox[hidden] { display: none; }
+    .img-lightbox img {
+      width: auto;
+      height: auto;
+      max-width: 96vw;
+      max-height: 92vh;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 0.45rem;
+      padding: 0.4rem;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.16);
+      border: none;
+      color: #ffffff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    :focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+    .lightbox-close:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .paper-hero { padding: 1.5rem 0 1.5rem; }
+      .abstract-prose p { text-align: left; }
+      .action-pill { padding: 0.55rem 1rem; font-size: 0.86rem; }
+      .more-works-container {
+        position: static;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.9rem 1.1rem 0;
+      }
+      .more-works-dropdown {
+        top: 3.6rem;
+        bottom: auto;
+        right: 1rem;
+      }
+    }
+  </style>
+</body>
+</html>

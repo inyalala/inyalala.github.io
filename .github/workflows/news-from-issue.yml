@@ -6,7 +6,7 @@ name: News from issue
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, labeled]
 
 permissions:
   contents: write
@@ -38,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: auto/news-${{ github.event.issue.number }}
-          base: main
+          base: ${{ github.event.repository.default_branch }}
           commit-message: "news: ${{ steps.convert.outputs.headline }}"
           title: "News: ${{ steps.convert.outputs.headline }}"
           body: |
@@ -49,16 +49,16 @@ jobs:
             Closes #${{ github.event.issue.number }}
           labels: news
           delete-branch: true
-          add-paths: data/news.json
+          add-paths: src/data/news.json
 
       - name: Link the pull request back to the issue
         if: steps.pr.outputs.pull-request-number
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'Queued in #${{ steps.pr.outputs.pull-request-number }}. Merge it to publish.'
-            })
+            });

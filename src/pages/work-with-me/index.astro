@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { PROFILE } from '../../data/profile';
+import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+
+const collabSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'WebPage',
+      '@id': 'https://inyalala.github.io/work-with-me/#webpage',
+      url: 'https://inyalala.github.io/work-with-me/',
+      name: 'Collaborate & Work With Me | Innocent Nyalala · IITMZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/work-with-me/#breadcrumb' }
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Work With Me', url: 'https://inyalala.github.io/work-with-me/' }
+      ],
+      'https://inyalala.github.io/work-with-me/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Collaborate & Work With Me | Innocent Nyalala · IITMZ"
+  description="Inquiries for academic grants, industry partnerships, and MTech, PhD, or postdoc supervision with Innocent Nyalala at IIT Madras Zanzibar."
+  canonical="https://inyalala.github.io/work-with-me/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(collabSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="collaborate" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Collaborations, Supervision &amp; Partnerships</span>
+        <h1 class="page-title">Work With Me</h1>
+        <p class="page-lead">
+          I welcome inquiries from university researchers, agricultural and clinical industry partners, and prospective MTech, PhD, and postdoctoral fellows interested in field-deployed AI across Tanzania, Kenya, East Africa, and globally.
+        </p>
+      </header>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="tracks-ledger">
+          <article class="track-row">
+            <span class="mono-eyebrow">01 · Academic &amp; Joint Grants</span>
+            <div>
+              <h2>Research Collaborations</h2>
+              <p>
+                Co-authoring benchmark studies, joint international grant proposals, and multi-site validation trials in precision agricultural vision, Swahili language technology, deployment-gap auditing, and clinical machine learning.
+              </p>
+              <a href="/research/" class="text-action">Review Active Consortia &rarr;</a>
+            </div>
+          </article>
+
+          <article class="track-row">
+            <span class="mono-eyebrow">02 · Industry, NGOs &amp; Agencies</span>
+            <div>
+              <h2>Industry &amp; Field Partnerships</h2>
+              <p>
+                Applied R&amp;D, sponsored exploratory projects, commodity-grading prototypes (such as ZSTC clove inspection), offline Android and ONNX edge tools, and pilot evaluations with cooperatives and clinics.
+              </p>
+              <a href="/contact/" class="text-action">Discuss a Partnership &rarr;</a>
+            </div>
+          </article>
+
+          <article class="track-row">
+            <span class="mono-eyebrow">03 · Graduate &amp; Undergraduate Research</span>
+            <div>
+              <h2>MTech, PhD &amp; Postdoc Mentorship</h2>
+              <p>
+                Structured research supervision in computer vision, responsible ML evaluation, Swahili NLP, and healthcare AI. Detailed onboarding openings and lab application steps live on the{' '}
+                <a href="https://saaillab.github.io/hiring/" target="_blank" rel="noopener" class="inline-link">
+                  SAAIL Lab Hiring portal &#8599;
+                </a>
+                .
+              </p>
+              <a href="mailto:innocent@iitmz.ac.in?subject=Prospective%20Research%20Supervision%20Inquiry" class="text-action">
+                Email Supervision Inquiry &#8599;
+              </a>
+            </div>
+          </article>
+
+          <article class="track-row">
+            <span class="mono-eyebrow">04 · Semiannual Events &amp; Seminars</span>
+            <div>
+              <h2>Keynotes, Panels &amp; Invited Lectures</h2>
+              <p>
+                Invited seminars on sustainable Global South AI, agricultural computer vision, data-centric debugging, and university AI curriculum design across East Africa and international venues.
+              </p>
+              <a href="/media-kit/" class="text-action">Media Kit &amp; Bios &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Before Writing</span>
+        <div class="checklist-grid">
+          <div>
+            <h2 class="section-h" style="margin-bottom: 0.75rem;">What to Include in Your First Message</h2>
+            <p class="section-intro">
+              Writing directly to <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a> with a focused subject line keeps scheduling fast across time zones (EAT, UTC+3).
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center;">
+              <a href={`mailto:${PROFILE.email}?subject=Collaboration%20or%20Supervision%20Inquiry`} class="btn-mono">
+                Email {PROFILE.email}
+              </a>
+              <a href="/contact/" class="text-action">Contact &amp; Campus Map &rarr;</a>
+            </div>
+          </div>
+
+          <ul class="check-list">
+            <li>Prospective MTech/PhD students: attach your CV, transcripts summary, GitHub/Scholar links, and one paragraph naming two SAAIL Lab papers closely related to your goals.</li>
+            <li>Research partners: specify target deadline, funding scheme (e.g., IC&amp;SR, NRF, Horizon, bilateral call), dataset availability, and shared deliverables.</li>
+            <li>Industry/NGO teams: outline deployment hardware, target commodity or clinic workflow, and desired timeline.</li>
+            <li>Invited speakers: share dates, format (in-person at Zanzibar/regional or remote), and audience background.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .tracks-ledger {
+    border-top: 1px solid var(--rule);
+  }
+  .track-row {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.45rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .track-row h2 {
+    font-size: 1.42rem;
+    margin-bottom: 0.45rem;
+  }
+  .track-row p {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.66;
+    margin-bottom: 0.65rem;
+    max-width: 64ch;
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .check-list {
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  @media (max-width: 780px) {
+    .track-row,
+    .checklist-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

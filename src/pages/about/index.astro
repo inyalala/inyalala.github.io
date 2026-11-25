@@ -1,0 +1,428 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { PROFILE } from '../../data/profile';
+import metrics from '../../data/scholar-metrics.json';
+import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'ProfilePage',
+      '@id': 'https://inyalala.github.io/about/#webpage',
+      url: 'https://inyalala.github.io/about/',
+      name: 'About & Biography | Innocent Nyalala · IITM Zanzibar',
+      dateModified: metrics.updatedAt,
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      mainEntity: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/about/#breadcrumb' }
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'About & Biography', url: 'https://inyalala.github.io/about/' }
+      ],
+      'https://inyalala.github.io/about/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="About & Biography | Innocent Nyalala · IITM Zanzibar"
+  description="Biography, faculty appointments at IIT Madras Zanzibar and Egerton University, research training, awards, and editorial roles of Innocent Nyalala."
+  canonical="https://inyalala.github.io/about/"
+  ogType="profile"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="about" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <div class="about-grid">
+          <div>
+            <span class="mono-eyebrow">Biography &amp; Career Record</span>
+            <h1 class="page-title">{PROFILE.fullTitle}</h1>
+            <p class="page-lead">{PROFILE.bios.long}</p>
+            <div class="about-actions">
+              <a href={PROFILE.cvUrl} target="_blank" rel="noopener" class="btn-mono">Download Full CV &#8599;</a>
+              <a href="/media-kit/" class="btn-mono-outline">Press &amp; Media Kit &rarr;</a>
+              <a href="/faq/" class="text-action">Read FAQ &rarr;</a>
+            </div>
+          </div>
+
+          <aside class="about-portrait" aria-label="Portrait and verified academic metrics">
+            <div class="about-cutout-stage">
+              <picture>
+                <source srcset="/images/innocent-nyalala-cutout.webp" type="image/webp" />
+                <img
+                  src="/images/innocent-nyalala-cutout.webp"
+                  alt={PROFILE.portraitAlt}
+                  width="640"
+                  height="640"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <dl class="about-snap-meta">
+              <div>
+                <dt>Office</dt>
+                <dd>Room 105 (F1) &middot; Bweleo</dd>
+              </div>
+              <div>
+                <dt>Record</dt>
+                <dd class="tabular-nums">{metrics.totalWorks} works &middot; {metrics.citations.toLocaleString()} citations</dd>
+              </div>
+              <div>
+                <dt>Indices</dt>
+                <dd class="tabular-nums">h-index {metrics.hIndex} &middot; i10-index {metrics.i10Index}</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </header>
+
+      <!-- Appointments Timeline (4 Verified Appointments) -->
+      <section class="rule-section" style="padding-top: 0;">
+        <span class="mono-eyebrow">Academic Appointments</span>
+        <h2 class="section-h" style="margin-bottom: 1.25rem;">Faculty &amp; Leadership Appointments</h2>
+
+        <ol class="ap-ledger">
+          {PROFILE.appointments.map((ap) => (
+            <li class="ap-row">
+              <div class="ap-left">
+                <span class="ap-period tabular-nums">{ap.period}</span>
+                {ap.current && <span class="ap-curr">Current</span>}
+              </div>
+              <div class="ap-right">
+                <h3>{ap.role}</h3>
+                <p class="ap-inst">{ap.institution}</p>
+                <p class="ap-loc">{ap.location}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Graduate Training & Verification Snapshot (Balanced 2-Column Band) -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Academic Training &amp; Citation Ledger</span>
+        <div class="two-col-bio">
+          <div>
+            <h2 class="section-h" style="margin-bottom: 1rem;">Graduate Training</h2>
+            {PROFILE.education.map((ed) => (
+              <article class="edu-block">
+                <span class="edu-inst">{ed.institution} &middot; {ed.location} &middot; {ed.period}</span>
+                <h3>{ed.degree}</h3>
+                <p class="edu-thesis"><strong>Thesis:</strong> {ed.thesisTitle}</p>
+                <p class="edu-sup"><strong>Supervisor{ed.supervisors.includes(' and ') ? 's' : ''}:</strong> {ed.supervisors}</p>
+                <p>{ed.detail}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="monograph-panel">
+            <span class="mono-eyebrow">Verification &amp; Output Snapshot</span>
+            <p class="snap-line tabular-nums">
+              {metrics.citations.toLocaleString()} Google Scholar citations &middot; h-index {metrics.hIndex} &middot; {metrics.totalWorks} cataloged works &middot; ORCID{' '}
+              <a href="https://orcid.org/0000-0002-7969-437X" target="_blank" rel="noopener" class="inline-link nowrap-link">0000-0002-7969-437X &#8599;</a>
+            </p>
+            <p class="snap-actions">
+              <a href="/work-with-me/" class="text-action">Collaboration &amp; Mentorship &rarr;</a>
+              <a href="/publications/theses/phd-dissertation-2023/" class="text-action">Ph.D. Dissertation Monograph (2023) &rarr;</a>
+              <a href="/publications/theses/msc-thesis-2016/" class="text-action">M.Sc. Thesis Monograph (2016) &rarr;</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Honors, Grants & Service (Full-Width 2-Column Symmetric Grid) -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Recognition &amp; Service</span>
+        <h2 class="section-h" style="margin-bottom: 1rem;">Honors, Grants &amp; Service</h2>
+        <ol class="awards-list">
+          {PROFILE.awardsAndService.map((aw) => (
+            <li>
+              <span class="aw-yr tabular-nums">{aw.year}</span>
+              <div>
+                <strong>{aw.title}</strong>
+                <p>{aw.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Verified Academic Identifiers -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Academic Profiles</span>
+        <h2 class="section-h" style="margin-bottom: 1.1rem;">Verified Academic Profiles &amp; Identifiers</h2>
+        <dl class="id-grid">
+          {PROFILE.academicIdentifiers.map((idItem) => (
+            <div class="id-cell">
+              <dt class="id-dt">
+                <img
+                  src={idItem.icon}
+                  alt=""
+                  aria-hidden="true"
+                  width="16"
+                  height="16"
+                  loading="lazy"
+                  decoding="async"
+                  class={`id-icon${idItem.label === 'GitHub' ? ' icon-dark-invert' : idItem.label === 'OpenAlex' ? ' icon-dark-brighten' : ''}`}
+                />
+                <span>{idItem.label}</span>
+              </dt>
+              <dd>
+                <a href={idItem.url} target="_blank" rel="noopener" class="inline-link tabular-nums">
+                  {idItem.value} &#8599;
+                </a>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-top: 1.4rem;
+  }
+  .about-portrait {
+    display: flex;
+    flex-direction: column;
+  }
+  .about-cutout-stage {
+    border-bottom: 1px solid var(--rule-strong);
+    line-height: 0;
+  }
+  .about-portrait img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: block;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .about-snap-meta {
+    margin: 0;
+  }
+  .about-snap-meta > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.65rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+  }
+  .about-snap-meta dt {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+  }
+  .about-snap-meta dd {
+    margin: 0;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+
+  .ap-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .ap-row {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ap-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .ap-period {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-clove);
+  }
+  .ap-curr {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-forest);
+    font-weight: 600;
+  }
+  .ap-right h3 {
+    font-size: 1.24rem;
+    margin-bottom: 0.2rem;
+  }
+  .ap-inst {
+    font-size: 0.98rem;
+    color: var(--accent-forest);
+  }
+  .ap-loc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .two-col-bio {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .edu-block + .edu-block {
+    margin-top: 1.35rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .edu-inst {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--accent-clove);
+    margin-bottom: 0.3rem;
+  }
+  .edu-block h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .edu-thesis,
+  .edu-sup {
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+  }
+  .edu-block p,
+  .snap-line {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .nowrap-link {
+    white-space: nowrap;
+  }
+  .snap-actions {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .awards-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .awards-list li {
+    display: grid;
+    grid-template-columns: 95px minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .aw-yr {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-clove);
+  }
+  .awards-list strong {
+    font-size: 0.98rem;
+    color: var(--text-primary);
+  }
+  .awards-list p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+  }
+
+  .id-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-left: 1px solid var(--rule);
+  }
+  .id-cell {
+    padding: 0.85rem 0.95rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .id-dt {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    margin-bottom: 0.25rem;
+  }
+  .id-icon {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+  }
+  :global([data-theme="dark"]) .icon-dark-invert {
+    filter: invert(1);
+  }
+  :global([data-theme="dark"]) .icon-dark-brighten {
+    filter: brightness(2.0) saturate(1.15);
+  }
+  .id-cell dd {
+    margin: 0;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  @media (max-width: 820px) {
+    .id-grid,
+    .awards-list {
+      grid-template-columns: 1fr;
+    }
+    .about-grid,
+    .two-col-bio,
+    .ap-row,
+    .awards-list li {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .about-portrait {
+      max-width: 240px;
+    }
+  }
+</style>

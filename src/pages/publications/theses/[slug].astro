@@ -1,0 +1,552 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MonographRail from '../../../components/MonographRail.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import { THESES, type ThesisMonograph } from '../../../data/theses';
+import { breadcrumbList, personEntity, webPageEntity, websiteEntity } from '../../../data/schema';
+
+export function getStaticPaths() {
+  return THESES.map((thesis) => ({
+    params: { slug: thesis.slug },
+    props: { thesis }
+  }));
+}
+
+interface Props {
+  thesis: ThesisMonograph;
+}
+
+const { thesis } = Astro.props;
+const otherThesis = THESES.find((t) => t.slug !== thesis.slug);
+const companionSlug = thesis.slug === 'msc-thesis-2016' ? 'intelligent-greenhouse-arduino-2016' : thesis.slug;
+const companionPath = `/papers/${companionSlug}/`;
+const pageUrl = `https://inyalala.github.io/publications/theses/${thesis.slug}/`;
+const shortTitle = `${thesis.shortLabel} | Innocent Nyalala`;
+const metaDesc = `${thesis.degree} (${thesis.year}) at ${thesis.institution}: ${thesis.title}.`.slice(0, 160);
+
+const thesisSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    webPageEntity({
+      url: pageUrl,
+      name: shortTitle,
+      description: metaDesc,
+      breadcrumbId: `${pageUrl}#breadcrumb`,
+      mainEntityId: `${pageUrl}#thesis`
+    }),
+    {
+      '@type': 'Thesis',
+      '@id': `${pageUrl}#thesis`,
+      name: thesis.title,
+      author: { '@id': 'https://inyalala.github.io/#person' },
+      inSupportOf: thesis.degree,
+      sourceOrganization: {
+        '@type': 'CollegeOrUniversity',
+        name: thesis.institution
+      },
+      datePublished: String(thesis.year),
+      description: thesis.summary,
+      url: pageUrl
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Publications', url: 'https://inyalala.github.io/publications/' },
+        { name: thesis.shortLabel, url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout title={shortTitle} description={metaDesc} canonical={pageUrl}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(thesisSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="publications" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/publications/">Publications</a>
+        <span>/</span>
+        <span aria-current="page">{thesis.shortLabel}</span>
+      </nav>
+
+      <header class="page-masthead">
+        <span class="mono-eyebrow">{thesis.degree} &middot; {thesis.year}</span>
+        <h1 class="page-title">{thesis.title}</h1>
+        <p class="page-lead">{thesis.summary}</p>
+
+        <dl class="thesis-meta">
+          <div>
+            <dt>Institution</dt>
+            <dd>{thesis.institution} &middot; {thesis.location}</dd>
+          </div>
+          <div>
+            <dt>Field / Department</dt>
+            <dd>{thesis.department}</dd>
+          </div>
+          <div>
+            <dt>Period</dt>
+            <dd class="tabular-nums">{thesis.period}</dd>
+          </div>
+          <div>
+            <dt>Supervisor{thesis.supervisors.includes(' and ') ? 's' : ''}</dt>
+            <dd>{thesis.supervisors}</dd>
+          </div>
+          {thesis.scholarship && (
+            <div>
+              <dt>Funding</dt>
+              <dd>{thesis.scholarship}</dd>
+            </div>
+          )}
+          <div>
+            <dt>Catalog Scope</dt>
+            <dd>Personal Degree Monograph (excluded from the 41-paper count)</dd>
+          </div>
+        </dl>
+
+        <div class="thesis-actions">
+          <a href={companionPath} target="_blank" rel="noopener" class="btn-mono">
+            Project Companion Page &#8599;
+          </a>
+          <a href="/publications/#theses" class="btn-mono-outline">&larr; Back to Publications &amp; Theses</a>
+          {otherThesis && (
+            <a href={`/publications/theses/${otherThesis.slug}/`} class="text-action">
+              View {otherThesis.shortLabel} &rarr;
+            </a>
+          )}
+        </div>
+      </header>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <span class="mono-eyebrow">Archival Status</span>
+        <div class="monograph-panel" role="note">
+          <p style="font-size: 0.96rem; color: var(--text-secondary);">
+            {thesis.archivalNote} Open the standalone <a href={companionPath} target="_blank" rel="noopener" class="inline-link">Project Companion Page &#8599;</a> for full chapter-by-chapter figures, 25-model tables, and extended quantitative analysis.
+          </p>
+        </div>
+
+        <h2 class="section-h" style="margin: 2rem 0 0.9rem;">Core Technical Pillars</h2>
+        <ul class="method-list">
+          {thesis.methods.map((m) => (
+            <li>{m}</li>
+          ))}
+        </ul>
+      </section>
+
+      {thesis.figures && thesis.figures.length > 0 && (
+        <section class="rule-section">
+          <span class="mono-eyebrow">Imaging &amp; Modeling Plates</span>
+          <h2 class="section-h" style="margin-bottom: 1rem;">Experimental Apparatus &amp; 3-D Reconstruction Figures</h2>
+          <div class="thesis-plate-grid">
+            {thesis.figures.map((fig) => (
+              <figure class="thesis-plate-card">
+                <button
+                  type="button"
+                  class="thesis-zoom-btn"
+                  data-zoom-src={fig.src}
+                  data-zoom-alt={fig.alt}
+                  aria-label={`View full size: ${fig.alt}`}
+                >
+                  <div class="thesis-plate-frame">
+                    <img src={fig.src} alt={fig.alt} width={fig.width} height={fig.height} loading="lazy" decoding="async" />
+                    <span class="thesis-zoom-cue" aria-hidden="true">Zoom</span>
+                  </div>
+                </button>
+                <figcaption>{fig.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {thesis.benchmarkRows && thesis.benchmarkRows.length > 0 && (
+        <section class="rule-section">
+          <span class="mono-eyebrow">Quantitative Findings</span>
+          <h2 class="section-h" style="margin-bottom: 1rem;">Cross-Study Validation Summary</h2>
+          <div class="bench-scroll">
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>Commodity / Study</th>
+                  <th>Venue</th>
+                  <th>Primary Method</th>
+                  <th>Held-Out Test Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {thesis.benchmarkRows.map((row) => (
+                  <tr>
+                    <td>{row.study}</td>
+                    <td>{row.venue}</td>
+                    <td>{row.method}</td>
+                    <td class="tabular-nums">{row.result}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Associated Scholarly Output</span>
+        <h2 class="section-h" style="margin-bottom: 1rem;">
+          {thesis.slug === 'phd-dissertation-2023' ? 'Peer-Reviewed Chapters & Related Publications' : 'Monograph Record'}
+        </h2>
+        <ol class="chapter-ledger">
+          {thesis.chapters.map((ch) => (
+            <li class="chapter-row">
+              <div class="ch-left">
+                <span class="ch-yr tabular-nums">{ch.year}</span>
+                <span class="ch-tag">{ch.label}</span>
+              </div>
+              <div class="ch-body">
+                <h3>{ch.title}</h3>
+                <p class="ch-venue"><em>{ch.venue}</em></p>
+                <p class="ch-links">
+                  {ch.slug && (
+                    <a href={`/papers/${ch.slug}/`} target="_blank" rel="noopener" class="text-action">
+                      Project Companion &#8599;
+                    </a>
+                  )}
+                  {ch.doi && (
+                    <a href={`https://doi.org/${ch.doi}`} target="_blank" rel="noopener" class="text-action">
+                      Read DOI {ch.doi} &#8599;
+                    </a>
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Citation Format</span>
+        <h2 class="section-h" style="margin-bottom: 0.9rem;">BibTeX Entry</h2>
+        <div class="bib-box">
+          <pre id="thesisBib">{thesis.bibtex}</pre>
+          <button id="copyThesisBib" type="button" class="btn-mono-outline">Copy BibTeX</button>
+          <span id="copyStatus" class="copy-status" aria-live="polite"></span>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+  <div id="thesisLightbox" class="thesis-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged thesis figure">
+    <button id="closeThesisLightbox" type="button" class="thesis-lightbox-close" aria-label="Close enlarged figure">&times;</button>
+    <img id="thesisLightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged thesis figure preview" width="1200" height="900" />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.getElementById('copyThesisBib');
+      var pre = document.getElementById('thesisBib');
+      var st = document.getElementById('copyStatus');
+      if (btn && pre) {
+        btn.addEventListener('click', function () {
+          var txt = pre.textContent || '';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(txt).then(function () {
+              btn.textContent = 'Copied!';
+              if (st) st.textContent = 'BibTeX entry copied to clipboard.';
+              setTimeout(function () {
+                btn.textContent = 'Copy BibTeX';
+              }, 1600);
+            });
+          }
+        });
+      }
+
+      var lb = document.getElementById('thesisLightbox');
+      var lbImg = document.getElementById('thesisLightboxImg');
+      var lbClose = document.getElementById('closeThesisLightbox');
+      var lastFocus = null;
+      function setInert(active) {
+        document.querySelectorAll('.monograph-shell, #backToTop, .skip-link').forEach(function (el) {
+          el.inert = active;
+        });
+      }
+      function closeLb() {
+        if (!lb) return;
+        lb.hidden = true;
+        setInert(false);
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+      document.querySelectorAll('.thesis-zoom-btn').forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+          if (!lb || !lbImg) return;
+          lastFocus = trigger;
+          lbImg.src = trigger.getAttribute('data-zoom-src') || '';
+          lbImg.alt = trigger.getAttribute('data-zoom-alt') || 'Figure';
+          lb.hidden = false;
+          setInert(true);
+          document.body.style.overflow = 'hidden';
+          if (lbClose) lbClose.focus();
+        });
+      });
+      if (lbClose) lbClose.addEventListener('click', closeLb);
+      if (lb) {
+        lb.addEventListener('click', function (e) {
+          if (e.target === lb) closeLb();
+        });
+      }
+      document.addEventListener('keydown', function (e) {
+        if (!lb || lb.hidden) return;
+        if (e.key === 'Escape') {
+          closeLb();
+        } else if (e.key === 'Tab' && lbClose) {
+          e.preventDefault();
+          lbClose.focus();
+        }
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 1.15rem;
+  }
+  .breadcrumb a { color: var(--accent-forest); text-decoration: none; }
+
+  .thesis-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    margin: 1.5rem 0;
+  }
+  .thesis-meta > div {
+    padding: 0.8rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .thesis-meta dt {
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    margin-bottom: 0.15rem;
+  }
+  .thesis-meta dd {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+  }
+
+  .thesis-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1rem;
+    align-items: center;
+  }
+
+  .method-list {
+    padding-left: 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+  }
+  .method-list li { margin-bottom: 0.45rem; }
+
+  .chapter-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .chapter-row {
+    display: grid;
+    grid-template-columns: 205px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ch-left { display: flex; flex-direction: column; gap: 0.25rem; }
+  .ch-yr {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent-forest);
+    font-weight: 600;
+  }
+  .ch-tag {
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .ch-body h3 { font-size: 1.06rem; margin-bottom: 0.25rem; }
+  .ch-venue { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .ch-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.15rem; margin: 0; }
+
+  .thesis-plate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .thesis-plate-card {
+    margin: 0;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .thesis-zoom-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+    text-align: left;
+  }
+  .thesis-plate-frame {
+    position: relative;
+    height: 195px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    padding: 0.45rem;
+  }
+  :global([data-theme='dark']) .thesis-plate-frame {
+    background: #f3f1eb;
+    border-color: var(--rule-strong);
+  }
+  .thesis-zoom-cue {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    padding: 0.16rem 0.45rem;
+    background: rgba(24, 27, 30, 0.72);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .thesis-zoom-btn:hover .thesis-zoom-cue,
+  .thesis-zoom-btn:focus-visible .thesis-zoom-cue {
+    opacity: 1;
+  }
+  .thesis-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 20, 19, 0.92);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .thesis-lightbox[hidden] { display: none; }
+  .thesis-lightbox img {
+    width: auto;
+    height: auto;
+    max-width: 94vw;
+    max-height: 90vh;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 0.5rem;
+  }
+  .thesis-lightbox-close {
+    position: fixed;
+    top: 1rem;
+    right: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 1.65rem;
+    cursor: pointer;
+  }
+  @media (hover: none), (max-width: 720px) {
+    .thesis-zoom-cue { opacity: 0.85; }
+  }
+  .thesis-plate-frame img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .thesis-plate-card figcaption {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .bench-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+  }
+  .bench-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+  }
+  .bench-table th,
+  .bench-table td {
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .bench-table th {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-forest);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .bench-table tbody tr:last-child td { border-bottom: none; }
+  .bib-box pre {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    overflow-x: auto;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+  .copy-status {
+    margin-left: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--accent-forest);
+  }
+
+  @media (max-width: 720px) {
+    .thesis-meta,
+    .chapter-row,
+    .thesis-plate-grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

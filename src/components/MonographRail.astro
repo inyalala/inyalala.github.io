@@ -1,0 +1,549 @@
+---
+import { PUBLICATIONS } from '../data/publications';
+
+export interface Props {
+  currentPage?: string;
+}
+const { currentPage = '' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/courses/', label: 'Teaching & Courses', key: 'courses' },
+  { href: '/research/', label: 'Research Agenda', key: 'research' },
+  { href: '/publications/', label: `Publications (${PUBLICATIONS.length})`, key: 'publications' },
+  { href: '/writing/', label: 'Writing & Guides', key: 'writing' },
+  { href: '/news/', label: 'News & Talks', key: 'news' },
+  { href: '/work-with-me/', label: 'Collaborate', key: 'collaborate' },
+  { href: '/about/', label: 'Biography', key: 'about' },
+  { href: '/media-kit/', label: 'Media Kit', key: 'media-kit' },
+  { href: '/faq/', label: 'FAQ', key: 'faq' },
+  { href: '/contact/', label: 'Contact', key: 'contact' }
+];
+---
+
+<!-- Mobile Top Masthead & Slide-Over Drawer -->
+<header class="mobile-header">
+  <div class="mobile-bar">
+    <a href="/" class="mobile-brand" aria-label="Innocent Nyalala Home">
+      <span class="mobile-sig">Innocent Nyalala</span>
+      <span class="mobile-sub">IITM Zanzibar</span>
+    </a>
+
+    <div class="mobile-actions">
+      <button type="button" class="theme-toggle-btn js-theme-toggle" aria-label="Switch color theme" aria-pressed="false">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+
+      <button
+        id="mobileMenuBtn"
+        type="button"
+        class="menu-toggle-btn"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileNavDrawer"
+      >
+        <span>Index</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileBackdrop" class="drawer-backdrop" hidden></div>
+  <div id="mobileNavDrawer" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Site index navigation" hidden>
+    <div class="drawer-head">
+      <span class="drawer-sig">Innocent Nyalala</span>
+      <button id="drawerCloseBtn" type="button" class="drawer-close" aria-label="Close navigation menu">&times;</button>
+    </div>
+
+    <nav aria-label="Mobile Primary Navigation" class="drawer-nav">
+      {navLinks.map((item) => (
+        <a
+          href={item.href}
+          class:list={['drawer-link', { active: currentPage === item.key }]}
+          aria-current={currentPage === item.key ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="drawer-link drawer-lab">
+        SAAIL Lab &#8599;
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- Desktop Sticky Editorial Left Rail -->
+<aside class="monograph-rail" aria-label="Site navigation and colophon">
+  <div class="rail-inner">
+    <div class="rail-mast">
+      <a href="/" class="rail-sig-link" aria-label="Innocent Nyalala Home">
+        <span class="rail-sig">Innocent Nyalala</span>
+        <span class="rail-dept">IIT Madras Zanzibar</span>
+        <span class="rail-sub">School of Engineering &amp; Science</span>
+      </a>
+    </div>
+
+    <nav aria-label="Primary Navigation" class="rail-nav">
+      {navLinks.map((item) => (
+        <a
+          href={item.href}
+          class:list={['rail-link', { active: currentPage === item.key }]}
+          aria-current={currentPage === item.key ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="rail-footer">
+      <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="rail-lab-link">
+        SAAIL Lab Portal &#8599;
+      </a>
+
+      <button type="button" class="rail-theme-btn js-theme-toggle" aria-label="Switch day or night palette" aria-pressed="false">
+        <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <span class="theme-label">Switch to Night</span>
+      </button>
+
+      <p class="rail-office">
+        Room 105 (F1) &middot; Bweleo<br />
+        Zanzibar, Tanzania<br />
+        <a href="mailto:innocent@iitmz.ac.in">innocent@iitmz.ac.in</a>
+      </p>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var themeBtns = document.querySelectorAll('.js-theme-toggle');
+    var menuBtn = document.getElementById('mobileMenuBtn');
+    var drawer = document.getElementById('mobileNavDrawer');
+    var backdrop = document.getElementById('mobileBackdrop');
+    var closeBtn = document.getElementById('drawerCloseBtn');
+    var canvas = document.querySelector('.monograph-canvas');
+    var mobileBar = document.querySelector('.mobile-bar');
+    var backToTop = document.getElementById('backToTop');
+
+    function syncThemeUI() {
+      var isDark = (document.documentElement.getAttribute('data-theme') || 'light') === 'dark';
+      themeBtns.forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(isDark));
+        var lbl = btn.querySelector('.theme-label');
+        if (lbl) lbl.textContent = isDark ? 'Switch to Day' : 'Switch to Night';
+      });
+    }
+    syncThemeUI();
+
+    themeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme') || 'light';
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try {
+          localStorage.setItem('theme', next);
+        } catch (e) {}
+        syncThemeUI();
+      });
+    });
+
+    function setDrawerOpen(open) {
+      if (!drawer || !backdrop || !menuBtn) return;
+      drawer.hidden = !open;
+      backdrop.hidden = !open;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      if (canvas) {
+        if (open) canvas.setAttribute('inert', '');
+        else canvas.removeAttribute('inert');
+      }
+      if (mobileBar) {
+        if (open) mobileBar.setAttribute('inert', '');
+        else mobileBar.removeAttribute('inert');
+      }
+      if (backToTop) {
+        if (open) backToTop.setAttribute('inert', '');
+        else backToTop.removeAttribute('inert');
+      }
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        var firstLink = drawer.querySelector('a, button');
+        firstLink && firstLink.focus();
+      } else {
+        menuBtn.focus();
+      }
+    }
+
+    menuBtn &&
+      menuBtn.addEventListener('click', function () {
+        setDrawerOpen(drawer ? drawer.hidden : true);
+      });
+    closeBtn &&
+      closeBtn.addEventListener('click', function () {
+        setDrawerOpen(false);
+      });
+    backdrop &&
+      backdrop.addEventListener('click', function () {
+        setDrawerOpen(false);
+      });
+
+    drawer &&
+      drawer.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          setDrawerOpen(false);
+          return;
+        }
+        if (e.key !== 'Tab') return;
+        var focusables = Array.prototype.slice.call(
+          drawer.querySelectorAll('a[href], button:not([disabled])')
+        );
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+    var mq = window.matchMedia('(min-width: 1021px)');
+    mq.addEventListener('change', function (e) {
+      if (e.matches && drawer && !drawer.hidden) {
+        drawer.hidden = true;
+        backdrop && (backdrop.hidden = true);
+        menuBtn && menuBtn.setAttribute('aria-expanded', 'false');
+        canvas && canvas.removeAttribute('inert');
+        mobileBar && mobileBar.removeAttribute('inert');
+        backToTop && backToTop.removeAttribute('inert');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+</script>
+
+<style>
+  .monograph-rail {
+    background: var(--bg-rail);
+    border-right: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .rail-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 2rem 1.45rem 1.75rem;
+  }
+
+  .rail-mast {
+    padding-bottom: 1.35rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.35rem;
+  }
+
+  .rail-sig-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .rail-sig {
+    display: block;
+    font-family: var(--font-script);
+    font-size: 2rem;
+    line-height: 1.05;
+    color: var(--accent-clove);
+    margin-bottom: 0.45rem;
+  }
+
+  .rail-dept {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-clove);
+  }
+
+  .rail-sub {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+    line-height: 1.35;
+  }
+
+  .rail-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: auto;
+  }
+
+  .rail-link {
+    display: block;
+    padding: 0.42rem 0.65rem;
+    font-family: var(--font-serif);
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 0.14s ease, border-color 0.14s ease, background-color 0.14s ease;
+  }
+
+  .rail-link:hover {
+    color: var(--accent-forest);
+    border-left-color: var(--rule-strong);
+  }
+
+  .rail-link.active {
+    color: var(--accent-forest);
+    font-weight: 600;
+    border-left-color: var(--accent-forest);
+    background: rgba(27, 59, 47, 0.06);
+  }
+  :global([data-theme='dark']) .rail-link.active {
+    background: rgba(143, 184, 158, 0.1);
+  }
+
+  .rail-footer {
+    padding-top: 1.35rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .rail-lab-link {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--accent-clove);
+    text-decoration: none;
+    align-self: flex-start;
+    border-bottom: 1px solid currentColor;
+  }
+  .rail-lab-link:hover {
+    color: var(--accent-forest);
+  }
+
+  .rail-theme-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.75rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+    align-self: flex-start;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .rail-theme-btn:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
+  }
+  :global([data-theme='dark']) .icon-sun {
+    display: block;
+  }
+  :global([data-theme='dark']) .icon-moon {
+    display: none;
+  }
+
+  .rail-office {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .rail-office a {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Mobile Header (hidden >= 1021px) */
+  .mobile-header {
+    display: none;
+  }
+
+  @media (max-width: 1020px) {
+    .monograph-rail {
+      display: none;
+    }
+
+    .mobile-header {
+      display: block;
+    }
+
+    .mobile-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--mobile-bar-height);
+      background: var(--bg-rail);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+
+    .mobile-brand {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .mobile-sig {
+      font-family: var(--font-script);
+      font-size: 1.65rem;
+      color: var(--accent-clove);
+    }
+
+    .mobile-sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-clove);
+    }
+
+    .mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle-btn,
+    .menu-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      height: 36px;
+      padding: 0 0.65rem;
+      border: 1px solid var(--rule-strong);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(21, 20, 18, 0.55);
+      z-index: 1990;
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(320px, 86vw);
+      background: var(--bg-primary);
+      border-left: 1px solid var(--rule-strong);
+      padding: 1.25rem 1.4rem;
+      overflow-y: auto;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-drawer[hidden],
+    .drawer-backdrop[hidden] {
+      display: none;
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .drawer-sig {
+      font-family: var(--font-script);
+      font-size: 1.7rem;
+      color: var(--accent-clove);
+    }
+
+    .drawer-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--rule-strong);
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 1.35rem;
+      line-height: 1;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .drawer-link {
+      padding: 0.55rem 0.65rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+    .drawer-link.active {
+      color: var(--accent-forest);
+      font-weight: 600;
+      border-left-color: var(--accent-forest);
+      background: var(--bg-secondary);
+    }
+    .drawer-lab {
+      margin-top: 0.65rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--rule);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-clove);
+    }
+  }
+</style>

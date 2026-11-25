@@ -1,6 +1,0 @@
-User-agent: *
-Disallow:
-Allow: /
-
-# Sitemap location
-Sitemap: https://inyalala.github.io/sitemap.xml

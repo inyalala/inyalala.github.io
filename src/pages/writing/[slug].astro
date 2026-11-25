@@ -1,0 +1,747 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { WRITING_POSTS, type WritingPost } from '../../data/writing';
+import { ABCS_ENTRIES } from '../../data/abcs-agriculture';
+import { getImageDim } from '../../data/media';
+import { breadcrumbList, personEntity, webPageEntity, websiteEntity } from '../../data/schema';
+
+export function getStaticPaths() {
+  return WRITING_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+interface Props {
+  post: WritingPost;
+}
+
+const { post } = Astro.props;
+const Content = post.Content;
+const isAbcsPrimer = post.slug === 'abcs-of-ai-in-agriculture';
+const mappedAbcsCount = ABCS_ENTRIES.filter((item) => Boolean(item.ourResearch)).length;
+
+function fitTitleAtWord(text: string, maxLen = 48): string {
+  if (text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen).replace(/\s+\S*$/, '');
+  return (cut || text.slice(0, maxLen)).trim();
+}
+
+const shortHeadline = post.shortTitle || fitTitleAtWord(post.title, 48);
+const pageTitle = `${shortHeadline} | Nyalala`;
+const metaDesc = post.summary.length > 160 ? `${fitTitleAtWord(post.summary, 156)}...` : post.summary;
+const imgDim = post.image ? getImageDim(post.image, 1200, 750) : null;
+const pageUrl = `https://inyalala.github.io/writing/${post.slug}/`;
+const resolvedOgImage = post.image
+  ? post.image.startsWith('http')
+    ? post.image
+    : `https://inyalala.github.io${post.image}`
+  : 'https://inyalala.github.io/images/og-innocent-nyalala.png';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    webPageEntity({
+      url: pageUrl,
+      name: pageTitle,
+      description: metaDesc,
+      breadcrumbId: `${pageUrl}#breadcrumb`,
+      mainEntityId: `${pageUrl}#article`
+    }),
+    {
+      '@type': 'BlogPosting',
+      '@id': `${pageUrl}#article`,
+      headline: post.title,
+      description: post.summary,
+      datePublished: post.date,
+      dateModified: post.date,
+      author: { '@id': 'https://inyalala.github.io/#person' },
+      publisher: { '@id': 'https://inyalala.github.io/#person' },
+      isPartOf: { '@id': `${pageUrl}#webpage` },
+      mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
+      image: resolvedOgImage
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Writing & Guides', url: 'https://inyalala.github.io/writing/' },
+        { name: post.title, url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={metaDesc}
+  canonical={pageUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="writing" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/writing/">Writing &amp; Guides</a>
+        <span>/</span>
+        <span aria-current="page">{post.category}</span>
+      </nav>
+
+      <article class="essay-article">
+        <header class="page-masthead">
+          <span class="mono-eyebrow">
+            {post.category} &middot; {post.date} &middot; {post.readingTime}
+          </span>
+          <h1 class="page-title">{post.title}</h1>
+          <p class="page-lead">{post.summary}</p>
+        </header>
+
+        {post.image && imgDim && (
+          <figure class="article-hero-fig">
+            <img
+              src={post.image}
+              alt={post.imageAlt || post.title}
+              width={imgDim.width}
+              height={imgDim.height}
+              loading="eager"
+              fetchpriority="high"
+            />
+            {post.imageAlt && <figcaption>{post.imageAlt}</figcaption>}
+          </figure>
+        )}
+
+        <div class="prose-body">
+          <Content />
+        </div>
+
+        {isAbcsPrimer && (
+          <section class="abcs-primer" aria-label="Illustrated A to Z of AI in Agriculture">
+            <div class="abcs-controls">
+              <div class="abcs-filter-row" role="group" aria-label="Filter letters by SAAIL Lab research link">
+                <button type="button" class="abc-filter-btn is-active" data-abc-filter="all" aria-pressed="true">
+                  All 26 Letters ({ABCS_ENTRIES.length})
+                </button>
+                <button type="button" class="abc-filter-btn" data-abc-filter="mapped" aria-pressed="false">
+                  Mapped to Our Research ({mappedAbcsCount})
+                </button>
+              </div>
+              <nav class="abc-jump-bar" aria-label="Jump to letter A through Z">
+                {ABCS_ENTRIES.map((item) => (
+                  <a
+                    href={`#letter-${item.letter.toLowerCase()}`}
+                    class={`abc-jump-link${item.ourResearch ? ' has-research' : ''}`}
+                    data-mapped={item.ourResearch ? 'true' : 'false'}
+                    title={`${item.letter}: ${item.title}`}
+                  >
+                    {item.letter}
+                  </a>
+                ))}
+              </nav>
+              <p class="abc-filter-status" id="abcFilterStatus" aria-live="polite">
+                Showing all {ABCS_ENTRIES.length} agricultural AI concepts from A to Z.
+              </p>
+            </div>
+
+            <div class="abcs-overview-head">
+              <span class="mono-eyebrow">Illustrated A&ndash;Z Visual Reference</span>
+              <h2 id="abcsOverviewHeading">All {ABCS_ENTRIES.length} Concepts at a Glance</h2>
+            </div>
+
+            <div class="abcs-poster-grid">
+              {ABCS_ENTRIES.map((item) => (
+                <a
+                  href={`#letter-${item.letter.toLowerCase()}`}
+                  class="abc-tile"
+                  data-mapped={item.ourResearch ? 'true' : 'false'}
+                >
+                  <div class="abc-tile-media">
+                    <span class="abc-badge">{item.letter}</span>
+                    <img
+                      src={item.thumb}
+                      alt=""
+                      aria-hidden="true"
+                      width="400"
+                      height="250"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="abc-tile-caption">
+                    <strong>{item.title}</strong>
+                    {item.ourResearch && <span class="abc-mini-tag">SAAIL Research</span>}
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <div class="abcs-entries" id="abcsEntries">
+              {ABCS_ENTRIES.map((item) => (
+                <article
+                  id={`letter-${item.letter.toLowerCase()}`}
+                  class="abc-card"
+                  data-mapped={item.ourResearch ? 'true' : 'false'}
+                >
+                  <header class="abc-card-head">
+                    <span class="abc-letter-drop">{item.letter}</span>
+                    <div>
+                      <span class="mono-eyebrow">{item.subdomain}</span>
+                      <h2>
+                        {item.letter} is for {item.title}
+                      </h2>
+                    </div>
+                  </header>
+
+                  <figure class="abc-figure">
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      width="960"
+                      height="600"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption>
+                      {item.imageAlt} &middot; {item.credit}
+                    </figcaption>
+                  </figure>
+
+                  <div class="abc-copy">
+                    <p>{item.plainSummary}</p>
+                    <div class="abc-tech-grid">
+                      <div>
+                        <h3>Current State of the Art</h3>
+                        <p>{item.stateOfTheArt}</p>
+                      </div>
+                      <div>
+                        <h3>Open Research Problems</h3>
+                        <p>{item.openProblems}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {item.ourResearch && (
+                    <aside class="abc-research-box" aria-label={`Our research on ${item.title}`}>
+                      <span class="mono-eyebrow">Mapped to Our Published Work &amp; SAAIL Lab</span>
+                      <p class="abc-research-lead">{item.ourResearch.lead}</p>
+                      <ul class="abc-research-list">
+                        {item.ourResearch.refs.map((ref) => (
+                          <li>
+                            {ref.href.startsWith('http') ? (
+                              <a href={ref.href} target="_blank" rel="noopener" class="inline-link pub-title">
+                                {ref.title} &#8599;
+                              </a>
+                            ) : (
+                              <a href={ref.href} class="inline-link pub-title">
+                                {ref.title} &rarr;
+                              </a>
+                            )}
+                            <span class="abc-ref-meta">
+                              {ref.venue} ({ref.year}) &middot; {ref.note}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </aside>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <footer class="article-foot">
+          <a href="/writing/" class="text-action">&larr; Back to All Writing &amp; Guides</a>
+          <a href="/contact/" class="text-action">Write to Innocent Nyalala &rarr;</a>
+        </footer>
+      </article>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+{isAbcsPrimer && (
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btns = document.querySelectorAll('.abc-filter-btn');
+      var jumps = document.querySelectorAll('.abc-jump-link');
+      var tiles = document.querySelectorAll('.abc-tile');
+      var cards = document.querySelectorAll('.abc-card');
+      var status = document.getElementById('abcFilterStatus');
+      var overviewHeading = document.getElementById('abcsOverviewHeading');
+      if (!btns.length) return;
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var mode = btn.getAttribute('data-abc-filter') || 'all';
+          btns.forEach(function (b) {
+            var active = b === btn;
+            b.setAttribute('aria-pressed', String(active));
+            b.classList.toggle('is-active', active);
+          });
+          jumps.forEach(function (el) {
+            var hide = mode === 'mapped' && el.getAttribute('data-mapped') !== 'true';
+            el.style.display = hide ? 'none' : '';
+            if (hide) el.setAttribute('aria-hidden', 'true');
+            else el.removeAttribute('aria-hidden');
+          });
+          var visibleCards = 0;
+          tiles.forEach(function (el) {
+            el.style.display = mode === 'mapped' && el.getAttribute('data-mapped') !== 'true' ? 'none' : '';
+          });
+          cards.forEach(function (el) {
+            var hide = mode === 'mapped' && el.getAttribute('data-mapped') !== 'true';
+            el.style.display = hide ? 'none' : '';
+            if (!hide) visibleCards += 1;
+          });
+          if (overviewHeading) {
+            overviewHeading.textContent = mode === 'mapped'
+              ? visibleCards + ' Research-Mapped Concepts at a Glance'
+              : 'All ' + visibleCards + ' Concepts at a Glance';
+          }
+          if (status) {
+            status.textContent = mode === 'mapped'
+              ? 'Showing ' + visibleCards + ' concepts mapped to published SAAIL Lab research.'
+              : 'Showing all ' + visibleCards + ' agricultural AI concepts from A to Z.';
+          }
+        });
+      });
+    });
+  </script>
+)}
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 1.15rem;
+  }
+  .breadcrumb a {
+    color: var(--accent-forest);
+    text-decoration: none;
+  }
+
+  .article-hero-fig {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.65rem;
+    margin-bottom: 2rem;
+  }
+  .article-hero-fig img {
+    width: 100%;
+    height: auto;
+  }
+  .article-hero-fig figcaption {
+    padding-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .prose-body {
+    max-width: 68ch;
+    font-size: 1.07rem;
+    line-height: 1.76;
+    color: var(--text-primary);
+  }
+  .prose-body :global(h2) {
+    font-size: 1.65rem;
+    margin: 2.1rem 0 0.75rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 28px;
+  }
+  .prose-body :global(h3) {
+    font-size: 1.28rem;
+    margin: 1.45rem 0 0.55rem;
+  }
+  .prose-body :global(p) {
+    margin-bottom: 1.1rem;
+    color: var(--text-secondary);
+  }
+  .prose-body :global(ul),
+  .prose-body :global(ol) {
+    padding-left: 1.25rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-secondary);
+  }
+  .prose-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+  .prose-body :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.45rem;
+    margin: 1.45rem 0;
+  }
+  .prose-body :global(pre) {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    background: var(--bg-secondary);
+    border: 1px solid var(--rule);
+    padding: 0.95rem 1.1rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    color: var(--text-primary);
+  }
+  .prose-body :global(pre code) {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+  }
+  .prose-body :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 1.75rem 0;
+  }
+  .prose-body :global(a) {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: var(--bg-secondary);
+    padding: 0.1rem 0.35rem;
+  }
+
+  .article-foot {
+    margin-top: 2.75rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid var(--rule-strong);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* Illustrated A-Z Primer */
+  .abcs-primer {
+    margin-top: 2rem;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 1.5rem;
+  }
+  .abcs-controls {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 1rem 1.15rem;
+    margin-bottom: 1.75rem;
+  }
+  .abcs-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 0.85rem;
+  }
+  .abc-filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    padding: 0.42rem 0.85rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .abc-filter-btn.is-active,
+  .abc-filter-btn[aria-pressed='true'] {
+    background: var(--accent-forest);
+    border-color: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  .abc-filter-status {
+    margin: 0.65rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .abc-jump-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .abc-jump-link {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border: 1px solid var(--rule);
+    background: var(--bg-secondary);
+    position: relative;
+  }
+  .abc-jump-link.has-research {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .abc-jump-link.has-research::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-clove);
+  }
+  .abc-jump-link:hover {
+    background: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  .abcs-overview-head {
+    margin-bottom: 1rem;
+  }
+  .abcs-overview-head h2 {
+    font-size: 1.55rem;
+  }
+  .abcs-poster-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .abc-tile {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+  .abc-tile:hover {
+    border-color: var(--accent-forest);
+  }
+  .abc-tile-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--rule);
+  }
+  .abc-tile-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .abc-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: var(--accent-forest);
+    color: #f8f5ee;
+    z-index: 1;
+  }
+  .abc-tile-caption {
+    padding: 0.45rem 0.55rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .abc-tile-caption strong {
+    font-size: 0.84rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+  .abc-mini-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent-clove);
+  }
+  .abcs-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .abc-card {
+    border-top: 2px solid var(--rule-strong);
+    padding-top: 1.65rem;
+    scroll-margin-top: 24px;
+  }
+  .abc-card-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+    width: 100%;
+    max-width: 780px;
+    box-sizing: border-box;
+  }
+  .abc-letter-drop {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  :global([data-theme='dark']) .abc-filter-btn.is-active,
+  :global([data-theme='dark']) .abc-filter-btn[aria-pressed='true'],
+  :global([data-theme='dark']) .abc-jump-link:hover,
+  :global([data-theme='dark']) .abc-badge,
+  :global([data-theme='dark']) .abc-letter-drop {
+    color: #151412;
+  }
+  .abc-card-head h2 {
+    font-size: 1.65rem;
+    margin-top: 0.15rem;
+  }
+  .abc-figure {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.55rem;
+    margin-bottom: 1.15rem;
+    width: 100%;
+    max-width: 780px;
+    box-sizing: border-box;
+  }
+  .abc-figure img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+  }
+  .abc-figure figcaption {
+    padding: 0.5rem 0.35rem 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+  .abc-copy {
+    width: 100%;
+    max-width: 780px;
+    box-sizing: border-box;
+  }
+  .abc-copy > p {
+    font-size: 1.04rem;
+    line-height: 1.72;
+    color: var(--text-secondary);
+    margin-bottom: 1.1rem;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  .abc-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+    margin-bottom: 1.15rem;
+  }
+  .abc-tech-grid h3 {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    margin-bottom: 0.35rem;
+  }
+  .abc-tech-grid p {
+    font-size: 0.94rem;
+    line-height: 1.62;
+    color: var(--text-secondary);
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  .abc-research-box {
+    border-left: 3px solid var(--accent-forest);
+    background: var(--bg-secondary);
+    padding: 1rem 1.2rem;
+    width: 100%;
+    max-width: 780px;
+    box-sizing: border-box;
+  }
+  .abc-research-lead {
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    margin: 0.35rem 0 0.65rem;
+    line-height: 1.55;
+  }
+  .abc-research-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .abc-research-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.92rem;
+  }
+  .abc-ref-meta {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+  @media (max-width: 1020px) {
+    .prose-body :global(h2),
+    .abc-card {
+      scroll-margin-top: calc(var(--mobile-bar-height) + 18px);
+    }
+  }
+  @media (max-width: 960px) {
+    .abcs-poster-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .abcs-poster-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .abc-tech-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .abc-copy > p,
+    .abc-tech-grid p {
+      text-align: left;
+      hyphens: manual;
+    }
+  }
+</style>

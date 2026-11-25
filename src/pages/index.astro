@@ -1,0 +1,895 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MonographRail from '../components/MonographRail.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { PROFILE } from '../data/profile';
+import metrics from '../data/scholar-metrics.json';
+import newsData from '../data/news.json';
+import { COURSES } from '../data/courses';
+import { PUBLICATIONS } from '../data/publications';
+import { WRITING_POSTS } from '../data/writing';
+import { getImageDim, getThumbSrc } from '../data/media';
+import { personEntity, websiteEntity } from '../data/schema';
+
+const latestNews = [...newsData.items]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 4);
+
+const activeCourses = COURSES.filter((c) => c.status === 'active');
+
+const selectedSlugs = [
+  'cropguardnet',
+  'clove-xai-etri2026',
+  'dgs-bench',
+  'cloves-4603',
+  'cara-fm',
+  'bafnet-polyp-2025'
+];
+const selectedPubs = selectedSlugs
+  .map((s) => PUBLICATIONS.find((p) => p.slug === s))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const schemaGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'WebPage',
+      '@id': 'https://inyalala.github.io/#webpage',
+      url: 'https://inyalala.github.io/',
+      name: 'Innocent Nyalala, PhD | Data Science & AI · IITM Zanzibar',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: 'https://inyalala.github.io/images/innocent-nyalala-zanzibar.jpg',
+        width: 640,
+        height: 640
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Innocent Nyalala, PhD | Data Science & AI · IITM Zanzibar"
+  description="Faculty monograph of Innocent Nyalala, Assistant Professor of Data Science & AI at IIT Madras Zanzibar and Principal Investigator of SAAIL Lab."
+  canonical="https://inyalala.github.io/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+  </Fragment>
+
+  <MonographRail currentPage="home" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <!-- Editorial Opening Masthead -->
+      <section class="intro-masthead">
+        <div class="masthead-grid">
+          <div class="masthead-copy">
+            <span class="calligraphic-flourish" aria-hidden="true">Salama &middot; Karibu Zanzibar</span>
+            <h1 class="hero-h1">Innocent Nyalala, <em>PhD</em></h1>
+            <p class="hero-role">{PROFILE.role}</p>
+
+            <div class="hero-affils">
+              <p>
+                {PROFILE.school},{' '}
+                <a href="https://www.iitmz.ac.in/" target="_blank" rel="noopener" class="inline-link">
+                  {PROFILE.institution}
+                </a>
+              </p>
+              <p>
+                {PROFILE.secondaryRole},{' '}
+                <a href="https://wsai.iitm.ac.in/" target="_blank" rel="noopener" class="inline-link">
+                  Wadhwani School of Data Science &amp; AI, IIT Madras
+                </a>
+              </p>
+              <p>
+                Principal Investigator,{' '}
+                <a href={PROFILE.labUrl} target="_blank" rel="noopener" class="lab-link">
+                  SAAIL Lab &#8599;
+                </a>
+              </p>
+            </div>
+
+            <p class="hero-statement">
+              My research and teaching center on machine learning, deep learning, and computer vision engineered for field constraints across East Africa: smallholder crop diagnostics, auditable commodity grading, coastal Swahili language evaluation, and calibrated clinical imaging.
+            </p>
+
+            <div class="masthead-actions">
+              <a href="/courses/" class="btn-mono">Courses &amp; Slides &rarr;</a>
+              <a href="/publications/" class="btn-mono-outline">Publications ({metrics.totalWorks})</a>
+              <a href="/work-with-me/" class="btn-mono-outline">Collaborate</a>
+              <a href={PROFILE.cvUrl} target="_blank" rel="noopener" class="text-action">
+                Curriculum Vitae &#8599;
+              </a>
+            </div>
+
+            <div class="profile-strip" aria-label="Academic profiles">
+              {PROFILE.socials.map((s) => {
+                const key = s.label.toLowerCase();
+                return (
+                  <a href={s.url} target="_blank" rel="noopener" class="profile-anchor">
+                    <img
+                      src={s.icon}
+                      alt=""
+                      aria-hidden="true"
+                      width="16"
+                      height="16"
+                      loading="eager"
+                      decoding="async"
+                      class={`profile-brand-icon${key.includes('github') ? ' icon-dark-invert' : key.includes('openalex') ? ' icon-dark-brighten' : ''}`}
+                    />
+                    <span>{s.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          <aside class="masthead-portrait" aria-label="Faculty portrait and office coordinates">
+            <div class="cutout-stage">
+              <picture>
+                <source srcset="/images/innocent-nyalala-cutout.webp" type="image/webp" />
+                <img
+                  src="/images/innocent-nyalala-cutout.webp"
+                  alt={PROFILE.portraitAlt}
+                  width="640"
+                  height="640"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="hero-cutout"
+                />
+              </picture>
+            </div>
+            <dl class="hero-colophon">
+              <div class="hc-row">
+                <dt>Office</dt>
+                <dd>Room 105 (F1) &middot; Bweleo Campus</dd>
+              </div>
+              <div class="hc-row">
+                <dt>Hours</dt>
+                <dd>Wednesdays, 2:00&ndash;4:00 PM EAT</dd>
+              </div>
+              <div class="hc-row">
+                <dt>Lab</dt>
+                <dd>
+                  <a href={PROFILE.labUrl} target="_blank" rel="noopener">SAAIL Lab &#8599;</a>
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+
+        <!-- Ruled Academic Ledger Strip (Zero Box Cards) -->
+        <div class="ledger-strip" aria-label="Academic metrics">
+          <a href="https://scholar.google.com/citations?user=jYVzIZUAAAAJ&hl=en" target="_blank" rel="noopener" class="ledger-cell">
+            <span class="ledger-val tabular-nums">{metrics.citations.toLocaleString()}</span>
+            <span class="ledger-name">Google Scholar Citations &#8599;</span>
+            <span class="ledger-meta tabular-nums">h-index {metrics.hIndex} &middot; i10-index {metrics.i10Index}</span>
+          </a>
+          <a href="/publications/" class="ledger-cell">
+            <span class="ledger-val tabular-nums">{metrics.totalWorks}</span>
+            <span class="ledger-name">Cataloged Publications</span>
+            <span class="ledger-meta tabular-nums">{metrics.saailPublishedCount} SAAIL Lab &middot; {metrics.saailUnderReviewCount} in review</span>
+          </a>
+          <a href="/courses/" class="ledger-cell">
+            <span class="ledger-val tabular-nums">{COURSES.length}</span>
+            <span class="ledger-name">Taught Courses</span>
+            <span class="ledger-meta">{activeCourses.length} active in Odd Semester 2026-27</span>
+          </a>
+          <a href="/news/#2026-08-08-dli-2026-best-poster-award" class="ledger-cell">
+            <span class="ledger-val">2&times;</span>
+            <span class="ledger-name">DLI Best Poster Awards</span>
+            <span class="ledger-meta">Kigali 2025 &amp; Lagos 2026</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- I. Active Teaching (Odd Semester 2026-27) -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">I &middot; Odd Semester 2026-27 (Active Now)</span>
+        <div class="section-bar">
+          <h2 class="section-h">Teaching &amp; Student Syllabi</h2>
+          <a href="/courses/" class="text-action">All {COURSES.length} Courses &rarr;</a>
+        </div>
+        <p class="section-intro">
+          Courses run from October 2026 through January 2027 across BS and MTech cohorts. Select any course to reach module PDFs, browser slides, lab sheets, Google Colab notebooks, and question banks.
+        </p>
+
+        <ol class="ledger-rows">
+          {activeCourses.map((c) => (
+            <li class="ledger-row">
+              <div class="row-code-col">
+                <span class="row-code">{c.code}</span>
+                <span class="row-tag">{c.program} {c.courseType}</span>
+              </div>
+              <div class="row-body-col">
+                <h3>
+                  <a href={`/courses/${c.slug}/`} class="row-title-link">
+                    {c.title}
+                  </a>
+                </h3>
+                <p class="row-summary">{c.summary}</p>
+                <p class="row-links">
+                  <a href={`/courses/${c.slug}/`} class="text-action">Course Dossier &amp; Modules &rarr;</a>
+                  <a href={c.links.teachingSiteHome} target="_blank" rel="noopener" class="row-ext">Materials CDN &#8599;</a>
+                  {c.links.questionBank && (
+                    <a href={c.links.questionBank} target="_blank" rel="noopener" class="row-ext">Question Bank &#8599;</a>
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- II. Recent Dispatches -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">II &middot; Latest Updates</span>
+        <div class="section-bar">
+          <h2 class="section-h">Recent Dispatches</h2>
+          <a href="/news/" class="text-action">All {newsData.items.length} Updates &rarr;</a>
+        </div>
+
+        <div class="dispatch-list">
+          {latestNews.map((item) => {
+            const thumbSrc = item.image ? getThumbSrc(item.image) : '';
+            const dim = thumbSrc ? getImageDim(thumbSrc, 640, 400) : { width: 640, height: 400 };
+            return (
+              <article class="dispatch-row">
+                {thumbSrc && (
+                  <a href={`/news/#${item.id}`} class="dispatch-media" aria-label={item.headline}>
+                    <img
+                      src={thumbSrc}
+                      alt={item.imageAlt || item.headline}
+                      width={dim.width}
+                      height={dim.height}
+                      class={item.fit === 'contain' ? 'img-contain' : undefined}
+                      style={item.focal && item.fit !== 'contain' ? `object-position: ${item.focal}` : undefined}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                )}
+                <div class="dispatch-body">
+                  <p class="dispatch-meta">
+                    <span class="dispatch-cat">{item.category}</span>
+                    <span>&middot;</span>
+                    <time datetime={item.date}>{item.dateRange || item.date}</time>
+                  </p>
+                  <h3>
+                    <a href={`/news/#${item.id}`}>{item.headline}</a>
+                  </h3>
+                  <p class="dispatch-text">{item.summary || item.body}</p>
+                  <p class="dispatch-links">
+                    <a href={`/news/#${item.id}`} class="text-action">Full Note &rarr;</a>
+                    {item.link && item.link.startsWith('http') && (
+                      <a href={item.link} target="_blank" rel="noopener" class="row-ext">
+                        {item.linkLabel || 'Reference'} &#8599;
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- III. Research Program & SAAIL Lab Separation -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">III &middot; Research Program &amp; Laboratory Boundary</span>
+        <div class="section-bar">
+          <h2 class="section-h">Four Research Directions</h2>
+          <a href="/research/" class="text-action">Research Overview &amp; Grants &rarr;</a>
+        </div>
+        <p class="section-intro">
+          This site records my personal faculty bibliography, teaching, and supervision inquiries; full student group rosters, open datasets, Android prototypes, and interactive project portals are hosted separately on{' '}
+          <a href={PROFILE.labUrl} target="_blank" rel="noopener" class="inline-link">saaillab.github.io &#8599;</a>.
+        </p>
+
+        <div class="directions-grid">
+          <article class="direction-item">
+            <span class="dir-num">01 / Precision Agriculture &amp; Blue Economy</span>
+            <h3>Crop Pathology, Cloves, Cashew &amp; Coastal Seaweed</h3>
+            <p>
+              Designing compact vision architectures such as CropGuardNet (481.6K parameters, 5.00 ms CPU ONNX), commercial Zanzibar clove datasets and attribution methods (CLOVES-4603 at CVPR 2026 CV4A and clove attribution in ETRI Journal 2026), IC&amp;SR-funded CashewAI orchard scouting, and marine heatwave modeling for Zanzibar seaweed farms.
+            </p>
+            <a href="https://saaillab.github.io/projects/cropguard-pathology/" target="_blank" rel="noopener" class="row-ext">SAAIL Project Pages &#8599;</a>
+          </article>
+
+          <article class="direction-item">
+            <span class="dir-num">02 / Swahili NLP &amp; Provenance</span>
+            <h3>Zanzibar Swahili Corpus &amp; Dira Benchmark</h3>
+            <p>
+              Curating coastal Kiunguja prose and spoken agricultural question-answering alongside the Dira stylometric detector separating human writing from translationese, paired with resource-aware CARA-FM principles (PMLR Vol. 302).
+            </p>
+            <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="row-ext">Explore Swahili Corpus &#8599;</a>
+          </article>
+
+          <article class="direction-item">
+            <span class="dir-num">03 / Responsible AI &amp; Policy</span>
+            <h3>Deployment-Gap Auditing &amp; Regional Governance</h3>
+            <p>
+              Quantifying evaluation mirages through DGS-Bench (DLI 2026 Best Poster), diagnosing DCGAN failures (DSA 2026) and shortcut confounding (ICLR 2026), and harmonizing East African AI policy frameworks (Oxford TAIS 2026, AAAI 2026).
+            </p>
+            <a href="https://saaillab.github.io/projects/responsible-ai-global-south/" target="_blank" rel="noopener" class="row-ext">Explore Audits &amp; Policy &#8599;</a>
+          </article>
+
+          <article class="direction-item">
+            <span class="dir-num">04 / Healthcare &amp; Clinical ML</span>
+            <h3>Maternal Imaging, Biomarkers &amp; Segmentation</h3>
+            <p>
+              Advancing calibrated three-view placental morphometry across 9,883 bedside images with Penn State University and CPHK Pemba (PlacentaVision), SHAP preterm birth models, and boundary-gated polyp segmentation (BAFNet, ESWA 2025).
+            </p>
+            <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="row-ext">Explore Clinical AI &#8599;</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- IV. Selected Publications Bibliography -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">IV &middot; Selected Peer-Reviewed Papers</span>
+        <div class="section-bar">
+          <h2 class="section-h">Recent Bibliography</h2>
+          <a href="/publications/" class="text-action">Full {metrics.totalWorks}-Paper Archive &rarr;</a>
+        </div>
+
+        <ol class="bib-ledger">
+          {selectedPubs.map((pub) => (
+            <li class="bib-entry">
+              <div class="bib-yr-col">
+                <span class="bib-yr tabular-nums">{pub.year}</span>
+                {pub.award && <span class="bib-award">{pub.award}</span>}
+              </div>
+              <div class="bib-main-col">
+                <h3>
+                  <a href={pub.doi ? `https://doi.org/${pub.doi}` : pub.saailPaperUrl} target="_blank" rel="noopener">
+                    {pub.title}
+                  </a>
+                </h3>
+                <p class="bib-authors">{pub.authors.join(', ')}</p>
+                <p class="bib-venue">
+                  <em>{pub.venue}</em>
+                  {pub.citations > 0 ? ` · ${pub.citations} citations` : ''}
+                </p>
+                <p class="bib-tldr">{pub.tldr}</p>
+                <p class="bib-links">
+                  {pub.doi && (
+                    <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener" class="row-ext">DOI &#8599;</a>
+                  )}
+                  {pub.codeUrl && (
+                    <a href={pub.codeUrl} target="_blank" rel="noopener" class="row-ext">Code &#8599;</a>
+                  )}
+                  <a href={pub.saailPaperUrl} target="_blank" rel="noopener" class="row-ext">SAAIL Companion &#8599;</a>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- V. Writing, Notes & Collaboration -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">V &middot; Essays, Guides &amp; Collaboration</span>
+        <div class="two-col-closing">
+          <div>
+            <h2 class="section-h">Recent Writing &amp; Guides</h2>
+            <ul class="writing-list">
+              {WRITING_POSTS.slice(0, 4).map((post) => (
+                <li>
+                  <span class="w-date tabular-nums">{post.date} &middot; {post.category}</span>
+                  <a href={`/writing/${post.slug}/`}>{post.title}</a>
+                </li>
+              ))}
+            </ul>
+            <p style="margin-top: 0.9rem;">
+              <a href="/writing/" class="text-action">Browse All {WRITING_POSTS.length} Articles &amp; Guides &rarr;</a>
+            </p>
+          </div>
+
+          <div class="monograph-panel">
+            <span class="mono-eyebrow">Inquiries &amp; Supervision</span>
+            <h2 style="font-size: 1.55rem; margin-bottom: 0.65rem;">Collaborations &amp; Mentorship</h2>
+            <p style="color: var(--text-secondary); font-size: 0.96rem; margin-bottom: 1.1rem;">
+              Open to joint grant consortia, East African industry and agricultural partnerships, invited talks, and MTech, PhD, or postdoctoral mentorship inquiries.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+              <a href="/work-with-me/" class="btn-mono">Work With Me &rarr;</a>
+              <a href="/contact/" class="text-action">Direct Contact</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .intro-masthead {
+    padding-bottom: 1rem;
+  }
+
+  .masthead-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 2.75rem;
+    align-items: start;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2.45rem, 4.6vw, 3.65rem);
+    font-weight: 600;
+    line-height: 1.04;
+    margin: 0.35rem 0 0.55rem;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent-forest);
+  }
+
+  .hero-role {
+    font-family: var(--font-display);
+    font-size: 1.28rem;
+    font-weight: 600;
+    color: var(--accent-clove);
+    margin-bottom: 0.9rem;
+  }
+
+  .hero-affils {
+    font-size: 0.97rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.15rem;
+    line-height: 1.65;
+  }
+
+  .lab-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-clove);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .hero-statement {
+    font-size: 1.06rem;
+    line-height: 1.72;
+    color: var(--text-primary);
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .masthead-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .profile-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.25rem;
+    padding-top: 0.5rem;
+  }
+
+  .profile-anchor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .profile-anchor:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+  .profile-brand-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+  }
+  :global([data-theme="dark"]) .icon-dark-invert {
+    filter: invert(1);
+  }
+  :global([data-theme="dark"]) .icon-dark-brighten {
+    filter: brightness(2.0) saturate(1.15);
+  }
+
+  .masthead-portrait {
+    display: flex;
+    flex-direction: column;
+  }
+  .cutout-stage {
+    border-bottom: 1px solid var(--rule-strong);
+    line-height: 0;
+  }
+  .hero-cutout {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: block;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .hero-colophon {
+    margin: 0;
+  }
+  .hc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.58rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+    line-height: 1.45;
+  }
+  .hc-row dt {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    flex-shrink: 0;
+  }
+  .hc-row dd {
+    margin: 0;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+  .hc-row dd a {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+
+  /* Hairline Academic Ledger Strip */
+  .ledger-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .ledger-cell {
+    padding: 1.05rem 1rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    border-right: 1px solid var(--rule);
+    transition: background-color 0.15s ease;
+  }
+  .ledger-cell:last-child {
+    border-right: none;
+  }
+  .ledger-cell:hover {
+    background: var(--bg-secondary);
+  }
+  .ledger-val {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+    line-height: 1.05;
+  }
+  .ledger-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .ledger-meta {
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+    color: var(--text-muted);
+  }
+
+  /* Course Ledger Rows */
+  .ledger-rows {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 155px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .row-code-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+  }
+  .row-code {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .row-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .row-body-col h3 {
+    font-size: 1.28rem;
+    margin-bottom: 0.3rem;
+  }
+  .row-title-link {
+    text-decoration: none;
+  }
+  .row-title-link:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .row-summary {
+    font-size: 0.96rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 0.6rem;
+  }
+  .row-links,
+  .dispatch-links,
+  .bib-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: center;
+  }
+  .row-ext {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .row-ext:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+
+  /* Dispatches Rows (Zero Fixed-Height Text Clipping) */
+  .dispatch-list {
+    border-top: 1px solid var(--rule);
+  }
+  .dispatch-row {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .dispatch-media {
+    display: block;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .dispatch-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dispatch-media img.img-contain {
+    object-fit: contain;
+    padding: 0.35rem;
+    background: var(--bg-surface);
+  }
+  .dispatch-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .dispatch-cat {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clove);
+    font-weight: 500;
+  }
+  .dispatch-body h3 {
+    font-size: 1.26rem;
+    margin-bottom: 0.4rem;
+  }
+  .dispatch-body h3 a {
+    text-decoration: none;
+  }
+  .dispatch-body h3 a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .dispatch-text {
+    font-size: 0.96rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 0.65rem;
+  }
+
+  /* Research Directions */
+  .directions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 2.25rem;
+  }
+  .direction-item {
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule-strong);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .dir-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--accent-clove);
+  }
+  .direction-item h3 {
+    font-size: 1.24rem;
+  }
+  .direction-item p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 0.25rem;
+  }
+  .direction-item a {
+    align-self: flex-start;
+  }
+
+  /* Monograph Selected Bibliography */
+  .bib-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .bib-entry {
+    display: grid;
+    grid-template-columns: 145px minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .bib-yr-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .bib-yr {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .bib-award {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-clove);
+  }
+  .bib-main-col h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  .bib-main-col h3 a {
+    text-decoration: none;
+  }
+  .bib-main-col h3 a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .bib-authors {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+  .bib-venue {
+    font-size: 0.9rem;
+    color: var(--accent-forest);
+    margin-bottom: 0.35rem;
+  }
+  .bib-tldr {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.55rem;
+  }
+
+  /* Closing Two-Column Writing & Collaboration */
+  .two-col-closing {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .writing-list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+    margin-top: 0.9rem;
+  }
+  .writing-list li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .w-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+  }
+  .writing-list a {
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .writing-list a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .masthead-grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    .masthead-portrait {
+      max-width: 280px;
+    }
+    .ledger-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ledger-cell:nth-child(2n) {
+      border-right: none;
+    }
+    .ledger-cell:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--rule);
+    }
+    .directions-grid,
+    .two-col-closing {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .ledger-row,
+    .dispatch-row,
+    .bib-entry {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+    .dispatch-media {
+      max-width: 340px;
+    }
+  }
+</style>

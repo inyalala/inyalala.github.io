@@ -1,0 +1,317 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MonographRail from '../../components/MonographRail.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { PROFILE } from '../../data/profile';
+import metrics from '../../data/scholar-metrics.json';
+import { getImageDim } from '../../data/media';
+import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+
+const iitmzDim = getImageDim('/images/brand/iitmz-logo.png', 857, 291);
+const saailLogoDim = getImageDim('/images/brand/saail-lab-logo.png', 500, 500);
+const saailCrestDim = getImageDim('/images/brand/saail-crest.png', 332, 332);
+
+const mediaSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    websiteEntity(),
+    {
+      '@type': 'WebPage',
+      '@id': 'https://inyalala.github.io/media-kit/#webpage',
+      url: 'https://inyalala.github.io/media-kit/',
+      name: 'Media Kit & Press Bio | Innocent Nyalala · IITMZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': 'https://inyalala.github.io/media-kit/#breadcrumb' },
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: 'https://inyalala.github.io/images/innocent-nyalala-zanzibar.jpg',
+        width: 640,
+        height: 640
+      }
+    },
+    breadcrumbList(
+      [
+        { name: 'Home', url: 'https://inyalala.github.io/' },
+        { name: 'Media Kit', url: 'https://inyalala.github.io/media-kit/' }
+      ],
+      'https://inyalala.github.io/media-kit/#breadcrumb'
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Media Kit & Press Bio | Innocent Nyalala · IITMZ"
+  description="Approved portrait, institutional logos, verified citation statistics, and press biographies for Innocent Nyalala at IIT Madras Zanzibar."
+  canonical="https://inyalala.github.io/media-kit/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(mediaSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="media-kit" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Press &amp; Event Organizers</span>
+        <h1 class="page-title">Media Kit &amp; Press Bios</h1>
+        <p class="page-lead">
+          Approved photography, ready-to-copy conference biographies, verified citation statistics, and institutional emblems for symposia, seminars, and journalism.
+        </p>
+      </header>
+
+      <p id="copyStatus" class="sr-only" aria-live="polite"></p>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="media-split">
+          <div class="portrait-col">
+            <div class="portrait-box">
+              <picture>
+                <source srcset="/images/innocent-nyalala-zanzibar.webp" type="image/webp" />
+                <img
+                  src={PROFILE.portrait}
+                  alt={PROFILE.portraitAlt}
+                  width="640"
+                  height="640"
+                  loading="eager"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <p style="margin-top: 0.75rem;">
+              <a href={PROFILE.portrait} download="innocent-nyalala-zanzibar.jpg" class="btn-mono">
+                Download High-Res JPG &#8595;
+              </a>
+            </p>
+            <p class="cap-note">Credit: IIT Madras Zanzibar / SAAIL Lab.</p>
+          </div>
+
+          <div class="bios-col">
+            <article class="bio-item">
+              <div class="bio-head">
+                <h2>One-Line Introduction</h2>
+                <button type="button" class="copy-btn" data-copy={PROFILE.bios.oneLine}>Copy Text</button>
+              </div>
+              <p>{PROFILE.bios.oneLine}</p>
+            </article>
+
+            <article class="bio-item">
+              <div class="bio-head">
+                <h2>Short Bio (Panels &amp; Programs)</h2>
+                <button type="button" class="copy-btn" data-copy={PROFILE.bios.short}>Copy Text</button>
+              </div>
+              <p>{PROFILE.bios.short}</p>
+            </article>
+
+            <article class="bio-item">
+              <div class="bio-head">
+                <h2>Extended Biography</h2>
+                <button type="button" class="copy-btn" data-copy={PROFILE.bios.long}>Copy Text</button>
+              </div>
+              <p>{PROFILE.bios.long}</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Official Attribution &amp; Figures</span>
+        <div class="facts-logos">
+          <div>
+            <h2 class="section-h" style="margin-bottom: 1rem;">Quick Reference Details</h2>
+            <dl class="fact-dl">
+              <div><dt>Name &amp; Title</dt><dd>Innocent Nyalala, PhD &middot; Assistant Professor of Data Science &amp; AI</dd></div>
+              <div><dt>Primary School</dt><dd>School of Engineering and Science, Indian Institute of Technology Madras Zanzibar</dd></div>
+              <div><dt>Secondary Role</dt><dd>Associate Research Fellow, Wadhwani School of Data Science &amp; AI, IIT Madras</dd></div>
+              <div><dt>Research Group</dt><dd>Principal Investigator, SAAIL Lab</dd></div>
+              <div><dt>Output Metrics</dt><dd class="tabular-nums">{metrics.totalWorks} publications &middot; {metrics.citations.toLocaleString()} citations &middot; h-index {metrics.hIndex}</dd></div>
+              <div><dt>Media Email</dt><dd><a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a></dd></div>
+            </dl>
+          </div>
+
+          <div>
+            <h2 class="section-h" style="margin-bottom: 1rem;">Institutional Emblems</h2>
+            <div class="logo-list">
+              <a href="/images/brand/iitmz-logo.png" download="iitmz-logo.png" class="logo-row">
+                <img src="/images/brand/iitmz-logo.png" alt="IIT Madras Zanzibar Emblem" width={iitmzDim.width} height={iitmzDim.height} loading="lazy" />
+                <span>IIT Madras Zanzibar (PNG)</span>
+              </a>
+              <a href="/images/brand/saail-lab-logo.png" download="saail-lab-logo.png" class="logo-row">
+                <img src="/images/brand/saail-lab-logo.png" alt="SAAIL Lab Emblem" width={saailLogoDim.width} height={saailLogoDim.height} loading="lazy" />
+                <span>SAAIL Lab Logo (PNG)</span>
+              </a>
+              <a href="/images/brand/saail-crest.png" download="saail-crest.png" class="logo-row">
+                <img src="/images/brand/saail-crest.png" alt="SAAIL Lab Crest" width={saailCrestDim.width} height={saailCrestDim.height} loading="lazy" />
+                <span>SAAIL Crest (PNG)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var statusEl = document.getElementById('copyStatus');
+      document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = btn.getAttribute('data-copy') || '';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              btn.textContent = 'Copied!';
+              if (statusEl) statusEl.textContent = 'Biography text copied to clipboard.';
+              setTimeout(function () {
+                btn.textContent = 'Copy Text';
+              }, 1500);
+            });
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .media-split {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .portrait-box {
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    padding: 0.55rem;
+  }
+  .portrait-box img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .cap-note {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.45rem;
+  }
+
+  .bios-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .bio-item {
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .bio-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.55rem;
+  }
+  .bio-head h2 {
+    font-size: 1.32rem;
+  }
+  .copy-btn {
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--accent-forest);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .bio-item p {
+    font-size: 0.96rem;
+    color: var(--text-secondary);
+    line-height: 1.66;
+  }
+
+  .facts-logos {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .fact-dl {
+    border-top: 1px solid var(--rule);
+  }
+  .fact-dl > div {
+    padding: 0.68rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+  .fact-dl dt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--accent-clove);
+  }
+  .fact-dl dd {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+  }
+
+  .logo-list {
+    border-top: 1px solid var(--rule);
+  }
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+  }
+  .logo-row:hover span {
+    color: var(--accent-forest);
+    text-decoration: underline;
+  }
+  .logo-row img {
+    height: 44px;
+    width: auto;
+    max-width: 110px;
+    object-fit: contain;
+    background: var(--bg-surface);
+    border: 1px solid var(--rule);
+    padding: 4px 8px;
+  }
+  .logo-row span {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 820px) {
+    .media-split,
+    .facts-logos,
+    .fact-dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+    .portrait-col {
+      max-width: 280px;
+    }
+  }
+</style>

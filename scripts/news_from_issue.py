@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 """
-Turn a filled-in "Post news" issue into an entry in data/news.json.
+Turn a filled-in "Post news" issue into an entry in src/data/news.json.
 
 Called by .github/workflows/news-from-issue.yml. Reads the issue body from
 the ISSUE_BODY environment variable, parses the GitHub issue-form output,
-prepends the entry, and writes the file. The workflow then opens a pull
-request; nothing reaches the site until that is merged.
-
-The point of this script is that posting news costs you a phone form and a
-merge tap, with no HTML, no git, and no editor.
+inserts or updates the entry by issue number / id, and writes src/data/news.json.
 """
 
 import io
@@ -16,15 +12,14 @@ import json
 import os
 import re
 import sys
-from datetime import date
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NEWS = os.path.join(ROOT, "data", "news.json")
+NEWS = os.path.join(ROOT, "src", "data", "news.json")
 
-# GitHub renders issue forms as "### Label\n\nvalue". Unfilled optional fields
-# come through as the literal "_No response_".
 FIELD_RE = re.compile(r"^###\s+(.+?)\s*$", re.MULTILINE)
 EMPTY = {"_no response_", "_none_", ""}
+EAT = timezone(timedelta(hours=3))
 
 
 def parse(body):
@@ -45,6 +40,37 @@ def slugify(text, limit=60):
     return s[:limit].rstrip("-") or "item"
 
 
+def normalize_image_path(raw):
+    val = (raw or "").strip().replace("\\", "/")
+    if not val:
+        return None
+    if ".." in val.split("/"):
+        print("::warning::Rejected unsafe image path containing '..': %r" % val)
+        return None
+    if val.startswith(("http://", "https://")):
+        return val
+    if val.startswith("/"):
+        resolved = val
+    elif val.startswith("images/"):
+        resolved = "/" + val
+    else:
+        resolved = "/images/news/" + val.lstrip("./")
+    disk_path = os.path.join(ROOT, "public", resolved.lstrip("/"))
+    if not os.path.exists(disk_path):
+        print("::warning::Referenced image does not exist under public/: %s" % resolved)
+    return resolved
+
+
+def validate_link(raw):
+    val = (raw or "").strip()
+    if not val:
+        return None
+    if val.startswith(("https://", "http://", "/")):
+        return val
+    print("::warning::Ignoring invalid link scheme: %r" % val)
+    return None
+
+
 def main():
     body = os.environ.get("ISSUE_BODY", "")
     number = os.environ.get("ISSUE_NUMBER", "")
@@ -62,19 +88,21 @@ def main():
     when = f.get("date", "").strip()
     if not re.match(r"^\d{4}-\d{2}-\d{2}$", when):
         if when:
-            print("::warning::Date %r was not YYYY-MM-DD, using today instead." % when)
-        when = date.today().isoformat()
+            print("::warning::Date %r was not YYYY-MM-DD, using today (EAT) instead." % when)
+        when = datetime.now(EAT).date().isoformat()
 
+    issue_num = int(number) if str(number).isdigit() else None
     entry = {
         "id": when + "-" + slugify(headline),
         "date": when,
         "category": f.get("category", "Other").strip() or "Other",
         "headline": headline,
+        "summary": text,
         "body": text,
-        "link": f.get("link", "").strip() or None,
-        "image": f.get("image", "").strip() or None,
+        "link": validate_link(f.get("link", "")),
+        "image": normalize_image_path(f.get("image", "")),
         "source": f.get("source credit", "").strip() or None,
-        "issue": int(number) if str(number).isdigit() else None,
+        "issue": issue_num,
     }
 
     data = {"items": []}
@@ -83,13 +111,15 @@ def main():
             with io.open(NEWS, encoding="utf-8") as fh:
                 data = json.load(fh)
         except ValueError as e:
-            print("::error::data/news.json is not valid JSON (%s). Fix it first." % e)
+            print("::error::src/data/news.json is not valid JSON (%s). Fix it first." % e)
             return 1
 
     items = data.get("items", [])
-    # Re-submitting the same headline on the same day updates rather than
-    # duplicates, which is what you want after fixing a typo.
-    items = [i for i in items if i.get("id") != entry["id"]]
+    items = [
+        i
+        for i in items
+        if i.get("id") != entry["id"] and (issue_num is None or i.get("issue") != issue_num)
+    ]
     items.insert(0, entry)
     items.sort(key=lambda i: i.get("date", ""), reverse=True)
 
@@ -100,8 +130,9 @@ def main():
     print("Added: %s (%s)" % (headline, when))
     gh_out = os.environ.get("GITHUB_OUTPUT")
     if gh_out:
+        clean_headline = headline.replace("\r", " ").replace("\n", " ").strip()[:80]
         with io.open(gh_out, "a", encoding="utf-8") as fh:
-            fh.write("headline=%s\n" % headline.replace("\n", " ")[:80])
+            fh.write("headline=%s\n" % clean_headline)
     return 0
 
 
