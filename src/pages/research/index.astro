@@ -83,6 +83,42 @@ const researchSchema = {
       about: { '@id': 'https://inyalala.github.io/#person' },
       breadcrumb: { '@id': 'https://inyalala.github.io/research/#breadcrumb' }
     },
+    {
+      '@type': 'Dataset',
+      '@id': 'https://inyalala.github.io/research/#dataset-cloves-4603',
+      name: 'CLOVES-4603 Zanzibar Clove Grading Dataset',
+      description: 'Lot-aware commercial Zanzibar clove dataset of 4,603 expert-graded images across four ZSTC quality tiers.',
+      url: 'https://github.com/saaillab/CLOVES-4603',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': 'https://inyalala.github.io/research/#dataset-cropguardnet',
+      name: 'CropGuardNet Deduplicated Multi-Crop Pathology Benchmark',
+      description: 'Perceptually deduplicated 35,420-image benchmark spanning 8 crops and 38 foliar pathology classes.',
+      url: 'https://github.com/saaillab/CropGuardNet',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': 'https://inyalala.github.io/research/#dataset-dgs-bench',
+      name: 'DGS-Bench Deployment-Gap Auditing Suite',
+      description: 'Controlled 40-run evaluation suite measuring minority-class accuracy mirages under smallholder prevalence skew.',
+      url: 'https://saaillab.github.io/papers/dgs-bench/',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
+    {
+      '@type': 'Dataset',
+      '@id': 'https://inyalala.github.io/research/#dataset-swahili-dira',
+      name: 'Zanzibar Swahili Corpus & Dira Provenance Benchmark',
+      description: 'Coastal Kiunguja and Pemba Swahili corpus paired with translationese provenance evaluation splits.',
+      url: 'https://saaillab.github.io/projects/swahili-dira/',
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      creator: { '@id': 'https://inyalala.github.io/#person' }
+    },
     breadcrumbList(
       [
         { name: 'Home', url: 'https://inyalala.github.io/' },
@@ -151,6 +187,106 @@ const researchSchema = {
         </div>
       </section>
 
+      <!-- Research Lineage Constellation -->
+      <section class="rule-section">
+        <span class="mono-eyebrow">Research Lineage Map</span>
+        <div class="section-bar">
+          <h2 class="section-h">Pillars, Open Systems &amp; Bibliography Links</h2>
+          <span id="lineageStatus" class="lineage-status">Hover or focus any node to trace links</span>
+        </div>
+
+        <div class="lineage-wrap">
+          <svg
+            id="lineageSvg"
+            viewBox="0 0 820 292"
+            width="820"
+            height="292"
+            role="img"
+            aria-label="Research lineage constellation linking four research pillars to five datasets and systems and filtered publication queries"
+          >
+            <text x="16" y="20" class="lin-col-hd">I · PILLARS</text>
+            <text x="310" y="20" class="lin-col-hd">II · DATASETS &amp; SYSTEMS</text>
+            <text x="612" y="20" class="lin-col-hd">III · PUBLICATIONS</text>
+
+            <!-- Edges: Pillars -> Systems -->
+            <path d="M 220 62 C 265 62, 265 56, 310 56" class="lin-edge" data-lin="ag cloves" />
+            <path d="M 220 62 C 265 62, 265 110, 310 110" class="lin-edge" data-lin="ag cropguard" />
+            <path d="M 220 124 C 265 124, 265 164, 310 164" class="lin-edge" data-lin="sw dira" />
+            <path d="M 220 186 C 265 186, 265 218, 310 218" class="lin-edge" data-lin="resp dgs" />
+            <path d="M 220 248 C 265 248, 265 270, 310 270" class="lin-edge" data-lin="health placenta" />
+
+            <!-- Edges: Systems -> Publications -->
+            <path d="M 520 56 C 566 56, 566 56, 612 56" class="lin-edge" data-lin="ag cloves" />
+            <path d="M 520 110 C 566 110, 566 110, 612 110" class="lin-edge" data-lin="ag cropguard" />
+            <path d="M 520 164 C 566 164, 566 164, 612 164" class="lin-edge" data-lin="sw dira" />
+            <path d="M 520 218 C 566 218, 566 218, 612 218" class="lin-edge" data-lin="resp dgs" />
+            <path d="M 520 270 C 566 270, 566 270, 612 270" class="lin-edge" data-lin="health placenta" />
+
+            <!-- Column 1: Pillars -->
+            <a href="#agriculture" class="lin-node" data-group="ag" data-desc="Pillar I: Precision Agriculture & Blue Economy -> CLOVES-4603 & CropGuardNet">
+              <rect x="16" y="42" width="204" height="40" rx="2" class="lin-box lin-box-pillar" />
+              <text x="28" y="66" class="lin-lbl">01 · Agriculture &amp; Cloves</text>
+            </a>
+            <a href="#swahili" class="lin-node" data-group="sw" data-desc="Pillar II: Swahili NLP & Provenance -> Zanzibar Corpus & Dira">
+              <rect x="16" y="104" width="204" height="40" rx="2" class="lin-box lin-box-pillar" />
+              <text x="28" y="128" class="lin-lbl">02 · Swahili NLP &amp; Dira</text>
+            </a>
+            <a href="#responsible" class="lin-node" data-group="resp" data-desc="Pillar III: Responsible AI & Policy -> DGS-Bench & Auditing">
+              <rect x="16" y="166" width="204" height="40" rx="2" class="lin-box lin-box-pillar" />
+              <text x="28" y="190" class="lin-lbl">03 · Responsible AI &amp; Policy</text>
+            </a>
+            <a href="#healthcare" class="lin-node" data-group="health" data-desc="Pillar IV: Healthcare & Clinical ML -> PlacentaVision & BAFNet">
+              <rect x="16" y="228" width="204" height="40" rx="2" class="lin-box lin-box-pillar" />
+              <text x="28" y="252" class="lin-lbl">04 · Healthcare &amp; Clinical ML</text>
+            </a>
+
+            <!-- Column 2: Key Systems / Datasets -->
+            <a href="https://github.com/saaillab/CLOVES-4603" target="_blank" rel="noopener" class="lin-node" data-group="ag cloves" data-desc="CLOVES-4603: 4,603 ZSTC Clove Images (CVPR V4A & ETRI 2026)">
+              <rect x="310" y="38" width="210" height="36" rx="2" class="lin-box" />
+              <text x="322" y="60" class="lin-lbl">CLOVES-4603 (4,603 imgs)</text>
+            </a>
+            <a href="https://github.com/saaillab/CropGuardNet" target="_blank" rel="noopener" class="lin-node" data-group="ag cropguard" data-desc="CropGuardNet: 35,420 Deduplicated Leaf Images (5.00 ms ONNX)">
+              <rect x="310" y="92" width="210" height="36" rx="2" class="lin-box" />
+              <text x="322" y="114" class="lin-lbl">CropGuardNet (481.6K params)</text>
+            </a>
+            <a href="https://saaillab.github.io/projects/swahili-dira/" target="_blank" rel="noopener" class="lin-node" data-group="sw dira" data-desc="Dira: Coastal Kiunguja Corpus & Translationese Provenance">
+              <rect x="310" y="146" width="210" height="36" rx="2" class="lin-box" />
+              <text x="322" y="168" class="lin-lbl">Dira Swahili Provenance</text>
+            </a>
+            <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="lin-node" data-group="resp dgs" data-desc="DGS-Bench: 40-Run Deployment-Gap Suite (DLI 2026 Best Poster)">
+              <rect x="310" y="200" width="210" height="36" rx="2" class="lin-box" />
+              <text x="322" y="222" class="lin-lbl">DGS-Bench (DLI Best Poster)</text>
+            </a>
+            <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="lin-node" data-group="health placenta" data-desc="PlacentaVision: 9,883 Bedside Images with CPHK Pemba & Penn State">
+              <rect x="310" y="252" width="210" height="36" rx="2" class="lin-box" />
+              <text x="322" y="274" class="lin-lbl">PlacentaVision (9,883 imgs)</text>
+            </a>
+
+            <!-- Column 3: Filtered Publications -->
+            <a href="/publications/?q=clove" class="lin-node" data-group="ag cloves" data-desc="Filter Publications for Zanzibar Clove Studies">
+              <rect x="612" y="38" width="192" height="36" rx="2" class="lin-box lin-box-out" />
+              <text x="624" y="60" class="lin-lbl">Papers: Clove AI &rarr;</text>
+            </a>
+            <a href="/publications/?q=cropguardnet" class="lin-node" data-group="ag cropguard" data-desc="Filter Publications for CropGuardNet & Foliar Pathology">
+              <rect x="612" y="92" width="192" height="36" rx="2" class="lin-box lin-box-out" />
+              <text x="624" y="114" class="lin-lbl">Papers: CropGuardNet &rarr;</text>
+            </a>
+            <a href="/publications/?q=swahili" class="lin-node" data-group="sw dira" data-desc="Filter Publications for Swahili NLP & Provenance">
+              <rect x="612" y="146" width="192" height="36" rx="2" class="lin-box lin-box-out" />
+              <text x="624" y="168" class="lin-lbl">Papers: Swahili NLP &rarr;</text>
+            </a>
+            <a href="/publications/?q=dgs-bench" class="lin-node" data-group="resp dgs" data-desc="Filter Publications for DGS-Bench & Auditing">
+              <rect x="612" y="200" width="192" height="36" rx="2" class="lin-box lin-box-out" />
+              <text x="624" y="222" class="lin-lbl">Papers: DGS-Bench &rarr;</text>
+            </a>
+            <a href="/publications/?q=placenta" class="lin-node" data-group="health placenta" data-desc="Filter Publications for Placental & Clinical ML">
+              <rect x="612" y="252" width="192" height="36" rx="2" class="lin-box lin-box-out" />
+              <text x="624" y="274" class="lin-lbl">Papers: Clinical ML &rarr;</text>
+            </a>
+          </svg>
+        </div>
+      </section>
+
       <!-- Four Pillars -->
       <section class="rule-section">
         <span class="mono-eyebrow">Thematic Research Pillars</span>
@@ -173,14 +309,23 @@ const researchSchema = {
                   </p>
                 </div>
                 <figure class="pillar-fig">
-                  <img
-                    src={thumb}
-                    alt={p.imageAlt}
-                    width={dim.width}
-                    height={dim.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <button
+                    type="button"
+                    class="pillar-zoom-btn"
+                    data-zoom-src={p.image}
+                    data-zoom-alt={p.caption}
+                    aria-label={`Enlarge diagram: ${p.imageAlt}`}
+                  >
+                    <img
+                      src={thumb}
+                      alt={p.imageAlt}
+                      width={dim.width}
+                      height={dim.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span class="pillar-zoom-cue" aria-hidden="true">Zoom</span>
+                  </button>
                   <figcaption>{p.caption}</figcaption>
                 </figure>
               </article>
@@ -272,6 +417,111 @@ const researchSchema = {
 
     <SiteFooter />
   </div>
+
+  <div id="researchLightbox" class="res-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="resLbCap">
+    <div class="res-lb-backdrop"></div>
+    <button id="resLbClose" type="button" class="res-lb-close" aria-label="Close diagram preview">&times;</button>
+    <figure class="res-lb-figure">
+      <img
+        id="resLbImg"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        alt="Enlarged research diagram"
+        width="1200"
+        height="800"
+      />
+      <figcaption id="resLbCap"></figcaption>
+    </figure>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var statusEl = document.getElementById('lineageStatus');
+      var nodes = document.querySelectorAll('.lin-node');
+      var edges = document.querySelectorAll('.lin-edge');
+
+      function setHighlight(node) {
+        if (!node) {
+          nodes.forEach(function (n) { n.classList.remove('is-dim', 'is-lit'); });
+          edges.forEach(function (e) { e.classList.remove('is-dim', 'is-lit'); });
+          if (statusEl) statusEl.textContent = 'Hover or focus any node to trace links';
+          return;
+        }
+        var groups = (node.getAttribute('data-group') || '').split(/\s+/).filter(Boolean);
+        if (statusEl) statusEl.textContent = node.getAttribute('data-desc') || '';
+        edges.forEach(function (e) {
+          var elin = (e.getAttribute('data-lin') || '').split(/\s+/);
+          var match = groups.length === 1 ? elin.indexOf(groups[0]) !== -1 : elin.indexOf(groups[1]) !== -1;
+          e.classList.toggle('is-lit', match);
+          e.classList.toggle('is-dim', !match);
+        });
+        nodes.forEach(function (n) {
+          var ng = (n.getAttribute('data-group') || '').split(/\s+/);
+          var match = groups.length === 1
+            ? ng.indexOf(groups[0]) !== -1
+            : (ng.length === 1 ? ng[0] === groups[0] : ng.indexOf(groups[1]) !== -1);
+          n.classList.toggle('is-lit', match);
+          n.classList.toggle('is-dim', !match);
+        });
+      }
+
+      nodes.forEach(function (node) {
+        node.addEventListener('mouseenter', function () { setHighlight(node); });
+        node.addEventListener('focus', function () { setHighlight(node); });
+        node.addEventListener('mouseleave', function () { setHighlight(null); });
+        node.addEventListener('blur', function () { setHighlight(null); });
+      });
+
+      var lb = document.getElementById('researchLightbox');
+      var lbImg = document.getElementById('resLbImg');
+      var lbCap = document.getElementById('resLbCap');
+      var lbClose = document.getElementById('resLbClose');
+      var lbBackdrop = lb && lb.querySelector('.res-lb-backdrop');
+      var bgEls = document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop');
+      var lastFocus = null;
+      var blankSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+      function setInert(state) {
+        bgEls.forEach(function (el) {
+          if (state) el.setAttribute('inert', '');
+          else el.removeAttribute('inert');
+        });
+      }
+
+      function closeLb() {
+        if (!lb) return;
+        lb.hidden = true;
+        document.body.style.overflow = '';
+        setInert(false);
+        if (lbImg) lbImg.src = blankSrc;
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+
+      document.querySelectorAll('.pillar-zoom-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (!lb || !lbImg || !lbCap) return;
+          lastFocus = btn;
+          lbImg.src = btn.getAttribute('data-zoom-src') || blankSrc;
+          lbImg.alt = btn.getAttribute('data-zoom-alt') || 'Research diagram';
+          lbCap.textContent = btn.getAttribute('data-zoom-alt') || '';
+          lb.hidden = false;
+          setInert(true);
+          document.body.style.overflow = 'hidden';
+          lbClose && lbClose.focus();
+        });
+      });
+
+      lbClose && lbClose.addEventListener('click', closeLb);
+      lbBackdrop && lbBackdrop.addEventListener('click', closeLb);
+      document.addEventListener('keydown', function (e) {
+        if (!lb || lb.hidden) return;
+        if (e.key === 'Escape') closeLb();
+        else if (e.key === 'Tab') {
+          e.preventDefault();
+          lbClose && lbClose.focus();
+        }
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -331,9 +581,17 @@ const researchSchema = {
   }
 
   .pillar-fig {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.65rem;
+  }
+  .pillar-zoom-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0.4rem;
     border: 1px solid var(--rule);
     background: var(--bg-surface);
-    padding: 0.65rem;
+    cursor: zoom-in;
   }
   .pillar-fig img {
     width: 100%;
@@ -341,6 +599,24 @@ const researchSchema = {
     max-height: 260px;
     object-fit: contain;
     background: var(--bg-surface);
+  }
+  .pillar-zoom-cue {
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    padding: 0.18rem 0.45rem;
+    background: rgba(21, 20, 18, 0.86);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .pillar-zoom-btn:hover .pillar-zoom-cue,
+  .pillar-zoom-btn:focus-visible .pillar-zoom-cue {
+    opacity: 1;
   }
   .pillar-fig figcaption {
     margin-top: 0.5rem;
@@ -350,15 +626,136 @@ const researchSchema = {
     line-height: 1.45;
   }
 
+  .lineage-status {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+  }
+  .lineage-wrap {
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    padding: 0.85rem;
+    overflow-x: auto;
+  }
+  .lineage-wrap svg {
+    width: 100%;
+    min-width: 640px;
+    height: auto;
+    display: block;
+  }
+  .lin-col-hd {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    fill: var(--accent-clove);
+  }
+  .lin-edge {
+    fill: none;
+    stroke: var(--rule-strong);
+    stroke-width: 1.4;
+    transition: stroke 0.16s ease, opacity 0.16s ease, stroke-width 0.16s ease;
+  }
+  .lin-edge.is-lit {
+    stroke: var(--accent-forest);
+    stroke-width: 2.3;
+  }
+  .lin-edge.is-dim {
+    opacity: 0.25;
+  }
+  .lin-node {
+    cursor: pointer;
+    transition: opacity 0.16s ease;
+  }
+  .lin-node.is-dim {
+    opacity: 0.42;
+  }
+  .lin-box {
+    fill: var(--bg-primary);
+    stroke: var(--rule-strong);
+    stroke-width: 1;
+    transition: stroke 0.16s ease, fill 0.16s ease;
+  }
+  .lin-box-pillar {
+    fill: var(--bg-secondary);
+  }
+  .lin-box-out {
+    stroke: var(--accent-forest);
+  }
+  .lin-node:hover .lin-box,
+  .lin-node:focus-visible .lin-box,
+  .lin-node.is-lit .lin-box {
+    stroke: var(--accent-forest);
+    stroke-width: 1.8;
+  }
+  .lin-lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text-primary);
+  }
+
+  .res-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .res-lightbox[hidden] {
+    display: none;
+  }
+  .res-lb-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(21, 20, 18, 0.92);
+  }
+  .res-lb-close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.45rem;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(248, 245, 238, 0.4);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-size: 1.6rem;
+    cursor: pointer;
+    z-index: 3002;
+  }
+  .res-lb-figure {
+    position: relative;
+    z-index: 3001;
+    max-width: min(1080px, 92vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .res-lb-figure img {
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    border: 1px solid rgba(248, 245, 238, 0.25);
+    background: #ede7db;
+    padding: 0.45rem;
+  }
+  .res-lb-figure figcaption {
+    color: #f2efe9;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 70ch;
+  }
+
   .datasets-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 1.85rem 2.15rem;
   }
   .ds-card {
-    border: 1px solid var(--rule);
-    background: var(--bg-surface);
-    padding: 1.2rem;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 1.05rem;
     display: flex;
     flex-direction: column;
     gap: 0.45rem;

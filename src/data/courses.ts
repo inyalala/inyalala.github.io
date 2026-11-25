@@ -295,9 +295,9 @@ export const COURSES: CourseData[] = [
       href: '/courses/z5007/'
     },
     schedule: [
-      { session: 'Lectures', frequency: '4 sessions per week', details: 'Monday, Wednesday, Thursday, and Friday (PDS weekly schedule)' },
-      { session: 'Laboratory', frequency: '2 sessions per week', details: 'Hands-on implementation and testing' },
-      { session: 'Office Hours', frequency: 'Wednesday, 2:00 PM - 4:00 PM EAT', details: 'Room 105 (F1) or by email' }
+      { session: 'Lectures', frequency: '4 sessions per week', details: 'Monday, Wednesday, Thursday, and Friday (2026-27 colleague-taught; active instructor schedule)' },
+      { session: 'Laboratory', frequency: '2 sessions per week', details: 'Hands-on implementation and testing (active instructor schedule)' },
+      { session: 'Office Hours', frequency: 'Active instructor schedule', details: 'For Z5007/Z3003 inquiries with Dr. Nyalala: Room 105 (F1) Wednesdays 2:00-4:00 PM EAT' }
     ],
     prerequisites: [
       'Introduction to Programming in Python (functions, loops, conditionals, and debugging basic Python error traces).'

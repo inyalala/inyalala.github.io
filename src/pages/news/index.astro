@@ -241,7 +241,14 @@ const newsSchema = {
   <!-- Accessible Focus-Trapped Lightbox Modal -->
   <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lbCap">
     <div class="lb-backdrop"></div>
-    <button id="lbClose" type="button" class="lb-close" aria-label="Close image preview">&times;</button>
+    <div class="lb-topbar">
+      <span id="lbCounter" class="lb-counter tabular-nums">1 / 1</span>
+      <div class="lb-controls">
+        <button id="lbPrev" type="button" class="lb-nav-btn" aria-label="Previous image">&larr; Prev</button>
+        <button id="lbNext" type="button" class="lb-nav-btn" aria-label="Next image">Next &rarr;</button>
+        <button id="lbClose" type="button" class="lb-close" aria-label="Close image preview">&times;</button>
+      </div>
+    </div>
     <figure class="lb-figure">
       <img
         id="lbImg"
@@ -326,17 +333,34 @@ const newsSchema = {
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lbImg');
     var lbCap = document.getElementById('lbCap');
+    var lbCounter = document.getElementById('lbCounter');
+    var lbPrev = document.getElementById('lbPrev');
+    var lbNext = document.getElementById('lbNext');
     var lbClose = document.getElementById('lbClose');
     var lbBackdrop = lb && lb.querySelector('.lb-backdrop');
     var backgroundEls = document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop');
     var lastFocus = null;
     var blankSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    var lbItems = [];
+    var lbIndex = 0;
 
     function setBackgroundInert(state) {
       backgroundEls.forEach(function (el) {
         if (state) el.setAttribute('inert', '');
         else el.removeAttribute('inert');
       });
+    }
+
+    function showLbIndex(idx) {
+      if (!lbItems.length || !lbImg || !lbCap) return;
+      lbIndex = (idx + lbItems.length) % lbItems.length;
+      var item = lbItems[lbIndex];
+      lbImg.src = item.getAttribute('data-zoom-src') || blankSrc;
+      lbImg.alt = item.getAttribute('data-zoom-alt') || 'Expanded news photograph preview';
+      lbCap.textContent = item.getAttribute('data-zoom-alt') || '';
+      if (lbCounter) lbCounter.textContent = (lbIndex + 1) + ' / ' + lbItems.length;
+      if (lbPrev) lbPrev.disabled = lbItems.length <= 1;
+      if (lbNext) lbNext.disabled = lbItems.length <= 1;
     }
 
     function closeLb() {
@@ -354,25 +378,59 @@ const newsSchema = {
         var trigger = e.target.closest('.zoom-btn');
         if (!trigger || !lb || !lbImg || !lbCap) return;
         lastFocus = trigger;
-        lbImg.src = trigger.getAttribute('data-zoom-src') || blankSrc;
-        lbImg.alt = '';
-        lbCap.textContent = trigger.getAttribute('data-zoom-alt') || '';
+        lbItems = Array.prototype.slice.call(container.querySelectorAll('.zoom-btn')).filter(function (b) {
+          var ent = b.closest('.news-entry');
+          return !ent || ent.style.display !== 'none';
+        });
+        var startIdx = lbItems.indexOf(trigger);
+        showLbIndex(startIdx >= 0 ? startIdx : 0);
         lb.hidden = false;
         setBackgroundInert(true);
         document.body.style.overflow = 'hidden';
         lbClose && lbClose.focus();
       });
 
+    lbPrev && lbPrev.addEventListener('click', function () { showLbIndex(lbIndex - 1); });
+    lbNext && lbNext.addEventListener('click', function () { showLbIndex(lbIndex + 1); });
     lbClose && lbClose.addEventListener('click', closeLb);
     lbBackdrop && lbBackdrop.addEventListener('click', closeLb);
+
+    if (lb) {
+      var lbTouchX = 0;
+      var lbTouchY = 0;
+      lb.addEventListener('touchstart', function (e) {
+        if (e.touches && e.touches.length === 1) {
+          lbTouchX = e.touches[0].clientX;
+          lbTouchY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+      lb.addEventListener('touchend', function (e) {
+        if (!e.changedTouches || !e.changedTouches.length || lbItems.length <= 1) return;
+        var dx = e.changedTouches[0].clientX - lbTouchX;
+        var dy = Math.abs(e.changedTouches[0].clientY - lbTouchY);
+        if (Math.abs(dx) > 48 && Math.abs(dx) > dy * 1.3) {
+          showLbIndex(dx < 0 ? lbIndex + 1 : lbIndex - 1);
+        }
+      }, { passive: true });
+    }
 
     document.addEventListener('keydown', function (e) {
       if (!lb || lb.hidden) return;
       if (e.key === 'Escape') {
         closeLb();
-      } else if (e.key === 'Tab') {
+      } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        lbClose && lbClose.focus();
+        showLbIndex(lbIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        showLbIndex(lbIndex + 1);
+      } else if (e.key === 'Tab') {
+        var btnsList = [lbPrev, lbNext, lbClose].filter(function (b) { return b && !b.disabled; });
+        if (!btnsList.length) return;
+        e.preventDefault();
+        var cur = btnsList.indexOf(document.activeElement);
+        var nextPos = e.shiftKey ? (cur <= 0 ? btnsList.length - 1 : cur - 1) : (cur + 1) % btnsList.length;
+        btnsList[nextPos].focus();
       }
     });
   });
@@ -587,10 +645,49 @@ const newsSchema = {
     inset: 0;
     background: rgba(16, 15, 13, 0.9);
   }
-  .lb-close {
+  .lb-topbar {
     position: fixed;
-    top: 1.25rem;
+    top: 1rem;
+    left: 1.45rem;
     right: 1.45rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    z-index: 3002;
+    pointer-events: none;
+  }
+  .lb-topbar > * {
+    pointer-events: auto;
+  }
+  .lb-counter {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #f8f5ee;
+    background: rgba(21, 20, 18, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.38rem 0.65rem;
+  }
+  .lb-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .lb-nav-btn {
+    min-height: 42px;
+    padding: 0 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+  .lb-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .lb-close {
     width: 42px;
     height: 42px;
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -598,7 +695,6 @@ const newsSchema = {
     color: #f8f5ee;
     font-size: 1.6rem;
     cursor: pointer;
-    z-index: 3002;
   }
   .lb-figure {
     position: relative;

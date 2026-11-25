@@ -3,6 +3,7 @@ import type { PriorPaper } from '../data/prior-papers';
 import { PRIOR_COMPANIONS, PHD_CHAPTER_SLUGS, getImageDims } from '../data/prior-papers';
 import { fitAtWord } from '../data/text-utils';
 import { breadcrumbList, personEntity, websiteEntity } from '../data/schema';
+import CommandPalette from './CommandPalette.astro';
 
 export interface Props {
   pub: PriorPaper;
@@ -22,6 +23,9 @@ const ogImageUrl = pub.teaserImage
       : `https://inyalala.github.io${pub.teaserImage}`)
   : 'https://inyalala.github.io/images/og-innocent-nyalala.png';
 const isSvgTeaser = Boolean(pub.teaserImage && pub.teaserImage.endsWith('.svg'));
+const teaserDims = pub.teaserImage ? getImageDims(pub.teaserImage) : null;
+const ogImgW = pub.teaserImage && !isSvgTeaser && teaserDims ? teaserDims.width : 1200;
+const ogImgH = pub.teaserImage && !isSvgTeaser && teaserDims ? teaserDims.height : 630;
 
 function escapeHtmlAttr(val: string): string {
   return String(val)
@@ -72,6 +76,8 @@ const headMetaLines: string[] = [
   `<meta property="og:site_name" content="Innocent Nyalala | Personal Research Archive" />`,
   `<meta property="og:image" content="${escapeHtmlAttr(ogImageUrl)}" />`,
   `<meta property="og:image:type" content="${ogImageMime}" />`,
+  `<meta property="og:image:width" content="${ogImgW}" />`,
+  `<meta property="og:image:height" content="${ogImgH}" />`,
   `<meta property="og:image:alt" content="${escapeHtmlAttr(pub.title)}" />`,
   `<meta name="twitter:card" content="summary_large_image" />`,
   `<meta name="twitter:title" content="${escapeHtmlAttr(seoTitle)}" />`,
@@ -97,6 +103,10 @@ if (bibPages) {
 }
 if (cleanDoi) {
   headMetaLines.push(`<meta name="citation_doi" content="${escapeHtmlAttr(cleanDoi)}" />`);
+}
+if (pub.pdfUrl) {
+  const fullPdfUrl = pub.pdfUrl.startsWith('http') ? pub.pdfUrl : `https://inyalala.github.io${pub.pdfUrl}`;
+  headMetaLines.push(`<meta name="citation_pdf_url" content="${escapeHtmlAttr(fullPdfUrl)}" />`);
 }
 const headMetaHtml = headMetaLines.join('\n  ');
 
@@ -145,7 +155,6 @@ function formatContributionSentence(raw: string, idx: number): string {
 }
 
 const teaserSummaryText = pub.teaserSummary || pub.teaserCaption || pub.tldr;
-const teaserDims = pub.teaserImage ? getImageDims(pub.teaserImage) : null;
 const allFigs = (pub.figures || []).slice(0, 3);
 const bodyFigs = allFigs.length >= 2 ? allFigs.slice(0, -1) : allFigs;
 const resultsFig = allFigs.length >= 2 ? allFigs[allFigs.length - 1] : null;
@@ -157,11 +166,20 @@ const resultsNarrative =
 const hasResults = Boolean(resultsNarrative || resultsFig || (pub.tables && pub.tables.length > 0));
 const extraDetails = pub.detailSections || [];
 
-const resultsBand = hasResults ? (bodyFigs.length % 2 === 0 ? 'section-white' : 'section-light') : '';
-const afterResultsIndex = bodyFigs.length + (hasResults ? 1 : 0);
-const afterDetailsIndex = afterResultsIndex + extraDetails.length;
-const bibtexBand = afterDetailsIndex % 2 === 0 ? 'section-white' : 'section-light';
-const footerBand = bibtexBand === 'section-white' ? 'footer-light' : 'footer-white';
+const jumpSections: { id: string; label: string }[] = [
+  { id: 'abstract', label: 'Abstract' },
+  ...(bodyFigs.length > 0 ? [{ id: 'methodology', label: 'Methodology' }] : []),
+  ...(hasResults ? [{ id: 'results', label: 'Results' }] : []),
+  ...extraDetails.map((sec) => ({
+    id: sec.id,
+    label: sec.id === 'study-6-synthesis'
+      ? 'Synthesis'
+      : sec.title.includes(':')
+        ? sec.title.split(':')[0].trim()
+        : sec.title
+  })),
+  { id: 'bibtex', label: 'BibTeX' }
+];
 
 const jsonLdGraph = {
   '@context': 'https://schema.org',
@@ -240,8 +258,20 @@ const jsonLdGraph = {
   <div id="paperProgressBar" class="paper-progress-bar" aria-hidden="true"></div>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- More Works Dropdown & Day/Night Switcher: Strictly Scoped to the 23 Pre-SAAIL Works & Theses (2015-2024) -->
+  <!-- More Works Dropdown, Quick Search & Day/Night Switcher: Strictly Scoped to the 23 Pre-SAAIL Works & Theses (2015-2024) -->
   <div class="more-works-container">
+    <button
+      type="button"
+      class="more-works-btn js-open-cmd"
+      aria-label="Search site (Ctrl+K)"
+      title="Search (Ctrl+K)"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+      <span>Search</span>
+    </button>
     <button
       id="paperThemeToggle"
       type="button"
@@ -378,21 +408,12 @@ const jsonLdGraph = {
       </div>
     </header>
 
-    {extraDetails.length > 0 && (
+    {jumpSections.length >= 2 && (
       <nav class="section-jump-nav" aria-label="Monograph sections">
         <div class="container-desktop section-jump-inner">
-          <a href="#abstract" class="jump-link">Abstract</a>
-          {bodyFigs.length > 0 && <a href="#methodology" class="jump-link">Methodology</a>}
-          {hasResults && <a href="#results" class="jump-link">Results</a>}
-          {extraDetails.map((sec) => {
-            const shortJump = sec.id === 'study-6-synthesis'
-              ? 'Synthesis'
-              : sec.title.includes(':')
-                ? sec.title.split(':')[0].trim()
-                : sec.title;
-            return <a href={`#${sec.id}`} class="jump-link">{shortJump}</a>;
-          })}
-          <a href="#bibtex" class="jump-link">BibTeX</a>
+          {jumpSections.map((sec) => (
+            <a href={`#${sec.id}`} class="jump-link">{sec.label}</a>
+          ))}
         </div>
       </nav>
     )}
@@ -418,11 +439,10 @@ const jsonLdGraph = {
       </div>
     </section>
 
-    <section id="abstract" class="section-band section-light">
+    <section id="abstract" class="section-band">
       <div class="container-desktop">
-        <div class="section-title-block section-title-center">
+        <div class="section-title-block section-title-left">
           <h2>Abstract</h2>
-          <div class="title-bar title-bar-center"></div>
         </div>
         <div class="abstract-prose">
           <p>{pub.abstract}</p>
@@ -431,15 +451,13 @@ const jsonLdGraph = {
     </section>
 
     {bodyFigs.map((fig, idx) => {
-      const bandClass = idx % 2 === 0 ? 'section-white' : 'section-light';
       const heading = fig.title || (idx === 0 ? (pub.figureHeading || 'Methodology & Analysis') : `Analysis ${idx + 1}`);
       const fd = getImageDims(fig.src);
       return (
-        <section id={idx === 0 ? 'methodology' : `analysis-${idx + 1}`} class:list={['section-band', bandClass]}>
+        <section id={idx === 0 ? 'methodology' : `analysis-${idx + 1}`} class="section-band">
           <div class="container-desktop">
             <div class="section-title-block section-title-left">
               <h2>{heading}</h2>
-              <div class="title-bar title-bar-left"></div>
             </div>
             <figure class="analysis-figure">
               <button type="button" class="zoom-trigger" aria-label={`View full size: ${fig.alt || fig.caption}`}>
@@ -461,11 +479,10 @@ const jsonLdGraph = {
     })}
 
     {hasResults && (
-      <section id="results" class:list={['section-band', resultsBand]}>
+      <section id="results" class="section-band">
         <div class="container-desktop">
           <div class="section-title-block section-title-left">
             <h2>Results</h2>
-            <div class="title-bar title-bar-left"></div>
           </div>
 
           {resultsNarrative && <p class="section-prose">{resultsNarrative}</p>}
@@ -526,14 +543,12 @@ const jsonLdGraph = {
       </section>
     )}
 
-    {extraDetails.map((sec, idx) => {
-      const bandCls = (afterResultsIndex + idx) % 2 === 0 ? 'section-white' : 'section-light';
+    {extraDetails.map((sec) => {
       return (
-        <section id={sec.id} class:list={['section-band', bandCls]}>
+        <section id={sec.id} class="section-band">
           <div class="container-desktop">
             <div class="section-title-block section-title-left">
               <h2>{sec.title}</h2>
-              <div class="title-bar title-bar-left"></div>
             </div>
 
             {sec.paragraphs && sec.paragraphs.map((p) => <p class="section-prose">{p}</p>)}
@@ -613,32 +628,42 @@ const jsonLdGraph = {
       );
     })}
 
-    <section id="bibtex" class:list={['section-band', bibtexBand]}>
+    <section id="bibtex" class="section-band">
       <div class="container-desktop">
         <div class="bibtex-header">
-          <h2>BibTeX</h2>
-          <button type="button" id="copyBibBtn" class="copy-bibtex-btn" data-copy-target="bibtexCode" title="Copy BibTeX to clipboard">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-            <span>Copy</span>
-          </button>
+          <h2>Citation</h2>
+          <div class="bibtex-actions">
+            {pub.apa && (
+              <button type="button" id="copyApaBtn" class="copy-bibtex-btn copy-apa-btn" data-apa={pub.apa} title="Copy APA 7th citation">
+                <span>Copy APA 7th</span>
+              </button>
+            )}
+            <button type="button" id="copyBibBtn" class="copy-bibtex-btn" data-copy-target="bibtexCode" title="Copy BibTeX to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span>Copy BibTeX</span>
+            </button>
+          </div>
         </div>
         <pre id="bibtex-code" class="bibtex-pre"><code id="bibtexCode">{pub.bibtex}</code></pre>
       </div>
     </section>
   </main>
 
-  <footer class:list={['project-footer', footerBand]}>
+  <footer class="project-footer">
     <div class="container-desktop">
       <div class="footer-content">
         <p>
-          Pre-SAAIL archival project page hosted on <a href="https://inyalala.github.io/">Innocent Nyalala&rsquo;s Personal Site</a>, using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a> adopted from <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a>. Licensed under <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
+          Pre-SAAIL archival project page hosted on <a href="https://inyalala.github.io/">Innocent Nyalala&rsquo;s Personal Site</a>, licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
         </p>
       </div>
     </div>
   </footer>
+
+  <CommandPalette />
+  <div id="monoToast" class="mono-toast" role="status" aria-live="polite" hidden></div>
 
   <div id="imgLightbox" class="img-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure preview">
     <button id="closeLightbox" type="button" class="lightbox-close" aria-label="Close enlarged view">&times;</button>
@@ -647,6 +672,20 @@ const jsonLdGraph = {
 
   <script is:inline>
     (function () {
+      var toastTimer = null;
+      window.__showMonoToast = function (msg) {
+        var toast = document.getElementById('monoToast');
+        if (!toast || !msg) return;
+        toast.textContent = msg;
+        toast.hidden = false;
+        toast.classList.add('is-visible');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove('is-visible');
+          setTimeout(function () { toast.hidden = true; }, 180);
+        }, 2200);
+      };
+
       const pBar = document.getElementById('paperProgressBar');
       function updatePaperProgress() {
         if (!pBar) return;
@@ -767,33 +806,58 @@ const jsonLdGraph = {
         }
       });
 
+      async function copyToClipboard(text) {
+        if (!text) return false;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (_err) {}
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (_e2) {}
+        document.body.removeChild(area);
+        return ok;
+      }
+
       const copyBtn = document.getElementById('copyBibBtn');
       if (copyBtn) {
         const originalHtml = copyBtn.innerHTML;
         copyBtn.addEventListener('click', async function () {
           const el = document.getElementById('bibtexCode');
           const text = el ? (el.textContent || '').trim() : '';
-          if (!text) return;
-          let copied = false;
-          try {
-            await navigator.clipboard.writeText(text);
-            copied = true;
-          } catch (_err) {
-            const area = document.createElement('textarea');
-            area.value = text;
-            area.style.position = 'fixed';
-            area.style.opacity = '0';
-            document.body.appendChild(area);
-            area.select();
-            try { copied = document.execCommand('copy'); } catch (_e2) {}
-            document.body.removeChild(area);
-          }
+          const copied = await copyToClipboard(text);
           if (copied) {
             copyBtn.classList.add('copied');
             copyBtn.innerHTML = '<span>&#10003; Copied!</span>';
+            if (window.__showMonoToast) window.__showMonoToast('BibTeX citation copied to clipboard');
             setTimeout(function () {
               copyBtn.classList.remove('copied');
               copyBtn.innerHTML = originalHtml;
+            }, 1800);
+          }
+        });
+      }
+
+      const copyApaBtn = document.getElementById('copyApaBtn');
+      if (copyApaBtn) {
+        const originalApa = copyApaBtn.innerHTML;
+        copyApaBtn.addEventListener('click', async function () {
+          const text = copyApaBtn.getAttribute('data-apa') || '';
+          const copied = await copyToClipboard(text);
+          if (copied) {
+            copyApaBtn.classList.add('copied');
+            copyApaBtn.innerHTML = '<span>&#10003; Copied APA</span>';
+            if (window.__showMonoToast) window.__showMonoToast('APA 7th citation copied to clipboard');
+            setTimeout(function () {
+              copyApaBtn.classList.remove('copied');
+              copyApaBtn.innerHTML = originalApa;
             }, 1800);
           }
         });
@@ -815,11 +879,17 @@ const jsonLdGraph = {
       --background-accent: #f1ece1;
       --surface-card: #fcfbf7;
       --border-color: #ddd4c4;
+      --rule-strong: #b9ae9a;
+      --bg-primary: var(--background-primary);
+      --bg-rail: var(--background-accent);
+      --bg-secondary: var(--background-secondary);
+      --bg-surface: var(--surface-card);
+      --accent-forest: var(--primary-color);
+      --accent-forest-hover: var(--primary-hover);
+      --rule: var(--border-color);
       --font-display: 'Cormorant Garamond', Georgia, Cambria, 'Times New Roman', serif;
       --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
       --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-      --shadow-md: 0 4px 12px rgb(24 26 24 / 0.08);
-      --shadow-lg: 0 12px 28px rgb(24 26 24 / 0.12);
     }
     :global([data-theme='dark']) {
       color-scheme: dark;
@@ -834,12 +904,11 @@ const jsonLdGraph = {
       --background-accent: #1a1815;
       --surface-card: #211f1b;
       --border-color: #2f2c26;
-      --shadow-md: 0 4px 12px rgb(0 0 0 / 0.35);
-      --shadow-lg: 0 12px 28px rgb(0 0 0 / 0.48);
+      --rule-strong: #4a453c;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
 
     body {
       margin: 0;
@@ -915,23 +984,21 @@ const jsonLdGraph = {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.52rem 0.95rem;
-      border-radius: 3px;
-      border: 1px solid var(--border-color);
+      padding: 0.5rem 0.9rem;
+      border-radius: 2px;
+      border: 1px solid var(--rule-strong);
       background: var(--surface-card);
       color: var(--text-primary);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
       cursor: pointer;
-      box-shadow: var(--shadow-md);
-      transition: all 0.2s ease;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
     }
 
     .more-works-btn:hover {
       border-color: var(--primary-color);
       background: var(--background-secondary);
-      transform: translateY(-1px);
     }
 
     .more-works-dropdown {
@@ -941,9 +1008,8 @@ const jsonLdGraph = {
       left: auto;
       width: min(360px, 90vw);
       background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--rule-strong);
+      border-radius: 2px;
       z-index: 1010;
       overflow: hidden;
     }
@@ -979,7 +1045,7 @@ const jsonLdGraph = {
       display: flex;
       flex-direction: column;
       padding: 0.55rem 0.75rem;
-      border-radius: 8px;
+      border-radius: 2px;
       text-decoration: none;
       color: var(--text-primary);
     }
@@ -1096,15 +1162,15 @@ const jsonLdGraph = {
       align-items: center;
       gap: 0.45rem;
       padding: 0.56rem 1.15rem;
-      border-radius: 3px;
+      border-radius: 2px;
       background: var(--primary-color);
       color: #f8f5ee;
       text-decoration: none;
       font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 500;
-      box-shadow: var(--shadow-md);
-      transition: background 0.2s ease, transform 0.2s ease;
+      border: 1px solid var(--primary-color);
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     :global([data-theme='dark']) .action-pill {
@@ -1114,7 +1180,7 @@ const jsonLdGraph = {
     .action-pill-outline {
       background: var(--surface-card);
       color: var(--text-primary);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--rule-strong);
     }
     :global([data-theme='dark']) .action-pill-outline {
       color: var(--text-primary);
@@ -1124,34 +1190,37 @@ const jsonLdGraph = {
       background: var(--primary-hover);
       color: #f8f5ee;
       border-color: var(--primary-hover);
-      transform: translateY(-2px);
     }
     :global([data-theme='dark']) .action-pill:hover {
       color: #151412;
     }
 
     .section-jump-nav {
+      position: sticky;
+      top: 0;
+      z-index: 900;
       border-top: 1px solid var(--border-color);
       border-bottom: 1px solid var(--border-color);
-      background: var(--background-secondary);
+      background: var(--background-accent);
     }
 
     .section-jump-inner {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.4rem 1rem;
-      padding-top: 0.65rem;
-      padding-bottom: 0.65rem;
+      gap: 0.4rem 1.15rem;
+      padding-top: 0.62rem;
+      padding-bottom: 0.62rem;
     }
 
     .jump-link {
-      font-size: 0.84rem;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
       color: var(--text-secondary);
       text-decoration: none;
-      padding: 0.25rem 0.15rem;
-      border-bottom: 2px solid transparent;
+      padding: 0.2rem 0.15rem;
+      border-bottom: 1px solid transparent;
       transition: color 0.15s ease, border-color 0.15s ease;
     }
     .jump-link:hover,
@@ -1161,7 +1230,7 @@ const jsonLdGraph = {
     }
 
     .teaser-section {
-      padding: 1.25rem 0 3.5rem;
+      padding: 1.5rem 0 3rem;
       background: var(--background-primary);
     }
     .teaser-compact { padding: 0.5rem 0 2.5rem; }
@@ -1182,13 +1251,13 @@ const jsonLdGraph = {
       right: 0.55rem;
       bottom: 0.55rem;
       padding: 0.22rem 0.52rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.72);
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
+      border-radius: 2px;
+      background: rgba(21, 20, 18, 0.86);
+      color: #f8f5ee;
+      font-family: var(--font-mono);
       font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+      font-weight: 500;
+      letter-spacing: 0.03em;
       opacity: 0;
       transition: opacity 0.16s ease;
       pointer-events: none;
@@ -1223,12 +1292,10 @@ const jsonLdGraph = {
       text-align: left;
     }
 
-    .section-band { padding: 3.5rem 0; }
-    .section-white { background: var(--background-primary); }
-    .section-light {
-      background: var(--background-secondary);
+    .section-band {
+      padding: 3.1rem 0;
+      background: var(--background-primary);
       border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
     }
 
     .section-title-block h2 {
@@ -1236,27 +1303,22 @@ const jsonLdGraph = {
       font-size: clamp(1.65rem, 2.7vw, 2.15rem);
       font-weight: 600;
       color: var(--text-primary);
-      margin: 0 0 0.7rem;
+      margin: 0;
     }
-    .section-title-center { text-align: center; margin-bottom: 1.75rem; }
-    .section-title-left { text-align: left; margin-bottom: 1.5rem; }
-
-    .title-bar {
-      width: 60px;
-      height: 3px;
-      background: var(--primary-color);
-      border-radius: 2px;
+    .section-title-left {
+      text-align: left;
+      margin-bottom: 1.35rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--border-color);
     }
-    .title-bar-center { margin: 0 auto; }
-    .title-bar-left { margin: 0; }
 
-    .abstract-prose { max-width: 780px; margin: 0 auto; }
+    .abstract-prose { max-width: 72ch; }
     .abstract-prose p {
       font-size: 1.06rem;
       line-height: 1.8;
       color: var(--text-secondary);
       margin: 0;
-      text-align: justify;
+      text-align: left;
     }
 
     .analysis-figure { margin: 0; }
@@ -1382,8 +1444,8 @@ const jsonLdGraph = {
     :global([data-theme='dark']) .analysis-img,
     :global([data-theme='dark']) .detail-fig-img {
       mix-blend-mode: normal;
-      background: #ffffff;
-      border-radius: 3px;
+      background: #ede7db;
+      border-radius: 2px;
       padding: 0.5rem;
     }
     .row-highlight td { color: var(--text-primary); }
@@ -1392,6 +1454,8 @@ const jsonLdGraph = {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
       margin-bottom: 1rem;
     }
     .bibtex-header h2 {
@@ -1401,31 +1465,46 @@ const jsonLdGraph = {
       color: var(--text-primary);
       margin: 0;
     }
+    .bibtex-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
     .copy-bibtex-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
       padding: 0.52rem 0.95rem;
-      border-radius: 3px;
-      border: none;
+      border-radius: 2px;
+      border: 1px solid var(--primary-color);
       background: var(--primary-color);
       color: #f8f5ee;
       font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
-    :global([data-theme='dark']) .copy-bibtex-btn {
+    .copy-apa-btn {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--rule-strong);
+    }
+    .copy-apa-btn:hover {
+      background: var(--background-secondary);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    :global([data-theme='dark']) .copy-bibtex-btn:not(.copy-apa-btn) {
       color: #151412;
     }
-    .copy-bibtex-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    .copy-bibtex-btn.copied { background: var(--accent-clove); color: #ffffff; }
+    .copy-bibtex-btn:not(.copy-apa-btn):hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+    .copy-bibtex-btn.copied { background: var(--accent-clove); border-color: var(--accent-clove); color: #f8f5ee; }
 
     .bibtex-pre {
       margin: 0;
-      padding: 1.5rem;
-      border-radius: 4px;
+      padding: 1.35rem;
+      border-radius: 2px;
       background: var(--background-accent);
       border: 1px solid var(--border-color);
       white-space: pre-wrap;
@@ -1441,22 +1520,48 @@ const jsonLdGraph = {
 
     .project-footer {
       border-top: 1px solid var(--border-color);
-      padding: 3rem 0;
+      background: var(--background-primary);
+      padding: 2.5rem 0;
       font-size: 0.94rem;
       line-height: 1.7;
       color: var(--text-secondary);
     }
-    .footer-light { background: var(--background-secondary); }
-    .footer-white { background: var(--background-primary); }
-    .footer-content { max-width: 680px; margin: 0 auto; text-align: left; }
+    .footer-content { max-width: 72ch; text-align: left; }
     .footer-content p { margin: 0; }
-    .footer-content a { color: var(--primary-color); text-decoration: none; }
-    .footer-content a:hover { color: var(--primary-hover); text-decoration: underline; }
+    .footer-content a { color: var(--primary-color); text-decoration: underline; text-underline-offset: 2px; }
+    .footer-content a:hover { color: var(--accent-clove); }
+
+    .mono-toast {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--primary-color);
+      color: #f8f5ee;
+      border: 1px solid var(--rule-strong);
+      padding: 0.52rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      border-radius: 2px;
+      z-index: 3500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      max-width: min(92vw, 460px);
+      text-align: center;
+    }
+    .mono-toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    :global([data-theme='dark']) .mono-toast {
+      color: #151412;
+    }
 
     .img-lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(17, 24, 39, 0.92);
+      background: rgba(21, 20, 18, 0.92);
       z-index: 2000;
       display: flex;
       align-items: center;
@@ -1470,26 +1575,26 @@ const jsonLdGraph = {
       max-width: 96vw;
       max-height: 92vh;
       object-fit: contain;
-      background: #ffffff;
-      border-radius: 0.45rem;
+      background: #ede7db;
+      border-radius: 2px;
       padding: 0.4rem;
     }
     .lightbox-close {
       position: fixed;
       top: 1rem;
       right: 1.5rem;
-      background: rgba(255, 255, 255, 0.16);
-      border: none;
-      color: #ffffff;
+      background: rgba(21, 20, 18, 0.85);
+      border: 1px solid rgba(248, 245, 238, 0.35);
+      color: #f8f5ee;
       width: 44px;
       height: 44px;
-      border-radius: 50%;
+      border-radius: 2px;
       font-size: 1.8rem;
       cursor: pointer;
     }
 
     :focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
-    .lightbox-close:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+    .lightbox-close:focus-visible { outline: 2px solid #f8f5ee; outline-offset: 3px; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }

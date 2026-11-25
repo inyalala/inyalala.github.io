@@ -142,7 +142,10 @@ const contactSchema = {
                 </div>
                 <div>
                   <dt>Phone</dt>
-                  <dd class="tabular-nums">TZ: {PROFILE.phoneTanzania}<br />KE: {PROFILE.phoneKenya}</dd>
+                  <dd class="tabular-nums">
+                    TZ: <a href={`tel:${PROFILE.phoneTanzania.replace(/\s+/g, '')}`} class="inline-link">{PROFILE.phoneTanzania}</a><br />
+                    KE: <a href={`tel:${PROFILE.phoneKenya.replace(/\s+/g, '')}`} class="inline-link">{PROFILE.phoneKenya}</a>
+                  </dd>
                 </div>
                 <div>
                   <dt>Visiting Zanzibar?</dt>
@@ -222,13 +225,33 @@ const contactSchema = {
 
       copyBtn &&
         copyBtn.addEventListener('click', function () {
+          var onCopied = function () {
+            copyBtn.textContent = 'Copied!';
+            if (window.__showMonoToast) window.__showMonoToast('Copied ' + TARGET_EMAIL);
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy';
+            }, 1500);
+          };
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(TARGET_EMAIL).then(function () {
-              copyBtn.textContent = 'Copied!';
-              setTimeout(function () {
-                copyBtn.textContent = 'Copy';
-              }, 1500);
+            navigator.clipboard.writeText(TARGET_EMAIL).then(onCopied).catch(function () {
+              var ta = document.createElement('textarea');
+              ta.value = TARGET_EMAIL;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              try { if (document.execCommand('copy')) onCopied(); } catch (e) {}
+              document.body.removeChild(ta);
             });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = TARGET_EMAIL;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { if (document.execCommand('copy')) onCopied(); } catch (e) {}
+            document.body.removeChild(ta);
           }
         });
 
@@ -408,6 +431,10 @@ const contactSchema = {
     .contact-grid,
     .form-row {
       grid-template-columns: 1fr;
+    }
+    .mini-btn {
+      min-height: 42px;
+      padding: 0.45rem 0.85rem;
     }
   }
 </style>

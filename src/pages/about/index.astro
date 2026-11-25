@@ -55,6 +55,7 @@ const aboutSchema = {
             <div class="about-actions">
               <a href={PROFILE.cvUrl} target="_blank" rel="noopener" class="btn-mono">Download Full CV &#8599;</a>
               <a href="/media-kit/" class="btn-mono-outline">Press &amp; Media Kit &rarr;</a>
+              <button type="button" class="btn-mono-outline no-print" onclick="window.print()">Print Dossier</button>
               <a href="/faq/" class="text-action">Read FAQ &rarr;</a>
             </div>
           </div>
@@ -132,9 +133,9 @@ const aboutSchema = {
           </div>
 
           <div class="monograph-panel">
-            <span class="mono-eyebrow">Verification &amp; Output Snapshot</span>
+            <span class="mono-eyebrow">Verification &amp; Output Snapshot (Updated {metrics.updatedAt})</span>
             <p class="snap-line tabular-nums">
-              {metrics.citations.toLocaleString()} Google Scholar citations &middot; h-index {metrics.hIndex} &middot; {metrics.totalWorks} cataloged works &middot; ORCID{' '}
+              {metrics.citations.toLocaleString()} Google Scholar citations &middot; h-index {metrics.hIndex} &middot; i10-index {metrics.i10Index} &middot; {metrics.totalWorks} cataloged works ({metrics.saailPublishedCount + metrics.priorWorksCount} published + {metrics.saailUnderReviewCount} under review; {metrics.journalArticles} journal articles, {metrics.conferencePapers} conference papers, {metrics.openAccessCount} Open Access) &middot; ORCID{' '}
               <a href="https://orcid.org/0000-0002-7969-437X" target="_blank" rel="noopener" class="inline-link nowrap-link">0000-0002-7969-437X &#8599;</a>
             </p>
             <p class="snap-actions">

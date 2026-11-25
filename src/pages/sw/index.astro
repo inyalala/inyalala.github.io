@@ -15,8 +15,17 @@ const activeCourses = COURSES.filter((c) => c.status === 'active');
 const swSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    personEntity(),
-    websiteEntity(),
+    {
+      ...personEntity(),
+      jobTitle: 'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba',
+      description:
+        'Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba katika Kitivo cha Uhandisi na Sayansi, Chuo Kikuu cha IIT Madras Zanzibar, na Mkurugenzi wa Utafiti wa Maabara ya SAAIL.'
+    },
+    {
+      ...websiteEntity(),
+      name: 'Innocent Nyalala | Toleo la Kiswahili na Kumbukumbu za Kitaaluma',
+      inLanguage: ['en-US', 'sw-TZ']
+    },
     {
       ...webPageEntity({
         url: pageUrl,
@@ -63,7 +72,7 @@ const swSchema = {
           <div class="sw-copy">
             <span class="calligraphic-flourish" aria-hidden="true">Salama &middot; Karibu Zanzibar</span>
             <h1 class="sw-h1">Dkt. Innocent Nyalala</h1>
-            <p class="sw-role">Mhadhiri Msaidizi wa Sayansi ya Data na Akili Mnemba</p>
+            <p class="sw-role">Profesa Msaidizi wa Sayansi ya Data na Akili Mnemba</p>
 
             <div class="sw-affils">
               <p>
@@ -87,35 +96,42 @@ const swSchema = {
 
             <div class="sw-actions">
               <a href="/publications/" class="btn-mono">Machapisho ({PUBLICATIONS.length}) &rarr;</a>
-              <a href="/courses/" class="btn-mono-outline">Mafunzo na Slaidi ({COURSES.length})</a>
+              <a href="/courses/" class="btn-mono-outline">Kozi na Slaidi ({COURSES.length})</a>
               <a href="/" class="text-action">Switch to English Edition &rarr;</a>
             </div>
           </div>
 
-          <figure class="sw-portrait-box">
-            <img
-              src="/images/innocent-nyalala-zanzibar.webp"
-              alt="Dkt. Innocent Nyalala katika Chuo Kikuu cha IIT Madras Zanzibar"
-              width="640"
-              height="640"
-              loading="eager"
-              fetchpriority="high"
-            />
-            <figcaption class="sw-facts">
+          <aside class="sw-portrait-col" aria-label="Picha rasmi na taarifa za ofisi">
+            <div class="cutout-stage">
+              <picture>
+                <source srcset="/images/innocent-nyalala-cutout.webp" type="image/webp" />
+                <img
+                  src="/images/innocent-nyalala-cutout.webp"
+                  alt="Dkt. Innocent Nyalala katika Chuo Kikuu cha IIT Madras Zanzibar"
+                  width="640"
+                  height="640"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="hero-cutout"
+                />
+              </picture>
+            </div>
+            <dl class="sw-facts">
               <div>
                 <dt>Ofisi</dt>
-                <dd>Chumba 105 (F1) &middot; Kampasi ya Bweleo, Zanzibar</dd>
+                <dd>Chumba 105 (Ghorofa ya 1 / F1) &middot; Kampasi ya Bweleo, Zanzibar</dd>
               </div>
               <div>
                 <dt>Saa za Wanafunzi</dt>
-                <dd>Jumatano, 8:00&ndash;10:00 alasiri (EAT)</dd>
+                <dd>Jumatano, Saa 8:00 mchana&ndash;10:00 alasiri (2:00&ndash;4:00 PM EAT)</dd>
               </div>
               <div>
                 <dt>Barua Pepe</dt>
                 <dd><a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a></dd>
               </div>
-            </figcaption>
-          </figure>
+            </dl>
+          </aside>
         </div>
 
         <dl class="sw-metrics">
@@ -127,7 +143,7 @@ const swSchema = {
           <div class="sw-metric-item">
             <dt>Machapisho Yaliyoorodheshwa</dt>
             <dd class="tabular-nums">{PUBLICATIONS.length}</dd>
-            <span>{metrics.saailPublishedCount} ya Maabara ya SAAIL</span>
+            <span>{metrics.saailPublishedCount} yaliyochapishwa &middot; {metrics.saailUnderReviewCount} yanakaguliwa (SAAIL)</span>
           </div>
           <div class="sw-metric-item">
             <dt>Kozi Zinazofundishwa</dt>
@@ -150,7 +166,7 @@ const swSchema = {
           <article class="sw-pillar">
             <h3>1. Kilimo cha Karafuu, Korosho, Mihogo na Mwani</h3>
             <p>
-              Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za karafuu (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (vigezo 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
+              Kwa ushirikiano na Shirika la Biashara la Taifa Zanzibar (<strong>ZSTC</strong>) huko Saateni, tumeunda mkusanyiko wa picha 4,603 za karafuu (<strong>CLOVES-4603</strong>) na mfumo wa uchambuzi wa hatua mbili unaopima ubora wa karafuu kwa uwazi (99.45% macro-F1). Sambamba na hayo, mradi wa <strong>CashewAI</strong> unaofadhiliwa na IC&amp;SR IIT Madras unalenga kutambua magonjwa ya mikorosho Tanzania Bara, huku <strong>CropGuardNet</strong> (paramita 481,574) ikikagua majani kwa kasi ya milisekunde 5.00 kwenye simu za Android bila intaneti.
             </p>
             <p class="sw-link-row">
               <a href="https://saaillab.github.io/tools/#live-demo" target="_blank" rel="noopener" class="text-action">Jaribu Mfano wa Karafuu Mtandaoni &#8599;</a>
@@ -172,18 +188,18 @@ const swSchema = {
           <article class="sw-pillar">
             <h3>3. Uaminifu wa Takwimu na Sera za AI Afrika Mashariki</h3>
             <p>
-              Asilimia kubwa ya usahihi wa juu kwenye maabara huficha makosa pindi mfumo unapokwenda shambani au ghalani kwenye mwanga mpya. Kazi yetu ya <strong>DGS-Bench</strong> (iliyotunukiwa Bango Bora katika <em>Deep Learning Indaba 2026</em>, Lagos) pamoja na tafiti zilizowasilishwa Chuo Kikuu cha Oxford (TAIS 2026) na AAAI zinatoa mbinu za kukagua upendeleo wa picha na kuoanisha sera za AI katika nchi za Afrika Mashariki.
+              Usahihi wa juu katika vipimo vya maabara mara nyingi huficha makosa pindi mfumo unapokwenda shambani au ghalani kwenye mwanga mpya. Kazi yetu ya <strong>DGS-Bench</strong> (iliyotunukiwa Bango Bora katika <em>Deep Learning Indaba 2026</em>, Lagos) pamoja na tafiti zilizowasilishwa Chuo Kikuu cha Oxford (TAIS 2026) na AAAI zinatoa mbinu za kukagua upendeleo wa picha na kuoanisha sera za AI katika nchi za Afrika Mashariki.
             </p>
             <p class="sw-link-row">
               <a href="/writing/accuracy-mirages-field-agricultural-ai/" class="text-action">Kwa Nini Usahihi wa Maabara Hushindwa Shambani &rarr;</a>
-              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">Karatasi ya DGS-Bench &#8599;</a>
+              <a href="https://saaillab.github.io/papers/dgs-bench/" target="_blank" rel="noopener" class="text-action">Chapisho la DGS-Bench &#8599;</a>
             </p>
           </article>
 
           <article class="sw-pillar">
             <h3>4. Afya ya Mama na Mtoto (Kisiwa cha Pemba)</h3>
             <p>
-              Tukishirikiana na Chuo Kikuu cha Penn State (Marekani) na Kituo cha <strong>CPHK Pemba</strong>, tunasimamia tafiti nne za shahada ya uzamivu (PhD) zinazochambua picha 9,883 za kondo la uzazi (<strong>PlacentaVision</strong>) pamoja na mifano inayofafanua hatari ya kuzaliwa kabla ya wakati ili kuwasaidia wataalamu wa afya hospitalini.
+              Tukishirikiana na Chuo Kikuu cha Penn State (Marekani) na Kituo cha <strong>CPHK Pemba</strong>, tunasimamia tafiti nne za shahada ya uzamivu (PhD) zinazochambua picha 9,883 za kondo la uzazi (<strong>PlacentaVision</strong>) pamoja na modeli za ubashiri zinazofafanua hatari ya kuzaliwa kabla ya wakati ili kuwasaidia wataalamu wa afya hospitalini.
             </p>
             <p class="sw-link-row">
               <a href="https://saaillab.github.io/projects/placentavision/" target="_blank" rel="noopener" class="text-action">Mradi wa PlacentaVision &#8599;</a>
@@ -191,6 +207,51 @@ const swSchema = {
             </p>
           </article>
         </div>
+
+        <aside class="sw-glossary" aria-label="Kamusi fupi ya istilahi za kiufundi">
+          <div class="sw-glossary-head">
+            <span class="mono-eyebrow">Kamusi Fupi ya Pambizoni &middot; Bilingual Technical Glossary</span>
+            <p class="sw-glossary-intro">Bofya neno la kiufundi kupata ufafanuzi wa Kiswahili na Kiingereza.</p>
+          </div>
+          <div class="sw-glossary-grid">
+            <details class="glossary-item" open>
+              <summary>
+                <span class="g-sw">akili mnemba</span>
+                <span class="g-en">artificial intelligence</span>
+              </summary>
+              <p>
+                Mifumo ya kompyuta inayojifunza mifumo ya takwimu kutoka kwenye data ili kutambua picha, kuchambua lugha, au kutoa ubashiri wa kitaalamu bila kuandikiwa kila kanuni kwa mkono.
+              </p>
+            </details>
+            <details class="glossary-item">
+              <summary>
+                <span class="g-sw">karafuu</span>
+                <span class="g-en">cloves / ZSTC grading</span>
+              </summary>
+              <p>
+                Zao kuu la biashara Zanzibar linalokaguliwa na Shirika la Biashara la Taifa Zanzibar (ZSTC) katika madaraja manne (Grade I hadi IV) kulingana na rangi, ukavu, na uchafu wa kigeni.
+              </p>
+            </details>
+            <details class="glossary-item">
+              <summary>
+                <span class="g-sw">kondo la uzazi</span>
+                <span class="g-en">placental morphometry</span>
+              </summary>
+              <p>
+                Upimaji wa umbo, eneo, na mishipa ya kondo la uzazi kutoka kwenye picha za hospitalini (mradi wa PlacentaVision huko Pemba) kusaidia kutathmini hatari za uzazi mapema.
+              </p>
+            </details>
+            <details class="glossary-item">
+              <summary>
+                <span class="g-sw">utafsiri wa kimashine</span>
+                <span class="g-en">translationese provenance</span>
+              </summary>
+              <p>
+                Kubaini iwapo matini ya Kiswahili imeandikwa moja kwa moja na mwandishi asilia wa Pwani (kama Kiunguja au Kipemba) au imetafsiriwa moja kwa moja kutoka Kiingereza na programu za kompyuta.
+              </p>
+            </details>
+          </div>
+        </aside>
       </section>
 
       <section class="rule-section">
@@ -216,7 +277,7 @@ const swSchema = {
         <span class="mono-eyebrow">III &middot; Ushirikiano, Usimamizi wa Wanafunzi na Mawasiliano</span>
         <div class="sw-contact-panel">
           <p>
-            Watafiti, washirika wa kilimo na viwanda, waandishi wa habari, pamoja na wanafunzi wa <strong>MTech</strong> na <strong>PhD</strong> wanaopenda kushirikiana katika Maabara ya SAAIL wanaweza kupitia masharti ya ushirikiano au kuandika moja kwa moja kwenda <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a>.
+            Watafiti, washirika wa kilimo na viwanda, waandishi wa habari, pamoja na wanafunzi wa <strong>MTech</strong> na <strong>PhD</strong> wanaopenda kushirikiana katika Maabara ya SAAIL wanaweza kupitia masharti ya ushirikiano au kuandika moja kwa moja kupitia <a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a>.
           </p>
           <div class="sw-actions" style="margin-top: 1rem;">
             <a href="/work-with-me/" class="btn-mono">Mwongozo wa Ushirikiano &rarr;</a>
@@ -227,7 +288,7 @@ const swSchema = {
       </section>
     </main>
 
-    <SiteFooter />
+    <SiteFooter lang="sw" />
   </div>
 </BaseLayout>
 
@@ -238,8 +299,8 @@ const swSchema = {
   }
   .sw-grid {
     display: grid;
-    grid-template-columns: 1.5fr 0.95fr;
-    gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 2.5rem;
     align-items: start;
   }
   .sw-h1 {
@@ -270,25 +331,33 @@ const swSchema = {
     gap: 0.65rem 0.85rem;
     align-items: center;
   }
-  .sw-portrait-box {
-    border: 1px solid var(--rule-strong);
-    background: var(--bg-surface);
-    padding: 0.65rem;
+  .sw-portrait-col {
+    display: flex;
+    flex-direction: column;
   }
-  .sw-portrait-box img {
+  .cutout-stage {
+    border-bottom: 1px solid var(--rule-strong);
+    line-height: 0;
+  }
+  .hero-cutout {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
+    display: block;
+    object-fit: contain;
+    object-position: center bottom;
   }
   .sw-facts {
-    margin: 0.75rem 0 0;
-    padding-top: 0.65rem;
-    border-top: 1px solid var(--rule);
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+    margin: 0;
     font-size: 0.84rem;
+  }
+  .sw-facts > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.58rem 0;
+    border-bottom: 1px solid var(--rule);
   }
   .sw-facts dt {
     font-family: var(--font-mono);
@@ -296,10 +365,12 @@ const swSchema = {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--accent-clove);
+    flex-shrink: 0;
   }
   .sw-facts dd {
     margin: 0;
     color: var(--text-secondary);
+    text-align: right;
   }
   .sw-facts a {
     color: var(--accent-forest);
@@ -344,18 +415,17 @@ const swSchema = {
   .sw-pillars {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.35rem;
+    gap: 1.85rem 2.15rem;
   }
   .sw-pillar {
-    border: 1px solid var(--rule);
-    background: var(--bg-surface);
-    padding: 1.25rem;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 1.15rem;
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
   }
   .sw-pillar h3 {
-    font-size: 1.22rem;
+    font-size: 1.24rem;
     color: var(--text-primary);
   }
   .sw-pillar p {
@@ -369,6 +439,59 @@ const swSchema = {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.15rem;
+  }
+
+  .sw-glossary {
+    margin-top: 2.25rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .sw-glossary-head {
+    margin-bottom: 0.95rem;
+  }
+  .sw-glossary-intro {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .sw-glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 1.5rem;
+  }
+  .glossary-item {
+    border-top: 1px solid var(--rule);
+    padding: 0.65rem 0;
+  }
+  .glossary-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+  }
+  .glossary-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .g-sw {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .g-en {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+  }
+  .glossary-item p {
+    margin-top: 0.45rem;
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
   }
 
   .sw-course-list {
@@ -418,6 +541,7 @@ const swSchema = {
   @media (max-width: 860px) {
     .sw-grid,
     .sw-pillars,
+    .sw-glossary-grid,
     .sw-course-list li {
       grid-template-columns: 1fr;
       gap: 1.1rem;

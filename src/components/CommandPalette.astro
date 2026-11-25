@@ -16,7 +16,12 @@
         id="cmdPaletteInput"
         type="search"
         class="cmd-input"
-        placeholder="Search papers, Z5007/Z3003 modules, essays, news, or pages..."
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="cmdPaletteResults"
+        aria-activedescendant=""
+        placeholder="Search papers, Z5007/Z3003 modules, actions, essays, or pages..."
         autocomplete="off"
         spellcheck="false"
       />
@@ -24,12 +29,12 @@
     </div>
 
     <div id="cmdPaletteResults" class="cmd-results" role="listbox" aria-label="Search results">
-      <p class="cmd-hint">Type a keyword such as <em>clove</em>, <em>z5007</em>, <em>swahili</em>, or <em>bibtex</em>.</p>
+      <p class="cmd-hint">Type a keyword such as <em>clove</em>, <em>z5007</em>, <em>swahili</em>, or <em>theme</em>.</p>
     </div>
 
     <div class="cmd-foot">
       <span><kbd>&uarr;</kbd><kbd>&darr;</kbd> Select</span>
-      <span><kbd>Enter</kbd> Open</span>
+      <span><kbd>Enter</kbd> Open / Run</span>
       <span><kbd>Esc</kbd> Close</span>
     </div>
   </div>
@@ -38,19 +43,59 @@
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
     var backdrop = document.getElementById('cmdPaletteBackdrop');
+    var dialog = document.getElementById('cmdPaletteDialog');
     var input = document.getElementById('cmdPaletteInput');
     var resultsEl = document.getElementById('cmdPaletteResults');
     var closeBtn = document.getElementById('cmdPaletteClose');
     var triggers = document.querySelectorAll('.js-open-cmd');
-    if (!backdrop || !input || !resultsEl) return;
+    if (!backdrop || !dialog || !input || !resultsEl) return;
 
     var indexCache = null;
     var activeIdx = -1;
     var lastFocus = null;
-    var siblingNodes = document.querySelectorAll('.monograph-shell, #backToTop, .skip-link');
+    var siblingNodes = document.querySelectorAll('.monograph-shell, #backToTop, .skip-link, main, footer, .more-works-container');
+
+    var actionEntries = [
+      {
+        group: 'Actions',
+        title: 'Toggle Day / Night Palette',
+        meta: 'Action · Switch light and dark reading themes',
+        keywords: 'theme dark light night day palette toggle color mode',
+        actionId: 'toggle-theme'
+      },
+      {
+        group: 'Actions',
+        title: 'Switch Language (EN / SW)',
+        meta: 'Action · Toggle English Monograph and Kiswahili Edition',
+        keywords: 'language swahili kiswahili english translate sw en',
+        actionId: 'switch-lang'
+      },
+      {
+        group: 'Actions',
+        title: 'Copy Faculty Email (innocent@iitmz.ac.in)',
+        meta: 'Action · Copy IIT Madras Zanzibar address to clipboard',
+        keywords: 'copy email address contact innocent iitmz',
+        actionId: 'copy-email'
+      },
+      {
+        group: 'Actions',
+        title: 'Open Z5007 (MTech Prog & Data Structures)',
+        meta: 'Action · Active Odd Semester 2026-27 Course Dossier',
+        url: '/courses/z5007/',
+        keywords: 'open z5007 pds programming data structures mtech active course'
+      },
+      {
+        group: 'Actions',
+        title: 'Open Z3003 (BS Data Mining)',
+        meta: 'Action · Active Odd Semester 2026-27 Course Dossier',
+        url: '/courses/z3003/',
+        keywords: 'open z3003 data mining bs scaling large data active course'
+      }
+    ];
 
     function setBackgroundInert(state) {
       siblingNodes.forEach(function (el) {
+        if (el.contains(backdrop)) return;
         if (state) el.setAttribute('inert', '');
         else el.removeAttribute('inert');
       });
@@ -64,16 +109,67 @@
         .replace(/"/g, '&quot;');
     }
 
+    function copyTextFallback(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () {
+          return execCopy(text);
+        });
+      }
+      return Promise.resolve(execCopy(text));
+    }
+
+    function execCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    function runAction(actionId) {
+      if (actionId === 'toggle-theme') {
+        var btn = document.querySelector('.js-theme-toggle, #paperThemeToggle');
+        if (btn) {
+          btn.click();
+        } else {
+          var curr = document.documentElement.getAttribute('data-theme') || 'light';
+          var next = curr === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+        }
+        var nowTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        closePalette();
+        if (window.__showMonoToast) {
+          window.__showMonoToast('Palette switched to ' + (nowTheme === 'dark' ? 'Night' : 'Day') + ' mode');
+        }
+      } else if (actionId === 'switch-lang') {
+        var isSw = window.location.pathname.indexOf('/sw') === 0;
+        window.location.href = isSw ? '/' : '/sw/';
+      } else if (actionId === 'copy-email') {
+        copyTextFallback('innocent@iitmz.ac.in').then(function (ok) {
+          closePalette();
+          if (window.__showMonoToast) {
+            window.__showMonoToast(ok ? 'Copied innocent@iitmz.ac.in' : 'Email: innocent@iitmz.ac.in');
+          }
+        });
+      }
+    }
+
     function loadIndex() {
       if (indexCache) return Promise.resolve(indexCache);
       return fetch('/search-index.json')
         .then(function (res) { return res.json(); })
         .then(function (data) {
-          indexCache = (data && data.items) || [];
+          indexCache = actionEntries.concat((data && data.items) || []);
           return indexCache;
         })
         .catch(function () {
-          return [];
+          return actionEntries.slice();
         });
     }
 
@@ -82,7 +178,7 @@
         var q = (query || '').trim().toLowerCase();
         var filtered = [];
         if (!q) {
-          filtered = items.slice(0, 12);
+          filtered = actionEntries.concat(items.filter(function (it) { return it.group !== 'Actions'; }).slice(0, 9));
         } else {
           var terms = q.split(/\s+/).filter(Boolean);
           filtered = items
@@ -94,7 +190,7 @@
                 return titleLow.indexOf(t) !== -1 || metaLow.indexOf(t) !== -1 || kw.indexOf(t) !== -1;
               });
               if (!ok) return null;
-              var score = 0;
+              var score = item.group === 'Actions' ? 1 : 0;
               terms.forEach(function (t) {
                 if (titleLow.indexOf(t) === 0) score += 6;
                 else if (titleLow.indexOf(t) !== -1) score += 4;
@@ -110,6 +206,7 @@
 
         if (!filtered.length) {
           activeIdx = -1;
+          input.setAttribute('aria-activedescendant', '');
           resultsEl.innerHTML = '<p class="cmd-hint">No matching monograph records for "' + escapeHtml(query) + '".</p>';
           return;
         }
@@ -126,41 +223,75 @@
 
         var html = '';
         var idxCounter = 0;
-        groups.forEach(function (grp) {
-          html += '<div class="cmd-group-label">' + escapeHtml(grp) + '</div>';
+        groups.forEach(function (grp, gIdx) {
+          var lblId = 'cmdGrp-' + gIdx;
+          html += '<div role="group" aria-labelledby="' + lblId + '">';
+          html += '<div id="' + lblId + '" class="cmd-group-label" role="presentation">' + escapeHtml(grp) + '</div>';
           byGroup[grp].forEach(function (item) {
-            var extAttr = item.external ? ' target="_blank" rel="noopener"' : '';
-            var arrow = item.external ? ' &#8599;' : ' &rarr;';
-            html +=
-              '<a href="' +
-              escapeHtml(item.url) +
-              '" class="cmd-item' +
-              (idxCounter === 0 ? ' is-active' : '') +
-              '" role="option" data-cmd-idx="' +
-              idxCounter +
-              '"' +
-              extAttr +
-              '>' +
-              '<span class="cmd-item-title">' +
-              escapeHtml(item.title) +
-              arrow +
-              '</span>' +
-              '<span class="cmd-item-meta">' +
-              escapeHtml(item.meta) +
-              '</span>' +
-              '</a>';
+            var optId = 'cmdOpt-' + idxCounter;
+            var isFirst = idxCounter === 0;
+            var selAttr = ' aria-selected="' + (isFirst ? 'true' : 'false') + '"';
+            if (item.actionId) {
+              html +=
+                '<button type="button" id="' +
+                optId +
+                '" class="cmd-item cmd-action-item' +
+                (isFirst ? ' is-active' : '') +
+                '" role="option"' +
+                selAttr +
+                ' data-cmd-idx="' +
+                idxCounter +
+                '" data-action-id="' +
+                escapeHtml(item.actionId) +
+                '">' +
+                '<span class="cmd-item-title">' +
+                escapeHtml(item.title) +
+                ' &crarr;</span>' +
+                '<span class="cmd-item-meta">' +
+                escapeHtml(item.meta) +
+                '</span>' +
+                '</button>';
+            } else {
+              var extAttr = item.external ? ' target="_blank" rel="noopener"' : '';
+              var arrow = item.external ? ' &#8599;' : ' &rarr;';
+              html +=
+                '<a id="' +
+                optId +
+                '" href="' +
+                escapeHtml(item.url) +
+                '" class="cmd-item' +
+                (isFirst ? ' is-active' : '') +
+                '" role="option"' +
+                selAttr +
+                ' data-cmd-idx="' +
+                idxCounter +
+                '"' +
+                extAttr +
+                '>' +
+                '<span class="cmd-item-title">' +
+                escapeHtml(item.title) +
+                arrow +
+                '</span>' +
+                '<span class="cmd-item-meta">' +
+                escapeHtml(item.meta) +
+                '</span>' +
+                '</a>';
+            }
             idxCounter += 1;
           });
+          html += '</div>';
         });
 
         resultsEl.innerHTML = html;
         activeIdx = 0;
+        input.setAttribute('aria-activedescendant', 'cmdOpt-0');
       });
     }
 
     function openPalette() {
       lastFocus = document.activeElement;
       backdrop.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
       setBackgroundInert(true);
       document.body.style.overflow = 'hidden';
       renderResults(input.value);
@@ -170,6 +301,8 @@
     function closePalette() {
       if (backdrop.hidden) return;
       backdrop.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      input.setAttribute('aria-activedescendant', '');
       setBackgroundInert(false);
       document.body.style.overflow = '';
       if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
@@ -180,10 +313,20 @@
       if (!opts.length) return;
       activeIdx = (newIdx + opts.length) % opts.length;
       opts.forEach(function (el, i) {
-        el.classList.toggle('is-active', i === activeIdx);
+        var on = i === activeIdx;
+        el.classList.toggle('is-active', on);
+        el.setAttribute('aria-selected', on ? 'true' : 'false');
       });
+      input.setAttribute('aria-activedescendant', opts[activeIdx].id || '');
       opts[activeIdx].scrollIntoView({ block: 'nearest' });
     }
+
+    resultsEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('.cmd-action-item');
+      if (!btn) return;
+      var actionId = btn.getAttribute('data-action-id');
+      if (actionId) runAction(actionId);
+    });
 
     triggers.forEach(function (btn) {
       btn.addEventListener('click', openPalette);
@@ -196,6 +339,26 @@
 
     input.addEventListener('input', function () {
       renderResults(input.value);
+    });
+
+    dialog.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') {
+        var focusables = Array.prototype.slice.call(
+          dialog.querySelectorAll('input:not([disabled]), button:not([disabled]), a[href]')
+        ).filter(function (el) {
+          return el.offsetParent !== null;
+        });
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
 
     input.addEventListener('keydown', function (e) {
@@ -334,7 +497,7 @@
     padding: 0.65rem 1rem 0.25rem;
     border-top: 1px solid var(--rule);
   }
-  .cmd-results :global(.cmd-group-label:first-child) {
+  .cmd-results :global([role='group']:first-child .cmd-group-label) {
     border-top: none;
   }
 
@@ -344,7 +507,13 @@
     gap: 0.16rem;
     padding: 0.58rem 1rem;
     text-decoration: none;
+    border: none;
     border-left: 3px solid transparent;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
     color: var(--text-primary);
   }
   .cmd-results :global(.cmd-item:hover),

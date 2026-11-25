@@ -25,12 +25,17 @@ const years = Object.keys(metrics.citationsPerYear).sort();
 const vals = years.map((y) => metrics.citationsPerYear[y as keyof typeof metrics.citationsPerYear]);
 const maxVal = Math.max(...vals, 1);
 const W = 720;
-const H = 175;
+const H = 196;
 const padL = 10;
-const padT = 22;
+const padT = 38;
 const padB = 26;
 const slot = (W - padL * 2) / years.length;
 const barW = Math.min(44, slot * 0.56);
+const milestones: Record<string, string> = {
+  '2023': '2023 PhD',
+  '2024': '2024 IITMZ',
+  '2025': '2025–26 DLI'
+};
 
 const schemaCollection = {
   '@context': 'https://schema.org',
@@ -144,23 +149,49 @@ const schemaCollection = {
         <div class="chart-panel">
           <div class="chart-head">
             <span>Citations per Year (Google Scholar Exact, Updated {metrics.updatedAt})</span>
-            <span class="tabular-nums">Total: {metrics.citations.toLocaleString()}</span>
+            <span id="chartReadout" class="chart-readout tabular-nums">Hover or click any year bar to filter papers</span>
           </div>
-          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Citations received per year from ${years[0]} to ${years[years.length - 1]}`}>
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Interactive citations per year from ${years[0]} to ${years[years.length - 1]}`}>
             {years.map((y, idx) => {
               const v = vals[idx];
               const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
               const x = padL + slot * idx + (slot - barW) / 2;
               const yTop = H - padB - barH;
+              const cx = x + barW / 2;
+              const ms = milestones[y];
               return (
-                <g>
+                <g
+                  class="chart-col"
+                  data-year={y}
+                  data-cites={v}
+                  role="button"
+                  tabindex="0"
+                  aria-pressed="false"
+                  aria-label={`Filter publications from ${y} (${v} citations)`}
+                >
+                  <title>{`${y}: ${v} citations${ms ? ` (${ms})` : ''} · click to filter ${y} papers`}</title>
+                  {ms && (
+                    <g class="chart-milestone-grp" aria-hidden="true">
+                      <line x1={cx.toFixed(1)} y1="14" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
+                      <text x={cx.toFixed(1)} y="10" text-anchor="middle" class="chart-milestone">{ms}</text>
+                    </g>
+                  )}
+                  <rect x={(x - 4).toFixed(1)} y={padT - 14} width={(barW + 8).toFixed(1)} height={H - padT - padB + 28} fill="transparent" />
                   <rect x={x.toFixed(1)} y={yTop.toFixed(1)} width={barW.toFixed(1)} height={barH.toFixed(1)} rx="1" class="chart-bar" />
-                  <text x={(x + barW / 2).toFixed(1)} y={(yTop - 6).toFixed(1)} text-anchor="middle" class="chart-val tabular-nums">{v}</text>
-                  <text x={(x + barW / 2).toFixed(1)} y={(H - 7).toFixed(1)} text-anchor="middle" class="chart-yr">{y}</text>
+                  <text x={cx.toFixed(1)} y={(yTop - 5).toFixed(1)} text-anchor="middle" class="chart-val tabular-nums">{v}</text>
+                  <text x={cx.toFixed(1)} y={(H - 7).toFixed(1)} text-anchor="middle" class="chart-yr">{y}</text>
                 </g>
               );
             })}
           </svg>
+          <div class="chart-year-strip" role="group" aria-label="Filter publications by year">
+            <span class="yr-strip-lbl">Filter by year:</span>
+            {years.map((y) => (
+              <button type="button" class="yr-chip" data-year={y} aria-pressed="false">
+                {y}
+              </button>
+            ))}
+          </div>
           {undatedCitationDelta > 0 && (
             <p class="chart-footnote tabular-nums">
               {datedCitationSum.toLocaleString()} dated citations ({years[0]}&ndash;{years[years.length - 1]}) + {undatedCitationDelta} undated Google Scholar citations = {metrics.citations.toLocaleString()} total.
@@ -195,7 +226,15 @@ const schemaCollection = {
           <p class="result-count" id="resultCount" aria-live="polite">
             Showing {sortedPubs.length} of {sortedPubs.length} publications
           </p>
-          <button type="button" id="resetFilters" class="reset-btn" hidden>Reset Filters</button>
+          <div class="result-actions">
+            <button type="button" id="copyVisibleBibBtn" class="bib-batch-btn">
+              Copy Visible BibTeX ({sortedPubs.length})
+            </button>
+            <button type="button" id="downloadVisibleBibBtn" class="bib-batch-btn">
+              Download .bib ({sortedPubs.length})
+            </button>
+            <button type="button" id="resetFilters" class="reset-btn" hidden>Reset Filters</button>
+          </div>
         </div>
 
         <p id="copyAnnounce" class="sr-only" aria-live="polite"></p>
@@ -207,11 +246,13 @@ const schemaCollection = {
               <li
                 class="pub-entry"
                 data-idx={idx}
+                data-year={String(pub.year)}
                 data-citations={pub.citations}
                 data-title={pub.title.toLowerCase()}
                 data-saail={pub.isSaailLab ? 'yes' : 'no'}
                 data-category={pub.category}
                 data-oa={pub.openAccess ? 'yes' : 'no'}
+                data-topics={pub.topics.map((t) => t.toLowerCase()).join('|')}
                 data-extra={`${pub.doi} ${pub.topics.join(' ')}`.toLowerCase()}
               >
                 <div class="pub-yr-col">
@@ -256,6 +297,16 @@ const schemaCollection = {
                     {pub.openAccess ? ' · Open Access' : ''}
                   </p>
                   <p class="pub-tldr">{pub.tldr}</p>
+
+                  {pub.topics && pub.topics.length > 0 && (
+                    <div class="pub-topics" aria-label="Topics">
+                      {pub.topics.map((topic) => (
+                        <button type="button" class="topic-pill" data-topic={topic} aria-pressed="false">
+                          {topic}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   <div class="pub-actions">
                     {pub.isSaailLab ? (
@@ -382,18 +433,84 @@ const schemaCollection = {
     var emptyEl = document.getElementById('pubEmptyState');
     var emptyResetEl = document.getElementById('emptyResetPubs');
     var resetBtn = document.getElementById('resetFilters');
+    var copyVisibleBtn = document.getElementById('copyVisibleBibBtn');
+    var downloadVisibleBtn = document.getElementById('downloadVisibleBibBtn');
+    var chartReadout = document.getElementById('chartReadout');
+    var chartCols = document.querySelectorAll('.chart-col');
+    var yrChips = document.querySelectorAll('.yr-chip');
+    var topicPills = document.querySelectorAll('.topic-pill');
     var announceEl = document.getElementById('copyAnnounce');
     var tabs = document.querySelectorAll('.filter-btn');
     if (!listEl) return;
 
     var cards = Array.prototype.slice.call(listEl.querySelectorAll('.pub-entry'));
     var activeFilter = 'all';
+    var activeYear = '';
+    var activeTopic = '';
+
+    function copyTextFallback(text) {
+      if (!text) return Promise.resolve(false);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () {
+          return execCopy(text);
+        });
+      }
+      return Promise.resolve(execCopy(text));
+    }
+
+    function execCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    function getVisibleBibBundle() {
+      var entries = [];
+      cards.forEach(function (card) {
+        if (card.style.display === 'none') return;
+        var codeEl = card.querySelector('.bib-panel pre code');
+        if (codeEl && codeEl.textContent) {
+          entries.push(codeEl.textContent.trim());
+        }
+      });
+      return { count: entries.length, text: entries.join('\n\n') };
+    }
+
+    function syncYearAndTopicUI() {
+      chartCols.forEach(function (col) {
+        var on = col.getAttribute('data-year') === activeYear && activeYear !== '';
+        col.classList.toggle('is-active', on);
+        col.setAttribute('aria-pressed', String(on));
+      });
+      yrChips.forEach(function (chip) {
+        var on = chip.getAttribute('data-year') === activeYear && activeYear !== '';
+        chip.classList.toggle('is-active', on);
+        chip.setAttribute('aria-pressed', String(on));
+      });
+      topicPills.forEach(function (pill) {
+        var tLow = (pill.getAttribute('data-topic') || '').toLowerCase();
+        var on = Boolean(activeTopic) && tLow === activeTopic.toLowerCase();
+        pill.classList.toggle('is-active', on);
+        pill.setAttribute('aria-pressed', String(on));
+      });
+    }
 
     function syncUrl() {
       try {
         var params = new URLSearchParams(window.location.search);
         if (activeFilter !== 'all') params.set('filter', activeFilter);
         else params.delete('filter');
+        if (activeYear) params.set('year', activeYear);
+        else params.delete('year');
+        if (activeTopic) params.set('topic', activeTopic);
+        else params.delete('topic');
         var qVal = ((searchEl && searchEl.value) || '').trim();
         if (qVal) params.set('q', qVal);
         else params.delete('q');
@@ -409,6 +526,7 @@ const schemaCollection = {
     function applyFilterAndSort(skipUrl) {
       var q = ((searchEl && searchEl.value) || '').trim().toLowerCase();
       var sortMode = (sortEl && sortEl.value) || 'default';
+      var tLow = activeTopic.toLowerCase();
 
       var sorted = cards.slice().sort(function (a, b) {
         if (sortMode === 'citations') {
@@ -424,8 +542,10 @@ const schemaCollection = {
       sorted.forEach(function (card) {
         listEl.appendChild(card);
         var cat = card.getAttribute('data-category') || '';
+        var yr = card.getAttribute('data-year') || '';
         var saail = card.getAttribute('data-saail') === 'yes';
         var oa = card.getAttribute('data-oa') === 'yes';
+        var topicsArr = (card.getAttribute('data-topics') || '').split('|').filter(Boolean);
         var hay = (card.textContent + ' ' + (card.getAttribute('data-extra') || '')).toLowerCase();
 
         var matchTab =
@@ -436,15 +556,27 @@ const schemaCollection = {
           (activeFilter === 'preprint' && cat === 'preprint') ||
           (activeFilter === 'oa' && oa);
 
+        var matchYear = !activeYear || yr === activeYear;
+        var matchTopic = !tLow || topicsArr.indexOf(tLow) !== -1;
         var matchSearch = !q || hay.indexOf(q) !== -1;
-        var show = matchTab && matchSearch;
+        var show = matchTab && matchYear && matchTopic && matchSearch;
         card.style.display = show ? 'grid' : 'none';
         if (show) visible++;
       });
 
       if (emptyEl) emptyEl.hidden = visible > 0;
-      var isFiltered = activeFilter !== 'all' || Boolean(q) || sortMode !== 'default';
+      var isFiltered = activeFilter !== 'all' || Boolean(activeYear) || Boolean(activeTopic) || Boolean(q) || sortMode !== 'default';
       if (resetBtn) resetBtn.hidden = !isFiltered;
+
+      var bibBundle = getVisibleBibBundle();
+      if (copyVisibleBtn) {
+        copyVisibleBtn.textContent = 'Copy Visible BibTeX (' + bibBundle.count + ')';
+        copyVisibleBtn.disabled = bibBundle.count === 0;
+      }
+      if (downloadVisibleBtn) {
+        downloadVisibleBtn.textContent = 'Download .bib (' + bibBundle.count + ')';
+        downloadVisibleBtn.disabled = bibBundle.count === 0;
+      }
 
       if (countEl) {
         var parts = [];
@@ -453,18 +585,33 @@ const schemaCollection = {
           var lbl = activeBtn ? activeBtn.textContent.replace(/\s*\(\d+\)\s*$/, '') : activeFilter;
           parts.push(lbl);
         }
+        if (activeYear) parts.push('Year: ' + activeYear);
+        if (activeTopic) parts.push('Topic: ' + activeTopic);
         if (q && searchEl) parts.push('"' + searchEl.value.trim() + '"');
         var suffix = parts.length ? ' (' + parts.join(' + ') + ')' : '';
         countEl.textContent = 'Showing ' + visible + ' of ' + cards.length + ' publications' + suffix;
       }
 
+      syncYearAndTopicUI();
       if (!skipUrl) syncUrl();
+    }
+
+    function toggleYear(yr) {
+      activeYear = activeYear === yr ? '' : yr;
+      applyFilterAndSort();
+    }
+
+    function toggleTopic(topic) {
+      activeTopic = activeTopic.toLowerCase() === topic.toLowerCase() ? '' : topic;
+      applyFilterAndSort();
     }
 
     function resetAll() {
       if (searchEl) searchEl.value = '';
       if (sortEl) sortEl.value = 'default';
       activeFilter = 'all';
+      activeYear = '';
+      activeTopic = '';
       tabs.forEach(function (b) {
         var isAll = b.getAttribute('data-filter') === 'all';
         b.setAttribute('aria-pressed', String(isAll));
@@ -477,6 +624,8 @@ const schemaCollection = {
     try {
       var initParams = new URLSearchParams(window.location.search);
       var initFilter = initParams.get('filter');
+      var initYear = initParams.get('year');
+      var initTopic = initParams.get('topic');
       var initQ = initParams.get('q');
       var initSort = initParams.get('sort');
       if (initFilter) {
@@ -486,10 +635,37 @@ const schemaCollection = {
           if (match) activeFilter = initFilter;
         });
       }
+      if (initYear) activeYear = initYear;
+      if (initTopic) activeTopic = initTopic;
       if (initQ && searchEl) searchEl.value = initQ;
       if (initSort && sortEl) sortEl.value = initSort;
-      if (initFilter || initQ || initSort) applyFilterAndSort(true);
+      if (initFilter || initYear || initTopic || initQ || initSort) applyFilterAndSort(true);
     } catch (e) {}
+
+    chartCols.forEach(function (col) {
+      var yr = col.getAttribute('data-year') || '';
+      var cites = col.getAttribute('data-cites') || '';
+      var updateReadout = function () {
+        if (chartReadout) {
+          chartReadout.textContent = yr + ': ' + cites + ' citations (click to filter ' + yr + ' papers)';
+        }
+      };
+      col.addEventListener('mouseenter', updateReadout);
+      col.addEventListener('focus', updateReadout);
+      col.addEventListener('click', function () { toggleYear(yr); });
+      col.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleYear(yr);
+        }
+      });
+    });
+
+    yrChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        toggleYear(chip.getAttribute('data-year') || '');
+      });
+    });
 
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -508,8 +684,42 @@ const schemaCollection = {
     searchEl && searchEl.addEventListener('input', function () { applyFilterAndSort(); });
     sortEl && sortEl.addEventListener('change', function () { applyFilterAndSort(); });
 
+    copyVisibleBtn &&
+      copyVisibleBtn.addEventListener('click', function () {
+        var bundle = getVisibleBibBundle();
+        if (!bundle.count) return;
+        copyTextFallback(bundle.text).then(function (ok) {
+          if (ok) {
+            if (announceEl) announceEl.textContent = 'Copied ' + bundle.count + ' BibTeX entries to clipboard.';
+            if (window.__showMonoToast) window.__showMonoToast('Copied ' + bundle.count + ' BibTeX entries');
+          }
+        });
+      });
+
+    downloadVisibleBtn &&
+      downloadVisibleBtn.addEventListener('click', function () {
+        var bundle = getVisibleBibBundle();
+        if (!bundle.count) return;
+        var blob = new Blob([bundle.text + '\n'], { type: 'application/x-bibtex;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'nyalala-publications-' + bundle.count + '.bib';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        if (window.__showMonoToast) window.__showMonoToast('Downloaded nyalala-publications-' + bundle.count + '.bib');
+      });
+
     (mainEl || listEl).addEventListener('click', function (e) {
       var target = e.target;
+      var topicBtn = target.closest('.topic-pill');
+      if (topicBtn) {
+        toggleTopic(topicBtn.getAttribute('data-topic') || '');
+        return;
+      }
+
       var toggle = target.closest('.bib-toggle');
       if (toggle) {
         var panel = toggle.closest('.pub-body') && toggle.closest('.pub-body').querySelector('.bib-panel');
@@ -524,15 +734,16 @@ const schemaCollection = {
       if (copyBtn) {
         var preEl = copyBtn.previousElementSibling;
         var txt = preEl ? preEl.textContent || '' : '';
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(txt).then(function () {
+        copyTextFallback(txt).then(function (ok) {
+          if (ok) {
             copyBtn.textContent = 'Copied!';
             if (announceEl) announceEl.textContent = 'BibTeX entry copied to clipboard.';
+            if (window.__showMonoToast) window.__showMonoToast('BibTeX entry copied to clipboard');
             setTimeout(function () {
               copyBtn.textContent = 'Copy BibTeX';
             }, 1600);
-          });
-        }
+          }
+        });
       }
     });
   });
@@ -615,6 +826,70 @@ const schemaCollection = {
   }
   .chart-bar {
     fill: var(--accent-forest);
+    transition: fill 0.15s ease;
+  }
+  .chart-col {
+    cursor: pointer;
+    outline: none;
+  }
+  .chart-col:hover .chart-bar,
+  .chart-col:focus-visible .chart-bar,
+  .chart-col.is-active .chart-bar {
+    fill: var(--accent-clove);
+  }
+  .chart-col.is-active .chart-yr {
+    fill: var(--accent-clove);
+    font-weight: 600;
+  }
+  .chart-ms-line {
+    stroke: var(--rule-strong);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+  .chart-milestone {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    fill: var(--accent-clove);
+  }
+  .chart-readout {
+    color: var(--accent-forest);
+  }
+  .chart-year-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.55rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--rule);
+  }
+  .yr-strip-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-right: 0.25rem;
+  }
+  .yr-chip {
+    padding: 0.18rem 0.52rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .yr-chip:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .yr-chip.is-active {
+    background: var(--accent-clove);
+    border-color: var(--accent-clove);
+    color: #f8f5ee;
+  }
+  :global([data-theme='dark']) .yr-chip.is-active {
+    color: #151412;
   }
   .chart-val {
     font-family: var(--font-mono);
@@ -657,9 +932,34 @@ const schemaCollection = {
   .result-bar {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    justify-content: space-between;
+    gap: 0.65rem 1rem;
     flex-wrap: wrap;
     margin-bottom: 1rem;
+  }
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+  }
+  .bib-batch-btn {
+    padding: 0.28rem 0.7rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .bib-batch-btn:hover:not(:disabled) {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .bib-batch-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
   .result-count {
     font-family: var(--font-mono);
@@ -667,7 +967,7 @@ const schemaCollection = {
     color: var(--text-muted);
   }
   .reset-btn {
-    padding: 0.25rem 0.7rem;
+    padding: 0.28rem 0.7rem;
     border: 1px solid var(--rule-strong);
     background: transparent;
     color: var(--accent-forest);
@@ -775,7 +1075,35 @@ const schemaCollection = {
     font-size: 0.95rem;
     color: var(--text-secondary);
     line-height: 1.62;
+    margin-bottom: 0.55rem;
+  }
+  .pub-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
     margin-bottom: 0.65rem;
+  }
+  .topic-pill {
+    padding: 0.14rem 0.48rem;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .topic-pill:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .topic-pill.is-active {
+    background: var(--accent-forest);
+    border-color: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  :global([data-theme='dark']) .topic-pill.is-active {
+    color: #151412;
   }
   .pub-actions {
     display: flex;
@@ -829,6 +1157,12 @@ const schemaCollection = {
     .pub-entry {
       grid-template-columns: 1fr;
       gap: 0.65rem;
+    }
+    .bib-btn,
+    .bib-batch-btn,
+    .reset-btn {
+      min-height: 42px;
+      padding: 0.45rem 0.85rem;
     }
   }
 </style>

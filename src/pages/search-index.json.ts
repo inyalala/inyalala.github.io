@@ -18,7 +18,7 @@ export const GET: APIRoute = () => {
   const entries: SearchEntry[] = [
     {
       group: 'Pages',
-      title: 'Home — Faculty Monograph',
+      title: 'Home: Faculty Monograph',
       meta: 'Overview · Bio · Metrics',
       url: '/',
       keywords: 'home overview metrics biography iit madras zanzibar saail'
@@ -105,6 +105,18 @@ export const GET: APIRoute = () => {
       url: `/courses/${c.slug}/`,
       keywords: `${c.code} ${c.title} ${c.summary} ${modTopics}`.toLowerCase()
     });
+    if (c.status === 'active') {
+      for (const m of c.modules || []) {
+        const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        entries.push({
+          group: 'Courses',
+          title: `${c.code} ${m.code}: ${m.title}`,
+          meta: `Week ${m.weeks} · ${c.code} (${c.program})`,
+          url: `/courses/${c.slug}/#mod-${modSlug}`,
+          keywords: `${c.code} ${m.code} ${m.title} ${m.summary} ${m.readings || ''}`.toLowerCase()
+        });
+      }
+    }
   }
 
   for (const w of WRITING_POSTS) {

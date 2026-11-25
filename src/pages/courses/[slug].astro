@@ -167,9 +167,22 @@ const schemaCourse = {
           Open slide PDFs directly in your browser, read LaTeX lecture notes and worksheets (PDF), preview PowerPoint decks online, or download laboratory notebooks without login walls.
         </p>
 
+        <nav class="mod-jump-strip" aria-label="Module or week quick jump">
+          {course.modules.map((m) => {
+            const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            return (
+              <a href={`#mod-${modSlug}`} class="mod-jump-pill" title={m.title}>
+                {m.code}
+              </a>
+            );
+          })}
+        </nav>
+
         <ol class="module-ledger">
-          {course.modules.map((m) => (
-            <li class="module-entry">
+          {course.modules.map((m) => {
+            const modSlug = m.code.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            return (
+            <li id={`mod-${modSlug}`} class="module-entry">
               <div class="mod-left">
                 <span class="mod-code">{m.code}</span>
                 <span class="mod-wk">Week {m.weeks}</span>
@@ -229,7 +242,8 @@ const schemaCourse = {
                 </div>
               </div>
             </li>
-          ))}
+            );
+          })}
         </ol>
 
         {course.supplementaryDocs && course.supplementaryDocs.length > 0 && (
@@ -467,6 +481,28 @@ const schemaCourse = {
   }
 
   /* Module Ledger */
+  .mod-jump-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.2rem;
+  }
+  .mod-jump-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.22rem 0.56rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    border-radius: 2px;
+  }
+  .mod-jump-pill:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
   .module-ledger {
     list-style: none;
     border-top: 1px solid var(--rule);
@@ -478,6 +514,7 @@ const schemaCourse = {
     padding: 1.35rem 0;
     border-bottom: 1px solid var(--rule);
     align-items: start;
+    scroll-margin-top: 28px;
   }
   .mod-left {
     display: flex;
@@ -730,6 +767,13 @@ const schemaCourse = {
     .online-grid {
       grid-template-columns: 1fr;
       gap: 0.85rem;
+    }
+    .module-entry {
+      scroll-margin-top: calc(var(--mobile-bar-height) + 18px);
+    }
+    .res-link {
+      min-height: 42px;
+      padding: 0.42rem 0.65rem;
     }
   }
 </style>

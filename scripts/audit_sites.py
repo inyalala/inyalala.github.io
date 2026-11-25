@@ -305,6 +305,7 @@ def strip_verbatim_pub_elements(raw_html: str) -> str:
     cleaned = re.sub(r'<h[23][^>]*class="[^"]*pub-title[^"]*"[^>]*>.*?</h[23]>', " ", cleaned, flags=re.S | re.I)
     cleaned = re.sub(r'<a\b[^>]*class="[^"]*pub-title[^"]*"[^>]*>.*?</a>', " ", cleaned, flags=re.S | re.I)
     cleaned = re.sub(r'<div[^>]*class="pub-title"[^>]*>.*?</div>', " ", cleaned, flags=re.S | re.I)
+    cleaned = re.sub(r'<div\s+class="abstract-prose"[^>]*>.*?</div>', " ", cleaned, flags=re.S | re.I)
     cleaned = re.sub(r'<p[^>]*class="[^"]*pub-venue-full[^"]*"[^>]*>.*?</p>', " ", cleaned, flags=re.S | re.I)
     cleaned = re.sub(r'<span[^>]*class="[^"]*pub-venue[^"]*"[^>]*>.*?</span>', " ", cleaned, flags=re.S | re.I)
     cleaned = re.sub(r"<[^>]+>", " ", cleaned)

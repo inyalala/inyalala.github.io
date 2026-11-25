@@ -7,7 +7,7 @@ import metrics from '../../data/scholar-metrics.json';
 import { getImageDim } from '../../data/media';
 import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
 
-const iitmzDim = getImageDim('/images/brand/iitmz-logo.png', 857, 291);
+const iitmzDim = getImageDim('/images/brand/iitmz-logo.webp', 857, 291);
 const saailLogoDim = getImageDim('/images/brand/saail-lab-logo.png', 500, 500);
 const saailCrestDim = getImageDim('/images/brand/saail-crest.png', 332, 332);
 
@@ -127,7 +127,7 @@ const mediaSchema = {
               <div><dt>Primary School</dt><dd>School of Engineering and Science, Indian Institute of Technology Madras Zanzibar</dd></div>
               <div><dt>Secondary Role</dt><dd>Associate Research Fellow, Wadhwani School of Data Science &amp; AI, IIT Madras</dd></div>
               <div><dt>Research Group</dt><dd>Principal Investigator, SAAIL Lab</dd></div>
-              <div><dt>Output Metrics</dt><dd class="tabular-nums">{metrics.totalWorks} publications &middot; {metrics.citations.toLocaleString()} citations &middot; h-index {metrics.hIndex}</dd></div>
+              <div><dt>Output Metrics</dt><dd class="tabular-nums">{metrics.totalWorks} works ({metrics.saailPublishedCount + metrics.priorWorksCount} published + {metrics.saailUnderReviewCount} under review; {metrics.journalArticles} journal articles, {metrics.conferencePapers} conference papers, {metrics.openAccessCount} Open Access) &middot; {metrics.citations.toLocaleString()} citations &middot; h-index {metrics.hIndex} (updated {metrics.updatedAt})</dd></div>
               <div><dt>Media Email</dt><dd><a href={`mailto:${PROFILE.email}`} class="inline-link">{PROFILE.email}</a></dd></div>
             </dl>
           </div>
@@ -135,9 +135,9 @@ const mediaSchema = {
           <div>
             <h2 class="section-h" style="margin-bottom: 1rem;">Institutional Emblems</h2>
             <div class="logo-list">
-              <a href="/images/brand/iitmz-logo.png" download="iitmz-logo.png" class="logo-row">
-                <img src="/images/brand/iitmz-logo.png" alt="IIT Madras Zanzibar Emblem" width={iitmzDim.width} height={iitmzDim.height} loading="lazy" />
-                <span>IIT Madras Zanzibar (PNG)</span>
+              <a href="/images/brand/iitmz-logo.webp" download="iitmz-logo.webp" class="logo-row">
+                <img src="/images/brand/iitmz-logo.webp" alt="IIT Madras Zanzibar Emblem" width={iitmzDim.width} height={iitmzDim.height} loading="lazy" />
+                <span>IIT Madras Zanzibar (WebP)</span>
               </a>
               <a href="/images/brand/saail-lab-logo.png" download="saail-lab-logo.png" class="logo-row">
                 <img src="/images/brand/saail-lab-logo.png" alt="SAAIL Lab Emblem" width={saailLogoDim.width} height={saailLogoDim.height} loading="lazy" />
@@ -162,14 +162,34 @@ const mediaSchema = {
       document.querySelectorAll('.copy-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var text = btn.getAttribute('data-copy') || '';
+          var onCopied = function () {
+            btn.textContent = 'Copied!';
+            if (statusEl) statusEl.textContent = 'Biography text copied to clipboard.';
+            if (window.__showMonoToast) window.__showMonoToast('Biography text copied to clipboard');
+            setTimeout(function () {
+              btn.textContent = 'Copy Text';
+            }, 1500);
+          };
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function () {
-              btn.textContent = 'Copied!';
-              if (statusEl) statusEl.textContent = 'Biography text copied to clipboard.';
-              setTimeout(function () {
-                btn.textContent = 'Copy Text';
-              }, 1500);
+            navigator.clipboard.writeText(text).then(onCopied).catch(function () {
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              try { if (document.execCommand('copy')) onCopied(); } catch (e) {}
+              document.body.removeChild(ta);
             });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { if (document.execCommand('copy')) onCopied(); } catch (e) {}
+            document.body.removeChild(ta);
           }
         });
       });

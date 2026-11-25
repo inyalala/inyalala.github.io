@@ -515,12 +515,28 @@ const schemaGraph = {
     object-fit: contain;
     flex-shrink: 0;
     display: block;
+    filter: grayscale(1);
+    opacity: 0.86;
+    transition: filter 0.18s ease, opacity 0.18s ease;
+  }
+  .profile-anchor:hover .profile-brand-icon,
+  .profile-anchor:focus-visible .profile-brand-icon {
+    filter: grayscale(0);
+    opacity: 1;
   }
   :global([data-theme="dark"]) .icon-dark-invert {
-    filter: invert(1);
+    filter: grayscale(1) invert(1);
+  }
+  :global([data-theme="dark"]) .profile-anchor:hover .icon-dark-invert,
+  :global([data-theme="dark"]) .profile-anchor:focus-visible .icon-dark-invert {
+    filter: grayscale(0) invert(1);
   }
   :global([data-theme="dark"]) .icon-dark-brighten {
-    filter: brightness(2.0) saturate(1.15);
+    filter: grayscale(1) brightness(2.0) saturate(1.15);
+  }
+  :global([data-theme="dark"]) .profile-anchor:hover .icon-dark-brighten,
+  :global([data-theme="dark"]) .profile-anchor:focus-visible .icon-dark-brighten {
+    filter: grayscale(0) brightness(2.0) saturate(1.15);
   }
 
   .masthead-portrait {

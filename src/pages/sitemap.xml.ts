@@ -6,9 +6,15 @@ import { WRITING_POSTS } from '../data/writing';
 import newsData from '../data/news.json';
 import metrics from '../data/scholar-metrics.json';
 
+const TODAY_ISO = '2026-11-26';
+
+function clampDate(iso: string): string {
+  return iso > TODAY_ISO ? TODAY_ISO : iso;
+}
+
 export const GET: APIRoute = () => {
-  const latestNewsDate = newsData.items[0]?.date || metrics.updatedAt || '2026-11-24';
-  const siteUpdated = metrics.updatedAt || latestNewsDate;
+  const latestNewsDate = clampDate(newsData.items[0]?.date || metrics.updatedAt || '2026-11-24');
+  const siteUpdated = clampDate(metrics.updatedAt || latestNewsDate);
 
   const staticPages = [
     { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: latestNewsDate },

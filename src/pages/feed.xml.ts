@@ -11,27 +11,39 @@ function escXml(s: string): string {
     .replace(/'/g, '&apos;');
 }
 
+const TODAY_ISO = '2026-11-26';
+
+function clampDate(iso: string): string {
+  return iso > TODAY_ISO ? TODAY_ISO : iso;
+}
+
 export const GET: APIRoute = () => {
-  const newsEntries = newsData.items.map((it) => ({
-    id: it.id,
-    title: it.headline,
-    description: it.body,
-    date: it.date,
-    category: it.category,
-    link: it.link
+  const newsEntries = newsData.items.map((it) => {
+    const canonicalLink = `https://inyalala.github.io/news/#${it.id}`;
+    const extLink = it.link
       ? it.link.startsWith('http')
         ? it.link
         : `https://inyalala.github.io${it.link}`
-      : `https://inyalala.github.io/news/#${it.id}`
-  }));
+      : '';
+    return {
+      title: it.headline,
+      description: it.body,
+      date: clampDate(it.date),
+      category: it.category,
+      link: canonicalLink,
+      extLink,
+      extLabel: it.linkLabel || 'Reference'
+    };
+  });
 
   const writingEntries = WRITING_POSTS.map((p) => ({
-    id: `writing-${p.slug}`,
     title: p.title,
     description: p.summary,
-    date: p.date,
+    date: clampDate(p.date),
     category: p.category,
-    link: `https://inyalala.github.io/writing/${p.slug}/`
+    link: `https://inyalala.github.io/writing/${p.slug}/`,
+    extLink: '',
+    extLabel: ''
   }));
 
   const combined = [...writingEntries, ...newsEntries]
@@ -39,11 +51,11 @@ export const GET: APIRoute = () => {
     .slice(0, 25);
 
   const lastBuildDate = combined.length
-    ? new Date(`${combined[0].date}T00:00:00Z`).toUTCString()
-    : new Date().toUTCString();
+    ? new Date(`${clampDate(combined[0].date)}T00:00:00Z`).toUTCString()
+    : new Date(`${TODAY_ISO}T00:00:00Z`).toUTCString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Innocent Nyalala - Writing, News &amp; Teaching Updates</title>
     <link>https://inyalala.github.io/</link>
@@ -57,14 +69,21 @@ export const GET: APIRoute = () => {
 ${combined
   .map((it) => {
     const pubDate = new Date(`${it.date}T00:00:00Z`).toUTCString();
+    const descHtml = it.extLink && it.extLink !== it.link
+      ? `${it.description} (${it.extLabel}: ${it.extLink})`
+      : it.description;
+    const contentHtml = it.extLink && it.extLink !== it.link
+      ? `<p>${escXml(it.description)}</p><p><a href="${escXml(it.extLink)}">${escXml(it.extLabel)}</a></p>`
+      : `<p>${escXml(it.description)}</p>`;
     return `    <item>
       <title>${escXml(it.title)}</title>
       <link>${escXml(it.link)}</link>
-      <description>${escXml(it.description)}</description>
+      <description>${escXml(descHtml)}</description>
+      <content:encoded><![CDATA[${contentHtml}]]></content:encoded>
       <pubDate>${pubDate}</pubDate>
       <dc:creator>Innocent Nyalala</dc:creator>
       <category>${escXml(it.category)}</category>
-      <guid isPermaLink="false">${escXml(it.id)}</guid>
+      <guid isPermaLink="true">${escXml(it.link)}</guid>
     </item>`;
   })
   .join('\n')}

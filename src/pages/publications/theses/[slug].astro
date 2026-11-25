@@ -247,7 +247,14 @@ const thesisSchema = {
   </div>
 
   <div id="thesisLightbox" class="thesis-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged thesis figure">
-    <button id="closeThesisLightbox" type="button" class="thesis-lightbox-close" aria-label="Close enlarged figure">&times;</button>
+    <div class="thesis-lb-topbar">
+      <span id="thesisLbCounter" class="thesis-lb-counter tabular-nums">1 / 1</span>
+      <div class="thesis-lb-controls">
+        <button id="prevThesisLightbox" type="button" class="thesis-lb-nav" aria-label="Previous figure">&larr; Prev</button>
+        <button id="nextThesisLightbox" type="button" class="thesis-lb-nav" aria-label="Next figure">Next &rarr;</button>
+        <button id="closeThesisLightbox" type="button" class="thesis-lightbox-close" aria-label="Close enlarged figure">&times;</button>
+      </div>
+    </div>
     <img id="thesisLightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged thesis figure preview" width="1200" height="900" />
   </div>
 
@@ -259,13 +266,24 @@ const thesisSchema = {
       if (btn && pre) {
         btn.addEventListener('click', function () {
           var txt = pre.textContent || '';
+          var done = function () {
+            btn.textContent = 'Copied!';
+            if (st) st.textContent = 'BibTeX entry copied to clipboard.';
+            if (window.__showMonoToast) window.__showMonoToast('Thesis BibTeX copied to clipboard');
+            setTimeout(function () {
+              btn.textContent = 'Copy BibTeX';
+            }, 1600);
+          };
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(txt).then(function () {
-              btn.textContent = 'Copied!';
-              if (st) st.textContent = 'BibTeX entry copied to clipboard.';
-              setTimeout(function () {
-                btn.textContent = 'Copy BibTeX';
-              }, 1600);
+            navigator.clipboard.writeText(txt).then(done).catch(function () {
+              var ta = document.createElement('textarea');
+              ta.value = txt;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              try { if (document.execCommand('copy')) done(); } catch (e) {}
+              document.body.removeChild(ta);
             });
           }
         });
@@ -273,12 +291,27 @@ const thesisSchema = {
 
       var lb = document.getElementById('thesisLightbox');
       var lbImg = document.getElementById('thesisLightboxImg');
+      var lbCounter = document.getElementById('thesisLbCounter');
+      var lbPrev = document.getElementById('prevThesisLightbox');
+      var lbNext = document.getElementById('nextThesisLightbox');
       var lbClose = document.getElementById('closeThesisLightbox');
+      var zoomTriggers = Array.prototype.slice.call(document.querySelectorAll('.thesis-zoom-btn'));
+      var lbIdx = 0;
       var lastFocus = null;
       function setInert(active) {
         document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop, .skip-link').forEach(function (el) {
           el.inert = active;
         });
+      }
+      function showThesisSlide(idx) {
+        if (!zoomTriggers.length || !lbImg) return;
+        lbIdx = (idx + zoomTriggers.length) % zoomTriggers.length;
+        var trg = zoomTriggers[lbIdx];
+        lbImg.src = trg.getAttribute('data-zoom-src') || '';
+        lbImg.alt = trg.getAttribute('data-zoom-alt') || 'Figure';
+        if (lbCounter) lbCounter.textContent = (lbIdx + 1) + ' / ' + zoomTriggers.length;
+        if (lbPrev) lbPrev.disabled = zoomTriggers.length <= 1;
+        if (lbNext) lbNext.disabled = zoomTriggers.length <= 1;
       }
       function closeLb() {
         if (!lb) return;
@@ -287,31 +320,58 @@ const thesisSchema = {
         document.body.style.overflow = '';
         if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
       }
-      document.querySelectorAll('.thesis-zoom-btn').forEach(function (trigger) {
+      zoomTriggers.forEach(function (trigger, i) {
         trigger.addEventListener('click', function () {
           if (!lb || !lbImg) return;
           lastFocus = trigger;
-          lbImg.src = trigger.getAttribute('data-zoom-src') || '';
-          lbImg.alt = trigger.getAttribute('data-zoom-alt') || 'Figure';
+          showThesisSlide(i);
           lb.hidden = false;
           setInert(true);
           document.body.style.overflow = 'hidden';
           if (lbClose) lbClose.focus();
         });
       });
+      if (lbPrev) lbPrev.addEventListener('click', function () { showThesisSlide(lbIdx - 1); });
+      if (lbNext) lbNext.addEventListener('click', function () { showThesisSlide(lbIdx + 1); });
       if (lbClose) lbClose.addEventListener('click', closeLb);
       if (lb) {
         lb.addEventListener('click', function (e) {
           if (e.target === lb) closeLb();
         });
+        var tX = 0;
+        var tY = 0;
+        lb.addEventListener('touchstart', function (e) {
+          if (e.touches && e.touches.length === 1) {
+            tX = e.touches[0].clientX;
+            tY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+        lb.addEventListener('touchend', function (e) {
+          if (!e.changedTouches || !e.changedTouches.length || zoomTriggers.length <= 1) return;
+          var dx = e.changedTouches[0].clientX - tX;
+          var dy = Math.abs(e.changedTouches[0].clientY - tY);
+          if (Math.abs(dx) > 48 && Math.abs(dx) > dy * 1.3) {
+            showThesisSlide(dx < 0 ? lbIdx + 1 : lbIdx - 1);
+          }
+        }, { passive: true });
       }
       document.addEventListener('keydown', function (e) {
         if (!lb || lb.hidden) return;
         if (e.key === 'Escape') {
           closeLb();
-        } else if (e.key === 'Tab' && lbClose) {
+        } else if (e.key === 'ArrowLeft') {
           e.preventDefault();
-          lbClose.focus();
+          showThesisSlide(lbIdx - 1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          showThesisSlide(lbIdx + 1);
+        } else if (e.key === 'Tab') {
+          var btnsList = [lbPrev, lbNext, lbClose].filter(function (b) { return b && !b.disabled; });
+          if (!btnsList.length) return;
+          e.preventDefault();
+          var cur = btnsList.indexOf(document.activeElement);
+          var nextPos = e.shiftKey ? (cur <= 0 ? btnsList.length - 1 : cur - 1) : (cur + 1) % btnsList.length;
+          btnsList[nextPos].focus();
         }
       });
     });
@@ -470,20 +530,57 @@ const thesisSchema = {
     width: auto;
     height: auto;
     max-width: 94vw;
-    max-height: 90vh;
+    max-height: 84vh;
     object-fit: contain;
-    background: #ffffff;
+    background: #ede7db;
     padding: 0.5rem;
   }
-  .thesis-lightbox-close {
+  .thesis-lb-topbar {
     position: fixed;
     top: 1rem;
+    left: 1.4rem;
     right: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    z-index: 2002;
+    pointer-events: none;
+  }
+  .thesis-lb-topbar > * { pointer-events: auto; }
+  .thesis-lb-counter {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #f8f5ee;
+    background: rgba(21, 20, 18, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.38rem 0.65rem;
+  }
+  .thesis-lb-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .thesis-lb-nav {
+    min-height: 42px;
+    padding: 0 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+  .thesis-lb-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .thesis-lightbox-close {
     width: 42px;
     height: 42px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.14);
-    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
     font-size: 1.65rem;
     cursor: pointer;
   }

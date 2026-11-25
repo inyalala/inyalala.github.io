@@ -97,7 +97,12 @@ const writingSchema = {
             const dim = thumb ? getImageDim(thumb, 640, 400) : { width: 640, height: 400 };
             const searchBlob = `${post.title} ${post.summary} ${post.category} ${post.tags.join(' ')}`.toLowerCase();
             return (
-              <li class="essay-row" data-wcat={post.category} data-search={searchBlob}>
+              <li
+                class="essay-row"
+                data-wcat={post.category}
+                data-tags={post.tags.map((t) => t.toLowerCase()).join('|')}
+                data-search={searchBlob}
+              >
                 {thumb && (
                   <a href={`/writing/${post.slug}/`} class="essay-media" aria-label={post.title}>
                     <img
@@ -123,7 +128,13 @@ const writingSchema = {
                   </h2>
                   <p class="essay-summary">{post.summary}</p>
                   {post.tags.length > 0 && (
-                    <p class="essay-tags">{post.tags.join(' · ')}</p>
+                    <div class="essay-tags" aria-label="Article tags">
+                      {post.tags.map((tag) => (
+                        <button type="button" class="w-tag-chip" data-tag={tag} aria-pressed="false">
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
                   )}
                   <p>
                     <a href={`/writing/${post.slug}/`} class="text-action">Read Article &rarr;</a>
@@ -147,18 +158,22 @@ const writingSchema = {
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
       var btns = document.querySelectorAll('.filter-btn[data-wcat]');
+      var tagChips = document.querySelectorAll('.w-tag-chip');
       var rows = document.querySelectorAll('.essay-row');
       var countEl = document.getElementById('writingCount');
       var searchEl = document.getElementById('writingSearch');
       var emptyEl = document.getElementById('writingEmptyState');
       var resetEl = document.getElementById('resetWritingFilters');
       var activeCat = 'All';
+      var activeTag = '';
 
       function syncUrl() {
         try {
           var params = new URLSearchParams(window.location.search);
           if (activeCat !== 'All') params.set('cat', activeCat);
           else params.delete('cat');
+          if (activeTag) params.set('tag', activeTag);
+          else params.delete('tag');
           var qVal = ((searchEl && searchEl.value) || '').trim();
           if (qVal) params.set('q', qVal);
           else params.delete('q');
@@ -169,22 +184,34 @@ const writingSchema = {
 
       function applyFilters(skipUrl) {
         var q = ((searchEl && searchEl.value) || '').trim().toLowerCase();
+        var tLow = activeTag.toLowerCase();
         var vis = 0;
         rows.forEach(function (r) {
           var catOk = activeCat === 'All' || r.getAttribute('data-wcat') === activeCat;
+          var tagsArr = (r.getAttribute('data-tags') || '').split('|').filter(Boolean);
+          var tagOk = !tLow || tagsArr.indexOf(tLow) !== -1;
           var qOk = !q || (r.getAttribute('data-search') || '').indexOf(q) !== -1;
-          var show = catOk && qOk;
+          var show = catOk && tagOk && qOk;
           r.style.display = show ? 'grid' : 'none';
           if (show) vis++;
         });
+        tagChips.forEach(function (chip) {
+          var on = Boolean(activeTag) && (chip.getAttribute('data-tag') || '').toLowerCase() === tLow;
+          chip.classList.toggle('is-active', on);
+          chip.setAttribute('aria-pressed', String(on));
+        });
         if (emptyEl) emptyEl.hidden = vis > 0;
-        if (countEl) countEl.textContent = 'Showing ' + vis + ' of ' + rows.length + ' articles';
+        if (countEl) {
+          var suffix = activeTag ? ' (Tag: ' + activeTag + ')' : '';
+          countEl.textContent = 'Showing ' + vis + ' of ' + rows.length + ' articles' + suffix;
+        }
         if (!skipUrl) syncUrl();
       }
 
       try {
         var initP = new URLSearchParams(window.location.search);
         var initCat = initP.get('cat');
+        var initTag = initP.get('tag');
         var initQ = initP.get('q');
         if (initCat) {
           btns.forEach(function (b) {
@@ -193,9 +220,18 @@ const writingSchema = {
             if (match) activeCat = initCat;
           });
         }
+        if (initTag) activeTag = initTag;
         if (initQ && searchEl) searchEl.value = initQ;
-        if (initCat || initQ) applyFilters(true);
+        if (initCat || initTag || initQ) applyFilters(true);
       } catch (e) {}
+
+      tagChips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var val = chip.getAttribute('data-tag') || '';
+          activeTag = activeTag.toLowerCase() === val.toLowerCase() ? '' : val;
+          applyFilters();
+        });
+      });
 
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -211,6 +247,7 @@ const writingSchema = {
       resetEl &&
         resetEl.addEventListener('click', function () {
           activeCat = 'All';
+          activeTag = '';
           if (searchEl) searchEl.value = '';
           btns.forEach(function (b) {
             b.setAttribute('aria-pressed', String(b.getAttribute('data-wcat') === 'All'));
@@ -243,10 +280,32 @@ const writingSchema = {
     border-radius: 2px;
   }
   .essay-tags {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.7rem;
+  }
+  .w-tag-chip {
+    padding: 0.14rem 0.5rem;
+    border: 1px solid var(--rule);
+    background: transparent;
     color: var(--text-muted);
-    margin-bottom: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .w-tag-chip:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
+  .w-tag-chip.is-active {
+    background: var(--accent-forest);
+    border-color: var(--accent-forest);
+    color: #f8f5ee;
+  }
+  :global([data-theme='dark']) .w-tag-chip.is-active {
+    color: #151412;
   }
   .w-count {
     font-family: var(--font-mono);

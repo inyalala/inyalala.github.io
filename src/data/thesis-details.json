@@ -77,7 +77,7 @@
       },
       {
         "title": "Conveyor Broiler Carcass 3-D Point-Cloud Reconstruction",
-        "src": "/images/papers/prior/carcass2024_3d_cloud.jpeg",
+        "src": "/images/papers/prior/carcass2024_3d_cloud.webp",
         "caption": "Segmented overhead Kinect v2 depth silhouettes transformed into registered 3-D point clouds and closed surface meshes for surface-integration volume computation on moving shackle lines.",
         "alt": "Chicken carcass Kinect v2 depth silhouettes and 3-D point clouds"
       },
@@ -174,13 +174,13 @@
         "figures": [
           {
             "title": "Depth Feature Extraction Workflow",
-            "src": "/images/papers/prior/tomato2019_pipeline.jpeg",
+            "src": "/images/papers/prior/tomato2019_pipeline.webp",
             "caption": "Sequential acquisition, thresholding, orientation alignment, and 2-D/3-D feature extraction pipeline feeding five candidate regression models.",
             "alt": "Cherry tomato depth feature extraction flowchart"
           },
           {
             "title": "Allometric Mass-Volume Power Law (R² = 0.9824)",
-            "src": "/images/papers/prior/tomato2019_mass_volume.jpeg",
+            "src": "/images/papers/prior/tomato2019_mass_volume.webp",
             "caption": "Calibration curve establishing M = 1.312 V^0.9551 on held-out cherry tomato test samples (RMSE = 15.84 g).",
             "alt": "Cherry tomato mass vs volume calibration curves"
           }

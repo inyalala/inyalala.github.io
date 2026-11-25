@@ -6,6 +6,7 @@ import metrics from '../../data/scholar-metrics.json';
 import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
 
 interface FaqItem {
+  id: string;
   q: string;
   plainA: string;
   linkText?: string;
@@ -15,6 +16,7 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
+    id: 'faq-saail-separation',
     q: 'How is this personal faculty website separated from SAAIL Lab?',
     plainA: `This site serves as the personal academic monograph of Dr. Innocent Nyalala: verified appointments, all ${metrics.totalWorks} publications (${metrics.citations.toLocaleString()} citations), IIT Madras Zanzibar coursework, essays, and direct collaboration inquiries. Research group member rosters, alumni directories, project sites, datasets, and Android apps reside on the SAAIL Lab website.`,
     linkText: 'Visit SAAIL Lab (saaillab.github.io)',
@@ -22,6 +24,7 @@ const faqs: FaqItem[] = [
     external: true
   },
   {
+    id: 'faq-course-slides',
     q: 'Where can IIT Madras Zanzibar students download lecture slides and notebooks?',
     plainA:
       'Active Odd Semester 2026-27 coursework for Z5007 (MTech Programming & Data Structures) and Z3003 (Data Mining, BS Core, co-taught with Dr. Mahendran V), alongside archived reference sets (Z2005, Z2004, and Z5008), is organized inside the Teaching Portal.',
@@ -29,6 +32,7 @@ const faqs: FaqItem[] = [
     linkHref: '/courses/'
   },
   {
+    id: 'faq-supervision',
     q: 'How can prospective MTech, PhD, or postdoctoral candidates apply for mentorship?',
     plainA:
       'First review SAAIL Lab focus areas and hiring guidance, then email innocent@iitmz.ac.in with your CV, transcript summary, code or Scholar links, and a paragraph naming two lab studies closest to your interests.',
@@ -36,20 +40,23 @@ const faqs: FaqItem[] = [
     linkHref: '/work-with-me/'
   },
   {
+    id: 'faq-partnerships',
     q: 'Do you partner with East African agricultural cooperatives, NGOs, or health agencies?',
     plainA:
       'Yes. Active partnerships span the Zanzibar State Trading Corporation (clove grading and Ubora-AI), Tanzanian smallholder cashew scouting under IC&SR IIT Madras funding, and maternal imaging consortia with CPHK Pemba and Penn State University.',
-    linkText: 'Contact Room 105 (F1) via Form or Email',
+    linkText: 'Send a Partnership Inquiry via Form or Email',
     linkHref: '/contact/'
   },
   {
+    id: 'faq-office-hours',
     q: 'When are student office hours held on the Bweleo campus?',
     plainA:
-      'Walk-in student office hours run on Wednesdays from 2:00 PM to 4:00 PM EAT in Room 105 (F1), School of Engineering and Science, IIT Madras Zanzibar, or by scheduled appointment via email.',
+      'Course consultation hours run on Tuesdays (Z5007 MTech Programming & Data Structures slot) and Wednesdays (Z3003 BS Data Mining slot and general walk-in student office hours from 2:00 PM to 4:00 PM EAT) in Room 105 (F1), School of Engineering and Science, IIT Madras Zanzibar, or by scheduled appointment via email.',
     linkText: 'Read the IIT Madras Zanzibar Visitor & Campus Guide',
     linkHref: '/writing/visiting-iit-madras-zanzibar-guide/'
   },
   {
+    id: 'faq-slide-reuse',
     q: 'May other universities reuse or adapt course slides and problem sheets?',
     plainA:
       'Yes, under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0): credit the author, preserve the same license on adaptations, and refrain from commercial redistribution.',
@@ -58,6 +65,7 @@ const faqs: FaqItem[] = [
     external: true
   },
   {
+    id: 'faq-media-kit',
     q: 'Where can conference organizers obtain approved bios and photos?',
     plainA:
       'Official square portraits, institutional logos for IIT Madras Zanzibar and SAAIL Lab, and one-click copyable short and extended biographies are curated in the Media Kit.',
@@ -121,9 +129,16 @@ const faqSchema = {
       </header>
 
       <section class="rule-section" style="padding-top: 0;">
+        <div class="faq-toolbar">
+          <span class="faq-count-lbl">{faqs.length} reference questions</span>
+          <button type="button" id="faqToggleAll" class="faq-toggle-btn" aria-expanded="false">
+            Expand All
+          </button>
+        </div>
+
         <div class="faq-list">
           {faqs.map((item, idx) => (
-            <details class="faq-row" open={idx < 2}>
+            <details id={item.id} class="faq-row" open={idx < 2}>
               <summary>
                 <span>{item.q}</span>
                 <span class="faq-marker" aria-hidden="true">+</span>
@@ -155,9 +170,59 @@ const faqSchema = {
 
     <SiteFooter />
   </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggleBtn = document.getElementById('faqToggleAll');
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.faq-row'));
+      if (!toggleBtn || !rows.length) return;
+
+      function syncBtn() {
+        var allOpen = rows.every(function (d) { return d.open; });
+        toggleBtn.textContent = allOpen ? 'Collapse All' : 'Expand All';
+        toggleBtn.setAttribute('aria-expanded', String(allOpen));
+      }
+      syncBtn();
+
+      toggleBtn.addEventListener('click', function () {
+        var allOpen = rows.every(function (d) { return d.open; });
+        rows.forEach(function (d) { d.open = !allOpen; });
+        syncBtn();
+      });
+
+      rows.forEach(function (d) {
+        d.addEventListener('toggle', syncBtn);
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>
+  .faq-toolbar {
+    max-width: 78ch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .faq-count-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .faq-toggle-btn {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--accent-forest);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .faq-toggle-btn:hover {
+    border-color: var(--accent-forest);
+  }
   .faq-list {
     border-top: 1px solid var(--rule);
     max-width: 78ch;

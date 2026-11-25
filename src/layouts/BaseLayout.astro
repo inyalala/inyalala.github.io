@@ -153,7 +153,6 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
     <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Preload Self-Hosted Monograph Typography (Zero FOUT Flash) -->
-    <link rel="dns-prefetch" href="https://visitor-badge.laobi.icu" />
     <link rel="preload" href="/fonts/cormorant-garamond-600-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/cormorant-garamond-600-italic.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/newsreader-400-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -185,6 +184,8 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
 
     <CommandPalette />
 
+    <div id="monoToast" class="mono-toast" role="status" aria-live="polite" hidden></div>
+
     <button id="backToTop" type="button" class="back-to-top" aria-label="Back to top">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M12 19V5M5 12L12 5L19 12" />
@@ -192,6 +193,24 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
     </button>
 
     <script is:inline>
+      (function () {
+        var toastTimer = null;
+        window.__showMonoToast = function (msg) {
+          var toast = document.getElementById('monoToast');
+          if (!toast || !msg) return;
+          toast.textContent = msg;
+          toast.hidden = false;
+          toast.classList.add('is-visible');
+          if (toastTimer) clearTimeout(toastTimer);
+          toastTimer = setTimeout(function () {
+            toast.classList.remove('is-visible');
+            setTimeout(function () {
+              toast.hidden = true;
+            }, 180);
+          }, 2200);
+        };
+      })();
+
       document.addEventListener('DOMContentLoaded', function () {
         var backBtn = document.getElementById('backToTop');
         window.addEventListener(
@@ -608,6 +627,33 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
     transform: translateY(0);
   }
 
+  .mono-toast {
+    position: fixed;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--accent-forest);
+    color: #f8f5ee;
+    border: 1px solid var(--rule-strong);
+    padding: 0.52rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    border-radius: 2px;
+    z-index: 3500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    max-width: min(92vw, 460px);
+    text-align: center;
+  }
+  .mono-toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  [data-theme='dark'] .mono-toast {
+    color: #151412;
+  }
+
   @media (max-width: 1020px) {
     .monograph-shell {
       grid-template-columns: 1fr;
@@ -647,7 +693,9 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
     .reading-progress,
     .bib-btn,
     .reset-btn,
-    .zoom-cue {
+    .zoom-cue,
+    .no-print,
+    .mono-toast {
       display: none !important;
     }
     .monograph-shell {
@@ -670,9 +718,10 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
       break-inside: avoid;
       page-break-inside: avoid;
     }
-    a[href^='http']::after {
+    main a[href^='http']:not(.btn-mono):not(.btn-mono-outline):not(.profile-anchor):not([href^='https://inyalala.github.io'])::after {
       content: ' (' attr(href) ')';
-      font-size: 0.78em;
+      font-size: 0.74em;
+      font-family: var(--font-mono);
       color: #444444;
       word-break: break-all;
     }

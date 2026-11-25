@@ -133,6 +133,11 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
           </figure>
         )}
 
+        <nav id="articleToc" class="article-toc" aria-label="On this page" hidden>
+          <span class="mono-eyebrow">On This Page</span>
+          <ol id="articleTocList" class="toc-list"></ol>
+        </nav>
+
         <div class="prose-body">
           <Content />
         </div>
@@ -311,6 +316,59 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
       window.addEventListener('scroll', updateBar, { passive: true });
       window.addEventListener('resize', updateBar, { passive: true });
       updateBar();
+
+      var tocNav = document.getElementById('articleToc');
+      var tocList = document.getElementById('articleTocList');
+      var proseEl = document.querySelector('.prose-body');
+      if (tocNav && tocList && proseEl) {
+        var headings = Array.prototype.slice.call(proseEl.querySelectorAll('h2, h3'));
+        if (headings.length >= 2) {
+          var linksById = {};
+          var usedIds = {};
+          headings.forEach(function (h, idx) {
+            if (!h.id) {
+              var base = (h.textContent || 'section-' + (idx + 1))
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '') || ('sec-' + (idx + 1));
+              var candidate = base;
+              var n = 2;
+              while (usedIds[candidate] || document.getElementById(candidate)) {
+                candidate = base + '-' + n;
+                n += 1;
+              }
+              h.id = candidate;
+            }
+            usedIds[h.id] = true;
+            var li = document.createElement('li');
+            if (h.tagName === 'H3') li.className = 'toc-sub';
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.className = 'toc-link';
+            a.textContent = h.textContent || '';
+            li.appendChild(a);
+            tocList.appendChild(li);
+            linksById[h.id] = a;
+          });
+          tocNav.hidden = false;
+
+          if ('IntersectionObserver' in window) {
+            var setCurrent = function (id) {
+              Object.keys(linksById).forEach(function (k) {
+                linksById[k].classList.toggle('is-active', k === id);
+              });
+            };
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting && entry.target && entry.target.id) {
+                  setCurrent(entry.target.id);
+                }
+              });
+            }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+            headings.forEach(function (h) { io.observe(h); });
+          }
+        }
+      }
     })();
   </script>
 
@@ -394,6 +452,49 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     font-family: var(--font-mono);
     font-size: 0.74rem;
     color: var(--text-muted);
+  }
+
+  .article-toc {
+    max-width: 68ch;
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.95rem 0 1.05rem;
+    margin-bottom: 1.75rem;
+  }
+  .article-toc[hidden] {
+    display: none;
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1.25rem;
+  }
+  .toc-list :global(li.toc-sub) {
+    padding-left: 0.85rem;
+  }
+  .toc-list :global(.toc-link) {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    padding-left: 0.45rem;
+    display: inline-block;
+    line-height: 1.4;
+  }
+  .toc-list :global(.toc-link:hover),
+  .toc-list :global(.toc-link.is-active) {
+    color: var(--accent-forest);
+    border-left-color: var(--accent-forest);
+    font-weight: 500;
+  }
+  @media (max-width: 680px) {
+    .toc-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   .prose-body {

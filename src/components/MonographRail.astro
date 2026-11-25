@@ -20,25 +20,43 @@ const navLinks = [
   { href: '/faq/', label: 'FAQ', key: 'faq' },
   { href: '/contact/', label: 'Contact', key: 'contact' }
 ];
+
+const navLinksSw = [
+  { href: '/sw/', label: 'Nyumbani', key: 'home' },
+  { href: '/courses/', label: 'Ufundishaji na Kozi', key: 'courses' },
+  { href: '/research/', label: 'Ajenda ya Utafiti', key: 'research' },
+  { href: '/publications/', label: `Machapisho (${PUBLICATIONS.length})`, key: 'publications' },
+  { href: '/writing/', label: 'Makala na Miongozo', key: 'writing' },
+  { href: '/news/', label: 'Habari na Mihadhara', key: 'news' },
+  { href: '/work-with-me/', label: 'Ushirikiano', key: 'collaborate' },
+  { href: '/about/', label: 'Wasifu', key: 'about' },
+  { href: '/media-kit/', label: 'Jalada la Habari', key: 'media-kit' },
+  { href: '/faq/', label: 'Maswali', key: 'faq' },
+  { href: '/contact/', label: 'Mawasiliano', key: 'contact' }
+];
+
+const isSw = lang === 'sw';
+const activeNavLinks = isSw ? navLinksSw : navLinks;
+const homeHref = isSw ? '/sw/' : '/';
 ---
 
 <!-- Mobile Top Masthead & Slide-Over Drawer -->
 <header class="mobile-header">
   <div class="mobile-bar">
-    <a href="/" class="mobile-brand" aria-label="Innocent Nyalala Home">
+    <a href={homeHref} class="mobile-brand" aria-label={isSw ? 'Innocent Nyalala Nyumbani' : 'Innocent Nyalala Home'}>
       <span class="mobile-sig">Innocent Nyalala</span>
       <span class="mobile-sub">IITM Zanzibar</span>
     </a>
 
     <div class="mobile-actions">
-      <button type="button" class="theme-toggle-btn js-open-cmd" aria-label="Search site (Ctrl+K)" title="Search (Ctrl+K)">
+      <button type="button" class="theme-toggle-btn js-open-cmd" aria-label={isSw ? 'Tafuta kwenye tovuti (Ctrl+K)' : 'Search site (Ctrl+K)'} title={isSw ? 'Tafuta (Ctrl+K)' : 'Search (Ctrl+K)'}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="7" />
           <path d="M21 21l-4.35-4.35" />
         </svg>
       </button>
 
-      <button type="button" class="theme-toggle-btn js-theme-toggle" aria-label="Switch color theme" aria-pressed="false">
+      <button type="button" class="theme-toggle-btn js-theme-toggle" aria-label={isSw ? 'Badili rangi ya mandhari' : 'Switch color theme'} aria-pressed="false">
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
@@ -52,11 +70,11 @@ const navLinks = [
         id="mobileMenuBtn"
         type="button"
         class="menu-toggle-btn"
-        aria-label="Open navigation menu"
+        aria-label={isSw ? 'Fungua orodha ya kurasa' : 'Open navigation menu'}
         aria-expanded="false"
         aria-controls="mobileNavDrawer"
       >
-        <span>Index</span>
+        <span>{isSw ? 'Orodha' : 'Index'}</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
@@ -65,61 +83,61 @@ const navLinks = [
   </div>
 
   <div id="mobileBackdrop" class="drawer-backdrop" hidden></div>
-  <div id="mobileNavDrawer" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Site index navigation" hidden>
+  <div id="mobileNavDrawer" class="mobile-drawer" role="dialog" aria-modal="true" aria-label={isSw ? 'Orodha ya kurasa za tovuti' : 'Site index navigation'} hidden>
     <div class="drawer-head">
       <span class="drawer-sig">Innocent Nyalala</span>
-      <button id="drawerCloseBtn" type="button" class="drawer-close" aria-label="Close navigation menu">&times;</button>
+      <button id="drawerCloseBtn" type="button" class="drawer-close" aria-label={isSw ? 'Funga orodha' : 'Close navigation menu'}>&times;</button>
     </div>
 
-    <nav aria-label="Mobile Primary Navigation" class="drawer-nav">
-      {navLinks.map((item) => (
+    <nav aria-label={isSw ? 'Urambazaji Mkuu wa Simu' : 'Mobile Primary Navigation'} class="drawer-nav">
+      {activeNavLinks.map((item) => (
         <a
           href={item.href}
-          class:list={['drawer-link', { active: currentPage === item.key && lang === 'en' }]}
-          aria-current={currentPage === item.key && lang === 'en' ? 'page' : undefined}
+          class:list={['drawer-link', { active: currentPage === item.key }]}
+          aria-current={currentPage === item.key ? 'page' : undefined}
         >
           {item.label}
         </a>
       ))}
-      <div class="drawer-lang-row" aria-label="Language selection">
+      <div class="drawer-lang-row" aria-label={isSw ? 'Chagua lugha' : 'Language selection'}>
         <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
         <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW (Kiswahili)</a>
       </div>
       <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="drawer-link drawer-lab">
-        SAAIL Lab &#8599;
+        {isSw ? 'Maabara ya SAAIL' : 'SAAIL Lab'} &#8599;
       </a>
     </nav>
   </div>
 </header>
 
 <!-- Desktop Sticky Editorial Left Rail -->
-<aside class="monograph-rail" aria-label="Site navigation and colophon">
+<aside class="monograph-rail" aria-label={isSw ? 'Urambazaji wa tovuti' : 'Site navigation and colophon'}>
   <div class="rail-inner">
     <div class="rail-mast">
-      <a href="/" class="rail-sig-link" aria-label="Innocent Nyalala Home">
+      <a href={homeHref} class="rail-sig-link" aria-label={isSw ? 'Innocent Nyalala Nyumbani' : 'Innocent Nyalala Home'}>
         <span class="rail-sig">Innocent Nyalala</span>
         <span class="rail-dept">IIT Madras Zanzibar</span>
-        <span class="rail-sub">School of Engineering &amp; Science</span>
+        <span class="rail-sub">{isSw ? 'Kitivo cha Uhandisi na Sayansi' : 'School of Engineering & Science'}</span>
       </a>
     </div>
 
     <div class="rail-tools-row">
-      <button type="button" class="rail-search-btn js-open-cmd" aria-label="Open quick search (Ctrl+K)">
-        <span>Search</span>
+      <button type="button" class="rail-search-btn js-open-cmd" aria-label={isSw ? 'Fungua utafutaji wa haraka (Ctrl+K)' : 'Open quick search (Ctrl+K)'}>
+        <span>{isSw ? 'Tafuta' : 'Search'}</span>
         <kbd>Ctrl K</kbd>
       </button>
-      <div class="rail-lang-switch" role="group" aria-label="Language switcher">
+      <div class="rail-lang-switch" role="group" aria-label={isSw ? 'Badili lugha' : 'Language switcher'}>
         <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
         <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW</a>
       </div>
     </div>
 
-    <nav aria-label="Primary Navigation" class="rail-nav">
-      {navLinks.map((item) => (
+    <nav aria-label={isSw ? 'Urambazaji Mkuu' : 'Primary Navigation'} class="rail-nav">
+      {activeNavLinks.map((item) => (
         <a
           href={item.href}
-          class:list={['rail-link', { active: currentPage === item.key && lang === 'en' }]}
-          aria-current={currentPage === item.key && lang === 'en' ? 'page' : undefined}
+          class:list={['rail-link', { active: currentPage === item.key }]}
+          aria-current={currentPage === item.key ? 'page' : undefined}
         >
           {item.label}
         </a>
@@ -128,10 +146,10 @@ const navLinks = [
 
     <div class="rail-footer">
       <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="rail-lab-link">
-        SAAIL Lab Portal &#8599;
+        {isSw ? 'Tovuti ya Maabara ya SAAIL' : 'SAAIL Lab Portal'} &#8599;
       </a>
 
-      <button type="button" class="rail-theme-btn js-theme-toggle" aria-label="Switch day or night palette" aria-pressed="false">
+      <button type="button" class="rail-theme-btn js-theme-toggle" data-lang={lang} aria-label={isSw ? 'Badili mandhari ya mchana au usiku' : 'Switch day or night palette'} aria-pressed="false">
         <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
@@ -139,11 +157,11 @@ const navLinks = [
         <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
-        <span class="theme-label">Switch to Night</span>
+        <span class="theme-label">{isSw ? 'Badili kwenda Usiku' : 'Switch to Night'}</span>
       </button>
 
       <p class="rail-office">
-        Room 105 (F1) &middot; Bweleo<br />
+        {isSw ? 'Chumba 105 (F1) · Bweleo' : 'Room 105 (F1) · Bweleo'}<br />
         Zanzibar, Tanzania<br />
         <a href="mailto:innocent@iitmz.ac.in">innocent@iitmz.ac.in</a>
       </p>
@@ -161,13 +179,19 @@ const navLinks = [
     var canvas = document.querySelector('.monograph-canvas');
     var mobileBar = document.querySelector('.mobile-bar');
     var backToTop = document.getElementById('backToTop');
+    var isSwDoc = (document.documentElement.getAttribute('lang') || '').toLowerCase().indexOf('sw') === 0;
 
     function syncThemeUI() {
       var isDark = (document.documentElement.getAttribute('data-theme') || 'light') === 'dark';
       themeBtns.forEach(function (btn) {
         btn.setAttribute('aria-pressed', String(isDark));
         var lbl = btn.querySelector('.theme-label');
-        if (lbl) lbl.textContent = isDark ? 'Switch to Day' : 'Switch to Night';
+        if (lbl) {
+          var swBtn = btn.getAttribute('data-lang') === 'sw' || isSwDoc;
+          lbl.textContent = swBtn
+            ? (isDark ? 'Badili kwenda Mchana' : 'Badili kwenda Usiku')
+            : (isDark ? 'Switch to Day' : 'Switch to Night');
+        }
       });
     }
     syncThemeUI();
@@ -244,6 +268,25 @@ const navLinks = [
           first.focus();
         }
       });
+
+    if (drawer) {
+      var touchStartX = 0;
+      var touchStartY = 0;
+      drawer.addEventListener('touchstart', function (e) {
+        if (e.touches && e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+      drawer.addEventListener('touchend', function (e) {
+        if (!e.changedTouches || !e.changedTouches.length) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+        if (dx > 60 && dx > dy * 1.4) {
+          setDrawerOpen(false);
+        }
+      }, { passive: true });
+    }
 
     var mq = window.matchMedia('(min-width: 1021px)');
     mq.addEventListener('change', function (e) {
@@ -493,10 +536,10 @@ const navLinks = [
       top: 0;
       left: 0;
       right: 0;
-      height: var(--mobile-bar-height);
+      min-height: var(--mobile-bar-height);
       background: var(--bg-rail);
       border-bottom: 1px solid var(--rule);
-      padding: 0 1.15rem;
+      padding: 0.45rem 1.15rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -507,18 +550,21 @@ const navLinks = [
       text-decoration: none;
       display: flex;
       flex-direction: column;
-      line-height: 1.05;
+      gap: 0.12rem;
+      line-height: 1;
     }
 
     .mobile-sig {
       font-family: var(--font-script);
-      font-size: 1.65rem;
+      font-size: 1.48rem;
+      line-height: 0.95;
       color: var(--accent-clove);
     }
 
     .mobile-sub {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
+      line-height: 1.1;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent-clove);
