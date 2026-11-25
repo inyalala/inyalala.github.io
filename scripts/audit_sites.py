@@ -780,8 +780,8 @@ def audit_teaching_site() -> dict:
 
     for course_code in ("z5007", "z2005"):
         chtml = (TEACH_ROOT / "courses" / course_code / "index.html").read_text(encoding="utf-8")
-        if "Tuesday" in chtml:
-            errors.append(f"[teaching/courses/{course_code}/index.html] Stray 'Tuesday' remains")
+        if re.search(r"<tr><td>Lecture[^<]*</td><td>[^<]*Tuesday", chtml, re.I):
+            errors.append(f"[teaching/courses/{course_code}/index.html] Stray 'Tuesday' lecture remains")
         if "Monday, Wednesday, Thursday, and Friday" not in chtml:
             errors.append(f"[teaching/courses/{course_code}/index.html] Missing 'Monday, Wednesday, Thursday, and Friday'")
 

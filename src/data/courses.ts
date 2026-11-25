@@ -348,60 +348,235 @@ export const COURSES: CourseData[] = [
     program: 'MTech',
     courseType: 'Core',
     status: 'active',
-    term: 'Odd Semester, October 2026 - January 2027',
+    term: 'Odd Semester, Oct 5, 2026 - Jan 28, 2027 (Exams Feb 1-5, 2027)',
     academicYear: '2026-27',
-    credits: '15 Credits (Core)',
-    summary: 'Graduate treatment of data structures and algorithm design in Python, pairing implementation with amortized analysis, formal correctness proofs, balanced trees, and systems benchmarking.',
+    credits: '15 Credits (MTech Core)',
+    summary: 'Graduate core course in Python data structures and algorithms, pairing implementation from first principles with asymptotic and amortized analysis, formal proofs, balanced trees, hashing, heaps, dynamic programming, greedy algorithms, and graph search.',
     crossLink: {
       label: 'Viewing Active MTech Section (Z5007): View BS Reference Archive (Z2005) ->',
       href: '/courses/z2005/'
     },
     schedule: [
-      { session: 'Lectures', frequency: '4 sessions per week', details: 'Monday, Wednesday, Thursday, and Friday · MTech DSAI timetable' },
-      { session: 'Laboratory', frequency: '2 sessions per week', details: 'Benchmarking, proofs, and systems labs' },
-      { session: 'Office Hours', frequency: 'Wednesday, 2:00 PM - 4:00 PM EAT', details: 'Room 105 (F1) or by email' }
+      { session: 'Lectures', frequency: '4 sessions per week', details: 'Monday, Wednesday, Thursday, and Friday (Mon 9:00-9:50 AM, Wed 11:00-11:50 AM, Thu 10:00-10:50 AM, Fri 11:00-11:50 AM)' },
+      { session: 'Laboratory', frequency: 'Thursday, 2:00 PM - 4:40 PM EAT', details: '2 hr 40 min weekly lab; four In-Class Assignments run 2:00-2:45 PM' },
+      { session: 'Office Hours', frequency: 'Tuesday, 2:00 PM - 4:00 PM EAT', details: 'Room 105 (F1) or email with Z5007 in subject' }
     ],
     prerequisites: [
-      'Working proficiency in at least one programming language and discrete mathematics fundamentals.'
+      'Foundational Python proficiency (functions, recursion basics, loops, OOP classes, and reading Python error traces) plus discrete mathematics.'
     ],
     outcomes: [
-      'Justify composition versus inheritance choices and implement Python protocols and abstract base classes.',
-      'Build self-balancing and amortized structures from first principles, including red-black trees and union-find with path compression.',
-      'Derive worst-case, average-case, and amortized bounds via aggregate and accounting methods.',
-      'Prove correctness of sorting and greedy algorithms using loop invariants and exchange arguments.',
-      'Solve reachability, shortest-path, and network-design problems using BFS, DFS, Dijkstra, A*, and MST algorithms.',
-      'Benchmark algorithms against realistic workloads and report empirical trade-offs.'
+      'CLO1: Analyze the time and memory cost of algorithms using Big-O notation, recurrences, and amortized analysis.',
+      'CLO2: Implement arrays, stacks, queues, linked lists, trees, hash tables, heaps, and graphs from first principles in Python.',
+      'CLO3: Prove algorithm correctness and reason about lower bounds such as sorting n log n limits.',
+      'CLO4: Design solutions using sorting, recursion, dynamic programming, greedy algorithms, and graph search.',
+      'CLO5: Evaluate empirical performance by profiling, benchmarking, and choosing data structures with evidence.',
+      'CLO6: Apply data structures plus parallel and randomized methods to large datasets.'
     ],
-    modules: buildPdsModules('z5007'),
+    modules: [
+      {
+        code: 'W1',
+        weeks: '1',
+        title: 'Course Orientation, RAM Model & Big-O Asymptotics',
+        summary: 'Scaling motivation, duplicate detection in Python, RAM operation counting, and Big-O rules (Oct 5-9).',
+        readings: 'Canning, Broder & Lafore Ch. 1-2',
+        slides: [
+          { label: 'Mon: Orientation (PDF)', href: `${TEACH_BASE}/z5007/week-01/slides/W01_Mon_Oct05_Course_Orientation.pdf`, kind: 'pdf' },
+          { label: 'Wed: Asymptotic Analysis (PDF)', href: `${TEACH_BASE}/z5007/week-01/slides/W01_Wed_Oct07_Asymptotic_Analysis.pdf`, kind: 'pdf' },
+          { label: 'Thu: Data Structures Intro (PDF)', href: `${TEACH_BASE}/z5007/week-01/slides/W01_Thu_Oct08_Foundations_Data_Structures.pdf`, kind: 'pdf' },
+          { label: 'Fri: Big-O Made Simple (PDF)', href: `${TEACH_BASE}/z5007/week-01/slides/W01_Fri_Oct09_BigO_Made_Simple.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-01/notes/W01_Asymptotic_Analysis_Notes.pdf`, kind: 'pdf' }
+        ]
+      },
+      {
+        code: 'W2',
+        weeks: '2',
+        title: 'Arrays, Binary Search, Dynamic Arrays & Elementary Sorts',
+        summary: 'Contiguous byte indexing, invariant-based binary search, dynamic doubling, bubble sort, and selection sort (Oct 12-16).',
+        readings: 'Canning, Broder & Lafore Ch. 2-3',
+        slides: [
+          { label: 'Mon: Arrays & Binary Search (PDF)', href: `${TEACH_BASE}/z5007/week-02/slides/W02_Mon_Oct12_Arrays_Binary_Search.pdf`, kind: 'pdf' },
+          { label: 'Thu: Dynamic Arrays & Amortized (PDF)', href: `${TEACH_BASE}/z5007/week-02/slides/W02_Thu_Oct15_Dynamic_Arrays_Amortized.pdf`, kind: 'pdf' },
+          { label: 'Fri: Bubble & Selection Sort (PDF)', href: `${TEACH_BASE}/z5007/week-02/slides/W02_Fri_Oct16_Sorting_Bubble_Selection.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-02/notes/W02_Arrays_Dynamic_Arrays_Sorts_Notes.pdf`, kind: 'pdf' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-02/labs/W02_Thu_Oct15_Lab1_Arrays.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-02/labs/W02_Thu_Oct15_Lab1_Arrays.ipynb`
+      },
+      {
+        code: 'W3',
+        weeks: '3',
+        title: 'Insertion Sort & Stacks (Arrays vs. Linked Nodes)',
+        summary: 'Inversion bounds on insertion sort, LIFO ADT, bracket matching, and array versus linked stacks (Oct 19-22).',
+        readings: 'Canning, Broder & Lafore Ch. 3-4',
+        assignment: 'ICA 1 (Thu Oct 22)',
+        slides: [
+          { label: 'Mon: Insertion Sort (PDF)', href: `${TEACH_BASE}/z5007/week-03/slides/W03_Mon_Oct19_Insertion_Sort_v3.pdf`, kind: 'pdf' },
+          { label: 'Wed: Stacks LIFO (PDF)', href: `${TEACH_BASE}/z5007/week-03/slides/W03_Wed_Oct21_Stacks.pdf`, kind: 'pdf' },
+          { label: 'Thu: Stack Implementations (PDF)', href: `${TEACH_BASE}/z5007/week-03/slides/W03_Thu_Oct22_Stacks_at_Work_Expression.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-03/notes/W03_Insertion_Sort_and_Stacks_Notes.pdf`, kind: 'pdf' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-03/labs/W03_Thu_Oct22_Lab2_Sorts_Stacks.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-03/labs/W03_Thu_Oct22_Lab2_Sorts_Stacks.ipynb`
+      },
+      {
+        code: 'W4',
+        weeks: '4',
+        title: 'Circular Queues, Linked Lists, Sentinels & LRU Cache',
+        summary: 'Modular ring buffers, singly linked pointer updates, doubly linked sentinels, and O(1) LRU cache design (Oct 28-30).',
+        readings: 'Canning, Broder & Lafore Ch. 4-5',
+        slides: [
+          { label: 'Wed: Circular Queues (PDF)', href: `${TEACH_BASE}/z5007/week-04/slides/W04_Wed_Oct28_Implementing_Queues.pdf`, kind: 'pdf' },
+          { label: 'Thu: Linked Lists (PDF)', href: `${TEACH_BASE}/z5007/week-04/slides/W04_Thu_Oct29_Linked_Lists.pdf`, kind: 'pdf' },
+          { label: 'Fri: Doubly Linked & LRU Cache (PDF)', href: `${TEACH_BASE}/z5007/week-04/slides/W04_Fri_Oct30_Doubly_LRU.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-04/notes/W04_Queues_Linked_Lists_LRU_Notes.pdf`, kind: 'pdf' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-04/labs/W04_Thu_Oct29_Lab3_Queues_Linked_Lists.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-04/labs/W04_Thu_Oct29_Lab3_Queues_Linked_Lists.ipynb`
+      },
+      {
+        code: 'W5',
+        weeks: '5',
+        title: 'Recursion, Merge Sort, Quicksort & Master Theorem',
+        summary: 'Base cases, call stack frames, stable Merge Sort, Lomuto Quicksort and Quickselect, and recursion trees (Nov 2-6).',
+        readings: 'Canning, Broder & Lafore Ch. 6-7; CLRS Ch. 4',
+        assignment: 'ICA 2 (Thu Nov 5)',
+        slides: [
+          { label: 'Mon: Thinking Recursively (PDF)', href: `${TEACH_BASE}/z5007/week-05/slides/W05_Mon_Nov02_Thinking_Recursively.pdf`, kind: 'pdf' },
+          { label: 'Wed: Merge Sort (PDF)', href: `${TEACH_BASE}/z5007/week-05/slides/W05_Wed_Nov04_Merge_Sort.pdf`, kind: 'pdf' },
+          { label: 'Thu: Quicksort & Quickselect (PDF)', href: `${TEACH_BASE}/z5007/week-05/slides/W05_Thu_Nov05_Quicksort_Quickselect.pdf`, kind: 'pdf' },
+          { label: 'Fri: Master Theorem (PDF)', href: `${TEACH_BASE}/z5007/week-05/slides/W05_Fri_Nov06_Recurrences_Master_Theorem.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-05/notes/W05_Recursion_Sorting_Recurrences_Notes.pdf`, kind: 'pdf' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-05/labs/W05_Thu_Nov05_Lab4_Recursion_Sorting.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-05/labs/W05_Thu_Nov05_Lab4_Recursion_Sorting.ipynb`
+      },
+      {
+        code: 'W6',
+        weeks: '6',
+        title: 'Quiz 1 Review & Practice Bank (Ch. 1-7)',
+        summary: 'Cumulative review covering Big-O, arrays, stacks, queues, linked lists, recursion, and sorting ahead of Quiz 1 (Nov 12-14).',
+        readings: 'Canning, Broder & Lafore Ch. 1-7',
+        assignment: 'Quiz 1 (Nov 12-14)',
+        slides: [
+          { label: 'Quiz 1 Practice (40 Qs PDF)', href: `${TEACH_BASE}/z5007/week-06/practice/Z5007_Quiz1_Practice40.pdf`, kind: 'pdf' }
+        ]
+      },
+      {
+        code: 'W7',
+        weeks: '7',
+        title: 'Linear Sorts, Binary Trees & Binary Search Trees',
+        summary: 'Counting sort, Radix sort, binary tree properties, four traversals, BST invariants, search, insert, and 3-case deletion (Nov 16-20).',
+        readings: 'Canning, Broder & Lafore Ch. 8; CLRS Ch. 8, 12',
+        slides: [
+          { label: 'Mon: Counting & Radix Sort (PDF)', href: `${TEACH_BASE}/z5007/week-07/slides/W07_Mon_Nov16_Counting_Radix_Sort.pdf`, kind: 'pdf' },
+          { label: 'Wed: Binary Trees & Traversals (PDF)', href: `${TEACH_BASE}/z5007/week-07/slides/W07_Wed_Nov18_Binary_Trees_Traversals.pdf`, kind: 'pdf' },
+          { label: 'Thu: Binary Search Trees (PDF)', href: `${TEACH_BASE}/z5007/week-07/slides/W07_Thu_Nov19_Binary_Search_Trees.pdf`, kind: 'pdf' },
+          { label: 'Fri: BST Delete & Balance (PDF)', href: `${TEACH_BASE}/z5007/week-07/slides/W07_Fri_Nov20_BST_Delete_Balance.pdf`, kind: 'pdf' },
+          { label: 'LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-07/notes/W07_Linear_Sorts_Trees_BST_Notes.pdf`, kind: 'pdf' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-07/labs/W07_Thu_Nov19_Lab5_Sorting_Trees_BST.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-07/labs/W07_Thu_Nov19_Lab5_Sorting_Trees_BST.ipynb`
+      },
+      {
+        code: 'W8',
+        weeks: '8',
+        title: 'AVL Trees, Red-Black Trees, Heaps & Priority Queues',
+        summary: 'Self-balancing height invariants, single/double AVL rotations, red-black balancing, binary heaps, and heap sort (Nov 23-27).',
+        readings: 'Canning, Broder & Lafore Ch. 8, 10, 13; CLRS Ch. 13',
+        slides: [
+          { label: 'Mon: AVL Trees (PDF)', href: `${TEACH_BASE}/z5007/week-08/slides/W08_Mon_Nov23_AVL_Trees.pdf`, kind: 'pdf' },
+          { label: 'Mon: AVL LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-08/notes/W08_Mon_Nov23_AVL_Trees_Notes.pdf`, kind: 'pdf' }
+        ]
+      },
+      {
+        code: 'W9',
+        weeks: '9',
+        title: 'Hash Tables, Collision Resolution & Bloom Filters',
+        summary: 'Hash functions, chaining vs. open addressing, load factor resizing, Python dict internals, and Bloom filters (Nov 30-Dec 4).',
+        readings: 'Canning, Broder & Lafore Ch. 11; CLRS Ch. 11',
+        assignment: 'ICA 3 (Thu Dec 3)',
+        slides: []
+      },
+      {
+        code: 'W10-11',
+        weeks: '10-11',
+        title: 'Dynamic Programming, Greedy Algorithms & Graphs Intro',
+        summary: 'Memoization, tabulation, 0/1 knapsack, LCS, greedy choice proofs, graph representations, BFS, DFS, and shortest paths (Dec 7-18).',
+        readings: 'Skiena Ch. 7-10; Canning, Broder & Lafore Ch. 14-15',
+        assignment: 'Quiz 2 (Dec 22-24)',
+        slides: []
+      },
+      {
+        code: 'W12-14',
+        weeks: '12-14',
+        title: 'Graph Algorithms, Dijkstra, A*, MSTs & Project Sprint',
+        summary: 'Dijkstra, Bellman-Ford, A* search on road networks, Prim and Kruskal MSTs, plus holiday project sprint and ICA 4 (Jan 14).',
+        readings: 'Canning, Broder & Lafore Ch. 14-15; CLRS Ch. 21-23',
+        assignment: 'ICA 4 (Thu Jan 14)',
+        slides: []
+      },
+      {
+        code: 'W15-17',
+        weeks: '15-17',
+        title: 'Spatial, Randomized & Parallel Algorithms; Project Vivas & Exams',
+        summary: 'Spatial trees, randomized algorithms, parallel primitives, pair project demonstrations, practical lab exam (Jan 28), and theory exam (Feb 1-5).',
+        readings: 'Canning, Broder & Lafore Ch. 12, 16; Skiena',
+        assignment: 'Practical Jan 28; Theory Feb 1-5',
+        slides: []
+      }
+    ],
     grading: [
-      { component: 'In-Class Lab Assignments', weight: 10, note: 'Seven biweekly lab tasks paired with complexity write-ups.' },
-      { component: 'Quizzes', weight: 30, note: 'Short in-class quizzes covering analysis proofs and data structures.' },
-      { component: 'Course Project', weight: 20, note: 'Benchmarked implementation and technical report on real datasets.' },
-      { component: 'End-Semester Examination', weight: 40, note: 'Practical and theoretical cumulative examination.' }
+      { component: 'Quiz 1', weight: 10, note: 'Nov 12-14 (institute window) · Written closed book covering Weeks 1-5 (Ch. 1-7).' },
+      { component: 'Quiz 2', weight: 10, note: 'Dec 22-24 (institute window) · Written closed book covering Weeks 7-11 (Trees, Hashing, Heaps, DP, Greedy).' },
+      { component: 'In-Class Assignments (4 ICAs)', weight: 12, note: 'Thu labs 2:00-2:45 PM (Oct 22, Nov 5, Dec 3, Jan 14) · Offline auto-tested coding.' },
+      { component: 'Weekly Labs', weight: 8, note: 'Every Thursday 2:00-4:40 PM · Best 9 of 11 graded weekly laboratory notebooks.' },
+      { component: 'Course Project (Pairs)', weight: 20, note: 'Nov 6 to Jan 28 · Pair engineering project with proposal, checkpoint, report, and viva.' },
+      { component: 'End-Semester Practical', weight: 20, note: 'Thu Jan 28 in lab (2 hr 40 min) · Offline coding examination across full course.' },
+      { component: 'End-Semester Theory', weight: 20, note: 'Feb 1-5 institute exam timetable · Comprehensive written closed-book examination.' }
     ],
     textbooks: [
       {
-        title: 'Data Structures and Algorithms in Python (1st ed.)',
-        authors: 'Robert Lafore, Ami Broder, and Jeremy Canning (Addison Wesley, 2022)',
-        role: 'Required'
+        title: 'Data Structures & Algorithms in Python',
+        authors: 'John Canning, Alan Broder, and Robert Lafore (Addison-Wesley, 2022)',
+        role: 'Required',
+        note: 'Core textbook followed chapter by chapter (Ch. 1-16).'
+      },
+      {
+        title: 'The Algorithm Design Manual (3rd ed.)',
+        authors: 'Steven S. Skiena (Springer, 2020)',
+        role: 'Reference',
+        note: 'Dynamic programming, greedy algorithms, A* search, and randomized methods.'
       },
       {
         title: 'Introduction to Algorithms (4th ed.)',
-        authors: 'Cormen, Leiserson, Rivest, and Stein (MIT Press, 2022)',
-        role: 'Reference'
-      },
-      {
-        title: 'The Algorithm Design Manual (2nd ed.)',
-        authors: 'Steven S. Skiena (Springer, 2008)',
-        role: 'Reference'
+        authors: 'Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein (MIT Press, 2022)',
+        role: 'Reference',
+        note: 'Optional full proofs and formal asymptotics reference.'
       }
     ],
     onlineResources: PDS_COMMON_RESOURCES,
-    software: ['Python 3.11+', 'Jupyter / Google Colab', 'pytest', 'perf / timeit', 'Git'],
-    policies: STANDARD_POLICIES,
+    software: ['Python 3.12+', 'VS Code', 'Jupyter / Google Colab', 'pytest', 'Git'],
+    policies: [
+      {
+        label: 'Attendance',
+        text: 'Attendance is expected at all four weekly lectures and Thursday labs. Bring a charged laptop to every session.'
+      },
+      {
+        label: 'Late Work',
+        text: 'Late submissions lose 10% per day and are not accepted after 3 days. Notify Dr. Nyalala before the deadline for emergencies.'
+      },
+      {
+        label: 'Academic Integrity',
+        text: 'Discussing ideas with classmates is encouraged; sharing or copying code is prohibited. You must be able to explain every line you submit.'
+      },
+      {
+        label: 'Use of AI Tools',
+        text: 'AI coding assistants may be used to clarify concepts and inspect error messages, not to generate submitted lab solutions, ICA code, or written proofs.'
+      }
+    ],
     links: {
       teachingSiteHome: `${TEACH_BASE}/z5007/index.html`,
-      syllabusPdf: '/syllabi/z2005-z5007-institute-outline.pdf',
+      syllabusPdf: `${TEACH_BASE}/z5007/syllabus/Z5007_Institute_Syllabus.pdf`,
       githubRepo: 'https://github.com/inyalala/iitmz-teaching-site/tree/main/courses/z5007',
       classroomUrl: ''
     }

@@ -188,11 +188,27 @@ const schemaCourse = {
                     <span class="res-pending">Verified slide PDFs, LaTeX notes (PDF), and lab files publishing from Classroom</span>
                   ) : (
                     <>
-                      {m.slides.map((sl) => (
-                        <a href={sl.href} target="_blank" rel="noopener" class="res-link">
-                          {sl.label} &#8599;
-                        </a>
-                      ))}
+                      {m.slides.map((sl) =>
+                        sl.kind === 'pptx' ? (
+                          <>
+                            <a
+                              href={`https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(sl.href)}`}
+                              target="_blank"
+                              rel="noopener"
+                              class="res-link res-accent"
+                            >
+                              Preview PPTX &#8599;
+                            </a>
+                            <a href={sl.href} target="_blank" rel="noopener" class="res-link">
+                              {sl.label} &#8599;
+                            </a>
+                          </>
+                        ) : (
+                          <a href={sl.href} target="_blank" rel="noopener" class="res-link">
+                            {sl.label} &#8599;
+                          </a>
+                        )
+                      )}
                       {m.labHref && (
                         <a href={m.labHref} target="_blank" rel="noopener" class="res-link res-accent">
                           Lab Sheet &#8599;
