@@ -57,6 +57,8 @@ const articleSchema = {
       '@id': `${pageUrl}#article`,
       headline: post.title,
       description: post.summary,
+      inLanguage: 'en-US',
+      keywords: post.tags.join(', '),
       datePublished: post.date,
       dateModified: post.date,
       author: { '@id': 'https://inyalala.github.io/#person' },
@@ -75,6 +77,8 @@ const articleSchema = {
     )
   ]
 };
+const tocHeadings = post.headings || [];
+const hasToc = tocHeadings.length >= 2;
 const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
   .sort((a, b) => (a.category === post.category ? -1 : 1) - (b.category === post.category ? -1 : 1) || b.date.localeCompare(a.date))
   .slice(0, 3);
@@ -133,13 +137,25 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
           </figure>
         )}
 
-        <nav id="articleToc" class="article-toc" aria-label="On this page" hidden>
-          <span class="mono-eyebrow">On This Page</span>
-          <ol id="articleTocList" class="toc-list"></ol>
-        </nav>
+        <div class:list={['essay-body-layout', hasToc ? 'has-toc' : '']}>
+          {hasToc && (
+            <nav id="articleToc" class="article-toc" aria-label="On this page">
+              <span class="mono-eyebrow">On This Page</span>
+              <ol id="articleTocList" class="toc-list">
+                {tocHeadings.map((h) => (
+                  <li class={h.depth === 3 ? 'toc-sub' : undefined}>
+                    <a href={`#${h.slug}`} class="toc-link">
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
 
-        <div class="prose-body">
-          <Content />
+          <div class="prose-body">
+            <Content />
+          </div>
         </div>
 
         {isAbcsPrimer && (
@@ -317,57 +333,28 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
       window.addEventListener('resize', updateBar, { passive: true });
       updateBar();
 
-      var tocNav = document.getElementById('articleToc');
-      var tocList = document.getElementById('articleTocList');
+      var tocLinks = document.querySelectorAll('#articleTocList .toc-link');
       var proseEl = document.querySelector('.prose-body');
-      if (tocNav && tocList && proseEl) {
-        var headings = Array.prototype.slice.call(proseEl.querySelectorAll('h2, h3'));
-        if (headings.length >= 2) {
-          var linksById = {};
-          var usedIds = {};
-          headings.forEach(function (h, idx) {
-            if (!h.id) {
-              var base = (h.textContent || 'section-' + (idx + 1))
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '') || ('sec-' + (idx + 1));
-              var candidate = base;
-              var n = 2;
-              while (usedIds[candidate] || document.getElementById(candidate)) {
-                candidate = base + '-' + n;
-                n += 1;
-              }
-              h.id = candidate;
-            }
-            usedIds[h.id] = true;
-            var li = document.createElement('li');
-            if (h.tagName === 'H3') li.className = 'toc-sub';
-            var a = document.createElement('a');
-            a.href = '#' + h.id;
-            a.className = 'toc-link';
-            a.textContent = h.textContent || '';
-            li.appendChild(a);
-            tocList.appendChild(li);
-            linksById[h.id] = a;
+      if (tocLinks.length && proseEl && 'IntersectionObserver' in window) {
+        var linksById = {};
+        tocLinks.forEach(function (a) {
+          var href = a.getAttribute('href') || '';
+          if (href.indexOf('#') === 0) linksById[href.slice(1)] = a;
+        });
+        var headings = Array.prototype.slice.call(proseEl.querySelectorAll('h2[id], h3[id]'));
+        var setCurrent = function (id) {
+          Object.keys(linksById).forEach(function (k) {
+            linksById[k].classList.toggle('is-active', k === id);
           });
-          tocNav.hidden = false;
-
-          if ('IntersectionObserver' in window) {
-            var setCurrent = function (id) {
-              Object.keys(linksById).forEach(function (k) {
-                linksById[k].classList.toggle('is-active', k === id);
-              });
-            };
-            var io = new IntersectionObserver(function (entries) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting && entry.target && entry.target.id) {
-                  setCurrent(entry.target.id);
-                }
-              });
-            }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
-            headings.forEach(function (h) { io.observe(h); });
-          }
-        }
+        };
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && entry.target && entry.target.id) {
+              setCurrent(entry.target.id);
+            }
+          });
+        }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+        headings.forEach(function (h) { io.observe(h); });
       }
     })();
   </script>
@@ -454,15 +441,15 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     color: var(--text-muted);
   }
 
+  .essay-body-layout {
+    display: block;
+  }
   .article-toc {
     max-width: 68ch;
     border-top: 1px solid var(--rule-strong);
     border-bottom: 1px solid var(--rule);
     padding: 0.95rem 0 1.05rem;
     margin-bottom: 1.75rem;
-  }
-  .article-toc[hidden] {
-    display: none;
   }
   .toc-list {
     list-style: none;
@@ -472,10 +459,10 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.35rem 1.25rem;
   }
-  .toc-list :global(li.toc-sub) {
+  .toc-list li.toc-sub {
     padding-left: 0.85rem;
   }
-  .toc-list :global(.toc-link) {
+  .toc-link {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text-secondary);
@@ -485,11 +472,37 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
     display: inline-block;
     line-height: 1.4;
   }
-  .toc-list :global(.toc-link:hover),
-  .toc-list :global(.toc-link.is-active) {
+  .toc-link:hover,
+  .toc-link.is-active {
     color: var(--accent-forest);
     border-left-color: var(--accent-forest);
     font-weight: 500;
+  }
+  @media (min-width: 1320px) {
+    .essay-body-layout.has-toc {
+      display: grid;
+      grid-template-columns: minmax(0, 68ch) minmax(200px, 1fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .essay-body-layout.has-toc .prose-body {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .essay-body-layout.has-toc .article-toc {
+      grid-column: 2;
+      grid-row: 1;
+      position: sticky;
+      top: 2rem;
+      margin-bottom: 0;
+      padding: 0.85rem 0 0.85rem 0.9rem;
+      border-top: none;
+      border-bottom: none;
+      border-left: 1px solid var(--rule);
+    }
+    .essay-body-layout.has-toc .toc-list {
+      grid-template-columns: 1fr;
+    }
   }
   @media (max-width: 680px) {
     .toc-list {
@@ -513,6 +526,7 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
   .prose-body :global(h3) {
     font-size: 1.28rem;
     margin: 1.45rem 0 0.55rem;
+    scroll-margin-top: 28px;
   }
   .prose-body :global(p) {
     margin-bottom: 1.1rem;
@@ -926,6 +940,7 @@ const relatedPosts = WRITING_POSTS.filter((p) => p.slug !== post.slug)
   }
   @media (max-width: 1020px) {
     .prose-body :global(h2),
+    .prose-body :global(h3),
     .abc-card {
       scroll-margin-top: calc(var(--mobile-bar-height) + 18px);
     }

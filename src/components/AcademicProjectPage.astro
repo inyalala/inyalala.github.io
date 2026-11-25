@@ -1,9 +1,11 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MonographRail from './MonographRail.astro';
+import SiteFooter from './SiteFooter.astro';
 import type { PriorPaper } from '../data/prior-papers';
 import { PRIOR_COMPANIONS, PHD_CHAPTER_SLUGS, getImageDims } from '../data/prior-papers';
 import { fitAtWord } from '../data/text-utils';
-import { breadcrumbList, personEntity, websiteEntity } from '../data/schema';
-import CommandPalette from './CommandPalette.astro';
+import { breadcrumbList, personEntity, webPageEntity, websiteEntity } from '../data/schema';
 
 export interface Props {
   pub: PriorPaper;
@@ -44,12 +46,6 @@ const rawTitlePart = pub.shortTitle || fitAtWord(pub.title, 41);
 const pageTitleBase = rawTitlePart.length <= 41 ? rawTitlePart : fitAtWord(rawTitlePart, 41);
 const seoTitle = `${pageTitleBase} | Innocent Nyalala`;
 const seoDesc = fitAtWord(pub.tldr || pub.abstract, 155);
-const ogImgLower = ogImageUrl.toLowerCase();
-const ogImageMime = ogImgLower.endsWith('.webp')
-  ? 'image/webp'
-  : ogImgLower.endsWith('.png')
-    ? 'image/png'
-    : 'image/jpeg';
 
 const bibJournal = extractBibField(pub.bibtex, 'journal');
 const bibBooktitle = extractBibField(pub.bibtex, 'booktitle');
@@ -57,32 +53,9 @@ const bibVolume = extractBibField(pub.bibtex, 'volume');
 const bibNumber = extractBibField(pub.bibtex, 'number');
 const bibPages = extractBibField(pub.bibtex, 'pages');
 const scholarPubDate = (pub.dateISO || String(pub.year)).replace(/-/g, '/');
-
 const keywordsMeta = [...(pub.keywords || []), 'Innocent Nyalala', 'Nanjing Agricultural University', 'Agricultural AI', 'Computer Vision'].join(', ');
-const authorsMeta = pub.authors.map((a) => a.name).join(', ');
-const headMetaLines: string[] = [
-  `<meta name="description" content="${escapeHtmlAttr(seoDesc)}" />`,
-  `<meta name="keywords" content="${escapeHtmlAttr(keywordsMeta)}" />`,
-  `<meta name="author" content="${escapeHtmlAttr(authorsMeta)}" />`,
-  `<link rel="canonical" href="${escapeHtmlAttr(canonicalUrl)}" />`,
-  `<link rel="alternate" hreflang="en" href="${escapeHtmlAttr(canonicalUrl)}" />`,
-  `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
-  `<meta name="theme-color" content="#1B3B2F" />`,
-  `<meta property="og:type" content="article" />`,
-  `<meta property="og:locale" content="en_US" />`,
-  `<meta property="og:title" content="${escapeHtmlAttr(seoTitle)}" />`,
-  `<meta property="og:description" content="${escapeHtmlAttr(seoDesc)}" />`,
-  `<meta property="og:url" content="${escapeHtmlAttr(canonicalUrl)}" />`,
-  `<meta property="og:site_name" content="Innocent Nyalala | Personal Research Archive" />`,
-  `<meta property="og:image" content="${escapeHtmlAttr(ogImageUrl)}" />`,
-  `<meta property="og:image:type" content="${ogImageMime}" />`,
-  `<meta property="og:image:width" content="${ogImgW}" />`,
-  `<meta property="og:image:height" content="${ogImgH}" />`,
-  `<meta property="og:image:alt" content="${escapeHtmlAttr(pub.title)}" />`,
-  `<meta name="twitter:card" content="summary_large_image" />`,
-  `<meta name="twitter:title" content="${escapeHtmlAttr(seoTitle)}" />`,
-  `<meta name="twitter:description" content="${escapeHtmlAttr(seoDesc)}" />`,
-  `<meta name="twitter:image" content="${escapeHtmlAttr(ogImageUrl)}" />`,
+
+const scholarMetaLines: string[] = [
   `<meta name="citation_title" content="${escapeHtmlAttr(pub.title)}" />`,
   ...pub.authors.map((a) => `<meta name="citation_author" content="${escapeHtmlAttr(a.name)}" />`),
   ...pub.affiliations.map((aff) => `<meta name="citation_author_institution" content="${escapeHtmlAttr(aff)}" />`),
@@ -90,25 +63,25 @@ const headMetaLines: string[] = [
   `<meta name="citation_public_url" content="${escapeHtmlAttr(canonicalUrl)}" />`,
   `<meta name="citation_language" content="en" />`,
   `<meta name="citation_abstract" content="${escapeHtmlAttr(pub.abstract)}" />`,
-  `<meta name="citation_keywords" content="${escapeHtmlAttr((pub.keywords || []).join('; '))}" />`,
+  `<meta name="citation_keywords" content="${escapeHtmlAttr((pub.keywords || []).join('; '))}" />`
 ];
-if (bibJournal) headMetaLines.push(`<meta name="citation_journal_title" content="${escapeHtmlAttr(bibJournal)}" />`);
-else if (bibBooktitle) headMetaLines.push(`<meta name="citation_conference_title" content="${escapeHtmlAttr(bibBooktitle)}" />`);
-if (bibVolume) headMetaLines.push(`<meta name="citation_volume" content="${escapeHtmlAttr(bibVolume)}" />`);
-if (bibNumber) headMetaLines.push(`<meta name="citation_issue" content="${escapeHtmlAttr(bibNumber)}" />`);
+if (bibJournal) scholarMetaLines.push(`<meta name="citation_journal_title" content="${escapeHtmlAttr(bibJournal)}" />`);
+else if (bibBooktitle) scholarMetaLines.push(`<meta name="citation_conference_title" content="${escapeHtmlAttr(bibBooktitle)}" />`);
+if (bibVolume) scholarMetaLines.push(`<meta name="citation_volume" content="${escapeHtmlAttr(bibVolume)}" />`);
+if (bibNumber) scholarMetaLines.push(`<meta name="citation_issue" content="${escapeHtmlAttr(bibNumber)}" />`);
 if (bibPages) {
   const parts = bibPages.split(/--|-/).map((s) => s.trim()).filter(Boolean);
-  if (parts[0]) headMetaLines.push(`<meta name="citation_firstpage" content="${escapeHtmlAttr(parts[0])}" />`);
-  if (parts[1]) headMetaLines.push(`<meta name="citation_lastpage" content="${escapeHtmlAttr(parts[1])}" />`);
+  if (parts[0]) scholarMetaLines.push(`<meta name="citation_firstpage" content="${escapeHtmlAttr(parts[0])}" />`);
+  if (parts[1]) scholarMetaLines.push(`<meta name="citation_lastpage" content="${escapeHtmlAttr(parts[1])}" />`);
 }
 if (cleanDoi) {
-  headMetaLines.push(`<meta name="citation_doi" content="${escapeHtmlAttr(cleanDoi)}" />`);
+  scholarMetaLines.push(`<meta name="citation_doi" content="${escapeHtmlAttr(cleanDoi)}" />`);
 }
 if (pub.pdfUrl) {
   const fullPdfUrl = pub.pdfUrl.startsWith('http') ? pub.pdfUrl : `https://inyalala.github.io${pub.pdfUrl}`;
-  headMetaLines.push(`<meta name="citation_pdf_url" content="${escapeHtmlAttr(fullPdfUrl)}" />`);
+  scholarMetaLines.push(`<meta name="citation_pdf_url" content="${escapeHtmlAttr(fullPdfUrl)}" />`);
 }
-const headMetaHtml = headMetaLines.join('\n  ');
+const headScholarHtml = scholarMetaLines.join('\n  ');
 
 const rawUsedIndices: number[] = [];
 pub.authors.forEach((a) => {
@@ -178,7 +151,7 @@ const jumpSections: { id: string; label: string }[] = [
         ? sec.title.split(':')[0].trim()
         : sec.title
   })),
-  { id: 'bibtex', label: 'BibTeX' }
+  { id: 'bibtex', label: 'Citation' }
 ];
 
 const jsonLdGraph = {
@@ -186,6 +159,13 @@ const jsonLdGraph = {
   '@graph': [
     personEntity(),
     websiteEntity(),
+    webPageEntity({
+      url: canonicalUrl,
+      name: seoTitle,
+      description: seoDesc,
+      breadcrumbId: `${canonicalUrl}#breadcrumb`,
+      mainEntityId: `${canonicalUrl}#work`
+    }),
     {
       '@type': isThesis ? 'Thesis' : 'ScholarlyArticle',
       '@id': `${canonicalUrl}#work`,
@@ -219,120 +199,92 @@ const jsonLdGraph = {
 };
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{seoTitle}</title>
-  <Fragment set:html={headMetaHtml} />
-  <link rel="icon" href="/favicon.ico" sizes="48x48" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <link rel="alternate" type="application/rss+xml" title="Innocent Nyalala - Writing, News & Updates" href="/feed.xml" />
-  <link rel="alternate" type="text/plain" title="Innocent Nyalala LLMs Index" href="/llms.txt" />
+<BaseLayout
+  title={seoTitle}
+  description={seoDesc}
+  canonical={canonicalUrl}
+  ogImage={ogImageUrl}
+  ogImageAlt={pub.title}
+  ogImageWidth={ogImgW}
+  ogImageHeight={ogImgH}
+  ogType="article"
+  publishedTime={pub.dateISO || String(pub.year)}
+  tags={pub.topics}
+  keywords={keywordsMeta}
+>
+  <Fragment slot="head">
+    <Fragment set:html={headScholarHtml} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
+  </Fragment>
 
-  <link rel="preload" href="/fonts/cormorant-garamond-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/newsreader-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/ibm-plex-mono-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/fonts/fonts.css" />
+  <MonographRail currentPage="publications" />
 
-  <script is:inline>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    })();
-  </script>
-
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
-</head>
-<body>
   <div id="paperProgressBar" class="paper-progress-bar" aria-hidden="true"></div>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- More Works Dropdown, Quick Search & Day/Night Switcher: Strictly Scoped to the 23 Pre-SAAIL Works & Theses (2015-2024) -->
-  <div class="more-works-container">
-    <button
-      type="button"
-      class="more-works-btn js-open-cmd"
-      aria-label="Search site (Ctrl+K)"
-      title="Search (Ctrl+K)"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" />
-        <path d="M21 21l-4.35-4.35" />
-      </svg>
-      <span>Search</span>
-    </button>
-    <button
-      id="paperThemeToggle"
-      type="button"
-      class="more-works-btn paper-theme-btn"
-      aria-label="Switch color theme"
-      aria-pressed="false"
-    >
-      <span id="paperThemeLabel">Night</span>
-    </button>
-    <button
-      id="moreWorksBtn"
-      type="button"
-      class="more-works-btn"
-      aria-expanded="false"
-      aria-controls="moreWorksDropdown"
-      title="Browse Pre-SAAIL Publications &amp; Theses (2015-2024)"
-    >
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-      </svg>
-      <span>More Works ({PRIOR_COMPANIONS.length})</span>
-      <svg id="moreWorksChevron" class="dropdown-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-        <path d="M6 9l6 6 6-6"/>
-      </svg>
-    </button>
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/publications/">Publications</a>
+        <span>/</span>
+        <a href="/publications/?filter=all">Pre-SAAIL Archive</a>
+        <span>/</span>
+        <span aria-current="page">{pub.shortTitle || fitAtWord(pub.title, 44)}</span>
+      </nav>
 
-    <div id="moreWorksDropdown" class="more-works-dropdown" hidden>
-      <div class="dropdown-head">
-        <span>Pre-SAAIL Works &amp; Theses ({PRIOR_COMPANIONS.length})</span>
-        <button id="closeMoreWorks" type="button" class="close-btn" aria-label="Close">&times;</button>
-      </div>
-      <div class="dropdown-links">
-        <a href="/publications/" class="dropdown-item dropdown-home-link">
-          <span class="item-kicker">&larr; Main Faculty Website</span>
-          <span class="item-title">All Publications &amp; Thesis Index</span>
-        </a>
-        {PRIOR_COMPANIONS.map((item) => {
-          const kickerLabel = item.venueShort.includes(String(item.year))
-            ? item.venueShort
-            : `${item.venueShort} · ${item.year}`;
-          const isCurrent = item.slug === pub.slug;
-          return (
-            <a
-              href={`/papers/${item.slug}/`}
-              class:list={['dropdown-item', { 'dropdown-item-active': isCurrent }]}
-              aria-current={isCurrent ? 'page' : undefined}
+      <header class="page-masthead paper-masthead">
+        <div class="masthead-top-row">
+          <span class="mono-eyebrow">{pub.venueShort} &middot; {isThesis ? 'Degree Monograph' : 'Archival Paper'}</span>
+          <div class="more-works-dock">
+            <button
+              id="moreWorksBtn"
+              type="button"
+              class="more-works-btn"
+              aria-expanded="false"
+              aria-controls="moreWorksDropdown"
+              title="Browse Pre-SAAIL Publications & Theses (2015-2024)"
             >
-              <span class="item-kicker">{kickerLabel}{isCurrent ? ' · Current' : ''}</span>
-              <span class="item-title">{item.shortTitle || item.title}</span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span>More Works ({PRIOR_COMPANIONS.length})</span>
+              <svg id="moreWorksChevron" class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
 
-  <main id="main-content">
-    <header class="paper-hero">
-      <div class="container-desktop">
-        <h1 class="paper-title">{pub.title}</h1>
+            <div id="moreWorksDropdown" class="more-works-dropdown" hidden>
+              <div class="dropdown-head">
+                <span>Pre-SAAIL Works &amp; Theses ({PRIOR_COMPANIONS.length})</span>
+                <button id="closeMoreWorks" type="button" class="close-btn" aria-label="Close">&times;</button>
+              </div>
+              <div class="dropdown-links">
+                <a href="/publications/" class="dropdown-item dropdown-home-link">
+                  <span class="item-kicker">&larr; All Cataloged Works</span>
+                  <span class="item-title">Full Publications &amp; Thesis Index</span>
+                </a>
+                {PRIOR_COMPANIONS.map((item) => {
+                  const kickerLabel = item.venueShort.includes(String(item.year))
+                    ? item.venueShort
+                    : `${item.venueShort} · ${item.year}`;
+                  const isCurrent = item.slug === pub.slug;
+                  return (
+                    <a
+                      href={`/papers/${item.slug}/`}
+                      class:list={['dropdown-item', { 'dropdown-item-active': isCurrent }]}
+                      aria-current={isCurrent ? 'page' : undefined}
+                    >
+                      <span class="item-kicker">{kickerLabel}{isCurrent ? ' · Current' : ''}</span>
+                      <span class="item-title">{item.shortTitle || item.title}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="page-title">{pub.title}</h1>
 
         <div class="authors-row">
           {pub.authors.map((author, idx) => {
@@ -369,60 +321,48 @@ const jsonLdGraph = {
         {pub.award && <div class="award-line">{pub.award}</div>}
 
         <nav class="action-buttons" aria-label={isThesis ? 'Monograph resources' : 'Paper resources'}>
-          <a href="/publications/" class="action-pill action-pill-outline">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M19 12H5"/>
-              <polyline points="12 19 5 12 12 5"/>
-            </svg>
-            <span>Personal Site</span>
-          </a>
+          <a href="/publications/" class="btn-mono-outline">&larr; All Publications</a>
           {isThesis && (
-            <a href={`/publications/theses/${thesisRouteSlug}/`} class="action-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-              </svg>
-              <span>Monograph Record</span>
+            <a href={`/publications/theses/${thesisRouteSlug}/`} class="btn-mono">
+              Monograph Record &rarr;
             </a>
           )}
           {!isThesis && isPhdChapter && (
-            <a href="/papers/phd-dissertation-2023/" class="action-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              </svg>
-              <span>Ph.D. Dissertation</span>
+            <a href="/papers/phd-dissertation-2023/" class="btn-mono-outline">
+              Ph.D. Dissertation &rarr;
             </a>
           )}
           {doiUrl && (
-            <a href={doiUrl} target="_blank" rel="noopener" class="action-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
-              <span>DOI</span>
+            <a href={doiUrl} target="_blank" rel="noopener" class="btn-mono">
+              DOI &#8599;
+            </a>
+          )}
+          {pub.pdfUrl && (
+            <a href={pub.pdfUrl} target="_blank" rel="noopener" class="btn-mono-outline">
+              Publisher PDF &#8599;
             </a>
           )}
         </nav>
-      </div>
-    </header>
+      </header>
 
-    {jumpSections.length >= 2 && (
-      <nav class="section-jump-nav" aria-label="Monograph sections">
-        <div class="container-desktop section-jump-inner">
+      {jumpSections.length >= 2 && (
+        <nav class="section-jump-nav" aria-label="Paper sections">
           {jumpSections.map((sec) => (
             <a href={`#${sec.id}`} class="jump-link">{sec.label}</a>
           ))}
-        </div>
-      </nav>
-    )}
+        </nav>
+      )}
 
-    <section class:list={['teaser-section', { 'teaser-compact': !pub.teaserImage }]}>
-      <div class="container-desktop">
+      <section class:list={['teaser-section', { 'teaser-compact': !pub.teaserImage }]}>
         {pub.teaserImage && teaserDims && (
           <figure class="teaser-figure">
-            <button type="button" class="zoom-trigger" aria-label={`View full size: ${pub.title}`}>
+            <button
+              type="button"
+              class="zoom-trigger"
+              data-zoom-src={pub.teaserImage}
+              data-zoom-alt={pub.title}
+              aria-label={`View full size: ${pub.title}`}
+            >
               <img
                 src={pub.teaserImage}
                 alt={pub.title}
@@ -436,31 +376,31 @@ const jsonLdGraph = {
           </figure>
         )}
         <p class="teaser-summary">{teaserSummaryText}</p>
-      </div>
-    </section>
+      </section>
 
-    <section id="abstract" class="section-band">
-      <div class="container-desktop">
-        <div class="section-title-block section-title-left">
-          <h2>Abstract</h2>
-        </div>
+      <section id="abstract" class="rule-section">
+        <span class="mono-eyebrow">Abstract</span>
+        <h2 class="section-h">Summary</h2>
         <div class="abstract-prose">
           <p>{pub.abstract}</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {bodyFigs.map((fig, idx) => {
-      const heading = fig.title || (idx === 0 ? (pub.figureHeading || 'Methodology & Analysis') : `Analysis ${idx + 1}`);
-      const fd = getImageDims(fig.src);
-      return (
-        <section id={idx === 0 ? 'methodology' : `analysis-${idx + 1}`} class="section-band">
-          <div class="container-desktop">
-            <div class="section-title-block section-title-left">
-              <h2>{heading}</h2>
-            </div>
+      {bodyFigs.map((fig, idx) => {
+        const heading = fig.title || (idx === 0 ? (pub.figureHeading || 'Methodology & Analysis') : `Analysis ${idx + 1}`);
+        const fd = getImageDims(fig.src);
+        return (
+          <section id={idx === 0 ? 'methodology' : `analysis-${idx + 1}`} class="rule-section">
+            <span class="mono-eyebrow">Figure {idx + 1}</span>
+            <h2 class="section-h" style="margin-bottom: 1.15rem;">{heading}</h2>
             <figure class="analysis-figure">
-              <button type="button" class="zoom-trigger" aria-label={`View full size: ${fig.alt || fig.caption}`}>
+              <button
+                type="button"
+                class="zoom-trigger"
+                data-zoom-src={fig.src}
+                data-zoom-alt={fig.alt || fig.caption}
+                aria-label={`View full size: ${fig.alt || fig.caption}`}
+              >
                 <img
                   src={fig.src}
                   alt={fig.alt || fig.caption}
@@ -473,17 +413,14 @@ const jsonLdGraph = {
               </button>
               <figcaption class="figure-prose">{fig.caption}</figcaption>
             </figure>
-          </div>
-        </section>
-      );
-    })}
+          </section>
+        );
+      })}
 
-    {hasResults && (
-      <section id="results" class="section-band">
-        <div class="container-desktop">
-          <div class="section-title-block section-title-left">
-            <h2>Results</h2>
-          </div>
+      {hasResults && (
+        <section id="results" class="rule-section">
+          <span class="mono-eyebrow">Quantitative Findings</span>
+          <h2 class="section-h" style="margin-bottom: 1.15rem;">Results</h2>
 
           {resultsNarrative && <p class="section-prose">{resultsNarrative}</p>}
 
@@ -491,7 +428,13 @@ const jsonLdGraph = {
             const rfd = getImageDims(resultsFig.src);
             return (
               <figure class="analysis-figure results-figure">
-                <button type="button" class="zoom-trigger" aria-label={`View full size: ${resultsFig.alt || resultsFig.caption}`}>
+                <button
+                  type="button"
+                  class="zoom-trigger"
+                  data-zoom-src={resultsFig.src}
+                  data-zoom-alt={resultsFig.alt || resultsFig.caption}
+                  aria-label={`View full size: ${resultsFig.alt || resultsFig.caption}`}
+                >
                   <img
                     src={resultsFig.src}
                     alt={resultsFig.alt || resultsFig.caption}
@@ -539,154 +482,150 @@ const jsonLdGraph = {
               ))}
             </div>
           )}
-        </div>
-      </section>
-    )}
-
-    {extraDetails.map((sec) => {
-      return (
-        <section id={sec.id} class="section-band">
-          <div class="container-desktop">
-            <div class="section-title-block section-title-left">
-              <h2>{sec.title}</h2>
-            </div>
-
-            {sec.paragraphs && sec.paragraphs.map((p) => <p class="section-prose">{p}</p>)}
-
-            {sec.figure && (() => {
-              const sfd = getImageDims(sec.figure.src);
-              return (
-                <figure class="analysis-figure results-figure">
-                  <button type="button" class="zoom-trigger" aria-label={`View full size: ${sec.figure.alt || sec.figure.caption}`}>
-                    <img
-                      src={sec.figure.src}
-                      alt={sec.figure.alt || sec.figure.caption}
-                      width={sfd.width}
-                      height={sfd.height}
-                      class="analysis-img zoomable-img"
-                      loading="lazy"
-                    />
-                    <span class="zoom-cue" aria-hidden="true">Zoom</span>
-                  </button>
-                  <figcaption class="figure-prose">{sec.figure.caption}</figcaption>
-                </figure>
-              );
-            })()}
-
-            {sec.figures && sec.figures.length > 0 && (
-              <div class:list={['detail-figures-grid', { 'detail-figures-single': sec.figures.length === 1 }]}>
-                {sec.figures.map((fig) => {
-                  const dfd = getImageDims(fig.src);
-                  return (
-                    <figure class="detail-fig-card">
-                      <button type="button" class="zoom-trigger" aria-label={`View full size: ${fig.alt || fig.caption}`}>
-                        <img
-                          src={fig.src}
-                          alt={fig.alt || fig.caption}
-                          width={dfd.width}
-                          height={dfd.height}
-                          class="detail-fig-img zoomable-img"
-                          loading="lazy"
-                        />
-                        <span class="zoom-cue" aria-hidden="true">Zoom</span>
-                      </button>
-                      <figcaption class="detail-fig-caption">
-                        {fig.title && <strong>{fig.title}: </strong>}{fig.caption}
-                      </figcaption>
-                    </figure>
-                  );
-                })}
-              </div>
-            )}
-
-            {sec.table && (
-              <div class="table-block">
-                <div class="table-header-text">
-                  <h3>{sec.table.title}</h3>
-                  {sec.table.caption && <p>{sec.table.caption}</p>}
-                </div>
-                <div class="table-scroll">
-                  <table>
-                    <thead>
-                      <tr>
-                        {sec.table.headers.map((h) => <th>{h}</th>)}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sec.table.rows.map((row) => (
-                        <tr>
-                          {row.map((cell) => <td>{cell}</td>)}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-          </div>
         </section>
-      );
-    })}
+      )}
 
-    <section id="bibtex" class="section-band">
-      <div class="container-desktop">
+      {extraDetails.map((sec) => (
+        <section id={sec.id} class="rule-section">
+          <span class="mono-eyebrow">Detailed Study Record</span>
+          <h2 class="section-h" style="margin-bottom: 1.15rem;">{sec.title}</h2>
+
+          {sec.paragraphs && sec.paragraphs.map((p) => <p class="section-prose">{p}</p>)}
+
+          {sec.figure && (() => {
+            const sfd = getImageDims(sec.figure.src);
+            return (
+              <figure class="analysis-figure results-figure">
+                <button
+                  type="button"
+                  class="zoom-trigger"
+                  data-zoom-src={sec.figure.src}
+                  data-zoom-alt={sec.figure.alt || sec.figure.caption}
+                  aria-label={`View full size: ${sec.figure.alt || sec.figure.caption}`}
+                >
+                  <img
+                    src={sec.figure.src}
+                    alt={sec.figure.alt || sec.figure.caption}
+                    width={sfd.width}
+                    height={sfd.height}
+                    class="analysis-img zoomable-img"
+                    loading="lazy"
+                  />
+                  <span class="zoom-cue" aria-hidden="true">Zoom</span>
+                </button>
+                <figcaption class="figure-prose">{sec.figure.caption}</figcaption>
+              </figure>
+            );
+          })()}
+
+          {sec.figures && sec.figures.length > 0 && (
+            <div class:list={['detail-figures-grid', { 'detail-figures-single': sec.figures.length === 1 }]}>
+              {sec.figures.map((fig) => {
+                const dfd = getImageDims(fig.src);
+                return (
+                  <figure class="detail-fig-card">
+                    <button
+                      type="button"
+                      class="zoom-trigger"
+                      data-zoom-src={fig.src}
+                      data-zoom-alt={fig.alt || fig.caption}
+                      aria-label={`View full size: ${fig.alt || fig.caption}`}
+                    >
+                      <img
+                        src={fig.src}
+                        alt={fig.alt || fig.caption}
+                        width={dfd.width}
+                        height={dfd.height}
+                        class="detail-fig-img zoomable-img"
+                        loading="lazy"
+                      />
+                      <span class="zoom-cue" aria-hidden="true">Zoom</span>
+                    </button>
+                    <figcaption class="detail-fig-caption">
+                      {fig.title && <strong>{fig.title}: </strong>}{fig.caption}
+                    </figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+          )}
+
+          {sec.table && (
+            <div class="table-block">
+              <div class="table-header-text">
+                <h3>{sec.table.title}</h3>
+                {sec.table.caption && <p>{sec.table.caption}</p>}
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      {sec.table.headers.map((h) => <th>{h}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sec.table.rows.map((row) => (
+                      <tr>
+                        {row.map((cell) => <td>{cell}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </section>
+      ))}
+
+      <section id="bibtex" class="rule-section">
         <div class="bibtex-header">
-          <h2>Citation</h2>
+          <div>
+            <span class="mono-eyebrow">Reference Formats</span>
+            <h2 class="section-h">Citation</h2>
+          </div>
           <div class="bibtex-actions">
             {pub.apa && (
-              <button type="button" id="copyApaBtn" class="copy-bibtex-btn copy-apa-btn" data-apa={pub.apa} title="Copy APA 7th citation">
-                <span>Copy APA 7th</span>
+              <button type="button" id="copyApaBtn" class="btn-mono-outline" data-apa={pub.apa} title="Copy APA 7th citation">
+                Copy APA 7th
               </button>
             )}
-            <button type="button" id="copyBibBtn" class="copy-bibtex-btn" data-copy-target="bibtexCode" title="Copy BibTeX to clipboard">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-              </svg>
-              <span>Copy BibTeX</span>
+            <button type="button" id="copyBibBtn" class="btn-mono" data-copy-target="bibtexCode" title="Copy BibTeX to clipboard">
+              Copy BibTeX
             </button>
           </div>
         </div>
         <pre id="bibtex-code" class="bibtex-pre"><code id="bibtexCode">{pub.bibtex}</code></pre>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer class="project-footer">
-    <div class="container-desktop">
-      <div class="footer-content">
-        <p>
-          Pre-SAAIL archival project page hosted on <a href="https://inyalala.github.io/">Innocent Nyalala&rsquo;s Personal Site</a>, licensed under <a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
-        </p>
+    <SiteFooter />
+  </div>
+
+  <div id="imgLightbox" class="img-lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lightboxCaption">
+    <div class="lb-backdrop"></div>
+    <div class="lb-topbar">
+      <span id="lbCounter" class="lb-counter tabular-nums">1 / 1</span>
+      <div class="lb-controls">
+        <button id="prevLightbox" type="button" class="lb-nav-btn" aria-label="Previous figure">&larr; Prev</button>
+        <button id="nextLightbox" type="button" class="lb-nav-btn" aria-label="Next figure">Next &rarr;</button>
+        <button id="closeLightbox" type="button" class="lightbox-close" aria-label="Close enlarged view">&times;</button>
       </div>
     </div>
-  </footer>
-
-  <CommandPalette />
-  <div id="monoToast" class="mono-toast" role="status" aria-live="polite" hidden></div>
-
-  <div id="imgLightbox" class="img-lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure preview">
-    <button id="closeLightbox" type="button" class="lightbox-close" aria-label="Close enlarged view">&times;</button>
-    <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged figure preview" width="1200" height="900" />
+    <figure class="lb-figure">
+      <img
+        id="lightboxImg"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        alt="Enlarged figure preview"
+        width="1200"
+        height="900"
+      />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
   </div>
 
   <script is:inline>
     (function () {
-      var toastTimer = null;
-      window.__showMonoToast = function (msg) {
-        var toast = document.getElementById('monoToast');
-        if (!toast || !msg) return;
-        toast.textContent = msg;
-        toast.hidden = false;
-        toast.classList.add('is-visible');
-        if (toastTimer) clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () {
-          toast.classList.remove('is-visible');
-          setTimeout(function () { toast.hidden = true; }, 180);
-        }, 2200);
-      };
-
-      const pBar = document.getElementById('paperProgressBar');
+      var pBar = document.getElementById('paperProgressBar');
       function updatePaperProgress() {
         if (!pBar) return;
         var docH = document.documentElement.scrollHeight - window.innerHeight;
@@ -696,33 +635,15 @@ const jsonLdGraph = {
       window.addEventListener('scroll', updatePaperProgress, { passive: true });
       updatePaperProgress();
 
-      const tBtn = document.getElementById('paperThemeToggle');
-      const tLbl = document.getElementById('paperThemeLabel');
-      function syncPaperTheme() {
-        var dark = (document.documentElement.getAttribute('data-theme') || 'light') === 'dark';
-        if (tBtn) tBtn.setAttribute('aria-pressed', String(dark));
-        if (tLbl) tLbl.textContent = dark ? 'Day' : 'Night';
-      }
-      syncPaperTheme();
-      if (tBtn) {
-        tBtn.addEventListener('click', function () {
-          var next = (document.documentElement.getAttribute('data-theme') || 'light') === 'dark' ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', next);
-          try { localStorage.setItem('theme', next); } catch (e) {}
-          syncPaperTheme();
-        });
-      }
-
-      const btn = document.getElementById('moreWorksBtn');
-      const dropdown = document.getElementById('moreWorksDropdown');
-      const closeBtn = document.getElementById('closeMoreWorks');
-      const chevron = document.getElementById('moreWorksChevron');
+      var btn = document.getElementById('moreWorksBtn');
+      var dropdown = document.getElementById('moreWorksDropdown');
+      var closeBtn = document.getElementById('closeMoreWorks');
+      var chevron = document.getElementById('moreWorksChevron');
 
       function setOpen(open) {
         if (!btn || !dropdown) return;
         dropdown.hidden = !open;
         btn.setAttribute('aria-expanded', String(open));
-        document.body.classList.toggle('more-works-open', open);
         if (chevron) {
           chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
         }
@@ -746,26 +667,49 @@ const jsonLdGraph = {
         });
       }
 
-      const lightbox = document.getElementById('imgLightbox');
-      const lightboxImg = document.getElementById('lightboxImg');
-      const closeLightbox = document.getElementById('closeLightbox');
-      let lastFocusEl = null;
+      var lightbox = document.getElementById('imgLightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var lightboxCap = document.getElementById('lightboxCaption');
+      var lbCounter = document.getElementById('lbCounter');
+      var prevLb = document.getElementById('prevLightbox');
+      var nextLb = document.getElementById('nextLightbox');
+      var closeLightbox = document.getElementById('closeLightbox');
+      var lbBackdrop = lightbox && lightbox.querySelector('.lb-backdrop');
+      var triggers = Array.prototype.slice.call(document.querySelectorAll('.zoom-trigger'));
+      var lbIdx = 0;
+      var lastFocusEl = null;
+      var blankSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
       function setBackgroundInert(active) {
-        document.querySelectorAll('main, footer, .more-works-container').forEach(function (el) {
-          el.inert = active;
+        document.querySelectorAll('.monograph-rail, .mobile-header, .monograph-canvas, #backToTop, .skip-link').forEach(function (el) {
+          if (active) el.setAttribute('inert', '');
+          else el.removeAttribute('inert');
         });
       }
 
-      function openLightbox(triggerEl, imgEl) {
-        if (!lightbox || !lightboxImg || !imgEl) return;
+      function showSlide(idx) {
+        if (!triggers.length || !lightboxImg) return;
+        lbIdx = (idx + triggers.length) % triggers.length;
+        var trg = triggers[lbIdx];
+        var imgEl = trg.querySelector('img');
+        var src = trg.getAttribute('data-zoom-src') || (imgEl && imgEl.src) || blankSrc;
+        var alt = trg.getAttribute('data-zoom-alt') || (imgEl && imgEl.alt) || 'Figure';
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        if (lightboxCap) lightboxCap.textContent = alt;
+        if (lbCounter) lbCounter.textContent = (lbIdx + 1) + ' / ' + triggers.length;
+        if (prevLb) prevLb.disabled = triggers.length <= 1;
+        if (nextLb) nextLb.disabled = triggers.length <= 1;
+      }
+
+      function openLightbox(triggerEl, startIdx) {
+        if (!lightbox) return;
         lastFocusEl = triggerEl;
-        lightboxImg.src = imgEl.src;
-        lightboxImg.alt = imgEl.alt || 'Figure';
+        showSlide(startIdx);
         lightbox.hidden = false;
         setBackgroundInert(true);
         document.body.style.overflow = 'hidden';
-        if (closeLightbox) closeLightbox.focus();
+        closeLightbox && closeLightbox.focus();
       }
 
       function hideLightbox() {
@@ -773,853 +717,682 @@ const jsonLdGraph = {
         lightbox.hidden = true;
         setBackgroundInert(false);
         document.body.style.overflow = '';
+        if (lightboxImg) lightboxImg.src = blankSrc;
         if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
           lastFocusEl.focus();
         }
       }
 
-      document.querySelectorAll('.zoom-trigger').forEach(function (triggerEl) {
-        const imgEl = triggerEl.querySelector('img');
-        if (!imgEl) return;
+      triggers.forEach(function (triggerEl, i) {
         triggerEl.title = 'Click to view full size';
-        triggerEl.addEventListener('click', function () { openLightbox(triggerEl, imgEl); });
+        triggerEl.addEventListener('click', function () {
+          openLightbox(triggerEl, i);
+        });
       });
 
-      if (closeLightbox && lightbox) {
-        closeLightbox.addEventListener('click', hideLightbox);
-        lightbox.addEventListener('click', function (e) {
-          if (e.target === lightbox) hideLightbox();
-        });
+      prevLb && prevLb.addEventListener('click', function () { showSlide(lbIdx - 1); });
+      nextLb && nextLb.addEventListener('click', function () { showSlide(lbIdx + 1); });
+      closeLightbox && closeLightbox.addEventListener('click', hideLightbox);
+      lbBackdrop && lbBackdrop.addEventListener('click', hideLightbox);
+
+      if (lightbox) {
+        var tX = 0;
+        var tY = 0;
+        lightbox.addEventListener('touchstart', function (e) {
+          if (e.touches && e.touches.length === 1) {
+            tX = e.touches[0].clientX;
+            tY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+        lightbox.addEventListener('touchend', function (e) {
+          if (!e.changedTouches || !e.changedTouches.length || triggers.length <= 1) return;
+          var dx = e.changedTouches[0].clientX - tX;
+          var dy = Math.abs(e.changedTouches[0].clientY - tY);
+          if (Math.abs(dx) > 48 && Math.abs(dx) > dy * 1.3) {
+            showSlide(dx < 0 ? lbIdx + 1 : lbIdx - 1);
+          }
+        }, { passive: true });
       }
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Tab' && lightbox && !lightbox.hidden && closeLightbox) {
-          e.preventDefault();
-          closeLightbox.focus();
-        }
-        if (e.key === 'Escape') {
-          if (dropdown && !dropdown.hidden) {
-            setOpen(false);
-            if (btn) btn.focus();
+        if (lightbox && !lightbox.hidden) {
+          if (e.key === 'Escape') {
+            hideLightbox();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            showSlide(lbIdx - 1);
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            showSlide(lbIdx + 1);
+          } else if (e.key === 'Tab') {
+            var focusList = [prevLb, nextLb, closeLightbox].filter(function (b) { return b && !b.disabled; });
+            if (!focusList.length) return;
+            e.preventDefault();
+            var cur = focusList.indexOf(document.activeElement);
+            var nextPos = e.shiftKey ? (cur <= 0 ? focusList.length - 1 : cur - 1) : (cur + 1) % focusList.length;
+            focusList[nextPos].focus();
           }
-          if (lightbox && !lightbox.hidden) hideLightbox();
+          return;
+        }
+        if (e.key === 'Escape' && dropdown && !dropdown.hidden) {
+          setOpen(false);
+          btn && btn.focus();
         }
       });
 
-      async function copyToClipboard(text) {
-        if (!text) return false;
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(text);
-            return true;
-          }
-        } catch (_err) {}
-        const area = document.createElement('textarea');
+      function copyToClipboard(text) {
+        if (!text) return Promise.resolve(false);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () {
+            return execCopy(text);
+          });
+        }
+        return Promise.resolve(execCopy(text));
+      }
+
+      function execCopy(text) {
+        var area = document.createElement('textarea');
         area.value = text;
         area.style.position = 'fixed';
         area.style.opacity = '0';
         document.body.appendChild(area);
         area.select();
-        let ok = false;
+        var ok = false;
         try { ok = document.execCommand('copy'); } catch (_e2) {}
         document.body.removeChild(area);
         return ok;
       }
 
-      const copyBtn = document.getElementById('copyBibBtn');
+      var copyBtn = document.getElementById('copyBibBtn');
       if (copyBtn) {
-        const originalHtml = copyBtn.innerHTML;
-        copyBtn.addEventListener('click', async function () {
-          const el = document.getElementById('bibtexCode');
-          const text = el ? (el.textContent || '').trim() : '';
-          const copied = await copyToClipboard(text);
-          if (copied) {
-            copyBtn.classList.add('copied');
-            copyBtn.innerHTML = '<span>&#10003; Copied!</span>';
-            if (window.__showMonoToast) window.__showMonoToast('BibTeX citation copied to clipboard');
-            setTimeout(function () {
-              copyBtn.classList.remove('copied');
-              copyBtn.innerHTML = originalHtml;
-            }, 1800);
-          }
+        var originalText = copyBtn.textContent;
+        copyBtn.addEventListener('click', function () {
+          var el = document.getElementById('bibtexCode');
+          var text = el ? (el.textContent || '').trim() : '';
+          copyToClipboard(text).then(function (copied) {
+            if (copied) {
+              copyBtn.textContent = 'Copied!';
+              if (window.__showMonoToast) window.__showMonoToast('BibTeX citation copied to clipboard');
+              setTimeout(function () { copyBtn.textContent = originalText; }, 1800);
+            }
+          });
         });
       }
 
-      const copyApaBtn = document.getElementById('copyApaBtn');
+      var copyApaBtn = document.getElementById('copyApaBtn');
       if (copyApaBtn) {
-        const originalApa = copyApaBtn.innerHTML;
-        copyApaBtn.addEventListener('click', async function () {
-          const text = copyApaBtn.getAttribute('data-apa') || '';
-          const copied = await copyToClipboard(text);
-          if (copied) {
-            copyApaBtn.classList.add('copied');
-            copyApaBtn.innerHTML = '<span>&#10003; Copied APA</span>';
-            if (window.__showMonoToast) window.__showMonoToast('APA 7th citation copied to clipboard');
-            setTimeout(function () {
-              copyApaBtn.classList.remove('copied');
-              copyApaBtn.innerHTML = originalApa;
-            }, 1800);
-          }
+        var originalApa = copyApaBtn.textContent;
+        copyApaBtn.addEventListener('click', function () {
+          var text = copyApaBtn.getAttribute('data-apa') || '';
+          copyToClipboard(text).then(function (copied) {
+            if (copied) {
+              copyApaBtn.textContent = 'Copied APA!';
+              if (window.__showMonoToast) window.__showMonoToast('APA 7th citation copied to clipboard');
+              setTimeout(function () { copyApaBtn.textContent = originalApa; }, 1800);
+            }
+          });
         });
       }
     })();
   </script>
+</BaseLayout>
 
-  <style>
-    :root {
-      color-scheme: light;
-      --primary-color: #1b3b2f;
-      --primary-hover: #10261d;
-      --accent-clove: #7a4b1e;
-      --text-primary: #181a18;
-      --text-secondary: #343833;
-      --text-muted: #565c55;
-      --background-primary: #f8f5ee;
-      --background-secondary: #efeae0;
-      --background-accent: #f1ece1;
-      --surface-card: #fcfbf7;
-      --border-color: #ddd4c4;
-      --rule-strong: #b9ae9a;
-      --bg-primary: var(--background-primary);
-      --bg-rail: var(--background-accent);
-      --bg-secondary: var(--background-secondary);
-      --bg-surface: var(--surface-card);
-      --accent-forest: var(--primary-color);
-      --accent-forest-hover: var(--primary-hover);
-      --rule: var(--border-color);
-      --font-display: 'Cormorant Garamond', Georgia, Cambria, 'Times New Roman', serif;
-      --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
-      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    }
-    :global([data-theme='dark']) {
-      color-scheme: dark;
-      --primary-color: #8fb89e;
-      --primary-hover: #abd0b9;
-      --accent-clove: #d7b48a;
-      --text-primary: #f2efe9;
-      --text-secondary: #cec8be;
-      --text-muted: #a39c92;
-      --background-primary: #151412;
-      --background-secondary: #1e1c18;
-      --background-accent: #1a1815;
-      --surface-card: #211f1b;
-      --border-color: #2f2c26;
-      --rule-strong: #4a453c;
-    }
+<style>
+  .paper-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-forest);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 2600;
+    pointer-events: none;
+  }
 
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 1.1rem;
+  }
+  .breadcrumb a {
+    color: var(--accent-forest);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-serif);
-      background: var(--background-primary);
-      color: var(--text-primary);
-      font-size: 16.5px;
-      line-height: 1.66;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
+  .masthead-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .masthead-top-row .mono-eyebrow {
+    margin-bottom: 0;
+  }
 
-    .paper-progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transform-origin: 0 50%;
-      transform: scaleX(0);
-      z-index: 2600;
-      pointer-events: none;
-    }
+  .more-works-dock {
+    position: relative;
+  }
+  .more-works-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.36rem 0.78rem;
+    border-radius: 2px;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .more-works-btn:hover {
+    border-color: var(--accent-forest);
+    color: var(--accent-forest);
+  }
 
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      background: var(--primary-color);
-      color: #f8f5ee;
-      padding: 0.65rem 1rem;
-      font-family: var(--font-mono);
-      font-weight: 600;
-      z-index: 2500;
-      border-radius: 3px;
-      text-decoration: none;
-    }
-    .skip-link:focus {
-      left: 1rem;
-      top: 1rem;
-    }
+  .more-works-dropdown {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    right: 0;
+    width: min(360px, 88vw);
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    z-index: 1010;
+    overflow: hidden;
+  }
+  .more-works-dropdown .dropdown-links {
+    max-height: min(64vh, 480px);
+    overflow-y: auto;
+    padding: 0.45rem;
+  }
+  .dropdown-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0.95rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-muted);
+  }
+  .dropdown-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.52rem 0.72rem;
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  .dropdown-home-link {
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.6rem;
+  }
+  .dropdown-item:hover {
+    background: var(--bg-secondary);
+  }
+  .dropdown-item-active {
+    background: rgba(27, 59, 47, 0.08);
+    border-left: 3px solid var(--accent-forest);
+  }
+  :global([data-theme='dark']) .dropdown-item-active {
+    background: rgba(143, 184, 158, 0.12);
+  }
+  .item-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    color: var(--accent-clove);
+  }
+  .item-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.32;
+  }
 
-    .container-desktop {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
+  .paper-masthead {
+    margin-bottom: 0;
+  }
+  .authors-row {
+    font-size: 1.08rem;
+    line-height: 1.55;
+    margin: 0.85rem 0 0.55rem;
+  }
+  .author-link {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+  .author-link:hover {
+    color: var(--accent-clove);
+  }
+  .author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .aff-sup {
+    font-size: 0.7em;
+    margin-left: 1px;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .affiliations-stack {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin-bottom: 0.55rem;
+  }
+  .aff-line sup {
+    margin-right: 4px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .venue-line {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent-clove);
+    margin-bottom: 0.35rem;
+  }
+  .award-line {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+    margin-bottom: 0.4rem;
+  }
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.25rem;
+  }
 
-    main {
-      transition: padding-right 0.18s ease;
-    }
+  .section-jump-nav {
+    position: sticky;
+    top: 0;
+    z-index: 800;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg-primary);
+  }
+  .jump-link {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.2rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  .jump-link:hover,
+  .jump-link:focus-visible {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
 
-    @media (min-width: 960px) {
-      :global(body.more-works-open) main {
-        padding-right: 360px;
-      }
-    }
+  .teaser-section {
+    padding: 1.75rem 0 2.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .teaser-compact {
+    padding: 1.25rem 0 1.75rem;
+  }
+  .teaser-figure {
+    margin: 0 0 1.25rem;
+  }
 
-    .more-works-container {
-      position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+  .zoom-trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--rule);
+    background: var(--bg-surface);
+    cursor: zoom-in;
+  }
+  .zoom-cue {
+    position: absolute;
+    right: 0.55rem;
+    bottom: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    background: rgba(21, 20, 18, 0.86);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transition: opacity 0.16s ease;
+    pointer-events: none;
+  }
+  .zoom-trigger:hover .zoom-cue,
+  .zoom-trigger:focus-visible .zoom-cue {
+    opacity: 1;
+  }
+  @media (hover: none), (max-width: 760px) {
+    .zoom-cue { opacity: 0.85; }
+  }
 
-    .more-works-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 2px;
-      border: 1px solid var(--rule-strong);
-      background: var(--surface-card);
-      color: var(--text-primary);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-    }
+  .teaser-img,
+  .analysis-img {
+    display: block;
+    width: 100%;
+    max-height: 760px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0.45rem;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .teaser-summary {
+    margin: 0;
+    font-size: 1.04rem;
+    line-height: 1.72;
+    color: var(--text-primary);
+    max-width: 68ch;
+  }
 
-    .more-works-btn:hover {
-      border-color: var(--primary-color);
-      background: var(--background-secondary);
-    }
+  .abstract-prose {
+    max-width: 68ch;
+    margin-top: 0.85rem;
+  }
+  .abstract-prose p {
+    font-size: 1.04rem;
+    line-height: 1.76;
+    color: var(--text-secondary);
+    text-align: left;
+  }
 
-    .more-works-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      right: 0;
-      left: auto;
-      width: min(360px, 90vw);
-      background: var(--surface-card);
-      border: 1px solid var(--rule-strong);
-      border-radius: 2px;
-      z-index: 1010;
-      overflow: hidden;
-    }
+  .analysis-figure {
+    margin: 0;
+  }
+  .results-figure {
+    margin: 0 0 1.75rem;
+  }
+  .figure-prose,
+  .section-prose {
+    margin: 0.85rem 0 0;
+    font-size: 0.98rem;
+    line-height: 1.72;
+    color: var(--text-secondary);
+    max-width: 68ch;
+    text-align: left;
+  }
+  .section-prose {
+    margin: 0 0 1.35rem;
+  }
 
-    .more-works-dropdown .dropdown-links {
-      max-height: min(68vh, 520px);
-      overflow-y: auto;
-      padding: 0.45rem;
-    }
+  .detail-figures-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+    margin: 1.25rem 0 1.5rem;
+  }
+  .detail-figures-grid.detail-figures-single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .detail-fig-card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .detail-fig-img {
+    display: block;
+    width: 100%;
+    max-height: 390px;
+    height: auto;
+    padding: 0.35rem;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .detail-fig-caption {
+    font-size: 0.9rem;
+    line-height: 1.58;
+    color: var(--text-secondary);
+  }
 
-    .dropdown-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 1.1rem;
-      background: var(--background-secondary);
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
+  .tables-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.65rem;
+    margin-top: 1.5rem;
+  }
+  .table-block {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 1.15rem;
+  }
+  .table-header-text h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+  }
+  .table-header-text p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 0.85rem;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+    font-variant-numeric: tabular-nums;
+  }
+  th {
+    text-align: left;
+    padding: 0.55rem 0.65rem;
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--rule-strong);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  td {
+    text-align: left;
+    padding: 0.55rem 0.65rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .row-highlight {
+    background: rgba(27, 59, 47, 0.08);
+    font-weight: 700;
+  }
+  :global([data-theme='dark']) .row-highlight {
+    background: rgba(143, 184, 158, 0.14);
+  }
+  .row-highlight td {
+    color: var(--text-primary);
+  }
+  :global([data-theme='dark']) .teaser-img,
+  :global([data-theme='dark']) .analysis-img,
+  :global([data-theme='dark']) .detail-fig-img {
+    mix-blend-mode: normal;
+    background: #ede7db;
+    border-radius: 2px;
+  }
 
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      line-height: 1;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
+  .bibtex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .bibtex-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .bibtex-pre {
+    margin: 0;
+    padding: 1.25rem;
+    border-radius: 2px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--rule);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.62;
+    color: var(--text-primary);
+  }
+  .bibtex-pre code {
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+  }
 
-    .dropdown-item {
-      display: flex;
-      flex-direction: column;
-      padding: 0.55rem 0.75rem;
-      border-radius: 2px;
-      text-decoration: none;
-      color: var(--text-primary);
-    }
+  .img-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .img-lightbox[hidden] { display: none; }
+  .lb-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(21, 20, 18, 0.92);
+  }
+  .lb-topbar {
+    position: fixed;
+    top: 1rem;
+    left: 1.4rem;
+    right: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    z-index: 3002;
+    pointer-events: none;
+  }
+  .lb-topbar > * { pointer-events: auto; }
+  .lb-counter {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #f8f5ee;
+    background: rgba(21, 20, 18, 0.85);
+    border: 1px solid rgba(248, 245, 238, 0.35);
+    padding: 0.38rem 0.65rem;
+  }
+  .lb-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .lb-nav-btn {
+    min-height: 42px;
+    padding: 0 0.75rem;
+    border: 1px solid rgba(248, 245, 238, 0.4);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+  .lb-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .lightbox-close {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(248, 245, 238, 0.4);
+    background: rgba(21, 20, 18, 0.85);
+    color: #f8f5ee;
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+  .lb-figure {
+    position: relative;
+    z-index: 3001;
+    max-width: min(1080px, 92vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lb-figure img {
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    border: 1px solid rgba(248, 245, 238, 0.25);
+    background: #ede7db;
+    border-radius: 2px;
+    padding: 0.45rem;
+  }
+  .lb-figure figcaption {
+    color: #f2efe9;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 70ch;
+  }
 
-    .dropdown-home-link {
-      border-bottom: 1px solid var(--border-color);
-      border-radius: 0;
-      margin-bottom: 0.25rem;
-      padding-bottom: 0.65rem;
-    }
-
-    .dropdown-item:hover { background: var(--background-secondary); }
-
-    .dropdown-item-active {
-      background: rgba(27, 59, 47, 0.08);
-      border-left: 3px solid var(--primary-color);
-    }
-
-    .item-kicker {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--accent-clove);
-    }
-
-    .item-title {
-      font-size: 0.88rem;
-      font-weight: 600;
-      line-height: 1.32;
-    }
-
-    .paper-hero {
-      padding: 4.5rem 0 2rem;
-      text-align: center;
-      background: var(--background-primary);
-    }
-
-    .paper-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.8vw, 3rem);
-      font-weight: 600;
-      line-height: 1.12;
-      letter-spacing: -0.015em;
-      color: var(--text-primary);
-      margin: 0 auto 1.35rem;
-      max-width: 900px;
-    }
-
-    .authors-row {
-      font-size: 1.25rem;
-      line-height: 1.55;
-      margin: 0 auto 0.65rem;
-    }
-
-    .author-link {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-    .author-link:hover {
-      color: var(--primary-hover);
-      text-decoration: underline;
-    }
-    .author-name { font-weight: 600; color: var(--text-primary); }
-
-    .aff-sup {
-      font-size: 0.7em;
-      margin-left: 1px;
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
-
-    .affiliations-stack {
-      font-size: 1.06rem;
-      font-weight: 400;
-      line-height: 1.58;
-      color: var(--text-secondary);
-      margin: 0 auto 0.55rem;
-    }
-
-    .aff-line sup {
-      margin-right: 4px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .venue-line {
-      font-family: var(--font-mono);
-      font-size: 0.86rem;
-      font-weight: 500;
-      color: var(--accent-clove);
-      margin-bottom: 0.45rem;
-    }
-
-    .award-line {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--accent-clove);
-      margin-bottom: 0.5rem;
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.55rem;
-      margin-top: 1.65rem;
-    }
-
-    .action-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.56rem 1.15rem;
-      border-radius: 2px;
-      background: var(--primary-color);
-      color: #f8f5ee;
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1px solid var(--primary-color);
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    :global([data-theme='dark']) .action-pill {
-      color: #151412;
-    }
-
-    .action-pill-outline {
-      background: var(--surface-card);
-      color: var(--text-primary);
-      border: 1px solid var(--rule-strong);
-    }
-    :global([data-theme='dark']) .action-pill-outline {
-      color: var(--text-primary);
-    }
-
-    .action-pill:hover {
-      background: var(--primary-hover);
-      color: #f8f5ee;
-      border-color: var(--primary-hover);
-    }
-    :global([data-theme='dark']) .action-pill:hover {
-      color: #151412;
-    }
-
+  @media (max-width: 1020px) {
     .section-jump-nav {
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      background: var(--background-accent);
+      top: var(--mobile-bar-height);
     }
-
-    .section-jump-inner {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.4rem 1.15rem;
-      padding-top: 0.62rem;
-      padding-bottom: 0.62rem;
+  }
+  @media (max-width: 760px) {
+    .detail-figures-grid { grid-template-columns: 1fr; }
+    .more-works-dropdown {
+      left: 0;
+      right: auto;
     }
-
-    .jump-link {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: 0.2rem 0.15rem;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-    }
-    .jump-link:hover,
-    .jump-link:focus-visible {
-      color: var(--primary-color);
-      border-bottom-color: var(--primary-color);
-    }
-
-    .teaser-section {
-      padding: 1.5rem 0 3rem;
-      background: var(--background-primary);
-    }
-    .teaser-compact { padding: 0.5rem 0 2.5rem; }
-    .teaser-figure { margin: 0 auto 1.5rem; text-align: center; }
-
-    .zoom-trigger {
-      position: relative;
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: none;
-      background: transparent;
-      cursor: zoom-in;
-    }
-
-    .zoom-cue {
-      position: absolute;
-      right: 0.55rem;
-      bottom: 0.55rem;
-      padding: 0.22rem 0.52rem;
-      border-radius: 2px;
-      background: rgba(21, 20, 18, 0.86);
-      color: #f8f5ee;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      opacity: 0;
-      transition: opacity 0.16s ease;
-      pointer-events: none;
-    }
-    .zoom-trigger:hover .zoom-cue,
-    .zoom-trigger:focus-visible .zoom-cue {
-      opacity: 1;
-    }
-    @media (hover: none), (max-width: 760px) {
-      .zoom-cue { opacity: 0.85; }
-    }
-
-    .teaser-img {
-      display: block;
-      width: 100%;
-      max-width: 960px;
-      max-height: 1120px;
-      height: auto;
-      margin: 0 auto;
-      padding: 0 10px;
-      box-sizing: border-box;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-      cursor: zoom-in;
-    }
-
-    .teaser-summary {
-      margin: 0;
-      font-size: 1.06rem;
-      line-height: 1.72;
-      color: var(--text-primary);
-      text-align: left;
-    }
-
-    .section-band {
-      padding: 3.1rem 0;
-      background: var(--background-primary);
-      border-top: 1px solid var(--border-color);
-    }
-
-    .section-title-block h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.65rem, 2.7vw, 2.15rem);
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
-    }
-    .section-title-left {
-      text-align: left;
-      margin-bottom: 1.35rem;
-      padding-bottom: 0.55rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .abstract-prose { max-width: 72ch; }
-    .abstract-prose p {
-      font-size: 1.06rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      margin: 0;
-      text-align: left;
-    }
-
-    .analysis-figure { margin: 0; }
-    .results-figure { margin: 0 0 2rem; }
-    .analysis-img {
-      display: block;
-      width: 100%;
-      max-width: 960px;
-      max-height: 1120px;
-      height: auto;
-      margin: 0 auto 1.25rem;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-      cursor: zoom-in;
-    }
-
-    .figure-prose,
-    .section-prose {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: var(--text-secondary);
-      text-align: left;
-    }
-    .section-prose { margin-bottom: 1.5rem; }
-
-    .detail-figures-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5rem;
-      margin: 1.35rem 0 1.75rem;
-    }
-    .detail-figures-grid.detail-figures-single {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .detail-fig-card {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-    .detail-fig-img {
-      display: block;
-      width: 100%;
-      max-height: 410px;
-      height: auto;
-      margin: 0 auto;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-      cursor: zoom-in;
-    }
-    .detail-fig-caption {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      text-align: left;
-    }
-
-    @media (max-width: 760px) {
-      .detail-figures-grid { grid-template-columns: 1fr; }
-    }
-
-    .tables-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-top: 1.75rem;
-    }
-    .table-block {
-      width: 100%;
-      background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      padding: 1.25rem;
-    }
-    .table-header-text h3 {
-      font-family: var(--font-display);
-      font-size: 1.22rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0 0 0.3rem;
-      text-align: left;
-    }
-    .table-header-text p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0 0 0.9rem;
-      text-align: left;
-    }
-    .table-scroll { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-      font-variant-numeric: tabular-nums;
-    }
-    th {
-      text-align: left;
-      padding: 0.6rem 0.65rem;
-      background: var(--background-secondary);
-      border-bottom: 2px solid var(--border-color);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      white-space: nowrap;
-    }
-    td {
-      text-align: left;
-      padding: 0.58rem 0.65rem;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-    .row-highlight {
-      background: rgba(27, 59, 47, 0.08);
-      font-weight: 700;
-    }
-    :global([data-theme='dark']) .row-highlight {
-      background: rgba(143, 184, 158, 0.14);
-    }
-    :global([data-theme='dark']) .teaser-img,
-    :global([data-theme='dark']) .analysis-img,
-    :global([data-theme='dark']) .detail-fig-img {
-      mix-blend-mode: normal;
-      background: #ede7db;
-      border-radius: 2px;
-      padding: 0.5rem;
-    }
-    .row-highlight td { color: var(--text-primary); }
-
-    .bibtex-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .bibtex-header h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.65rem, 2.7vw, 2.15rem);
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
-    }
+  }
+  @media print {
+    .paper-progress-bar,
+    .more-works-dock,
+    .section-jump-nav,
+    .action-buttons,
     .bibtex-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      display: none !important;
     }
-    .copy-bibtex-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.52rem 0.95rem;
-      border-radius: 2px;
-      border: 1px solid var(--primary-color);
-      background: var(--primary-color);
-      color: #f8f5ee;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    .copy-apa-btn {
-      background: transparent;
-      color: var(--text-primary);
-      border-color: var(--rule-strong);
-    }
-    .copy-apa-btn:hover {
-      background: var(--background-secondary);
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-    }
-    :global([data-theme='dark']) .copy-bibtex-btn:not(.copy-apa-btn) {
-      color: #151412;
-    }
-    .copy-bibtex-btn:not(.copy-apa-btn):hover { background: var(--primary-hover); border-color: var(--primary-hover); }
-    .copy-bibtex-btn.copied { background: var(--accent-clove); border-color: var(--accent-clove); color: #f8f5ee; }
-
-    .bibtex-pre {
-      margin: 0;
-      padding: 1.35rem;
-      border-radius: 2px;
-      background: var(--background-accent);
-      border: 1px solid var(--border-color);
-      white-space: pre-wrap;
-      word-break: break-word;
-      overflow-x: visible;
-      font-family: var(--font-mono);
-      font-size: 0.84rem;
-      line-height: 1.65;
-      color: var(--text-primary);
-      text-align: left;
-    }
-    .bibtex-pre code { background: transparent; color: inherit; font-family: inherit; }
-
-    .project-footer {
-      border-top: 1px solid var(--border-color);
-      background: var(--background-primary);
-      padding: 2.5rem 0;
-      font-size: 0.94rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-    }
-    .footer-content { max-width: 72ch; text-align: left; }
-    .footer-content p { margin: 0; }
-    .footer-content a { color: var(--primary-color); text-decoration: underline; text-underline-offset: 2px; }
-    .footer-content a:hover { color: var(--accent-clove); }
-
-    .mono-toast {
-      position: fixed;
-      bottom: 1.4rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: var(--primary-color);
-      color: #f8f5ee;
-      border: 1px solid var(--rule-strong);
-      padding: 0.52rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      border-radius: 2px;
-      z-index: 3500;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.16s ease, transform 0.16s ease;
-      max-width: min(92vw, 460px);
-      text-align: center;
-    }
-    .mono-toast.is-visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    :global([data-theme='dark']) .mono-toast {
-      color: #151412;
-    }
-
-    .img-lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(21, 20, 18, 0.92);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-    .img-lightbox[hidden] { display: none; }
-    .img-lightbox img {
-      width: auto;
-      height: auto;
-      max-width: 96vw;
-      max-height: 92vh;
-      object-fit: contain;
-      background: #ede7db;
-      border-radius: 2px;
-      padding: 0.4rem;
-    }
-    .lightbox-close {
-      position: fixed;
-      top: 1rem;
-      right: 1.5rem;
-      background: rgba(21, 20, 18, 0.85);
-      border: 1px solid rgba(248, 245, 238, 0.35);
-      color: #f8f5ee;
-      width: 44px;
-      height: 44px;
-      border-radius: 2px;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    :focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
-    .lightbox-close:focus-visible { outline: 2px solid #f8f5ee; outline-offset: 3px; }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto !important; }
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .paper-hero { padding: 1.5rem 0 1.5rem; }
-      .abstract-prose p { text-align: left; }
-      .action-pill { padding: 0.55rem 1rem; font-size: 0.86rem; }
-      .more-works-container {
-        position: static;
-        display: flex;
-        justify-content: flex-end;
-        padding: 0.9rem 1.1rem 0;
-      }
-      .more-works-dropdown {
-        top: 3.6rem;
-        bottom: auto;
-        right: 1rem;
-      }
-    }
-  </style>
-</body>
-</html>
+  }
+</style>

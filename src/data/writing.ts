@@ -6,6 +6,12 @@ export type WritingCategory =
   | 'Essay & Reflection'
   | 'Zanzibar & Campus Guide';
 
+export interface WritingHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
 export interface WritingPost {
   slug: string;
   title: string;
@@ -17,6 +23,7 @@ export interface WritingPost {
   tags: string[];
   image?: string;
   imageAlt?: string;
+  headings: WritingHeading[];
   Content: AstroComponentFactory;
 }
 
@@ -32,6 +39,7 @@ interface MarkdownModule {
     image?: string;
     imageAlt?: string;
   };
+  getHeadings?: () => WritingHeading[];
   default: AstroComponentFactory;
 }
 
@@ -41,6 +49,7 @@ export const WRITING_POSTS: WritingPost[] = Object.entries(modules)
   .map(([filepath, mod]) => {
     const filename = filepath.split('/').pop() || '';
     const slug = filename.replace(/\.md$/, '');
+    const headings = (mod.getHeadings ? mod.getHeadings() : []).filter((h) => h.depth === 2 || h.depth === 3);
     return {
       slug,
       title: mod.frontmatter.title,
@@ -52,6 +61,7 @@ export const WRITING_POSTS: WritingPost[] = Object.entries(modules)
       tags: mod.frontmatter.tags || [],
       image: mod.frontmatter.image,
       imageAlt: mod.frontmatter.imageAlt,
+      headings,
       Content: mod.default
     };
   })

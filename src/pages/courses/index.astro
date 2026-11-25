@@ -4,7 +4,7 @@ import MonographRail from '../../components/MonographRail.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import { COURSES } from '../../data/courses';
 import { PROFILE } from '../../data/profile';
-import { breadcrumbList, personEntity, websiteEntity } from '../../data/schema';
+import { breadcrumbList, courseSchemaNode, personEntity, websiteEntity } from '../../data/schema';
 
 const activeCourses = COURSES.filter((c) => c.status === 'active');
 const previousCourses = COURSES.filter((c) => c.status === 'previous');
@@ -28,29 +28,7 @@ const coursesSchema = {
         itemListElement: COURSES.map((c, idx) => ({
           '@type': 'ListItem',
           position: idx + 1,
-          item: {
-            '@type': 'Course',
-            name: `${c.code}: ${c.title}`,
-            courseCode: c.code,
-            description: c.summary,
-            url: `https://inyalala.github.io/courses/${c.slug}/`,
-            provider: {
-              '@type': 'CollegeOrUniversity',
-              name: PROFILE.institution,
-              url: 'https://www.iitmz.ac.in/'
-            },
-            instructor: { '@id': 'https://inyalala.github.io/#person' },
-            hasCourseInstance: {
-              '@type': 'CourseInstance',
-              name: `${c.code} (${c.term})`,
-              courseMode: 'Onsite',
-              instructor: { '@id': 'https://inyalala.github.io/#person' },
-              location: {
-                '@type': 'Place',
-                name: PROFILE.campusAddress
-              }
-            }
-          }
+          item: courseSchemaNode(c)
         }))
       }
     },
@@ -69,6 +47,11 @@ const coursesSchema = {
   title="Teaching & Courses | Innocent Nyalala · IITM Zanzibar"
   description="Active Odd Semester 2026-27 courses (Z5007, Z3003) and archived reference sets at IIT Madras Zanzibar with direct slides, labs, and notebooks."
   canonical="https://inyalala.github.io/courses/"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/courses/' },
+    { hreflang: 'sw', href: 'https://inyalala.github.io/sw/courses/' },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/courses/' }
+  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(coursesSchema)} />

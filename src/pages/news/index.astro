@@ -169,7 +169,7 @@ const newsSchema = {
 
               {item.slides.length > 0 && (
                 <div class="news-gallery" data-count={item.slides.length}>
-                  <div class="gallery-track">
+                  <div class="gallery-track" tabindex="0" aria-label={`Photo gallery for ${item.headline}`}>
                     {item.slides.map((sl) => {
                       const thumb = getThumbSrc(sl.src);
                       const dim = getImageDim(thumb, 640, 420);
@@ -378,10 +378,9 @@ const newsSchema = {
         var trigger = e.target.closest('.zoom-btn');
         if (!trigger || !lb || !lbImg || !lbCap) return;
         lastFocus = trigger;
-        lbItems = Array.prototype.slice.call(container.querySelectorAll('.zoom-btn')).filter(function (b) {
-          var ent = b.closest('.news-entry');
-          return !ent || ent.style.display !== 'none';
-        });
+        var gal = trigger.closest('.news-gallery');
+        var scope = gal || trigger.closest('.news-entry');
+        lbItems = scope ? Array.prototype.slice.call(scope.querySelectorAll('.zoom-btn')) : [trigger];
         var startIdx = lbItems.indexOf(trigger);
         showLbIndex(startIdx >= 0 ? startIdx : 0);
         lb.hidden = false;

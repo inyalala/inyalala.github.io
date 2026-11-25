@@ -34,6 +34,11 @@ const contactSchema = {
   title="Contact | Innocent Nyalala · IIT Madras Zanzibar"
   description="Contact Innocent Nyalala at Room 105 (F1), School of Engineering and Science, IIT Madras Zanzibar for research, supervision, and course matters."
   canonical="https://inyalala.github.io/contact/"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/contact/' },
+    { hreflang: 'sw', href: 'https://inyalala.github.io/sw/contact/' },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/contact/' }
+  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />

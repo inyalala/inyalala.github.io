@@ -52,6 +52,7 @@
 
     var indexCache = null;
     var activeIdx = -1;
+    var renderSeq = 0;
     var lastFocus = null;
     var siblingNodes = document.querySelectorAll('.monograph-shell, #backToTop, .skip-link, main, footer, .more-works-container');
 
@@ -148,8 +149,21 @@
           window.__showMonoToast('Palette switched to ' + (nowTheme === 'dark' ? 'Night' : 'Day') + ' mode');
         }
       } else if (actionId === 'switch-lang') {
-        var isSw = window.location.pathname.indexOf('/sw') === 0;
-        window.location.href = isSw ? '/' : '/sw/';
+        var path = window.location.pathname;
+        var isSw = path.indexOf('/sw') === 0;
+        if (isSw) {
+          if (path.indexOf('/sw/courses') === 0) window.location.href = '/courses/';
+          else if (path.indexOf('/sw/research') === 0) window.location.href = '/research/';
+          else if (path.indexOf('/sw/contact') === 0) window.location.href = '/contact/';
+          else if (path.indexOf('/sw/faq') === 0) window.location.href = '/faq/';
+          else window.location.href = '/';
+        } else {
+          if (path.indexOf('/courses') === 0) window.location.href = '/sw/courses/';
+          else if (path.indexOf('/research') === 0) window.location.href = '/sw/research/';
+          else if (path.indexOf('/contact') === 0) window.location.href = '/sw/contact/';
+          else if (path.indexOf('/faq') === 0) window.location.href = '/sw/faq/';
+          else window.location.href = '/sw/';
+        }
       } else if (actionId === 'copy-email') {
         copyTextFallback('innocent@iitmz.ac.in').then(function (ok) {
           closePalette();
@@ -174,7 +188,9 @@
     }
 
     function renderResults(query) {
+      var mySeq = ++renderSeq;
       loadIndex().then(function (items) {
+        if (mySeq !== renderSeq) return;
         var q = (query || '').trim().toLowerCase();
         var filtered = [];
         if (!q) {
@@ -235,7 +251,7 @@
               html +=
                 '<button type="button" id="' +
                 optId +
-                '" class="cmd-item cmd-action-item' +
+                '" tabindex="-1" class="cmd-item cmd-action-item' +
                 (isFirst ? ' is-active' : '') +
                 '" role="option"' +
                 selAttr +
@@ -259,7 +275,7 @@
                 optId +
                 '" href="' +
                 escapeHtml(item.url) +
-                '" class="cmd-item' +
+                '" tabindex="-1" class="cmd-item' +
                 (isFirst ? ' is-active' : '') +
                 '" role="option"' +
                 selAttr +
@@ -328,6 +344,23 @@
       if (actionId) runAction(actionId);
     });
 
+    resultsEl.addEventListener('mousemove', function (e) {
+      var opt = e.target.closest('.cmd-item');
+      if (!opt) return;
+      var idx = parseInt(opt.getAttribute('data-cmd-idx') || '', 10);
+      if (!isNaN(idx) && idx !== activeIdx) {
+        var opts = resultsEl.querySelectorAll('.cmd-item');
+        if (!opts[idx]) return;
+        activeIdx = idx;
+        opts.forEach(function (el, i) {
+          var on = i === activeIdx;
+          el.classList.toggle('is-active', on);
+          el.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        input.setAttribute('aria-activedescendant', opts[activeIdx].id || '');
+      }
+    });
+
     triggers.forEach(function (btn) {
       btn.addEventListener('click', openPalette);
     });
@@ -342,11 +375,14 @@
     });
 
     dialog.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closePalette();
+        return;
+      }
       if (e.key === 'Tab') {
-        var focusables = Array.prototype.slice.call(
-          dialog.querySelectorAll('input:not([disabled]), button:not([disabled]), a[href]')
-        ).filter(function (el) {
-          return el.offsetParent !== null;
+        var focusables = [input, closeBtn].filter(function (el) {
+          return el && !el.disabled && el.offsetParent !== null;
         });
         if (!focusables.length) return;
         var first = focusables[0];

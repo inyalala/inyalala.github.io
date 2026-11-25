@@ -237,6 +237,11 @@ const schemaCourse = {
                           Download .ipynb &#8599;
                         </a>
                       )}
+                      {m.portalAnchor && (
+                        <a href={`${course.links.teachingSiteHome}${m.portalAnchor}`} target="_blank" rel="noopener" class="res-link res-accent">
+                          Portal Week View &#8599;
+                        </a>
+                      )}
                     </>
                   )}
                 </div>

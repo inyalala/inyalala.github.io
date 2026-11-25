@@ -11,20 +11,21 @@ function escXml(s: string): string {
     .replace(/'/g, '&apos;');
 }
 
-const TODAY_ISO = '2026-11-26';
+const TODAY_ISO = new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(0, 10);
 
 function clampDate(iso: string): string {
   return iso > TODAY_ISO ? TODAY_ISO : iso;
 }
 
+function toAbsUrl(pathOrUrl: string): string {
+  return pathOrUrl.startsWith('http') ? pathOrUrl : `https://inyalala.github.io${pathOrUrl}`;
+}
+
 export const GET: APIRoute = () => {
   const newsEntries = newsData.items.map((it) => {
     const canonicalLink = `https://inyalala.github.io/news/#${it.id}`;
-    const extLink = it.link
-      ? it.link.startsWith('http')
-        ? it.link
-        : `https://inyalala.github.io${it.link}`
-      : '';
+    const extLink = it.link ? toAbsUrl(it.link) : '';
+    const firstSlide = (it as { slides?: { src: string; alt: string }[] }).slides?.[0];
     return {
       title: it.headline,
       description: it.body,
@@ -32,7 +33,10 @@ export const GET: APIRoute = () => {
       category: it.category,
       link: canonicalLink,
       extLink,
-      extLabel: it.linkLabel || 'Reference'
+      extLabel: it.linkLabel || 'Reference',
+      tags: [] as string[],
+      imageUrl: firstSlide ? toAbsUrl(firstSlide.src) : '',
+      imageAlt: firstSlide ? firstSlide.alt : ''
     };
   });
 
@@ -43,7 +47,10 @@ export const GET: APIRoute = () => {
     category: p.category,
     link: `https://inyalala.github.io/writing/${p.slug}/`,
     extLink: '',
-    extLabel: ''
+    extLabel: '',
+    tags: p.tags || [],
+    imageUrl: p.image ? toAbsUrl(p.image) : '',
+    imageAlt: p.imageAlt || p.title
   }));
 
   const combined = [...writingEntries, ...newsEntries]
@@ -72,9 +79,16 @@ ${combined
     const descHtml = it.extLink && it.extLink !== it.link
       ? `${it.description} (${it.extLabel}: ${it.extLink})`
       : it.description;
-    const contentHtml = it.extLink && it.extLink !== it.link
-      ? `<p>${escXml(it.description)}</p><p><a href="${escXml(it.extLink)}">${escXml(it.extLabel)}</a></p>`
-      : `<p>${escXml(it.description)}</p>`;
+    const figHtml = it.imageUrl
+      ? `<figure><img src="${escXml(it.imageUrl)}" alt="${escXml(it.imageAlt || it.title)}" /></figure>`
+      : '';
+    const linkHtml = it.extLink && it.extLink !== it.link
+      ? `<p><a href="${escXml(it.extLink)}">${escXml(it.extLabel)}</a></p>`
+      : '';
+    const tagsHtml = it.tags.length
+      ? `<p>Topics: ${it.tags.map((t) => escXml(t)).join(', ')}</p>`
+      : '';
+    const contentHtml = `${figHtml}<p>${escXml(it.description)}</p>${tagsHtml}${linkHtml}`;
     return `    <item>
       <title>${escXml(it.title)}</title>
       <link>${escXml(it.link)}</link>

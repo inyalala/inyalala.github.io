@@ -23,27 +23,35 @@ const navLinks = [
 
 const navLinksSw = [
   { href: '/sw/', label: 'Nyumbani', key: 'home' },
-  { href: '/courses/', label: 'Ufundishaji na Kozi', key: 'courses' },
-  { href: '/research/', label: 'Ajenda ya Utafiti', key: 'research' },
+  { href: '/sw/courses/', label: 'Ufundishaji na Kozi', key: 'courses' },
+  { href: '/sw/research/', label: 'Ajenda ya Utafiti', key: 'research' },
   { href: '/publications/', label: `Machapisho (${PUBLICATIONS.length})`, key: 'publications' },
   { href: '/writing/', label: 'Makala na Miongozo', key: 'writing' },
   { href: '/news/', label: 'Habari na Mihadhara', key: 'news' },
   { href: '/work-with-me/', label: 'Ushirikiano', key: 'collaborate' },
   { href: '/about/', label: 'Wasifu', key: 'about' },
-  { href: '/media-kit/', label: 'Jalada la Habari', key: 'media-kit' },
-  { href: '/faq/', label: 'Maswali', key: 'faq' },
-  { href: '/contact/', label: 'Mawasiliano', key: 'contact' }
+  { href: '/media-kit/', label: 'Vifaa vya Habari', key: 'media-kit' },
+  { href: '/sw/faq/', label: 'Maswali', key: 'faq' },
+  { href: '/sw/contact/', label: 'Mawasiliano', key: 'contact' }
 ];
 
 const isSw = lang === 'sw';
 const activeNavLinks = isSw ? navLinksSw : navLinks;
 const homeHref = isSw ? '/sw/' : '/';
+const swPairedKeys: Record<string, { en: string; sw: string }> = {
+  home: { en: '/', sw: '/sw/' },
+  courses: { en: '/courses/', sw: '/sw/courses/' },
+  research: { en: '/research/', sw: '/sw/research/' },
+  faq: { en: '/faq/', sw: '/sw/faq/' },
+  contact: { en: '/contact/', sw: '/sw/contact/' }
+};
+const langPair = swPairedKeys[currentPage] || { en: '/', sw: '/sw/' };
 ---
 
 <!-- Mobile Top Masthead & Slide-Over Drawer -->
 <header class="mobile-header">
   <div class="mobile-bar">
-    <a href={homeHref} class="mobile-brand" aria-label={isSw ? 'Innocent Nyalala Nyumbani' : 'Innocent Nyalala Home'}>
+    <a href={homeHref} class="mobile-brand" aria-label={isSw ? 'Ukurasa wa Mwanzo wa Innocent Nyalala' : 'Innocent Nyalala Home'}>
       <span class="mobile-sig">Innocent Nyalala</span>
       <span class="mobile-sub">IITM Zanzibar</span>
     </a>
@@ -70,11 +78,11 @@ const homeHref = isSw ? '/sw/' : '/';
         id="mobileMenuBtn"
         type="button"
         class="menu-toggle-btn"
-        aria-label={isSw ? 'Fungua orodha ya kurasa' : 'Open navigation menu'}
+        aria-label={isSw ? 'Fungua orodha ya kurasa kuu' : 'Open navigation menu'}
         aria-expanded="false"
         aria-controls="mobileNavDrawer"
       >
-        <span>{isSw ? 'Orodha' : 'Index'}</span>
+        <span>{isSw ? 'Kurasa Kuu' : 'Index'}</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
@@ -83,7 +91,7 @@ const homeHref = isSw ? '/sw/' : '/';
   </div>
 
   <div id="mobileBackdrop" class="drawer-backdrop" hidden></div>
-  <div id="mobileNavDrawer" class="mobile-drawer" role="dialog" aria-modal="true" aria-label={isSw ? 'Orodha ya kurasa za tovuti' : 'Site index navigation'} hidden>
+  <div id="mobileNavDrawer" class="mobile-drawer" role="dialog" aria-modal="true" aria-label={isSw ? 'Kurasa kuu za tovuti' : 'Site index navigation'} hidden>
     <div class="drawer-head">
       <span class="drawer-sig">Innocent Nyalala</span>
       <button id="drawerCloseBtn" type="button" class="drawer-close" aria-label={isSw ? 'Funga orodha' : 'Close navigation menu'}>&times;</button>
@@ -100,8 +108,8 @@ const homeHref = isSw ? '/sw/' : '/';
         </a>
       ))}
       <div class="drawer-lang-row" aria-label={isSw ? 'Chagua lugha' : 'Language selection'}>
-        <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
-        <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW (Kiswahili)</a>
+        <a href={langPair.en} class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+        <a href={langPair.sw} class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW (Kiswahili)</a>
       </div>
       <a href="https://saaillab.github.io/" target="_blank" rel="noopener" class="drawer-link drawer-lab">
         {isSw ? 'Maabara ya SAAIL' : 'SAAIL Lab'} &#8599;
@@ -114,7 +122,7 @@ const homeHref = isSw ? '/sw/' : '/';
 <aside class="monograph-rail" aria-label={isSw ? 'Urambazaji wa tovuti' : 'Site navigation and colophon'}>
   <div class="rail-inner">
     <div class="rail-mast">
-      <a href={homeHref} class="rail-sig-link" aria-label={isSw ? 'Innocent Nyalala Nyumbani' : 'Innocent Nyalala Home'}>
+      <a href={homeHref} class="rail-sig-link" aria-label={isSw ? 'Ukurasa wa Mwanzo wa Innocent Nyalala' : 'Innocent Nyalala Home'}>
         <span class="rail-sig">Innocent Nyalala</span>
         <span class="rail-dept">IIT Madras Zanzibar</span>
         <span class="rail-sub">{isSw ? 'Kitivo cha Uhandisi na Sayansi' : 'School of Engineering & Science'}</span>
@@ -127,8 +135,8 @@ const homeHref = isSw ? '/sw/' : '/';
         <kbd>Ctrl K</kbd>
       </button>
       <div class="rail-lang-switch" role="group" aria-label={isSw ? 'Badili lugha' : 'Language switcher'}>
-        <a href="/" class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
-        <a href="/sw/" class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW</a>
+        <a href={langPair.en} class:list={['lang-pill', { active: lang === 'en' }]} aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+        <a href={langPair.sw} class:list={['lang-pill', { active: lang === 'sw' }]} aria-current={lang === 'sw' ? 'page' : undefined}>SW</a>
       </div>
     </div>
 
@@ -157,11 +165,11 @@ const homeHref = isSw ? '/sw/' : '/';
         <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
-        <span class="theme-label">{isSw ? 'Badili kwenda Usiku' : 'Switch to Night'}</span>
+        <span class="theme-label">{isSw ? 'Mandhari ya Usiku' : 'Switch to Night'}</span>
       </button>
 
       <p class="rail-office">
-        {isSw ? 'Chumba 105 (F1) · Bweleo' : 'Room 105 (F1) · Bweleo'}<br />
+        {isSw ? 'Chumba 105 (Ghorofa ya 1 / F1) · Bweleo' : 'Room 105 (F1) · Bweleo'}<br />
         Zanzibar, Tanzania<br />
         <a href="mailto:innocent@iitmz.ac.in">innocent@iitmz.ac.in</a>
       </p>
@@ -189,7 +197,7 @@ const homeHref = isSw ? '/sw/' : '/';
         if (lbl) {
           var swBtn = btn.getAttribute('data-lang') === 'sw' || isSwDoc;
           lbl.textContent = swBtn
-            ? (isDark ? 'Badili kwenda Mchana' : 'Badili kwenda Usiku')
+            ? (isDark ? 'Mandhari ya Mchana' : 'Mandhari ya Usiku')
             : (isDark ? 'Switch to Day' : 'Switch to Night');
         }
       });

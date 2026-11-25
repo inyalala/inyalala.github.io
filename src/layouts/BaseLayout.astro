@@ -129,6 +129,9 @@ const ogLocale = lang === 'sw' ? 'sw_TZ' : 'en_US';
     {resolvedOgH && <meta property="og:image:height" content={String(resolvedOgH)} />}
     <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={ogLocale} />
+    {alternates && alternates.filter((a) => (a.hreflang === 'en' || a.hreflang === 'sw') && a.hreflang !== lang).map((alt) => (
+      <meta property="og:locale:alternate" content={alt.hreflang === 'sw' ? 'sw_TZ' : 'en_US'} />
+    ))}
     {ogType === 'profile' && (
       <>
         <meta property="profile:first_name" content="Innocent" />

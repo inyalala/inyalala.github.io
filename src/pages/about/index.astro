@@ -47,6 +47,9 @@ const aboutSchema = {
   <div class="monograph-canvas">
     <main id="main-content">
       <header class="page-masthead">
+        <div class="print-only-header" aria-hidden="true">
+          <strong>{PROFILE.fullTitle}</strong> &middot; {PROFILE.role}, {PROFILE.institution} &middot; {PROFILE.email} &middot; ORCID: 0000-0002-7969-437X
+        </div>
         <div class="about-grid">
           <div>
             <span class="mono-eyebrow">Biography &amp; Career Record</span>
@@ -424,6 +427,23 @@ const aboutSchema = {
     }
     .about-portrait {
       max-width: 240px;
+    }
+  }
+  .print-only-header {
+    display: none;
+  }
+  @media print {
+    .print-only-header {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: #000000;
+      border-bottom: 1.5px solid #000000;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .about-actions {
+      display: none !important;
     }
   }
 </style>

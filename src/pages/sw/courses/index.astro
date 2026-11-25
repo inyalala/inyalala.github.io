@@ -1,0 +1,369 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MonographRail from '../../../components/MonographRail.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import { COURSES } from '../../../data/courses';
+import { breadcrumbList, courseSchemaNode, personEntity, websiteEntity } from '../../../data/schema';
+
+const pageUrl = 'https://inyalala.github.io/sw/courses/';
+const activeCourses = COURSES.filter((c) => c.status === 'active');
+const previousCourses = COURSES.filter((c) => c.status === 'previous');
+
+const swSummaryMap: Record<string, { titleSw: string; summarySw: string; termSw: string }> = {
+  z5007: {
+    titleSw: 'Utayarishaji Programu na Miundo ya Data (MTech DSAI)',
+    summarySw:
+      'Kozi ya msingi ya MTech inayofundisha ugumu wa algoriti, miundo ya data (mrundiko, miti sawia, grafu, jedwali za hashi), utafutaji wa njia fupi, na utayarishaji wa mifumo ya sayansi ya data kwa Python.',
+    termSw: 'Muhula wa Kwanza 2026-27 · Okt 2026 - Jan 2027'
+  },
+  z3003: {
+    titleSw: 'Uchimbaji wa Data (Shahada ya Kwanza - BS Core)',
+    summarySw:
+      'Kozi ya pamoja na Dkt. Mahendran V inayochunguza mbinu za uchimbaji wa mifumo ya takwimu, uainishaji, upangaji wa makundi, utambuzi wa hitilafu, na uhakiki wa data halisi.',
+    termSw: 'Muhula wa Kwanza 2026-27 · Okt 2026 - Jan 2027'
+  },
+  z2005: {
+    titleSw: 'Miundo ya Data na Algoriti (BS Kumbukumbu)',
+    summarySw:
+      'Seti ya kumbukumbu yenye slaidi za mihadhara, laha za maabara, na daftari za Python/Colab za uchanganuzi wa algoriti, grafu, na upangaji.',
+    termSw: 'Muhula wa Pili 2026 · Imekamilika'
+  },
+  z2004: {
+    titleSw: 'Msingi wa Sayansi ya Data na Python (BS Kumbukumbu)',
+    summarySw:
+      'Nyenzo za kumbukumbu za uchanganuzi wa awali wa data, taswira ya takwimu, na utekelezaji wa mifumo ya awali kwa lugha ya Python.',
+    termSw: 'Muhula wa Kumbukumbu · 2026'
+  },
+  z5008: {
+    titleSw: 'Mada Maalum za Akili Mnemba na Mifumo ya Maamuzi (MTech)',
+    summarySw:
+      'Mada za juu kuhusu mifumo ya akili mnemba inayowajibika, tathmini ya mazingira yenye upungufu wa data, na ujenzi wa modeli za kliniki na kilimo.',
+    termSw: 'Muhula wa Kumbukumbu · 2026'
+  }
+};
+
+const swCoursesSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    {
+      ...websiteEntity(),
+      inLanguage: ['en-US', 'sw-TZ']
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: 'Ufundishaji na Kozi | Innocent Nyalala · IITM Zanzibar',
+      inLanguage: 'sw-TZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: COURSES.length,
+        itemListElement: COURSES.map((c, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          item: courseSchemaNode(c)
+        }))
+      }
+    },
+    breadcrumbList(
+      [
+        { name: 'Nyumbani (Kiswahili)', url: 'https://inyalala.github.io/sw/' },
+        { name: 'Kozi na Vifaa', url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Ufundishaji na Kozi | Innocent Nyalala · IITM Zanzibar"
+  description="Kozi za Muhula wa Kwanza 2026-27 (Z5007, Z3003) na kumbukumbu za IIT Madras Zanzibar pamoja na viungo vya moja kwa moja vya slaidi, maabara na daftari za Colab."
+  canonical={pageUrl}
+  lang="sw"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/courses/' },
+    { hreflang: 'sw', href: pageUrl },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/courses/' }
+  ]}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(swCoursesSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="courses" lang="sw" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">IIT Madras Zanzibar &middot; Kozi na Slaidi za Wanafunzi</span>
+        <h1 class="page-title">Ufundishaji na Kozi za Kitaaluma</h1>
+        <p class="page-lead">
+          Mihtasari ya kozi, ratiba za wiki, slaidi za PDF na Reveal.js, maabara za vitendo, na daftari za Jupyter/Colab zilizohifadhiwa chini ya viungo visivyobadilika kwa wanafunzi wa IIT Madras Zanzibar.
+        </p>
+
+        <div class="filter-strip" role="group" aria-label="Chuja kozi kwa programu au muhula">
+          <button type="button" class="filter-btn" aria-pressed="true" data-filter="all">Zote ({COURSES.length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="active">Muhula wa 2026-27 ({activeCourses.length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="bs">Shahada ya Kwanza (BS) ({COURSES.filter((c) => c.program === 'BS').length})</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="mtech">Shahada ya Uzamili (MTech) ({COURSES.filter((c) => c.program === 'MTech').length})</button>
+        </div>
+        <p id="swCourseCount" class="course-count" aria-live="polite">
+          Inaonyesha kozi {COURSES.length} kati ya {COURSES.length}
+        </p>
+      </header>
+
+      <section class="rule-section" data-course-group="active">
+        <span class="mono-eyebrow">Muhula wa Sasa &middot; Oktoba 2026 - Januari 2027</span>
+        <div class="section-bar">
+          <h2 class="section-h">Muhula wa Kwanza 2026-27 (Unaoendelea)</h2>
+        </div>
+
+        <ol class="course-ledger">
+          {activeCourses.map((c) => {
+            const loc = swSummaryMap[c.slug];
+            return (
+              <li class="course-entry" data-prog={c.program.toLowerCase()} data-status={c.status}>
+                <div class="c-meta">
+                  <span class="c-code">{c.code}</span>
+                  <span class="c-prog">{c.program} {c.courseType}</span>
+                  <span class="c-term">{loc ? loc.termSw : c.term}</span>
+                </div>
+                <div class="c-body">
+                  <h3>
+                    <a href={`/courses/${c.slug}/`}>{loc ? loc.titleSw : c.title}</a>
+                  </h3>
+                  <p class="c-desc">{loc ? loc.summarySw : c.summary}</p>
+                  {c.coInstructor && (
+                    <p class="c-note">Inafundishwa kwa pamoja na {c.coInstructor.name} ({c.coInstructor.institution})</p>
+                  )}
+                  <p class="c-links">
+                    <a href={`/courses/${c.slug}/`} class="btn-mono">Moduli na Muhtasari (EN) &rarr;</a>
+                    <a href={c.links.teachingSiteHome} target="_blank" rel="noopener" class="row-ext">Tovuti ya Vifaa vya Masomo &#8599;</a>
+                    {c.links.questionBank && (
+                      <a href={c.links.questionBank} target="_blank" rel="noopener" class="row-ext">Benki ya Maswali &#8599;</a>
+                    )}
+                    {c.links.syllabusPdf && (
+                      <a href={c.links.syllabusPdf} target="_blank" rel="noopener" class="row-ext">Muhtasari wa PDF &#8599;</a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section class="rule-section" data-course-group="previous">
+        <span class="mono-eyebrow">Kumbukumbu za Kozi &middot; 2026</span>
+        <div class="section-bar">
+          <h2 class="section-h">Kozi za Awali na Marejeo</h2>
+        </div>
+
+        <ol class="course-ledger">
+          {previousCourses.map((c) => {
+            const loc = swSummaryMap[c.slug];
+            return (
+              <li class="course-entry" data-prog={c.program.toLowerCase()} data-status={c.status}>
+                <div class="c-meta">
+                  <span class="c-code">{c.code}</span>
+                  <span class="c-prog">{c.program} {c.courseType}</span>
+                  <span class="c-term">{loc ? loc.termSw : c.term}</span>
+                </div>
+                <div class="c-body">
+                  <h3>
+                    <a href={`/courses/${c.slug}/`}>{loc ? loc.titleSw : c.title}</a>
+                  </h3>
+                  <p class="c-desc">{loc ? loc.summarySw : c.summary}</p>
+                  <p class="c-links">
+                    <a href={`/courses/${c.slug}/`} class="btn-mono-outline">Kumbukumbu ya Kozi (EN) &rarr;</a>
+                    <a href={c.links.teachingSiteHome} target="_blank" rel="noopener" class="row-ext">Tovuti ya Vifaa vya Masomo &#8599;</a>
+                    {c.links.questionBank && (
+                      <a href={c.links.questionBank} target="_blank" rel="noopener" class="row-ext">Benki ya Maswali &#8599;</a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Misingi ya Upatikanaji na Leseni</span>
+        <h2 class="section-h" style="margin-bottom: 1.25rem;">Ufikiaji Wazi na Matumizi ya Kitaaluma</h2>
+        <div class="principles-grid">
+          <div>
+            <h3>Vifaa Bila Nywila</h3>
+            <p>
+              Slaidi za kivinjari (Reveal.js), makabrasha ya PDF, maelekezo ya maabara, na daftari za Google Colab hufunguka moja kwa moja kupitia HTTPS bila kuhitaji usajili.
+            </p>
+          </div>
+          <div>
+            <h3>Viungo vya Kudumu</h3>
+            <p>
+              Anwani za kozi hubaki thabiti katika mihula yote ili alamisho za wanafunzi na marejeo ya mitaala yaendelee kufanya kazi mwaka hadi mwaka.
+            </p>
+          </div>
+          <div>
+            <h3>Leseni ya CC BY-NC-SA 4.0</h3>
+            <p>
+              Wahadhiri na wanafunzi wanaweza kujifunza, kuboresha, na kushiriki slaidi na laha za maabara kwa matumizi yasiyo ya kibiashara chini ya{' '}
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener" class="inline-link">CC BY-NC-SA 4.0</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter lang="sw" />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btns = document.querySelectorAll('.filter-btn');
+      var entries = document.querySelectorAll('.course-entry');
+      var groups = document.querySelectorAll('[data-course-group]');
+      var countEl = document.getElementById('swCourseCount');
+
+      function applyFilter(f) {
+        var visible = 0;
+        btns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String((b.getAttribute('data-filter') || 'all') === f));
+        });
+        entries.forEach(function (entry) {
+          var prog = entry.getAttribute('data-prog') || '';
+          var status = entry.getAttribute('data-status') || '';
+          var show = f === 'all' || (f === 'active' && status === 'active') || prog === f;
+          entry.style.display = show ? 'grid' : 'none';
+          if (show) visible++;
+        });
+        groups.forEach(function (grp) {
+          var any = Array.prototype.some.call(grp.querySelectorAll('.course-entry'), function (el) {
+            return el.style.display !== 'none';
+          });
+          grp.style.display = any ? 'block' : 'none';
+        });
+        if (countEl) {
+          countEl.textContent = 'Inaonyesha kozi ' + visible + ' kati ya ' + entries.length;
+        }
+      }
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          applyFilter(btn.getAttribute('data-filter') || 'all');
+        });
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .course-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.85rem;
+  }
+  .course-ledger {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+  .course-entry {
+    display: grid;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.45rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .c-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+  .c-code {
+    font-family: var(--font-mono);
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--accent-forest);
+  }
+  .c-prog {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-clove);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .c-term {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .c-body h3 {
+    font-size: 1.42rem;
+    margin-bottom: 0.35rem;
+  }
+  .c-body h3 a {
+    text-decoration: none;
+  }
+  .c-body h3 a:hover {
+    color: var(--accent-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .c-desc {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.55rem;
+  }
+  .c-note {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-clove);
+    margin-bottom: 0.75rem;
+  }
+  .c-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1.25rem;
+  }
+  .row-ext {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .row-ext:hover {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+  .principles-grid h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .principles-grid p {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+  }
+  @media (max-width: 780px) {
+    .course-entry,
+    .principles-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

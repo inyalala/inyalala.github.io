@@ -22,12 +22,13 @@ const datedCitationSum = Object.values(metrics.citationsPerYear).reduce((a, b) =
 const undatedCitationDelta = Math.max(0, metrics.citations - datedCitationSum);
 
 const years = Object.keys(metrics.citationsPerYear).sort();
+const yearsWithPapers = new Set(sortedPubs.map((p) => String(p.year)));
 const vals = years.map((y) => metrics.citationsPerYear[y as keyof typeof metrics.citationsPerYear]);
 const maxVal = Math.max(...vals, 1);
 const W = 720;
-const H = 196;
+const H = 212;
 const padL = 10;
-const padT = 38;
+const padT = 54;
 const padB = 26;
 const slot = (W - padL * 2) / years.length;
 const barW = Math.min(44, slot * 0.56);
@@ -36,6 +37,17 @@ const milestones: Record<string, string> = {
   '2024': '2024 IITMZ',
   '2025': '2025–26 DLI'
 };
+
+const topicCounts = new Map<string, number>();
+for (const pub of sortedPubs) {
+  for (const t of pub.topics || []) {
+    topicCounts.set(t, (topicCounts.get(t) || 0) + 1);
+  }
+}
+const topTopics = Array.from(topicCounts.entries())
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .slice(0, 8)
+  .map(([topic, count]) => ({ topic, count }));
 
 const schemaCollection = {
   '@context': 'https://schema.org',
@@ -86,7 +98,7 @@ const schemaCollection = {
   <div class="monograph-canvas">
     <main id="main-content">
       <header class="page-masthead">
-        <span class="mono-eyebrow">Peer-Reviewed Bibliography &middot; 2015 - 2026</span>
+        <span class="mono-eyebrow">Scholarly Bibliography &middot; 2015 - 2026</span>
         <h1 class="page-title">Publications ({sortedPubs.length})</h1>
         <p class="page-lead">
           Complete publication index spanning {saailCount} SAAIL Lab works ({metrics.saailPublishedCount} published or accepted, {underReviewCount} under review; project pages on{' '}
@@ -159,21 +171,36 @@ const schemaCollection = {
               const yTop = H - padB - barH;
               const cx = x + barW / 2;
               const ms = milestones[y];
+              const hasPapers = yearsWithPapers.has(y);
+              const isThesisYear = y === '2023';
+              const isInteractive = hasPapers || isThesisYear;
+              const titleText = hasPapers
+                ? `${y}: ${v} citations${ms ? ` (${ms})` : ''} · click to filter ${y} papers`
+                : isThesisYear
+                ? `${y}: ${v} citations (2023 PhD) · click to jump to thesis monograph`
+                : `${y}: ${v} citations across prior works`;
               return (
                 <g
-                  class="chart-col"
+                  class:list={['chart-col', !isInteractive ? 'is-static' : '']}
                   data-year={y}
                   data-cites={v}
-                  role="button"
-                  tabindex="0"
-                  aria-pressed="false"
-                  aria-label={`Filter publications from ${y} (${v} citations)`}
+                  data-action={isThesisYear ? 'thesis' : hasPapers ? 'filter' : 'static'}
+                  role={isInteractive ? 'button' : 'presentation'}
+                  tabindex={isInteractive ? '0' : undefined}
+                  aria-pressed={isInteractive ? 'false' : undefined}
+                  aria-label={
+                    isThesisYear
+                      ? `Jump to 2023 PhD thesis monograph (${v} citations)`
+                      : hasPapers
+                      ? `Filter publications from ${y} (${v} citations)`
+                      : undefined
+                  }
                 >
-                  <title>{`${y}: ${v} citations${ms ? ` (${ms})` : ''} · click to filter ${y} papers`}</title>
+                  <title>{titleText}</title>
                   {ms && (
                     <g class="chart-milestone-grp" aria-hidden="true">
-                      <line x1={cx.toFixed(1)} y1="14" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
-                      <text x={cx.toFixed(1)} y="10" text-anchor="middle" class="chart-milestone">{ms}</text>
+                      <line x1={cx.toFixed(1)} y1="15" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
+                      <text x={cx.toFixed(1)} y="11" text-anchor="middle" class="chart-milestone">{ms}</text>
                     </g>
                   )}
                   <rect x={(x - 4).toFixed(1)} y={padT - 14} width={(barW + 8).toFixed(1)} height={H - padT - padB + 28} fill="transparent" />
@@ -186,11 +213,19 @@ const schemaCollection = {
           </svg>
           <div class="chart-year-strip" role="group" aria-label="Filter publications by year">
             <span class="yr-strip-lbl">Filter by year:</span>
-            {years.map((y) => (
-              <button type="button" class="yr-chip" data-year={y} aria-pressed="false">
-                {y}
-              </button>
-            ))}
+            {years
+              .filter((y) => yearsWithPapers.has(y) || y === '2023')
+              .map((y) => (
+                <button
+                  type="button"
+                  class="yr-chip"
+                  data-year={y}
+                  data-action={y === '2023' ? 'thesis' : 'filter'}
+                  aria-pressed="false"
+                >
+                  {y === '2023' ? '2023 (PhD)' : y}
+                </button>
+              ))}
           </div>
           {undatedCitationDelta > 0 && (
             <p class="chart-footnote tabular-nums">
@@ -228,13 +263,22 @@ const schemaCollection = {
           </p>
           <div class="result-actions">
             <button type="button" id="copyVisibleBibBtn" class="bib-batch-btn">
-              Copy Visible BibTeX ({sortedPubs.length})
+              Copy Visible BibTeX ({sortedPubs.length + THESES.length})
             </button>
             <button type="button" id="downloadVisibleBibBtn" class="bib-batch-btn">
-              Download .bib ({sortedPubs.length})
+              Download .bib ({sortedPubs.length + THESES.length})
             </button>
             <button type="button" id="resetFilters" class="reset-btn" hidden>Reset Filters</button>
           </div>
+        </div>
+
+        <div class="topic-filter-bar" role="group" aria-label="Filter publications by popular topic">
+          <span class="yr-strip-lbl">Top topics:</span>
+          {topTopics.map(({ topic, count }) => (
+            <button type="button" class="topic-pill" data-topic={topic} aria-pressed="false">
+              {topic} ({count})
+            </button>
+          ))}
         </div>
 
         <p id="copyAnnounce" class="sr-only" aria-live="polite"></p>
@@ -299,13 +343,20 @@ const schemaCollection = {
                   <p class="pub-tldr">{pub.tldr}</p>
 
                   {pub.topics && pub.topics.length > 0 && (
-                    <div class="pub-topics" aria-label="Topics">
-                      {pub.topics.map((topic) => (
-                        <button type="button" class="topic-pill" data-topic={topic} aria-pressed="false">
-                          {topic}
-                        </button>
+                    <p class="pub-topics-inline" aria-label="Topics">
+                      {pub.topics.map((topic, tIdx) => (
+                        <>
+                          {tIdx > 0 ? <span class="topic-sep" aria-hidden="true"> &middot; </span> : null}
+                          <a
+                            href={`/publications/?topic=${encodeURIComponent(topic)}`}
+                            class="pub-topic-link"
+                            data-topic={topic}
+                          >
+                            {topic}
+                          </a>
+                        </>
                       ))}
-                    </div>
+                    </p>
                   )}
 
                   <div class="pub-actions">
@@ -370,7 +421,7 @@ const schemaCollection = {
           <h2 class="section-h">Graduate Thesis Monographs ({THESES.length})</h2>
         </div>
         <p class="section-intro">
-          Doctoral and master&rsquo;s engineering degree monographs are indexed separately from the {sortedPubs.length} peer-reviewed papers and preprints above.
+          Doctoral and master&rsquo;s engineering degree monographs are indexed separately from the {sortedPubs.length} journal articles, peer-reviewed conference papers, and manuscripts under review above.
         </p>
 
         <ol class="bib-list">
@@ -480,16 +531,39 @@ const schemaCollection = {
           entries.push(codeEl.textContent.trim());
         }
       });
+      var q = ((searchEl && searchEl.value) || '').trim();
+      var isUnfiltered = activeFilter === 'all' && !activeYear && !activeTopic && !q;
+      if (isUnfiltered) {
+        var thesesSec = document.getElementById('theses');
+        if (thesesSec) {
+          thesesSec.querySelectorAll('.bib-panel pre code').forEach(function (codeEl) {
+            if (codeEl && codeEl.textContent) entries.push(codeEl.textContent.trim());
+          });
+        }
+      }
       return { count: entries.length, text: entries.join('\n\n') };
+    }
+
+    function jumpToTheses() {
+      var thesesEl = document.getElementById('theses');
+      if (!thesesEl) return;
+      thesesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      thesesEl.classList.add('is-flash');
+      setTimeout(function () { thesesEl.classList.remove('is-flash'); }, 1600);
+      if (chartReadout) {
+        chartReadout.textContent = '2023: 119 citations · scrolled to PhD & MSc Thesis Monographs';
+      }
     }
 
     function syncYearAndTopicUI() {
       chartCols.forEach(function (col) {
+        if (col.getAttribute('data-action') !== 'filter') return;
         var on = col.getAttribute('data-year') === activeYear && activeYear !== '';
         col.classList.toggle('is-active', on);
         col.setAttribute('aria-pressed', String(on));
       });
       yrChips.forEach(function (chip) {
+        if (chip.getAttribute('data-action') !== 'filter') return;
         var on = chip.getAttribute('data-year') === activeYear && activeYear !== '';
         chip.classList.toggle('is-active', on);
         chip.setAttribute('aria-pressed', String(on));
@@ -499,6 +573,10 @@ const schemaCollection = {
         var on = Boolean(activeTopic) && tLow === activeTopic.toLowerCase();
         pill.classList.toggle('is-active', on);
         pill.setAttribute('aria-pressed', String(on));
+      });
+      document.querySelectorAll('.pub-topic-link').forEach(function (link) {
+        var tLow = (link.getAttribute('data-topic') || '').toLowerCase();
+        link.classList.toggle('is-active', Boolean(activeTopic) && tLow === activeTopic.toLowerCase());
       });
     }
 
@@ -645,28 +723,41 @@ const schemaCollection = {
     chartCols.forEach(function (col) {
       var yr = col.getAttribute('data-year') || '';
       var cites = col.getAttribute('data-cites') || '';
+      var action = col.getAttribute('data-action') || 'static';
       var updateReadout = function () {
-        if (chartReadout) {
+        if (!chartReadout) return;
+        if (action === 'thesis') {
+          chartReadout.textContent = yr + ': ' + cites + ' citations (click to view 2023 PhD thesis monograph)';
+        } else if (action === 'filter') {
           chartReadout.textContent = yr + ': ' + cites + ' citations (click to filter ' + yr + ' papers)';
+        } else {
+          chartReadout.textContent = yr + ': ' + cites + ' citations across earlier publications';
         }
       };
       col.addEventListener('mouseenter', updateReadout);
+      if (action === 'static') return;
       col.addEventListener('focus', updateReadout);
-      col.addEventListener('click', function () { toggleYear(yr); });
+      col.addEventListener('click', function () {
+        if (action === 'thesis') jumpToTheses();
+        else toggleYear(yr);
+      });
       col.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          toggleYear(yr);
+          if (action === 'thesis') jumpToTheses();
+          else toggleYear(yr);
         }
       });
     });
 
     yrChips.forEach(function (chip) {
       chip.addEventListener('click', function () {
-        toggleYear(chip.getAttribute('data-year') || '');
+        if (chip.getAttribute('data-action') === 'thesis') jumpToTheses();
+        else toggleYear(chip.getAttribute('data-year') || '');
       });
     });
 
+    var copyTimer = null;
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
         tabs.forEach(function (b) {
@@ -690,8 +781,14 @@ const schemaCollection = {
         if (!bundle.count) return;
         copyTextFallback(bundle.text).then(function (ok) {
           if (ok) {
+            if (copyTimer) clearTimeout(copyTimer);
+            var origText = 'Copy Visible BibTeX (' + bundle.count + ')';
+            copyVisibleBtn.textContent = 'Copied! (' + bundle.count + ')';
             if (announceEl) announceEl.textContent = 'Copied ' + bundle.count + ' BibTeX entries to clipboard.';
             if (window.__showMonoToast) window.__showMonoToast('Copied ' + bundle.count + ' BibTeX entries');
+            copyTimer = setTimeout(function () {
+              copyVisibleBtn.textContent = origText;
+            }, 1600);
           }
         });
       });
@@ -717,6 +814,13 @@ const schemaCollection = {
       var topicBtn = target.closest('.topic-pill');
       if (topicBtn) {
         toggleTopic(topicBtn.getAttribute('data-topic') || '');
+        return;
+      }
+
+      var topicLink = target.closest('.pub-topic-link');
+      if (topicLink && !e.metaKey && !e.ctrlKey && !e.shiftKey) {
+        e.preventDefault();
+        toggleTopic(topicLink.getAttribute('data-topic') || '');
         return;
       }
 
@@ -832,10 +936,31 @@ const schemaCollection = {
     cursor: pointer;
     outline: none;
   }
-  .chart-col:hover .chart-bar,
-  .chart-col:focus-visible .chart-bar,
+  .chart-col.is-static {
+    cursor: default;
+  }
+  .chart-col.is-static .chart-bar {
+    opacity: 0.78;
+  }
+  .chart-col:not(.is-static):hover .chart-bar,
+  .chart-col:not(.is-static):focus-visible .chart-bar,
   .chart-col.is-active .chart-bar {
     fill: var(--accent-clove);
+  }
+  .chart-col:focus-visible .chart-bar {
+    stroke: var(--text-primary);
+    stroke-width: 2;
+  }
+  .topic-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 1.05rem;
+  }
+  #theses.is-flash {
+    background: var(--bg-secondary);
+    transition: background 0.35s ease;
   }
   .chart-col.is-active .chart-yr {
     fill: var(--accent-clove);
@@ -1077,11 +1202,25 @@ const schemaCollection = {
     line-height: 1.62;
     margin-bottom: 0.55rem;
   }
-  .pub-topics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 0.65rem;
+  .pub-topics-inline {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.58rem;
+    line-height: 1.5;
+  }
+  .pub-topic-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rule-strong);
+  }
+  .pub-topic-link:hover,
+  .pub-topic-link.is-active {
+    color: var(--accent-forest);
+    border-bottom-color: var(--accent-forest);
+  }
+  .pub-topic-link.is-active {
+    font-weight: 600;
   }
   .topic-pill {
     padding: 0.14rem 0.48rem;
@@ -1163,6 +1302,16 @@ const schemaCollection = {
     .reset-btn {
       min-height: 42px;
       padding: 0.45rem 0.85rem;
+    }
+  }
+  @media print {
+    .chart-year-strip,
+    .result-actions,
+    .pub-ext-links,
+    .topic-filter-bar,
+    .controls-bar,
+    .pub-actions {
+      display: none !important;
     }
   }
 </style>

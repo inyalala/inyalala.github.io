@@ -111,6 +111,11 @@ const faqSchema = {
   title="Frequently Asked Questions | Innocent Nyalala · IITMZ"
   description="Answers on MTech and PhD supervision, collaborations, IIT Madras Zanzibar course materials, SAAIL Lab separation, and campus visits."
   canonical="https://inyalala.github.io/faq/"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/faq/' },
+    { hreflang: 'sw', href: 'https://inyalala.github.io/sw/faq/' },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/faq/' }
+  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

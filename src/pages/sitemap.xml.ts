@@ -6,7 +6,7 @@ import { WRITING_POSTS } from '../data/writing';
 import newsData from '../data/news.json';
 import metrics from '../data/scholar-metrics.json';
 
-const TODAY_ISO = '2026-11-26';
+const TODAY_ISO = new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(0, 10);
 
 function clampDate(iso: string): string {
   return iso > TODAY_ISO ? TODAY_ISO : iso;
@@ -19,6 +19,10 @@ export const GET: APIRoute = () => {
   const staticPages = [
     { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: latestNewsDate },
     { path: '/sw/', priority: '0.9', changefreq: 'weekly', lastmod: latestNewsDate },
+    { path: '/sw/courses/', priority: '0.85', changefreq: 'weekly', lastmod: latestNewsDate },
+    { path: '/sw/research/', priority: '0.85', changefreq: 'monthly', lastmod: siteUpdated },
+    { path: '/sw/contact/', priority: '0.75', changefreq: 'monthly', lastmod: siteUpdated },
+    { path: '/sw/faq/', priority: '0.75', changefreq: 'monthly', lastmod: siteUpdated },
     { path: '/courses/', priority: '0.95', changefreq: 'weekly', lastmod: latestNewsDate },
     { path: '/research/', priority: '0.9', changefreq: 'monthly', lastmod: siteUpdated },
     { path: '/publications/', priority: '0.95', changefreq: 'weekly', lastmod: siteUpdated },

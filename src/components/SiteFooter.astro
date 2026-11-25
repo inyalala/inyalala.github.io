@@ -59,21 +59,22 @@ const buildDateEat = new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(
         <ul class="colophon-list">
           <li><a href={isSw ? '/sw/' : '/'}>{isSw ? 'Nyumbani (Kiswahili)' : 'Home'}</a></li>
           <li><a href="/about/">{isSw ? 'Wasifu na Kazi' : 'Biography & Career'}</a></li>
-          <li><a href="/research/">{isSw ? 'Ajenda ya Utafiti' : 'Research Agenda'}</a></li>
+          <li><a href={isSw ? '/sw/research/' : '/research/'}>{isSw ? 'Ajenda ya Utafiti' : 'Research Agenda'}</a></li>
           <li><a href="/publications/">{isSw ? `Machapisho (${PUBLICATIONS.length})` : `Publications (${PUBLICATIONS.length})`}</a></li>
           <li><a href="/writing/">{isSw ? 'Makala na Miongozo' : 'Writing & Travel Guides'}</a></li>
           <li><a href="/news/">{isSw ? 'Habari na Matukio' : 'News & Dispatches'}</a></li>
           <li><a href="/work-with-me/">{isSw ? 'Ushirikiano' : 'Collaborate'}</a></li>
-          <li><a href="/contact/">{isSw ? 'Mawasiliano' : 'Contact'}</a></li>
+          <li><a href={isSw ? '/sw/faq/' : '/faq/'}>{isSw ? 'Maswali' : 'FAQ'}</a></li>
+          <li><a href={isSw ? '/sw/contact/' : '/contact/'}>{isSw ? 'Mawasiliano' : 'Contact'}</a></li>
         </ul>
       </div>
 
       <div>
         <h2 class="colophon-h">{isSw ? 'Ufundishaji na Mitaala' : 'Teaching & Syllabi'}</h2>
         <ul class="colophon-list">
-          <li><a href="/courses/">{isSw ? 'Kozi Zote (2026-27)' : 'All Courses (2026-27)'}</a></li>
+          <li><a href={isSw ? '/sw/courses/' : '/courses/'}>{isSw ? 'Kozi Zote (2026-27)' : 'All Courses (2026-27)'}</a></li>
           <li><a href="/courses/z5007/">{isSw ? 'Z5007 Prog & DS (MTech)' : 'Z5007 Prog & DS (MTech Active)'}</a></li>
-          <li><a href="/courses/z3003/">{isSw ? 'Z3003 Uchimbaji Data (BS)' : 'Z3003 Data Mining (BS Active)'}</a></li>
+          <li><a href="/courses/z3003/">{isSw ? 'Z3003 Uchimbaji wa Data (BS)' : 'Z3003 Data Mining (BS Active)'}</a></li>
           <li><a href="/courses/z2005/">{isSw ? 'Z2005 Prog & DS (Rejea)' : 'Z2005 Prog & DS (Reference)'}</a></li>
           <li><a href="/courses/z2004/">{isSw ? 'Z2004 DBMS (Kumbukumbu)' : 'Z2004 DBMS (Archive)'}</a></li>
           <li><a href="/courses/z5008/">{isSw ? 'Z5008 Big Data (Kumbukumbu)' : 'Z5008 Big Data Lab (Archive)'}</a></li>
@@ -97,9 +98,9 @@ const buildDateEat = new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(
       {isSw ? (
         <>
           &copy; {new Date().getUTCFullYear()} Innocent Nyalala &middot; Kitivo cha Uhandisi na Sayansi, IIT Madras Zanzibar.
-          Matini chini ya <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="license noopener">CC BY-NC 4.0</a>;
-          vifaa vya masomo chini ya <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a>;
-          msimbo chanzo chini ya <a href="https://github.com/inyalala/inyalala.github.io/blob/main/LICENSE" target="_blank" rel="license noopener">Leseni ya MIT</a>.
+          Matini yanatolewa chini ya <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="license noopener">CC BY-NC 4.0</a>;
+          vifaa vya masomo vinatolewa chini ya <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a>;
+          msimbo chanzo unatolewa chini ya <a href="https://github.com/inyalala/inyalala.github.io/blob/main/LICENSE" target="_blank" rel="license noopener">Leseni ya MIT</a>.
         </>
       ) : (
         <>

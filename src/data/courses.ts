@@ -11,6 +11,7 @@ export interface CourseModule {
   summary: string;
   readings?: string;
   assignment?: string;
+  portalAnchor?: string;
   hubHref?: string;
   slides: CourseLink[];
   labHref?: string;
@@ -376,6 +377,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W1',
         weeks: '1',
+        portalAnchor: '#week-01',
         title: 'Course Orientation, RAM Model & Big-O Asymptotics',
         summary: 'Scaling motivation, duplicate detection in Python, RAM operation counting, and Big-O rules (Oct 5-9).',
         readings: 'Canning, Broder & Lafore Ch. 1-2',
@@ -390,6 +392,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W2',
         weeks: '2',
+        portalAnchor: '#week-02',
         title: 'Arrays, Binary Search, Dynamic Arrays & Elementary Sorts',
         summary: 'Contiguous byte indexing, invariant-based binary search, dynamic doubling, bubble sort, and selection sort (Oct 12-16).',
         readings: 'Canning, Broder & Lafore Ch. 2-3',
@@ -405,6 +408,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W3',
         weeks: '3',
+        portalAnchor: '#week-03',
         title: 'Insertion Sort & Stacks (Arrays vs. Linked Nodes)',
         summary: 'Inversion bounds on insertion sort, LIFO ADT, bracket matching, and array versus linked stacks (Oct 19-22).',
         readings: 'Canning, Broder & Lafore Ch. 3-4',
@@ -421,6 +425,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W4',
         weeks: '4',
+        portalAnchor: '#week-04',
         title: 'Circular Queues, Linked Lists, Sentinels & LRU Cache',
         summary: 'Modular ring buffers, singly linked pointer updates, doubly linked sentinels, and O(1) LRU cache design (Oct 28-30).',
         readings: 'Canning, Broder & Lafore Ch. 4-5',
@@ -436,6 +441,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W5',
         weeks: '5',
+        portalAnchor: '#week-05',
         title: 'Recursion, Merge Sort, Quicksort & Master Theorem',
         summary: 'Base cases, call stack frames, stable Merge Sort, Lomuto Quicksort and Quickselect, and recursion trees (Nov 2-6).',
         readings: 'Canning, Broder & Lafore Ch. 6-7; CLRS Ch. 4',
@@ -453,6 +459,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W6',
         weeks: '6',
+        portalAnchor: '#week-06',
         title: 'Quiz 1 Review & Practice Bank (Ch. 1-7)',
         summary: 'Cumulative review covering Big-O, arrays, stacks, queues, linked lists, recursion, and sorting ahead of Quiz 1 (Nov 12-14).',
         readings: 'Canning, Broder & Lafore Ch. 1-7',
@@ -464,6 +471,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W7',
         weeks: '7',
+        portalAnchor: '#week-07',
         title: 'Linear Sorts, Binary Trees & Binary Search Trees',
         summary: 'Counting sort, Radix sort, binary tree properties, four traversals, BST invariants, search, insert, and 3-case deletion (Nov 16-20).',
         readings: 'Canning, Broder & Lafore Ch. 8; CLRS Ch. 8, 12',
@@ -480,49 +488,148 @@ export const COURSES: CourseData[] = [
       {
         code: 'W8',
         weeks: '8',
-        title: 'AVL Trees, Red-Black Trees, Heaps & Priority Queues',
-        summary: 'Self-balancing height invariants, single/double AVL rotations, red-black balancing, binary heaps, and heap sort (Nov 23-27).',
-        readings: 'Canning, Broder & Lafore Ch. 8, 10, 13; CLRS Ch. 13',
+        portalAnchor: '#week-08',
+        title: 'AVL Trees, Red-Black Trees, Heaps & Hash Tables',
+        summary: 'Self-balancing height invariants, single/double AVL rotations, binary heaps, priority queues, and open-addressing/chaining hash tables (Nov 23-27).',
+        readings: 'Canning, Broder & Lafore Ch. 8, 10, 11, 13; CLRS Ch. 11, 13',
         slides: [
           { label: 'Mon: AVL Trees (PDF)', href: `${TEACH_BASE}/z5007/week-08/slides/W08_Mon_Nov23_AVL_Trees.pdf`, kind: 'pdf' },
-          { label: 'Mon: AVL LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-08/notes/W08_Mon_Nov23_AVL_Trees_Notes.pdf`, kind: 'pdf' }
-        ]
+          { label: 'Mon: AVL LaTeX Notes & Worksheet (PDF)', href: `${TEACH_BASE}/z5007/week-08/notes/W08_Mon_Nov23_AVL_Trees_Notes.pdf`, kind: 'pdf' },
+          { label: 'Summary Notes: AVL, Heaps & Hashing (PDF)', href: `${TEACH_BASE}/z5007/week-08/notes/W08_Trees_AVL_Heaps_Hash_Tables_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-08/code/w08_heaps_hash_tables.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-08/labs/W08_Heaps_PriorityQueues_HashTables.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-08/labs/W08_Heaps_PriorityQueues_HashTables.ipynb`
       },
       {
         code: 'W9',
         weeks: '9',
-        title: 'Hash Tables, Collision Resolution & Bloom Filters',
-        summary: 'Hash functions, chaining vs. open addressing, load factor resizing, Python dict internals, and Bloom filters (Nov 30-Dec 4).',
-        readings: 'Canning, Broder & Lafore Ch. 11; CLRS Ch. 11',
+        portalAnchor: '#week-09',
+        title: 'Graph Representations, BFS, DFS & Topological Sort',
+        summary: 'Adjacency lists vs. matrices, breadth-first levels, depth-first discovery/finish timestamps, cycle detection, and Kahn topological ordering (Nov 30-Dec 4).',
+        readings: 'Canning, Broder & Lafore Ch. 14; CLRS Ch. 20',
         assignment: 'ICA 3 (Thu Dec 3)',
-        slides: []
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-09/notes/W09_Graph_Traversals_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-09/code/w09_graphs_traversals_topo.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-09/labs/W09_Graph_Representations_BFS_DFS.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-09/labs/W09_Graph_Representations_BFS_DFS.ipynb`
       },
       {
-        code: 'W10-11',
-        weeks: '10-11',
-        title: 'Dynamic Programming, Greedy Algorithms & Graphs Intro',
-        summary: 'Memoization, tabulation, 0/1 knapsack, LCS, greedy choice proofs, graph representations, BFS, DFS, and shortest paths (Dec 7-18).',
-        readings: 'Skiena Ch. 7-10; Canning, Broder & Lafore Ch. 14-15',
+        code: 'W10',
+        weeks: '10',
+        portalAnchor: '#week-10',
+        title: 'Shortest Paths: Dijkstra & Bellman-Ford',
+        summary: 'Edge relaxation invariants, priority-queue Dijkstra, negative-weight Bellman-Ford, negative-cycle checks, and DAG shortest paths (Dec 7-11).',
+        readings: 'Canning, Broder & Lafore Ch. 14-15; CLRS Ch. 22',
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-10/notes/W10_Shortest_Paths_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-10/code/w10_shortest_paths.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-10/labs/W10_Shortest_Paths_Dijkstra_BellmanFord.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-10/labs/W10_Shortest_Paths_Dijkstra_BellmanFord.ipynb`
+      },
+      {
+        code: 'W11',
+        weeks: '11',
+        portalAnchor: '#week-11',
+        title: 'Greedy Algorithms & Minimum Spanning Trees (Kruskal & Prim)',
+        summary: 'Greedy-choice proofs, interval scheduling, Huffman coding, cut property, Kruskal MST, and Prim priority-queue MST (Dec 14-18).',
+        readings: 'Skiena Ch. 7-10; CLRS Ch. 15, 21',
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-11/notes/W11_Greedy_and_MST_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-11/code/w11_greedy_mst.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-11/labs/W11_Greedy_and_MST_Kruskal_Prim.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-11/labs/W11_Greedy_and_MST_Kruskal_Prim.ipynb`
+      },
+      {
+        code: 'W12',
+        weeks: '12',
+        portalAnchor: '#week-12',
+        title: 'Dynamic Programming Foundations',
+        summary: 'Optimal substructure, overlapping subproblems, top-down memoization vs. bottom-up tabulation, 0/1 knapsack, coin change, and LIS (Dec 21-24).',
+        readings: 'Skiena Ch. 10; CLRS Ch. 14',
         assignment: 'Quiz 2 (Dec 22-24)',
-        slides: []
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-12/notes/W12_Dynamic_Programming_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-12/code/w12_dynamic_programming.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-12/labs/W12_Dynamic_Programming.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-12/labs/W12_Dynamic_Programming.ipynb`
       },
       {
-        code: 'W12-14',
-        weeks: '12-14',
-        title: 'Graph Algorithms, Dijkstra, A*, MSTs & Project Sprint',
-        summary: 'Dijkstra, Bellman-Ford, A* search on road networks, Prim and Kruskal MSTs, plus holiday project sprint and ICA 4 (Jan 14).',
-        readings: 'Canning, Broder & Lafore Ch. 14-15; CLRS Ch. 21-23',
+        code: 'W13',
+        weeks: '13',
+        portalAnchor: '#week-13',
+        title: 'Advanced Dynamic Programming: Edit Distance, Matrix Chain & Tree DP',
+        summary: 'Sequence alignment, LCS reconstruction, matrix-chain parenthesization, bitmask states, and dynamic programming on trees.',
+        readings: 'CLRS Ch. 14; Skiena Ch. 10',
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-13/notes/W13_Advanced_Dynamic_Programming_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-13/code/w13_advanced_dp.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-13/labs/W13_Advanced_Dynamic_Programming.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-13/labs/W13_Advanced_Dynamic_Programming.ipynb`
+      },
+      {
+        code: 'W14',
+        weeks: '14',
+        portalAnchor: '#week-14',
+        title: 'String Matching (KMP, Rabin-Karp) & Prefix Tries',
+        summary: 'Rolling hashes, Knuth-Morris-Pratt prefix function, prefix tries for autocomplete, and pattern-matching benchmarks.',
+        readings: 'CLRS Ch. 32',
         assignment: 'ICA 4 (Thu Jan 14)',
-        slides: []
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-14/notes/W14_String_Matching_and_Tries_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-14/code/w14_string_matching_tries.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-14/labs/W14_String_Matching_and_Tries.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-14/labs/W14_String_Matching_and_Tries.ipynb`
       },
       {
-        code: 'W15-17',
-        weeks: '15-17',
-        title: 'Spatial, Randomized & Parallel Algorithms; Project Vivas & Exams',
-        summary: 'Spatial trees, randomized algorithms, parallel primitives, pair project demonstrations, practical lab exam (Jan 28), and theory exam (Feb 1-5).',
-        readings: 'Canning, Broder & Lafore Ch. 12, 16; Skiena',
+        code: 'W15',
+        weeks: '15',
+        portalAnchor: '#week-15',
+        title: 'Union-Find, Path Compression & Amortized Analysis',
+        summary: 'Disjoint-set forest with union-by-rank and path compression, aggregate, accounting, and potential amortized methods.',
+        readings: 'CLRS Ch. 16, 19',
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-15/notes/W15_Union_Find_Amortized_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-15/code/w15_union_find_amortized.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-15/labs/W15_Union_Find_Amortized_Review.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-15/labs/W15_Union_Find_Amortized_Review.ipynb`
+      },
+      {
+        code: 'W16',
+        weeks: '16',
+        portalAnchor: '#week-16',
+        title: 'NP-Completeness, Reductions & Approximation Algorithms',
+        summary: 'P vs. NP, polynomial-time reductions (3-SAT, Clique, Vertex Cover, TSP), and bounded approximation guarantees.',
+        readings: 'CLRS Ch. 34, 35',
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-16/notes/W16_NP_Completeness_Reductions_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-16/code/w16_np_completeness_approx.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-16/labs/W16_NP_Completeness_Reductions.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-16/labs/W16_NP_Completeness_Reductions.ipynb`
+      },
+      {
+        code: 'W17',
+        weeks: '17',
+        portalAnchor: '#week-17',
+        title: 'Capstone Synthesis, Project Vivas & Final Examinations',
+        summary: 'Full-semester synthesis spanning complexity, trees, hashing, graphs, DP, and NP reductions, pair project vivas, practical lab exam (Jan 28), and theory exam (Feb 1-5).',
+        readings: 'Canning, Broder & Lafore; CLRS; Skiena',
         assignment: 'Practical Jan 28; Theory Feb 1-5',
-        slides: []
+        slides: [
+          { label: 'Summary Notes (PDF)', href: `${TEACH_BASE}/z5007/week-17/notes/W17_Capstone_Exam_Synthesis_Summary.pdf`, kind: 'pdf' },
+          { label: 'Python Reference Code (.py)', href: `${TEACH_BASE}/z5007/week-17/code/w17_capstone_synthesis.py`, kind: 'lab' }
+        ],
+        colabHref: `${COLAB_BASE}/z5007/week-17/labs/W17_Final_Capstone_Synthesis.ipynb`,
+        notebookHref: `${TEACH_BASE}/z5007/week-17/labs/W17_Final_Capstone_Synthesis.ipynb`
       }
     ],
     grading: [
@@ -615,6 +722,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W1',
         weeks: '1',
+        portalAnchor: '#week-01',
         title: 'Introduction & Bayesian ML Review',
         summary: 'Scaling challenges, Bayesian Decision Theory, Maximum Likelihood Estimation, and NumPy/SciPy review.',
         readings: 'MMDS Ch. 1',
@@ -627,6 +735,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W2',
         weeks: '2',
+        portalAnchor: '#week-02',
         title: 'Feature Selection & Dimensionality Reduction',
         summary: 'Information gain, mutual information, PCA eigendecomposition, LDA, and missing-value imputation.',
         readings: 'ESL Ch. 3',
@@ -637,6 +746,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W3',
         weeks: '3',
+        portalAnchor: '#week-03',
         title: 'Class Imbalance & Ensemble Methods',
         summary: 'Differential losses, SMOTE, AdaBoost, Gradient Boosting, Bagging, Random Forests, and stacking.',
         readings: 'ESL Ch. 10',
@@ -647,6 +757,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W4',
         weeks: '4',
+        portalAnchor: '#week-04',
         title: 'MapReduce & Introduction to PySpark',
         summary: 'Why single-node memory fails, map/shuffle/reduce stages, and Spark RDD transformations and actions.',
         readings: 'MMDS Ch. 2',
@@ -658,6 +769,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W5',
         weeks: '5',
+        portalAnchor: '#week-05',
         title: 'Locality-Sensitive Hashing & PageRank',
         summary: 'k-shingling, Jaccard similarity, MinHash signatures, LSH banding, and PageRank power iteration.',
         readings: 'MMDS Ch. 3, 5',
@@ -668,6 +780,7 @@ export const COURSES: CourseData[] = [
       {
         code: 'W6',
         weeks: '6',
+        portalAnchor: '#week-06',
         title: 'Frequent Pattern Mining & Stream Mining Intro',
         summary: 'Support/confidence association rules, Apriori pruning, stream model, Bloom filters, and Flajolet-Martin.',
         readings: 'MMDS Ch. 4, 6',

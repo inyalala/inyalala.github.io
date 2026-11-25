@@ -1,0 +1,282 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MonographRail from '../../../components/MonographRail.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import metrics from '../../../data/scholar-metrics.json';
+import { breadcrumbList, personEntity, websiteEntity } from '../../../data/schema';
+
+const pageUrl = 'https://inyalala.github.io/sw/faq/';
+
+interface FaqItem {
+  id: string;
+  q: string;
+  plainA: string;
+  linkText?: string;
+  linkHref?: string;
+  external?: boolean;
+}
+
+const faqsSw: FaqItem[] = [
+  {
+    id: 'faq-saail-tofauti',
+    q: 'Tovuti hii binafsi inatofautianaje na tovuti ya Maabara ya SAAIL?',
+    plainA: `Tovuti hii ni kumbukumbu binafsi ya kitaaluma ya Dkt. Innocent Nyalala: nyadhifa rasmi, machapisho yote ${metrics.totalWorks} (nukuu ${metrics.citations.toLocaleString('en-US')}), kozi za IIT Madras Zanzibar, makala, na mawasiliano ya moja kwa moja. Orodha za wanafunzi, watafiti waliopita, tovuti za miradi, na programu za Android za maabara zinapatikana kwenye tovuti ya Maabara ya SAAIL.`,
+    linkText: 'Tembelea Maabara ya SAAIL (saaillab.github.io)',
+    linkHref: 'https://saaillab.github.io/',
+    external: true
+  },
+  {
+    id: 'faq-slaidi',
+    q: 'Wanafunzi wa IIT Madras Zanzibar wanaweza kupata wapi slaidi na daftari za masomo?',
+    plainA:
+      'Kozi zinazoendelea za Muhula wa Kwanza 2026-27 kwa Z5007 (Utayarishaji Programu na Miundo ya Data, MTech) na Z3003 (Uchimbaji wa Data, BS Core pamoja na Dkt. Mahendran V), pamoja na kumbukumbu za Z2005, Z2004, na Z5008, zinapatikana kwenye ukurasa wa Kozi na Slaidi.',
+    linkText: 'Fungua Ukurasa wa Kozi na Slaidi',
+    linkHref: '/sw/courses/'
+  },
+  {
+    id: 'faq-usimamizi',
+    q: 'Waombaji wa MTech, PhD, au Postdoc wanawezaje kuomba usimamizi wa utafiti?',
+    plainA:
+      'Kwanza soma maeneo manne ya utafiti ya Maabara ya SAAIL, kisha tuma barua pepe kwenda innocent@iitmz.ac.in ukiambatanisha wasifu (CV), muhtasari wa alama, viungo vya msimbo au Google Scholar, na aya fupi inayotaja machapisho mawili ya maabara yanayoendana na malengo yako.',
+    linkText: 'Soma Mwongozo wa Ushirikiano na Usimamizi (EN)',
+    linkHref: '/work-with-me/'
+  },
+  {
+    id: 'faq-ushirikiano',
+    q: 'Je, mnashirikiana na vyama vya ushirika vya kilimo, taasisi za serikali, au sekta ya afya Afrika Mashariki?',
+    plainA:
+      'Ndiyo. Miradi inayoendelea inahusisha Shirika la Biashara la Taifa Zanzibar (ZSTC) katika uwekaji daraja wa karafuu na Ubora-AI, kilimo cha korosho Tanzania chini ya ufadhili wa IC&SR IIT Madras, na ushirika wa picha za afya ya uzazi na CPHK Pemba pamoja na Penn State University.',
+    linkText: 'Tuma Pendekezo la Ushirikiano',
+    linkHref: '/sw/contact/'
+  },
+  {
+    id: 'faq-ofisi',
+    q: 'Saa za kukutana na wanafunzi kwenye Kampasi ya Bweleo ni lini?',
+    plainA:
+      'Saa za ushauri wa masomo hufanyika Jumanne (kipindi cha Z5007 MTech) na Jumatano, Saa 8:00 mchana hadi 10:00 alasiri (2:00-4:00 PM EAT, Z3003 BS na huduma ya moja kwa moja kwa wanafunzi) katika Chumba 105 (Ghorofa ya 1 / F1), Kampasi ya Bweleo, Zanzibar, au kwa miadi kupitia barua pepe.',
+    linkText: 'Mwongozo wa Kuwasili Kampasi ya Bweleo (EN)',
+    linkHref: '/writing/visiting-iit-madras-zanzibar-guide/'
+  },
+  {
+    id: 'faq-leseni',
+    q: 'Je, vyuo vingine vinaweza kutumia au kurekebisha slaidi na laha za maabara?',
+    plainA:
+      'Ndiyo, chini ya leseni ya Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0): taja chanzo cha mwandishi, tumia leseni hiyohiyo kwa mabadiliko yoyote, na usitumie kwa madhumuni ya kibiashara.',
+    linkText: 'Maelezo ya Leseni ya Creative Commons',
+    linkHref: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+    external: true
+  },
+  {
+    id: 'faq-habari',
+    q: 'Waandishi wa habari na waandaaji wa makongamano hupata wapi picha na wasifu rasmi?',
+    plainA:
+      'Picha rasmi za kitaaluma, nembo za IIT Madras Zanzibar na Maabara ya SAAIL, na wasifu mfupi au mrefu unaonakiliwa kwa kubofya mara moja vinapatikana kwenye ukurasa wa Vifaa vya Habari.',
+    linkText: 'Fungua Vifaa vya Habari (EN)',
+    linkHref: '/media-kit/'
+  }
+];
+
+const swFaqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    {
+      ...websiteEntity(),
+      inLanguage: ['en-US', 'sw-TZ']
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: 'Maswali Yanayoulizwa Mara kwa Mara | Innocent Nyalala · IITMZ',
+      inLanguage: 'sw-TZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      mainEntity: faqsSw.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.plainA
+        }
+      }))
+    },
+    breadcrumbList(
+      [
+        { name: 'Nyumbani (Kiswahili)', url: 'https://inyalala.github.io/sw/' },
+        { name: 'Maswali (FAQ)', url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Maswali Yanayoulizwa Mara kwa Mara | Innocent Nyalala · IITMZ"
+  description="Majibu kuhusu usimamizi wa MTech na PhD, ushirikiano wa utafiti, vifaa vya kozi katika IIT Madras Zanzibar, na saa za ofisi huko Bweleo."
+  canonical={pageUrl}
+  lang="sw"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/faq/' },
+    { hreflang: 'sw', href: pageUrl },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/faq/' }
+  ]}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(swFaqSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="faq" lang="sw" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Majibu ya Marejeo</span>
+        <h1 class="page-title">Maswali Yanayoulizwa Mara kwa Mara</h1>
+        <p class="page-lead">
+          Maelezo ya moja kwa moja kuhusu upatikanaji wa slaidi za masomo, kuomba usimamizi wa uzamili na uzamivu, ushirikiano wa utafiti, na kuwasiliana na ofisi ya IIT Madras Zanzibar.
+        </p>
+      </header>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="faq-toolbar">
+          <span class="faq-count-lbl">Maswali {faqsSw.length} ya msingi</span>
+          <button type="button" id="swFaqToggleAll" class="faq-toggle-btn" aria-expanded="false">
+            Fungua Yote
+          </button>
+        </div>
+
+        <div class="faq-list">
+          {faqsSw.map((item, idx) => (
+            <details id={item.id} class="faq-row" open={idx < 2}>
+              <summary>
+                <span>{item.q}</span>
+                <span class="faq-marker" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-ans">
+                <p>{item.plainA}</p>
+                {item.linkHref && item.linkText && (
+                  <p class="faq-link-wrap">
+                    <a
+                      href={item.linkHref}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener' : undefined}
+                      class="text-action"
+                    >
+                      {item.linkText} {item.external ? '↗' : '→'}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <p style="margin-top: 2rem;">
+          <a href="/sw/contact/" class="btn-mono">Bado Una Swali? Wasiliana na Ofisi &rarr;</a>
+        </p>
+      </section>
+    </main>
+
+    <SiteFooter lang="sw" />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggleBtn = document.getElementById('swFaqToggleAll');
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.faq-row'));
+      if (!toggleBtn || !rows.length) return;
+
+      function syncBtn() {
+        var allOpen = rows.every(function (d) { return d.open; });
+        toggleBtn.textContent = allOpen ? 'Funga Yote' : 'Fungua Yote';
+        toggleBtn.setAttribute('aria-expanded', String(allOpen));
+      }
+      syncBtn();
+
+      toggleBtn.addEventListener('click', function () {
+        var allOpen = rows.every(function (d) { return d.open; });
+        rows.forEach(function (d) { d.open = !allOpen; });
+        syncBtn();
+      });
+
+      rows.forEach(function (d) {
+        d.addEventListener('toggle', syncBtn);
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .faq-toolbar {
+    max-width: 78ch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .faq-count-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .faq-toggle-btn {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    color: var(--accent-forest);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .faq-toggle-btn:hover {
+    border-color: var(--accent-forest);
+  }
+  .faq-list {
+    border-top: 1px solid var(--rule);
+    max-width: 78ch;
+  }
+  .faq-row {
+    border-bottom: 1px solid var(--rule);
+    padding: 0.25rem 0;
+  }
+  .faq-row summary {
+    list-style: none;
+    padding: 1rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .faq-row summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-marker {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--accent-clove);
+    transition: transform 0.16s ease;
+    flex-shrink: 0;
+  }
+  .faq-row[open] .faq-marker {
+    transform: rotate(45deg);
+    color: var(--accent-forest);
+  }
+  .faq-ans {
+    padding: 0 0 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.68;
+    font-size: 0.98rem;
+  }
+  .faq-link-wrap {
+    margin-top: 0.65rem;
+  }
+</style>

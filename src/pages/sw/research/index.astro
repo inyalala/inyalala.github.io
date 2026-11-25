@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MonographRail from '../../../components/MonographRail.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import { getImageDim, getThumbSrc } from '../../../data/media';
+import metrics from '../../../data/scholar-metrics.json';
+import { breadcrumbList, personEntity, websiteEntity } from '../../../data/schema';
+
+const pageUrl = 'https://inyalala.github.io/sw/research/';
+
+const pillarsSw = [
+  {
+    id: 'kilimo',
+    num: 'I · Kilimo cha Usahihi na Uchumi wa Buluu',
+    title: 'Utambuzi wa Magonjwa ya Mazao, Karafuu za ZSTC na Mwani wa Zanzibar',
+    summary:
+      'Mazao ya wakulima wadogo na mwani wa pwani yanahitaji modeli nyepesi za kompyuta zinazofanya kazi bila intaneti kwenye simu janja za kawaida. Utafiti unahusisha CropGuardNet (picha 35,420 zilizohakikiwa, kasi ya 5.00 ms CPU ONNX), uwekaji daraja wa karafuu za Zanzibar (CLOVES-4603, ETRI Journal 2026, CVPR 2026 CV4A), mradi wa CashewAI unaofadhiliwa na IC&SR, na ufuatiliaji wa joto la bahari kwa wakulima wa mwani.',
+    image: '/images/research/cropguardnet-architecture.webp',
+    imageAlt: 'Mchoro wa usanifu wa modeli nyepesi ya CropGuardNet CNN-Transformer',
+    caption: 'Usanifu wa CropGuardNet: paramita 481,574 na FLOPs milioni 63.8 katika CPU ONNX.',
+    labHref: 'https://saaillab.github.io/projects/cropguard-pathology/',
+    labLabel: 'Miradi ya Mazao na Karafuu (SAAIL Lab)'
+  },
+  {
+    id: 'kiswahili',
+    num: 'II · Usanifu wa Lugha ya Kiswahili na Asili ya Matini',
+    title: 'Zanzibar Swahili Corpus na Kigunduzi cha Dira cha Tafsiri ya Mashine',
+    summary:
+      'Mkusanyiko mwingi wa data za Kiswahili mtandaoni hutegemea matini yaliyotafsiriwa kutoka lugha ya Kiingereza kwa programu za kompyuta na kupoteza lahaja halisi ya Kiunguja. Tunakusanya matini asilia ya magazeti, kilimo na mazungumzo ya Zanzibar pamoja na mfumo wa Dira wa kukagua asili ya matini dhidi ya tafsiri ya mashine, na mfumo wa CARA-FM (PMLR Vol. 302).',
+    image: '/images/research/swahili-corpus.png',
+    imageAlt: 'Chati ya usambazaji wa vyanzo katika Zanzibar Swahili Corpus',
+    caption: 'Usambazaji wa vyanzo halisi vya Kiunguja na Kipemba ndani ya Zanzibar Swahili Corpus.',
+    labHref: 'https://saaillab.github.io/projects/swahili-dira/',
+    labLabel: 'Mradi wa Kiswahili na Dira'
+  },
+  {
+    id: 'uwajibikaji',
+    num: 'III · Uhakiki wa Mifumo ya AI na Sera Afrika Mashariki',
+    title: 'Tathmini ya Pengo la Matumizi Halisi (DGS-Bench) na Utawala wa AI',
+    summary:
+      'Usahihi wa juu katika vipimo vya maabara mara nyingi huficha makosa kwenye makundi machache ya data halisi shambani. Chapisho la DGS-Bench (Tuzo ya Bango Bora, Deep Learning Indaba 2026) linapima pengo hili katika majaribio 40 yaliyodhibitiwa; sambamba na uchunguzi wa sera za uhuru wa AI Afrika Mashariki (Oxford TAIS 2026, AAAI 2026).',
+    image: '/images/research/dgs-bench-gap.png',
+    imageAlt: 'Matokeo ya DGS-Bench yakilinganisha usahihi wa maabara na macro-F1',
+    caption: 'Matokeo ya DGS-Bench kwenye majaribio 40 yakionyesha udhaifu wa vipimo vya jumla.',
+    labHref: 'https://saaillab.github.io/projects/responsible-ai-global-south/',
+    labLabel: 'Sera na Uhakiki wa AI'
+  },
+  {
+    id: 'afya',
+    num: 'IV · Afya ya Mama na Mtoto na Picha za Kliniki',
+    title: 'PlacentaVision: Uchambuzi wa Kondo la Uzazi na Utabiri wa Kliniki',
+    summary:
+      'Kwa ushirikiano na Chuo Kikuu cha Penn State na CPHK Pemba, PlacentaVision inachambua picha 9,883 za kondo la uzazi kutoka hospitali za Pemba kwa kipimo sanifu cha rula (udhibiti wa ubora 98.92%). Kazi sambamba zinahusu modeli za ubashiri zinazofafanua kuzaliwa kabla ya wakati na utambuzi wa vivimbe (BAFNet, ESWA 2025).',
+    image: '/images/research/placentavision-pipeline.webp',
+    imageAlt: 'Mfumo wa PlacentaVision wa kupima kondo la uzazi kwa picha tatu',
+    caption: 'PlacentaVision ikiunganisha uchambuzi wa picha tatu na kipimo sanifu cha milimita.',
+    labHref: 'https://saaillab.github.io/projects/placentavision/',
+    labLabel: 'Ushirika wa PlacentaVision'
+  }
+];
+
+const datasetsSw = [
+  {
+    code: 'CLOVES-4603',
+    scope: 'Picha 4,603 za karafuu · Daraja 4 za ZSTC · Mgawanyo wa kura',
+    href: 'https://github.com/saaillab/CLOVES-4603'
+  },
+  {
+    code: 'CropGuardNet',
+    scope: 'Picha 35,420 za majani · Mazao 8 · Madaraja 38 ya magonjwa',
+    href: 'https://github.com/saaillab/CropGuardNet'
+  },
+  {
+    code: 'DGS-Bench',
+    scope: 'Majaribio 40 ya uhakiki · Tuzo ya DLI 2026 (Lagos)',
+    href: 'https://saaillab.github.io/papers/dgs-bench/'
+  },
+  {
+    code: 'Zanzibar Swahili & Dira',
+    scope: 'Matini halisi ya Kiunguja na Kipemba · Ukaguzi wa tafsiri ya mashine',
+    href: 'https://saaillab.github.io/projects/swahili-dira/'
+  }
+];
+
+const swResearchSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personEntity(),
+    {
+      ...websiteEntity(),
+      inLanguage: ['en-US', 'sw-TZ']
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: 'Ajenda ya Utafiti | Innocent Nyalala · IITM Zanzibar',
+      inLanguage: 'sw-TZ',
+      isPartOf: { '@id': 'https://inyalala.github.io/#website' },
+      about: { '@id': 'https://inyalala.github.io/#person' },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+    },
+    breadcrumbList(
+      [
+        { name: 'Nyumbani (Kiswahili)', url: 'https://inyalala.github.io/sw/' },
+        { name: 'Ajenda ya Utafiti', url: pageUrl }
+      ],
+      `${pageUrl}#breadcrumb`
+    )
+  ]
+};
+---
+
+<BaseLayout
+  title="Ajenda ya Utafiti | Innocent Nyalala · IITM Zanzibar"
+  description="Nguzo nne za utafiti wa Maabara ya SAAIL katika IIT Madras Zanzibar: kilimo cha usahihi na karafuu za ZSTC, lugha ya Kiswahili, uhakiki wa AI na afya ya mama."
+  canonical={pageUrl}
+  lang="sw"
+  alternates={[
+    { hreflang: 'en', href: 'https://inyalala.github.io/research/' },
+    { hreflang: 'sw', href: pageUrl },
+    { hreflang: 'x-default', href: 'https://inyalala.github.io/research/' }
+  ]}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(swResearchSchema)} />
+  </Fragment>
+
+  <MonographRail currentPage="research" lang="sw" />
+
+  <div class="monograph-canvas">
+    <main id="main-content">
+      <header class="page-masthead">
+        <span class="mono-eyebrow">Maabara ya SAAIL &middot; Nguzo Nne za Utafiti</span>
+        <h1 class="page-title">Ajenda ya Utafiti na Takwimu Wazi</h1>
+        <p class="page-lead">
+          Tunaunganisha usanifu mwepesi wa kompyuta, ukaguzi wa kina wa takwimu, na matumizi halisi ya uwanjani katika kilimo cha Afrika Mashariki, lugha ya Kiswahili, afya ya uzazi huko Pemba, na sera za utawala wa AI. Kazi zote zinajumuisha machapisho {metrics.totalWorks} yenye nukuu {metrics.citations.toLocaleString('en-US')}.
+        </p>
+        <p style="margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center;">
+          <a href="https://ubora-karafuu-ai.hf.space" target="_blank" rel="noopener" class="btn-mono">
+            Jaribu Mfumo wa Karafuu Mtandaoni &#8599;
+          </a>
+          <a href="/research/" class="btn-mono-outline">Mchoro Kamili wa Utafiti (English) &rarr;</a>
+          <a href="/publications/" class="text-action">Orodha ya Machapisho Yote &rarr;</a>
+        </p>
+      </header>
+
+      <section class="rule-section" style="padding-top: 0;">
+        <div class="sw-pillars">
+          {pillarsSw.map((p) => {
+            const dim = getImageDim(p.image);
+            return (
+              <article id={p.id} class="sw-pillar-row">
+                <div class="sw-pillar-text">
+                  <span class="mono-eyebrow">{p.num}</span>
+                  <h2 class="sw-pillar-h">{p.title}</h2>
+                  <p class="sw-pillar-body">{p.summary}</p>
+                  <p class="sw-pillar-links">
+                    <a href={p.labHref} target="_blank" rel="noopener" class="text-action">
+                      {p.labLabel} &#8599;
+                    </a>
+                  </p>
+                </div>
+                <figure class="sw-fig">
+                  <img
+                    src={getThumbSrc(p.image, 760)}
+                    alt={p.imageAlt}
+                    width={dim.width}
+                    height={dim.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>{p.caption}</figcaption>
+                </figure>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="rule-section">
+        <span class="mono-eyebrow">Data na Msimbo Chanzo Wazi</span>
+        <h2 class="section-h" style="margin-bottom: 1rem;">Hifadhi za Umma za Maabara ya SAAIL</h2>
+        <div class="ds-grid">
+          {datasetsSw.map((d) => (
+            <div class="ds-card">
+              <h3>
+                <a href={d.href} target="_blank" rel="noopener" class="inline-link">
+                  {d.code} &#8599;
+                </a>
+              </h3>
+              <p>{d.scope}</p>
+            </div>
+          ))}
+        </div>
+        <p style="margin-top: 1.35rem;">
+          <a href="/sw/contact/" class="btn-mono-outline">Wasiliana Kuhusu Ushirikiano wa Utafiti &rarr;</a>
+        </p>
+      </section>
+    </main>
+
+    <SiteFooter lang="sw" />
+  </div>
+</BaseLayout>
+
+<style>
+  .sw-pillars {
+    border-top: 1px solid var(--rule);
+  }
+  .sw-pillar-row {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .sw-pillar-h {
+    font-size: 1.65rem;
+    line-height: 1.18;
+    margin-bottom: 0.65rem;
+  }
+  .sw-pillar-body {
+    color: var(--text-secondary);
+    line-height: 1.72;
+    font-size: 0.98rem;
+  }
+  .sw-pillar-links {
+    margin-top: 0.85rem;
+  }
+  .sw-fig {
+    border: 1px solid var(--rule-strong);
+    background: var(--bg-surface);
+    padding: 0.5rem;
+  }
+  .sw-fig img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #ffffff;
+  }
+  :global([data-theme='dark']) .sw-fig img {
+    background: #ede7db;
+  }
+  .sw-fig figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+  .ds-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 2rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+  }
+  .ds-card {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.9rem;
+  }
+  .ds-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .ds-card p {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 820px) {
+    .sw-pillar-row,
+    .ds-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

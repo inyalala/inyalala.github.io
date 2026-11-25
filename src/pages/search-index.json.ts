@@ -32,6 +32,34 @@ export const GET: APIRoute = () => {
     },
     {
       group: 'Pages',
+      title: 'Kozi na Slaidi za Masomo (Kiswahili)',
+      meta: 'Z5007 · Z3003 · Kiswahili',
+      url: '/sw/courses/',
+      keywords: 'kiswahili kozi slaidi masomo z5007 z3003 z2005 mtech bs'
+    },
+    {
+      group: 'Pages',
+      title: 'Ajenda ya Utafiti (Kiswahili)',
+      meta: 'Karafuu · CashewAI · Dira · PlacentaVision',
+      url: '/sw/research/',
+      keywords: 'kiswahili utafiti karafuu zstc korosho dira kondo la uzazi'
+    },
+    {
+      group: 'Pages',
+      title: 'Maswali Yanayoulizwa Mara kwa Mara (Kiswahili)',
+      meta: 'Usimamizi · Saa za Ofisi · Leseni',
+      url: '/sw/faq/',
+      keywords: 'kiswahili maswali faq bweleo ofisi usimamizi'
+    },
+    {
+      group: 'Pages',
+      title: 'Mawasiliano (Kiswahili)',
+      meta: 'Chumba 105 (F1) · innocent@iitmz.ac.in',
+      url: '/sw/contact/',
+      keywords: 'kiswahili mawasiliano barua pepe chumba 105 bweleo zanzibar'
+    },
+    {
+      group: 'Pages',
       title: 'Research Agenda & Grants',
       meta: 'CashewAI · Agriculture · Swahili NLP · Health ML',
       url: '/research/',

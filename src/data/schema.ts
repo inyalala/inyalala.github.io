@@ -22,6 +22,7 @@ export function personEntity() {
     description: PROFILE.bios.short,
     url: `${BASE}/`,
     email: `mailto:${PROFILE.email}`,
+    knowsLanguage: ['en', 'sw'],
     image: {
       '@type': 'ImageObject',
       url: `${BASE}/images/innocent-nyalala-zanzibar.jpg`,
@@ -178,10 +179,17 @@ export function courseSchemaNode(c: CourseData) {
     courseCode: c.code,
     description: c.summary,
     url: pageUrl,
+    sameAs: c.links.teachingSiteHome,
     mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
     inLanguage: 'en-US',
     educationalLevel: c.program === 'MTech' ? 'Graduate' : 'Undergraduate',
     teaches: c.outcomes,
+    offers: {
+      '@type': 'Offer',
+      category: 'Free',
+      price: '0',
+      priceCurrency: 'USD'
+    },
     provider: {
       '@type': 'CollegeOrUniversity',
       name: PROFILE.institution,

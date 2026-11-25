@@ -85,9 +85,12 @@ const writingSchema = {
             class="w-search-input"
           />
         </div>
-        <p id="writingCount" class="w-count" aria-live="polite">
-          Showing {WRITING_POSTS.length} of {WRITING_POSTS.length} articles
-        </p>
+        <div class="w-count-bar">
+          <p id="writingCount" class="w-count" aria-live="polite">
+            Showing {WRITING_POSTS.length} of {WRITING_POSTS.length} articles
+          </p>
+          <button type="button" id="resetWritingInline" class="inline-reset-btn" hidden>Reset</button>
+        </div>
       </header>
 
       <section class="rule-section" style="padding-top: 0;">
@@ -164,6 +167,7 @@ const writingSchema = {
       var searchEl = document.getElementById('writingSearch');
       var emptyEl = document.getElementById('writingEmptyState');
       var resetEl = document.getElementById('resetWritingFilters');
+      var resetInlineEl = document.getElementById('resetWritingInline');
       var activeCat = 'All';
       var activeTag = '';
 
@@ -201,11 +205,24 @@ const writingSchema = {
           chip.setAttribute('aria-pressed', String(on));
         });
         if (emptyEl) emptyEl.hidden = vis > 0;
+        var isFiltered = activeCat !== 'All' || Boolean(activeTag) || Boolean(q);
+        if (resetInlineEl) resetInlineEl.hidden = !isFiltered;
         if (countEl) {
           var suffix = activeTag ? ' (Tag: ' + activeTag + ')' : '';
           countEl.textContent = 'Showing ' + vis + ' of ' + rows.length + ' articles' + suffix;
         }
         if (!skipUrl) syncUrl();
+      }
+
+      function resetAllWriting() {
+        activeCat = 'All';
+        activeTag = '';
+        if (searchEl) searchEl.value = '';
+        btns.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-wcat') === 'All'));
+        });
+        applyFilters();
+        searchEl && searchEl.focus();
       }
 
       try {
@@ -244,17 +261,8 @@ const writingSchema = {
         });
       });
 
-      resetEl &&
-        resetEl.addEventListener('click', function () {
-          activeCat = 'All';
-          activeTag = '';
-          if (searchEl) searchEl.value = '';
-          btns.forEach(function (b) {
-            b.setAttribute('aria-pressed', String(b.getAttribute('data-wcat') === 'All'));
-          });
-          applyFilters();
-          searchEl && searchEl.focus();
-        });
+      resetEl && resetEl.addEventListener('click', resetAllWriting);
+      resetInlineEl && resetInlineEl.addEventListener('click', resetAllWriting);
 
       searchEl && searchEl.addEventListener('input', function () { applyFilters(); });
     });
@@ -307,11 +315,30 @@ const writingSchema = {
   :global([data-theme='dark']) .w-tag-chip.is-active {
     color: #151412;
   }
+  .w-count-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+  }
   .w-count {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--text-muted);
-    margin-top: 0.8rem;
+  }
+  .inline-reset-btn {
+    padding: 0.16rem 0.55rem;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--accent-forest);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .inline-reset-btn:hover {
+    border-color: var(--accent-forest);
   }
   .filter-empty-state {
     border: 1px solid var(--rule);

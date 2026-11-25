@@ -75,6 +75,19 @@ BANNED_PROSE = [
     r"\butiliz\w*\b",
     r"\bcompelling\b",
     r"\bconvey(?:s|ed|ing)?\b",
+    r"\bextremely\b",
+    r"\bvery\b",
+    r"\bhighly\b",
+    r"\bfurthermore\b",
+    r"\bmoreover\b",
+    r"\badditionally\b",
+    r"\bimportantly\b",
+    r"\bnotably\b",
+    r"\bsignificantly\b",
+    r"\bultimately\b",
+    r"\bdramatic\w*\b",
+    r"\bnot only\b",
+    r"\bpercent\b",
 ]
 BANNED_RE = re.compile("|".join(BANNED_PROSE), re.IGNORECASE)
 TECH_EXCLUDE_RE = re.compile(r"\b(navigation|navigator|boosting|criticality)\b", re.IGNORECASE)
