@@ -208,7 +208,7 @@ export function courseSchemaNode(c: CourseData) {
       courseSchedule: {
         '@type': 'Schedule',
         repeatFrequency: 'P1W',
-        repeatCount: c.status === 'active' ? 17 : 15
+        repeatCount: (c.slug === 'z5007' || c.slug === 'z2005') ? 17 : 15
       },
       instructor: instructors.length === 1 ? instructors[0] : instructors,
       location: {

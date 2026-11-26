@@ -870,6 +870,7 @@ export const COURSES: CourseData[] = [
     },
     supplementaryDocs: [
       { label: 'Weeks 1-6 Revision & Mock Quiz (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Weeks1_6_Revision_and_Mock_Quiz.pdf`, kind: 'pdf' },
+      { label: 'Part 2 Mock Exam & Solutions (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Part2_Mock_Exam_and_Solutions.pdf`, kind: 'pdf' },
       { label: 'Data Mining Formula Cheat Sheet (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Z3003_Data_Mining_Formula_Cheatsheet.pdf`, kind: 'pdf' },
       { label: 'Mini-Project Brief (PDF)', href: `${TEACH_BASE}/dm-scale/resources/Mini_Project_Brief.pdf`, kind: 'pdf' },
       { label: 'Mini-Project Starter Notebook (.ipynb)', href: `${TEACH_BASE}/dm-scale/labs/MP01_Mini_Project_Starter.ipynb`, kind: 'notebook' },
