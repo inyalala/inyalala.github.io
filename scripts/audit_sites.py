@@ -783,8 +783,10 @@ def audit_teaching_site() -> dict:
     root_idx = (TEACH_ROOT / "index.html").read_text(encoding="utf-8")
     root_main_m = re.search(r"<main\b[^>]*>(.*)</main>", root_idx, re.S | re.I)
     root_main = root_main_m.group(1) if root_main_m else root_idx
-    arch_pos = root_main.find("Archive")
-    z2005_pos = root_main.find("Z2005")
+    sec_start = root_main.find("<section")
+    root_cards = root_main[sec_start:] if sec_start != -1 else root_main
+    arch_pos = root_cards.find("Archive")
+    z2005_pos = root_cards.find("Z2005")
     if arch_pos == -1 or (z2005_pos != -1 and z2005_pos < arch_pos):
         errors.append("[teaching/index.html] Z2005 must appear only under Archive section in <main>")
 

@@ -712,7 +712,7 @@ export const COURSES: CourseData[] = [
     program: 'BS',
     courseType: 'Core',
     status: 'active',
-    term: 'Odd Semester, October 2026 - January 2027',
+    term: 'Odd Semester, Sep 16, 2026 - Jan 31, 2027',
     academicYear: '2026-27',
     credits: '12 Credits (BS Core · Weeks 1-6: Dr. Nyalala | Weeks 7-15: Dr. Mahendran V)',
     coInstructor: { name: 'Dr. Mahendran V', institution: 'IIT Tirupati (Weeks 7-15)' },
@@ -786,9 +786,9 @@ export const COURSES: CourseData[] = [
         code: 'W5',
         weeks: '5',
         portalAnchor: '#week-05',
-        title: 'Locality-Sensitive Hashing & PageRank',
-        summary: 'k-shingling, Jaccard similarity, MinHash signatures, LSH banding, and PageRank power iteration.',
-        readings: 'MMDS Ch. 3, 5',
+        title: 'Locality-Sensitive Hashing & MinHash Signatures',
+        summary: 'k-shingling, Jaccard similarity, MinHash signatures, LSH banding, and large-scale near-duplicate pair detection.',
+        readings: 'MMDS Ch. 3',
         slides: [
           { label: 'Tutorial 5: MinHash & LSH', href: `${TEACH_BASE}/dm-scale/tutorials/t5.html`, kind: 'tutorial' }
         ]
@@ -807,9 +807,9 @@ export const COURSES: CourseData[] = [
       {
         code: 'W7-15',
         weeks: '7-15',
-        title: 'Clustering, Stream Windows & Graph/Recommender Mining',
-        summary: 'Part II taught by Dr. Mahendran V (IIT Tirupati): CURE, DBSCAN, spectral clustering, DGIM, reservoir sampling, and matrix factorization.',
-        readings: 'MMDS Ch. 7, 9',
+        title: 'Clustering, Link Analysis (PageRank/HITS), Streams & Recommenders',
+        summary: 'Part 2 taught by Dr. Mahendran V (IIT Tirupati): CURE, DBSCAN, spectral clustering, DGIM stream windows, PageRank/HITS, and matrix factorization recommenders.',
+        readings: 'MMDS Ch. 5, 7, 9',
         slides: [
           { label: 'Full Syllabus & Schedule', href: `${TEACH_BASE}/dm-scale/index.html#syllabus`, kind: 'hub' }
         ]
@@ -817,8 +817,8 @@ export const COURSES: CourseData[] = [
     ],
     grading: [
       { component: 'Weekly Tutorials (T1-T6)', weight: 30, note: 'Six .py coding submissions following dm[TT]t[RR].py.' },
-      { component: 'Quiz 1', weight: 15, note: 'Covers Weeks 1-3 (ML foundations, dimensionality reduction, ensembles).' },
-      { component: 'Quiz 2', weight: 15, note: 'Covers Weeks 4-6 (MapReduce, LSH, PageRank, Apriori, streams).' },
+      { component: 'Quiz 1', weight: 15, note: 'Covers Part 1 ML foundations, dimensionality reduction, and ensembles.' },
+      { component: 'Quiz 2', weight: 15, note: 'Covers Part 2 topics (clustering bridges, stream windows, PageRank/HITS, and recommender systems).' },
       { component: 'Mini-Project (Weeks 1-6)', weight: 20, note: 'End-to-end scaling pipeline on a real public dataset (groups of 2-3).' },
       { component: 'End-Semester Examination', weight: 20, note: 'Cumulative 15-week written examination jointly set by both instructors.' }
     ],

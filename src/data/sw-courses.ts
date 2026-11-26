@@ -14,8 +14,8 @@ export const SW_COURSES_MAP: Record<string, SwCourseMeta> = {
   z3003: {
     titleSw: 'Uchimbaji wa Data Kubwa',
     summarySw:
-      'Kozi ya msingi inayofundisha uchimbaji wa mifumo ya takwimu, MapReduce, PySpark, Locality-Sensitive Hashing (LSH), PageRank, na kanuni za Apriori.',
-    termSw: 'Muhula wa Kwanza 2026-27 · Okt 2026 - Jan 2027'
+      'Kozi ya msingi inayofundisha uchimbaji wa mifumo ya takwimu, MapReduce, PySpark, Locality-Sensitive Hashing (LSH), kanuni za Apriori (Sehemu ya 1), pamoja na ugawaji makundi, PageRank na mifumo ya mapendekezo (Sehemu ya 2).',
+    termSw: 'Muhula wa Kwanza 2026-27 · Sep 2026 - Jan 2027'
   },
   z2005: {
     titleSw: 'Utayarishaji Programu na Miundo ya Data',

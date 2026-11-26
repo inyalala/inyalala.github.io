@@ -203,7 +203,7 @@ export function courseSchemaNode(c: CourseData) {
       '@type': 'CourseInstance',
       name: `${c.code} (${c.term})`,
       courseMode: 'Onsite',
-      startDate: (c.status === 'active' || c.slug === 'z2005') ? '2026-10-05' : '2026-03-01',
+      startDate: c.slug === 'z3003' ? '2026-09-16' : (c.status === 'active' || c.slug === 'z2005') ? '2026-10-05' : '2026-03-01',
       endDate: (c.status === 'active' || c.slug === 'z2005') ? '2027-01-31' : '2026-07-31',
       courseSchedule: {
         '@type': 'Schedule',

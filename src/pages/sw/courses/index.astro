@@ -72,12 +72,12 @@ const swCoursesSchema = {
                 '@type': 'CourseInstance',
                 name: `${c.code} (${loc ? loc.termSw : c.term})`,
                 courseMode: 'Onsite',
-                startDate: (isActive || c.slug === 'z2005') ? '2026-10-05' : '2026-03-01',
+                startDate: c.slug === 'z3003' ? '2026-09-16' : (isActive || c.slug === 'z2005') ? '2026-10-05' : '2026-03-01',
                 endDate: (isActive || c.slug === 'z2005') ? '2027-01-31' : '2026-07-31',
                 courseSchedule: {
                   '@type': 'Schedule',
                   repeatFrequency: 'P1W',
-                  repeatCount: isActive ? 17 : 15
+                  repeatCount: (c.slug === 'z5007' || c.slug === 'z2005') ? 17 : 15
                 },
                 instructor: instructors.length === 1 ? instructors[0] : instructors,
                 location: {
