@@ -85,15 +85,14 @@ const blankImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAA
   <div class="telemetry-row" aria-label={isSw ? 'Takwimu za wageni wa tovuti kwa Saa za Afrika Mashariki' : 'Site visitor statistics in East Africa Time'}>
     <span class="telemetry-label">{isSw ? 'Wageni (EAT, UTC+3)' : 'Visitors (EAT, UTC+3)'}</span>
     <div class="telemetry-badges">
-      <img
-        src="https://visitor-badge.laobi.icu/badge?page_id=inyalala.github.io&left_color=1B3B2F&right_color=7A4B1E&left_text=Total%20Visitors"
-        alt={isSw ? 'Jumla ya Wageni' : 'Total Visitors Count'}
-        loading="lazy"
-        decoding="async"
-        width="124"
-        height="20"
-        class="visitor-img"
-      />
+      <span
+        class="visitor-total-badge"
+        role="img"
+        aria-label={isSw ? 'Jumla ya Wageni' : 'Total Visitors Count'}
+      >
+        <span class="vtb-left">Total Visitors</span>
+        <span class="vtb-right tabular-nums" data-total-visitors>2000</span>
+      </span>
       <img
         src={blankImg}
         data-visitor-period="day"
@@ -192,6 +191,24 @@ const blankImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAA
           cfg.label
       );
     });
+
+    var totalNodes = document.querySelectorAll('[data-total-visitors]');
+    if (totalNodes.length && typeof fetch === 'function') {
+      fetch('https://abacus.jasoncameron.dev/hit/inyalala.github.io/total-v2', { cache: 'no-store' })
+        .then(function (res) {
+          return res.ok ? res.json() : null;
+        })
+        .then(function (data) {
+          if (!data || typeof data.value !== 'number') return;
+          var totalVal = String(2000 + data.value);
+          totalNodes.forEach(function (el) {
+            el.textContent = totalVal;
+            var parent = el.closest('.visitor-total-badge');
+            if (parent) parent.setAttribute('aria-label', 'Total Visitors: ' + totalVal);
+          });
+        })
+        .catch(function () {});
+    }
   })();
 </script>
 
@@ -307,6 +324,31 @@ const blankImg = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAA
   .visitor-img {
     height: 20px;
     width: auto;
+  }
+
+  .visitor-total-badge {
+    display: inline-flex;
+    align-items: stretch;
+    height: 20px;
+    border-radius: 3px;
+    overflow: hidden;
+    font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3);
+  }
+  .vtb-left {
+    background-color: #1B3B2F;
+    background-image: linear-gradient(180deg, rgba(187, 187, 187, 0.1), rgba(0, 0, 0, 0.1));
+    padding: 0 6px;
+  }
+  .vtb-right {
+    background-color: #7A4B1E;
+    background-image: linear-gradient(180deg, rgba(187, 187, 187, 0.1), rgba(0, 0, 0, 0.1));
+    padding: 0 6px;
+    min-width: 34px;
+    text-align: center;
   }
 
   .colophon-bottom {
