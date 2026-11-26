@@ -52,9 +52,9 @@ const swCoursesSchema = {
               courseCode: c.code,
               description: loc ? loc.summarySw : c.summary,
               url: `https://inyalala.github.io/courses/${c.slug}/`,
-              sameAs: [`https://inyalala.github.io/courses/${c.slug}/`, c.links.teachingSiteHome],
+              sameAs: c.links.teachingSiteHome,
               translationOfWork: { '@id': `https://inyalala.github.io/courses/${c.slug}/#course` },
-              inLanguage: 'en-US',
+              inLanguage: 'sw-TZ',
               educationalLevel: c.program === 'MTech' ? 'Graduate' : 'Undergraduate',
               offers: {
                 '@type': 'Offer',
@@ -72,8 +72,8 @@ const swCoursesSchema = {
                 '@type': 'CourseInstance',
                 name: `${c.code} (${loc ? loc.termSw : c.term})`,
                 courseMode: 'Onsite',
-                startDate: isActive ? '2026-10-05' : '2026-03-01',
-                endDate: isActive ? '2027-01-31' : '2026-07-31',
+                startDate: (isActive || c.slug === 'z2005') ? '2026-10-05' : '2026-03-01',
+                endDate: (isActive || c.slug === 'z2005') ? '2027-01-31' : '2026-07-31',
                 courseSchedule: {
                   '@type': 'Schedule',
                   repeatFrequency: 'P1W',

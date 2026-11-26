@@ -60,6 +60,7 @@
     "openAccess": true,
     "doi": "10.1016/j.aiia.2024.11.004",
     "paperUrl": "https://doi.org/10.1016/j.aiia.2024.11.004",
+    "pdfUrl": "https://www.sciencedirect.com/science/article/pii/S2589721724000436/pdf",
     "teaserImage": "/images/papers/cassava/cassava_leaf_classes.jpg",
     "teaserCaption": "Five-class field cassava leaf pathology distribution benchmarked by MAIRNet-101 using mutual-attention modulation, instance batch normalization (IBN), and RSigELUD activation (Artificial Intelligence in Agriculture, IF 12.4). Isolating foreground lesion semantics from complex outdoor foliage allows MAIRNet-101 to achieve 95.30% test accuracy and 0.9531 F1-score, outperforming EfficientNet-B5 and RepVGG-B3g4.",
     "tldr": "Develops a salient feature establishment tactic isolating fine foliar cassava pathology from noisy field backgrounds in Artificial Intelligence in Agriculture (IF 12.4).",
@@ -187,6 +188,7 @@
     "openAccess": true,
     "doi": "10.1016/j.psj.2024.104232",
     "paperUrl": "https://doi.org/10.1016/j.psj.2024.104232",
+    "pdfUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11419819/pdf/main.pdf",
     "tldr": "Real-time non-contact 3-D surface reconstruction and depth-imaging pipeline for online poultry carcass volume estimation on processing lines.",
     "abstract": "Variability in the size of slaughtered chickens remains a longstanding challenge in the standardization of the poultry industry. To address this issue, we present a novel approach that uses volume as a grading metric for chicken carcasses. This innovative method, unexplored in existing studies, employs real-time data capture of moving chicken carcasses on a production line using Kinect v2 depth imaging and 3-D reconstruction technologies. The captured depth images are processed into point clouds followed by 3-D reconstruction. Volume is calculated from the reconstructed models using the surface integration method, and additional 2-D and 3-D features are extracted as input parameters for machine learning models. Multiple regression models were evaluated, with the bagged tree model demonstrating superior performance, achieving an R² value of 0.9988, RMSE of 5.335, and ARE of 2.125%. Furthermore, our method showed remarkable efficiency with an average processing time of less than 1.6 seconds per carcass. These results indicate that our novel approach fills a critical gap in existing automated grading methodologies by offering both accuracy and efficiency. This validates the applicability of depth imaging, 3-D reconstruction, and machine learning for estimating chicken carcass volume with high precision, thereby enabling a more comprehensive, efficient, and reliable chicken carcass grading system.",
     "keywords": [
@@ -486,6 +488,7 @@
     "openAccess": true,
     "doi": "10.1016/j.psj.2021.101072",
     "paperUrl": "https://doi.org/10.1016/j.psj.2021.101072",
+    "pdfUrl": "https://www.sciencedirect.com/science/article/pii/S0032579121001061/pdf",
     "tldr": "Comprehensive survey synthesizing 2D/3D computer vision, depth sensing, and regression pipelines for non-contact poultry weight and volume estimation (144+ citations).",
     "abstract": "The appearance, size, and weight of poultry meat and eggs are essential for production economics and vital in the poultry sector. These external characteristics influence their market price and consumers' preference and choice. With technological developments, there is an increase in the application and importance of vision systems in the agricultural sector. Computer vision has become a promising tool in the real-time automation of poultry weighing and processing systems. Owing to its noninvasive and nonintrusive nature and its capacity to present a wide range of information, computer vision systems can be applied in the size, mass, volume determination, and sorting and grading of poultry products. This review article gives a detailed summary of the current advances in measuring poultry products' external characteristics based on computer vision systems. An overview of computer vision systems is discussed and summarized. A comprehensive presentation of the application of computer vision-based systems for assessing poultry meat and eggs was provided, that is, weight and volume estimation, sorting, and classification. Finally, the challenges and potential future trends in size, weight, and volume estimation of poultry products are reported.",
     "keywords": [
@@ -969,6 +972,7 @@
     "openAccess": true,
     "doi": "10.1016/j.psj.2021.101474",
     "paperUrl": "https://doi.org/10.1016/j.psj.2021.101474",
+    "pdfUrl": "https://www.sciencedirect.com/science/article/pii/S0032579121004971/pdf",
     "tldr": "Automated vision-based online mass estimation across whole broiler carcasses and commercial retail cuts (36+ citations).",
     "abstract": "In a broiler carcass production conveyor system, inspection, monitoring, and grading carcass and cuts based on computer vision techniques are challenging due to cuts segmentation and ambient light conditions issues. This study presents a depth image-based broiler carcass weight prediction system. An Active Shape Model was developed to segment the carcass into 4 cuts (drumsticks, breasts, wings, and head and neck). Five regression models were developed based on the image features for each weight estimation (carcass and its cuts). The Bayesian-ANN model outperformed all other regression models at 0.9981 R² and 0.9847 R² in the whole carcass and head and neck weight estimation. The RBF-SVR model surpassed all the other drumstick, breast, and wings weight prediction models at 0.9129 R², 0.9352 R², and 0.9896 R², respectively. This proposed technique can be applied as a nondestructive, nonintrusive, and accurate on-line broiler carcass production system in the automation of chicken carcass and cuts weight estimation.",
     "keywords": [
@@ -1374,6 +1378,7 @@
     "openAccess": true,
     "doi": "10.1016/j.aiia.2020.09.002",
     "paperUrl": "https://doi.org/10.1016/j.aiia.2020.09.002",
+    "pdfUrl": "https://www.sciencedirect.com/science/article/pii/S2589721720300258/pdf",
     "tldr": "Landmark survey of computer vision architectures for continuous, non-invasive livestock behavior, health, and welfare monitoring in poultry production (242+ citations).",
     "abstract": "Monitoring of poultry welfare-related bio-processes and bio-responses is vital in welfare assessment and management of welfare-related factors. With the current development in information technologies, computer vision has become a promising tool in the real-time automation of poultry monitoring systems due to its non-intrusive and non-invasive properties, and its ability to present a wide range of information. Hence, it can be applied to monitor several bio-processes and bio-responses. This review summarizes the current advances in poultry monitoring techniques based on computer vision systems, i.e., conventional machine learning-based and deep learning-based systems. A detailed presentation on the machine learning-based system was presented, i.e., pre-processing, segmentation, feature extraction, feature selection, and dimension reduction, and modeling. Similarly, deep learning approaches in poultry monitoring were also presented. Lastly, the challenges and possible solutions presented by researches in poultry monitoring, such as variable illumination conditions, occlusion problems, and lack of augmented and labeled poultry datasets, were discussed.",
     "keywords": [
@@ -1910,6 +1915,7 @@
     "openAccess": true,
     "doi": "10.1016/j.biosystemseng.2019.09.015",
     "paperUrl": "https://doi.org/10.1016/j.biosystemseng.2019.09.015",
+    "pdfUrl": "https://www.sciencedirect.com/science/article/am/pii/S1537511019308438",
     "tldr": "Continuous overhead machine vision posture and mobility tracking for early detection and prediction of illness in commercial broiler houses (194+ citations).",
     "abstract": "The occurrence of poultry diseases not only affects farm production economics but also leads to poor poultry welfare, food safety concerns, and zoonotic infections. Therefore, timely detection of these diseases is of paramount importance in poultry production. This study proposes a machine vision-based monitoring system for broiler chicken as they walk through a test area. Data were collected from two groups of broilers; control group and treatment group (inoculated intramuscularly with virulent Newcastle disease virus) housed in fully isolated chambers for comparative monitoring. The broilers were monitored by video surveillance for data labelling and depth camera for the automated health status classifier development. Feature variables were extracted based on 2D posture shape descriptors (circle variance, elongation, convexity, complexity, and eccentricity) and mobility feature (walk speed). A statistical analysis of the feature variables established that all investigated features were statistically significant (p < 0.05) with time after challenge in the treatment group. The earliest possible infection detection time was on the 4th day based on circle variance and elongation, and the 6th day based on eccentricity and walk speed. However, convexity and complexity could not provide early detection. Two sets of classifiers were then developed based on only the posture shape descriptors, and on all the feature variables. The Support Vector Machine (RBF-SVM) outperformed all the other models with an accuracy of 0.975 and 0.978 respectively. The proposed system can serve as an automatic broiler monitoring system by providing an early warning and prediction of an occurrence of disease continuously and non-intrusively.",
     "keywords": [
@@ -2196,6 +2202,7 @@
     "openAccess": true,
     "doi": "10.15376/biores.14.1.1333-1346",
     "paperUrl": "https://doi.org/10.15376/biores.14.1.1333-1346",
+    "pdfUrl": "https://bioresources.cnr.ncsu.edu/wp-content/uploads/2019/01/BioRes_14_1_1333_Yu_GZWNC_Prodn_Act_C_Sludge_Chinese_Medicine_Meth_Blue_14730.pdf",
     "teaserImage": "/images/papers/prior/carbon2019_sem.webp",
     "teaserCaption": "Scanning electron micrographs (x1000 SEM) contrasting compact unmodified sewage sludge char (a) with porous activated carbon synthesized using a 40% Chinese medicine herbal residue (CMHR) blend at 1:4 impregnation ratio and 700 °C activation for 30 minutes (b). Orthogonal optimization shows that developed microporous channels drive monolayer Langmuir isotherm adsorption for industrial methylene blue wastewater remediation.",
     "tldr": "Valorizes pharmaceutical herb residues and sludge into high-surface-area activated carbon adsorbents for wastewater dye remediation (26+ citations).",

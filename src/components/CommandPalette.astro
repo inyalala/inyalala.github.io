@@ -536,6 +536,11 @@
   .cmd-input::placeholder {
     color: var(--text-muted);
   }
+  .cmd-input::-webkit-search-cancel-button,
+  .cmd-input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
 
   .cmd-clear {
     font-family: var(--font-mono);

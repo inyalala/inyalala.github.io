@@ -264,7 +264,8 @@ const schemaCollection = {
             </div>
             <span id="chartReadout" class="chart-readout tabular-nums">Hover or click any year bar to filter papers</span>
           </div>
-          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={`Interactive citations per year and annual paper count from ${years[0]} to ${years[years.length - 1]}`}>
+          <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="group" aria-label={`Interactive citations per year and annual paper count from ${years[0]} to ${years[years.length - 1]}`}>
+            <line x1={padL} y1={H - padB} x2={W - padL} y2={H - padB} class="chart-baseline" aria-hidden="true" />
             {years.map((y, idx) => {
               const v = vals[idx];
               const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
@@ -721,6 +722,28 @@ const schemaCollection = {
       });
     }
 
+    function restoreReadout() {
+      if (!chartReadout) return;
+      if (activeYear) {
+        var activeCol = document.querySelector('.chart-col[data-year="' + activeYear + '"]');
+        if (activeCol) {
+          var acCites = activeCol.getAttribute('data-cites') || '0';
+          var acPapers = activeCol.getAttribute('data-papers') || '0';
+          chartReadout.textContent =
+            activeYear +
+            ': ' +
+            acCites +
+            ' citations, ' +
+            acPapers +
+            ' ' +
+            (acPapers === '1' ? 'paper' : 'papers') +
+            ' (filtered \u00B7 click to clear)';
+          return;
+        }
+      }
+      chartReadout.textContent = 'Hover or click any year bar to filter papers';
+    }
+
     function syncYearAndTopicUI() {
       chartCols.forEach(function (col) {
         if (col.getAttribute('data-action') !== 'filter') return;
@@ -729,6 +752,7 @@ const schemaCollection = {
         col.setAttribute('aria-pressed', String(on));
       });
       syncPaperDots('');
+      restoreReadout();
       yrChips.forEach(function (chip) {
         if (chip.getAttribute('data-action') !== 'filter') return;
         var on = chip.getAttribute('data-year') === activeYear && activeYear !== '';
@@ -879,6 +903,7 @@ const schemaCollection = {
         b.setAttribute('aria-pressed', String(isAll));
       });
       applyFilterAndSort();
+      restoreReadout();
       searchEl && searchEl.focus();
     }
 
@@ -927,6 +952,7 @@ const schemaCollection = {
       });
       col.addEventListener('mouseleave', function () {
         syncPaperDots('');
+        restoreReadout();
       });
       if (action === 'static') return;
       col.addEventListener('focus', function () {
@@ -935,6 +961,7 @@ const schemaCollection = {
       });
       col.addEventListener('blur', function () {
         syncPaperDots('');
+        restoreReadout();
       });
       col.addEventListener('click', function () {
         if (action === 'thesis') jumpToTheses();
@@ -1192,6 +1219,10 @@ const schemaCollection = {
     margin-top: 0.45rem;
     padding-top: 0.4rem;
     border-top: 1px solid var(--rule);
+  }
+  .chart-baseline {
+    stroke: var(--rule);
+    stroke-width: 1;
   }
   .chart-bar {
     fill: var(--accent-forest);

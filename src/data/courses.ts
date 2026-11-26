@@ -336,10 +336,15 @@ export const COURSES: CourseData[] = [
     policies: STANDARD_POLICIES,
     links: {
       teachingSiteHome: `${TEACH_BASE}/z2005/index.html`,
+      questionBank: `${TEACH_BASE}/z5007/question-bank/index.html`,
       syllabusPdf: '/syllabi/z2005-z5007-institute-outline.pdf',
       githubRepo: 'https://github.com/inyalala/iitmz-teaching-site/tree/main/courses/z2005',
       classroomUrl: ''
-    }
+    },
+    supplementaryDocs: [
+      { label: 'Lab Quick-Reference Sheet (1-Page PDF)', href: `${TEACH_BASE}/z2005/resources/Z2005_Lab_Quick_Reference_Sheet.pdf`, kind: 'pdf' },
+      { label: 'Weeks 1-17 Code & Complexity Explorer', href: `${TEACH_BASE}/z5007/labs/index.html`, kind: 'lab' }
+    ]
   },
   {
     slug: 'z5007',
