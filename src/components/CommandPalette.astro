@@ -418,10 +418,17 @@
           e.preventDefault();
           first.focus();
         }
-      } else if (e.key === 'ArrowDown' && (document.activeElement === clearBtn || document.activeElement === closeBtn)) {
+      } else if (
+        (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') &&
+        (document.activeElement === clearBtn || document.activeElement === closeBtn)
+      ) {
+        var hdrOpts = resultsEl.querySelectorAll('.cmd-item');
         e.preventDefault();
         input.focus();
-        setActive(activeIdx < 0 ? 0 : activeIdx);
+        if (e.key === 'Home') setActive(0);
+        else if (e.key === 'End') setActive(hdrOpts.length ? hdrOpts.length - 1 : 0);
+        else if (e.key === 'ArrowUp') setActive(hdrOpts.length ? hdrOpts.length - 1 : 0);
+        else setActive(activeIdx < 0 ? 0 : activeIdx);
       }
     });
 

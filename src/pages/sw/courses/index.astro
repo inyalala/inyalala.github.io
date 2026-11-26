@@ -52,8 +52,9 @@ const swCoursesSchema = {
               courseCode: c.code,
               description: loc ? loc.summarySw : c.summary,
               url: `https://inyalala.github.io/courses/${c.slug}/`,
-              sameAs: c.links.teachingSiteHome,
-              inLanguage: 'sw-TZ',
+              sameAs: [`https://inyalala.github.io/courses/${c.slug}/`, c.links.teachingSiteHome],
+              translationOfWork: { '@id': `https://inyalala.github.io/courses/${c.slug}/#course` },
+              inLanguage: 'en-US',
               educationalLevel: c.program === 'MTech' ? 'Graduate' : 'Undergraduate',
               offers: {
                 '@type': 'Offer',
@@ -179,7 +180,7 @@ const swCoursesSchema = {
       </section>
 
       <section class="rule-section" data-course-group="previous">
-        <span class="mono-eyebrow">Kumbukumbu za Kozi &middot; 2026</span>
+        <span class="mono-eyebrow">Kumbukumbu za Kozi &middot; 2025-26 &amp; Rejea 2026-27</span>
         <div class="section-bar">
           <h2 class="section-h">Kozi za Awali na Marejeo</h2>
         </div>

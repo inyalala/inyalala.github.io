@@ -68,9 +68,10 @@ const paperOverlays = years
     const py = H - padB - (cnt / maxYearPapers) * (H - padT - padB) * 0.85;
     const showPeakLbl = cnt === maxYearPapers || (cnt >= 4 && Math.abs(py - yBarText) > 15);
     const isLast = idx === years.length - 1;
+    const nearCiteLbl = Math.abs(py - yBarText) <= 15;
     const lblX = isLast
-      ? (Math.abs(py - yBarText) <= 15 ? cx - 22 : cx - 6)
-      : cx + 6;
+      ? (nearCiteLbl ? cx - 22 : cx - 6)
+      : (nearCiteLbl ? cx + 17 : cx + 6);
     return {
       y,
       cnt,
@@ -80,6 +81,39 @@ const paperOverlays = years
       lblY: (py - 4).toFixed(1),
       showPeakLbl,
       anchor: isLast ? 'end' : 'start'
+    };
+  })
+  .filter((x): x is NonNullable<typeof x> => Boolean(x));
+
+const milestoneOverlays = years
+  .map((y, idx) => {
+    const ms = milestones[y];
+    if (!ms) return null;
+    const v = vals[idx];
+    const barH = Math.max(4, (v / maxVal) * (H - padT - padB));
+    const yTop = H - padB - barH;
+    const cx = padL + slot * idx + (slot - barW) / 2 + barW / 2;
+    if (y === '2025' && years[idx + 1] === '2026') {
+      const cxNext = padL + slot * (idx + 1) + (slot - barW) / 2 + barW / 2;
+      const midX = (cx + cxNext) / 2;
+      const vNext = vals[idx + 1];
+      const barHNext = Math.max(4, (vNext / maxVal) * (H - padT - padB));
+      const yTopNext = H - padB - barHNext;
+      return {
+        isSpan: true as const,
+        label: ms,
+        x1: cx.toFixed(1),
+        x2: cxNext.toFixed(1),
+        midX: midX.toFixed(1),
+        y1End: (yTop - 16).toFixed(1),
+        y2End: (yTopNext - 16).toFixed(1)
+      };
+    }
+    return {
+      isSpan: false as const,
+      label: ms,
+      cx: cx.toFixed(1),
+      yEnd: (yTop - 16).toFixed(1)
     };
   })
   .filter((x): x is NonNullable<typeof x> => Boolean(x));
@@ -267,26 +301,6 @@ const schemaCollection = {
                   }
                 >
                   <title>{titleText}</title>
-                  {ms && y === '2025' && years[idx + 1] === '2026' ? (() => {
-                    const cxNext = padL + slot * (idx + 1) + (slot - barW) / 2 + barW / 2;
-                    const midX = (cx + cxNext) / 2;
-                    const vNext = vals[idx + 1];
-                    const barHNext = Math.max(4, (vNext / maxVal) * (H - padT - padB));
-                    const yTopNext = H - padB - barHNext;
-                    return (
-                      <g class="chart-milestone-grp" aria-hidden="true">
-                        <line x1={cx.toFixed(1)} y1="15" x2={cxNext.toFixed(1)} y2="15" class="chart-ms-line" />
-                        <line x1={cx.toFixed(1)} y1="15" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
-                        <line x1={cxNext.toFixed(1)} y1="15" x2={cxNext.toFixed(1)} y2={(yTopNext - 16).toFixed(1)} class="chart-ms-line" />
-                        <text x={midX.toFixed(1)} y="11" text-anchor="middle" class="chart-milestone">{ms}</text>
-                      </g>
-                    );
-                  })() : ms ? (
-                    <g class="chart-milestone-grp" aria-hidden="true">
-                      <line x1={cx.toFixed(1)} y1="15" x2={cx.toFixed(1)} y2={(yTop - 16).toFixed(1)} class="chart-ms-line" />
-                      <text x={cx.toFixed(1)} y="11" text-anchor="middle" class="chart-milestone">{ms}</text>
-                    </g>
-                  ) : null}
                   <rect x={(x - 4).toFixed(1)} y={padT - 14} width={(barW + 8).toFixed(1)} height={H - padT - padB + 28} fill="transparent" />
                   <rect x={x.toFixed(1)} y={yTop.toFixed(1)} width={barW.toFixed(1)} height={barH.toFixed(1)} rx="1" class="chart-bar" />
                   <text x={cx.toFixed(1)} y={(yTop - 5).toFixed(1)} text-anchor="middle" class="chart-val tabular-nums">{v}</text>
@@ -294,22 +308,37 @@ const schemaCollection = {
                 </g>
               );
             })}
+            <g class="chart-milestones-overlay" aria-hidden="true">
+              {milestoneOverlays.map((m) =>
+                m.isSpan ? (
+                  <g class="chart-milestone-grp">
+                    <line x1={m.x1} y1="15" x2={m.x2} y2="15" class="chart-ms-line" />
+                    <line x1={m.x1} y1="15" x2={m.x1} y2={m.y1End} class="chart-ms-line" />
+                    <line x1={m.x2} y1="15" x2={m.x2} y2={m.y2End} class="chart-ms-line" />
+                    <text x={m.midX} y="11" text-anchor="middle" class="chart-milestone">{m.label}</text>
+                  </g>
+                ) : (
+                  <g class="chart-milestone-grp">
+                    <line x1={m.cx} y1="15" x2={m.cx} y2={m.yEnd} class="chart-ms-line" />
+                    <text x={m.cx} y="11" text-anchor="middle" class="chart-milestone">{m.label}</text>
+                  </g>
+                )
+              )}
+            </g>
             <g class="chart-paper-overlay" aria-hidden="true">
               <polyline points={paperLinePoints} class="chart-paper-halo" />
               <polyline points={paperLinePoints} class="chart-paper-line" />
               {paperOverlays.map((pt) => (
                 <g data-paper-year={pt.y}>
                   <circle cx={pt.cx} cy={pt.py} r="3.2" data-paper-year={pt.y} class="chart-paper-dot" />
-                  {pt.showPeakLbl && (
-                    <text
-                      x={pt.lblX}
-                      y={pt.lblY}
-                      text-anchor={pt.anchor}
-                      class="chart-paper-lbl tabular-nums"
-                    >
-                      {pt.cnt}p
-                    </text>
-                  )}
+                  <text
+                    x={pt.lblX}
+                    y={pt.lblY}
+                    text-anchor={pt.anchor}
+                    class:list={['chart-paper-lbl', 'tabular-nums', pt.showPeakLbl ? 'is-peak' : '']}
+                  >
+                    {pt.cnt}p
+                  </text>
                 </g>
               ))}
             </g>
@@ -1203,6 +1232,7 @@ const schemaCollection = {
     gap: 0.35rem;
     margin-bottom: 1.05rem;
   }
+  .chart-milestones-overlay,
   .chart-paper-overlay {
     pointer-events: none;
   }
@@ -1236,6 +1266,12 @@ const schemaCollection = {
     stroke: var(--bg-surface);
     stroke-width: 3px;
     stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity 0.14s ease;
+  }
+  .chart-paper-lbl.is-peak,
+  g[data-paper-year].is-lit .chart-paper-lbl {
+    opacity: 1;
   }
   #theses.is-flash {
     background: var(--bg-secondary);
@@ -1586,6 +1622,7 @@ const schemaCollection = {
     }
   }
   @media print {
+    .chart-readout,
     .chart-year-strip,
     .result-actions,
     .pub-ext-links,
